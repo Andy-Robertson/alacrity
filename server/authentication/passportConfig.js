@@ -62,3 +62,9 @@ passport.use(
     }
   )
 );
+
+// Serialize authenticated user to a persistent session.
+passport.serializeUser((user, cb) => cb(null, user));
+
+// Deserialize authenticated user from a persistent session.
+passport.deserializeUser((user, cb) => cb(null, user));
