@@ -1,5 +1,6 @@
-// Set server port and required packages.
+// Set server address, port and required packages.
 const PORT = parseInt(process.env.PORT || "5000");
+const SERVER = "localhost";
 const express = require("express");
 const routes = require("./routes/routes");
 const authRoutes = require("./routes/authRoutes");
@@ -9,10 +10,12 @@ const app = express();
 routes(app);
 
 // Start alacrity server
-app.listen(PORT, (err) => {
+const server = app.listen(PORT, SERVER, (err) => {
   err
     ? console.log(`Error: ${err}`)
     : console.log(
-        `Alacrity server now gravitating on ${server.address().PORT}`
+        `Alacrity server now gravitating on ${server.address().address}:${
+          server.address().port
+        }`
       );
 });
