@@ -18,6 +18,9 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 routes(app);
 
 // Start alacrity server
