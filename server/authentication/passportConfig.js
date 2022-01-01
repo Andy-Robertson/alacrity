@@ -1,4 +1,5 @@
 const pool = require("../data/postgresConfig");
+const passport = require("passport");
 
 //     ---------- GOOGLE AUTHENTICATION ----------     //
 

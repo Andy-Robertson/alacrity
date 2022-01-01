@@ -1,13 +1,15 @@
 // Set server address, port and required packages.
 const PORT = parseInt(process.env.PORT || "5000");
 const SERVER = "localhost";
+const Keygrip = require("keygrip");
+const passport = require("passport");
+const cors = require("cors");
 const cookieSession = require("cookie-session");
 const express = require("express");
 const routes = require("./routes/routes");
 const authRoutes = require("./routes/authRoutes");
 require("./authentication/passportConfig");
 const app = express();
-const Keygrip = require("keygrip");
 
 // Configure session cookies with 24hr expiration and random keys.
 app.use(
