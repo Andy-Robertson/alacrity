@@ -22,4 +22,10 @@ router.get("/login/failed", (req, res) => {
   });
 });
 
+// Handle logout
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect(CLIENT_URL);
+});
+
 module.exports = authRouter;
