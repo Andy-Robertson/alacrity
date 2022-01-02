@@ -1,5 +1,5 @@
 import React from "react";
-// import Logo from '../Assets/img/logo.svg';
+import Logo from '../Assets/img/logo.svg';
 import DashBoardImg from '../Assets/img/dashboard-24.png';
 import PieChartImg from '../Assets/img/pie-chart-24.png';
 import SettingsImg from '../Assets/img/settings-24.png';
@@ -8,7 +8,7 @@ const LeftSideBar = () => {
     return (
         <aside className="left-sidebar">
             {/* {console.log(DashBoardImg)} */}
-        <img src="logo.svg" alt="logo"></img>
+        <img src={Logo} alt="logo"></img>
         <div className="items">
           <div>
             <a href="#left-sidebar">

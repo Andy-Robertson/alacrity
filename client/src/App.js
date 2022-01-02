@@ -1,8 +1,8 @@
 import React from 'react';
 // Assets 
-import './Assets/styles/main.css';
-import './Assets/styles/normalize.css';
-import './Assets/styles/style.css';
+import "./Assets/styles/main.css";
+import "./Assets/styles/normalize.css";
+import "./Assets/styles/style.css";
 // Layouts
 import LeftSideBar from './Layouts/LeftSideBar';
 import Middle from './Layouts/Middle';
