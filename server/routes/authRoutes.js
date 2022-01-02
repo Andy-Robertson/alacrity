@@ -45,4 +45,20 @@ authRouter.get(
   })
 );
 
+//     ---------- GITHUB SPECIFIC ROUTES ----------     //
+
+authRouter.get(
+  "/github",
+  passport.authenticate("github", { scope: ["profile"] })
+);
+
+// Set redirect routes upon authentication success or failure.
+authRouter.get(
+  "/github/callback",
+  passport.authenticate("github", {
+    successRedirect: CLIENT_URL,
+    failureRedirect: "/login/failed",
+  })
+);
+
 module.exports = authRouter;
