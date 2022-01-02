@@ -1,19 +1,16 @@
 const pool = require("../data/postgresConfig");
 const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const GithubStrategy = require("passport-github2").Strategy;
 
 //     ---------- GOOGLE AUTHENTICATION ----------     //
-
-// Load google strategy & credentials
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
 // Create new google strategy
 passport.use(
   new GoogleStrategy(
     {
-      clientID: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -67,16 +64,13 @@ passport.use(
 //     ---------- GITHUB AUTHENTICATION ----------     //
 
 // Load Github strategy & credentials.
-const GithubStrategy = require("passport-github2").Strategy;
-GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
-GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 // Create new Github strategy.
 passport.use(
   new GithubStrategy(
     {
-      clientID: GITHUB_CLIENT_ID,
-      clientSecret: GITHUB_CLIENT_SECRET,
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL: "/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
