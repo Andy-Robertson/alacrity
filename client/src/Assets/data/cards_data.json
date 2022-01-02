@@ -1,0 +1,35 @@
+[
+    {
+        "title": "Renew Gym sub",
+        "desc": "Pay 15£ htmlFor the gym",
+        "time": "14:00",
+        "subTask": "false",
+        "date": "01/02/2022"
+    },
+    {
+        "title": "Renew Netflix sub",
+        "desc": "Pay 20£",
+        "time": "10:00",
+        "subTask": "false",
+        "date": "01/02/2022"
+    },
+    {
+        "title": "Finish CYF week 1 HW",
+        "desc": "",
+        "time": "14:00",
+        "subTask": "true",
+        "subTasks": [
+            "Freecode camp JS course",
+            "Khan academy JS course",
+            "CYF JS course work"
+        ],
+        "date": "01/03/2022"
+    },
+    {
+        "title": "Renew Gym sub",
+        "desc": "Pay 15£ htmlFor the gym",
+        "time": "14:00",
+        "subTask": "false",
+        "date": "01/06/2022"
+    }
+]
