@@ -8,13 +8,6 @@ const router = (app) => {
       message: "Welcome to the Alacrity API!",
     });
   });
-
-  // db connection test.
-  //   app.get("/test", (req, res) => {
-  //     pool.query("SELECT * FROM users").then((result) => {
-  //       res.status(200).json(result);
-  //     });
-  //   });
 };
 
 module.exports = router;

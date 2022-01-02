@@ -49,10 +49,10 @@ passport.use(
               avatar,
               marketing,
             ]);
-            console.log("User account created");
+            console.log("Created new profile");
             cb(null, profile);
           } else {
-            console.log("User account exists");
+            console.log("User profile exists");
             cb(null, profile);
           }
         })
@@ -109,10 +109,10 @@ passport.use(
               avatar_url,
               marketing,
             ]);
-            console.log("created new profile");
+            console.log("Created new profile");
             cb(null, profile);
           } else {
-            console.log("existing user");
+            console.log("User profile exists");
             cb(null, profile);
           }
         })
