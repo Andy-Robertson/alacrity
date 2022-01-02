@@ -28,7 +28,7 @@ authRouter.get("/logout", (req, res) => {
   res.redirect(CLIENT_URL);
 });
 
-//     ---------- GOOGLE AUTHENTICATION ----------     //
+//     ---------- GOOGLE SPECIFIC ROUTES ----------     //
 
 // Set request scope, user profile and email returned on successful auth.
 authRouter.get(
