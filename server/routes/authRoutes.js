@@ -61,4 +61,21 @@ authRouter.get(
   })
 );
 
+//     ---------- FACEBOOK SPECIFIC ROUTES ----------     //
+
+authRouter.get(
+  "/facebook",
+  passport.authenticate("facebook", {
+    scope: ["public_profile", "email"],
+  })
+);
+
+authRouter.get(
+  "/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: CLIENT_URL,
+    failureRedirect: "/login/failed",
+  })
+);
+
 module.exports = authRouter;
