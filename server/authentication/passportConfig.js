@@ -1,7 +1,9 @@
 const pool = require("../data/postgresConfig");
 const passport = require("passport");
+const fetch = require("cross-fetch");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const GithubStrategy = require("passport-github2").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 
 //     ---------- GOOGLE AUTHENTICATION ----------     //
 
@@ -20,26 +22,11 @@ passport.use(
       const avatar = profile.photos[0].value;
       const marketing = false; // Temp value, will be set on profile page.
 
-      const insertUserDetailsQuery = `
-        INSERT INTO users
-        (
-            auth_id,
-            provider_name,
-            display_name,
-            first_name,
-            last_name,
-            email,
-            avatar,
-            marketing
-        )
-        VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8)`;
-
       pool
         .query("Select * FROM users WHERE auth_Id = $1", [id])
         .then((result) => {
           if (result.rows.length <= 0) {
-            pool.query(insertUserDetailsQuery, [
+            pool.query(getDBInsertString(), [
               id,
               provider,
               displayName,
@@ -80,26 +67,11 @@ passport.use(
       const lastName = "";
       const marketing = false; // Temp value, will be set on profile page.
 
-      const userDetailsInsertQuery = `
-        INSERT INTO users
-        (
-            auth_id,
-            provider_name,
-            display_name,
-            first_name,
-            last_name,
-            email,
-            avatar,
-            marketing
-        )
-        VALUES
-        ($ 1, $ 2, $ 3, $ 4, $ 5, $ 6, $ 7, $ 8)`;
-
       pool
         .query("Select * FROM users WHERE auth_Id = $1", [id])
         .then((result) => {
           if (result.rows.length <= 0) {
-            pool.query(userDetailsInsertQuery, [
+            pool.query(getDBInsertString(), [
               id,
               provider,
               displayName,
@@ -120,6 +92,84 @@ passport.use(
     }
   )
 );
+
+//     ---------- FACEBOOK AUTHENTICATION ----------     //
+
+// Creates new Facebook strategy
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      callbackURL: "/auth/facebook/callback",
+      profileFields: ["id", "displayName", "email", "name"],
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      const { id, provider, displayName } = profile;
+      const { email, last_name, first_name } = profile._json;
+      const marketing = false; // Temp value, will be set on profile page.
+
+      const fetchUserPicture = fetch(
+        `https://graph.facebook.com/${profile.id}/?fields=picture&type=large&access_token=${accessToken}`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((result) => {
+          return result.picture.data.url;
+        })
+        .then((picture) => {
+          const user = {
+            displayName: profile.displayName,
+            photos: [{ value: picture }],
+          };
+
+          pool
+            .query("Select * FROM users WHERE auth_Id = $1", [id])
+            .then((result) => {
+              if (result.rows.length <= 0) {
+                pool.query(getDBInsertString(), [
+                  id,
+                  provider,
+                  displayName,
+                  first_name,
+                  last_name,
+                  email,
+                  picture,
+                  marketing,
+                ]);
+                console.log("created new profile");
+                cb(null, user);
+              } else {
+                console.log("existing user");
+                cb(null, user);
+              }
+            })
+            .catch((e) => console.log(e));
+        })
+        .catch((e) => console.log(e));
+    }
+  )
+);
+
+//     ---------- HELPERS ----------     //
+
+const getDBInsertString = () => {
+  return `
+    INSERT INTO users
+    (
+        auth_id,
+        provider_name,
+        display_name,
+        first_name,
+        last_name,
+        email,
+        avatar,
+        marketing
+    )
+    VALUES
+    ($1, $2, $3, $4, $5, $6, $7, $8)`;
+};
 
 // Serialize authenticated user to a persistent session.
 passport.serializeUser((user, cb) => cb(null, user));
