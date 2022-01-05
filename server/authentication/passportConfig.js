@@ -25,6 +25,11 @@ passport.use(
       pool
         .query("Select * FROM users WHERE auth_Id = $1", [id])
         .then((result) => {
+          const user = {
+            displayName: profile.displayName,
+            photos: [{ value: avatar }],
+          };
+
           if (result.rows.length <= 0) {
             pool.query(getDBInsertString(), [
               id,
@@ -37,10 +42,10 @@ passport.use(
               marketing,
             ]);
             console.log("Created new profile");
-            cb(null, profile);
+            cb(null, user);
           } else {
             console.log("User profile exists");
-            cb(null, profile);
+            cb(null, user);
           }
         })
         .catch((e) => console.log(e));
@@ -70,6 +75,11 @@ passport.use(
       pool
         .query("Select * FROM users WHERE auth_Id = $1", [id])
         .then((result) => {
+          const user = {
+            displayName: profile.displayName,
+            photos: [{ value: avatar_url }],
+          };
+
           if (result.rows.length <= 0) {
             pool.query(getDBInsertString(), [
               id,
@@ -82,10 +92,10 @@ passport.use(
               marketing,
             ]);
             console.log("Created new profile");
-            cb(null, profile);
+            cb(null, user);
           } else {
             console.log("User profile exists");
-            cb(null, profile);
+            cb(null, user);
           }
         })
         .catch((e) => console.log(e));
@@ -112,18 +122,14 @@ passport.use(
       const fetchUserPicture = fetch(
         `https://graph.facebook.com/${profile.id}/?fields=picture&type=large&access_token=${accessToken}`
       )
-        .then((response) => {
-          return response.json();
-        })
+        .then((response) => response.json())
         .then((result) => {
-          return result.picture.data.url;
-        })
-        .then((picture) => {
-          const user = {
+          return {
             displayName: profile.displayName,
-            photos: [{ value: picture }],
+            photos: [{ value: result.picture.data.url }],
           };
-
+        })
+        .then((user) => {
           pool
             .query("Select * FROM users WHERE auth_Id = $1", [id])
             .then((result) => {
@@ -135,7 +141,7 @@ passport.use(
                   first_name,
                   last_name,
                   email,
-                  picture,
+                  user.photos[1].value,
                   marketing,
                 ]);
                 console.log("created new profile");
