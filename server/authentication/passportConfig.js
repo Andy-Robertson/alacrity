@@ -4,6 +4,7 @@ const fetch = require("cross-fetch");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const GithubStrategy = require("passport-github2").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
+const TwitterStrategy = require("passport-twitter").Strategy;
 
 //     ---------- GOOGLE AUTHENTICATION ----------     //
 
@@ -158,23 +159,71 @@ passport.use(
   )
 );
 
+//     ---------- TWITTER AUTHENTICATION ----------     //
+
+passport.use(
+  new TwitterStrategy(
+    {
+      consumerKey: process.env.TWITTER_CONSUMER_KEY,
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+      callbackURL: "/auth/twitter/callback",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      const { id, displayName, provider } = profile;
+      const { value } = profile.photos[0];
+      const email = "";
+      const givenName = "";
+      const familyName = "";
+      const marketing = false; // Temp value, will be set on profile page.
+
+      const user = {
+        displayName: displayName,
+        photos: [{ value: value }],
+      };
+
+      pool
+        .query("Select * FROM users WHERE auth_Id = $1", [id])
+        .then((result) => {
+          if (result.rows.length <= 0) {
+            pool.query(getDBInsertString(), [
+              id,
+              provider,
+              displayName,
+              givenName,
+              familyName,
+              email,
+              value,
+              marketing,
+            ]);
+            console.log("created new profile");
+            cb(null, user);
+          } else {
+            console.log("existing user");
+            cb(null, user);
+          }
+        })
+        .catch((e) => console.log(e));
+    }
+  )
+);
+
 //     ---------- HELPERS ----------     //
 
 const getDBInsertString = () => {
   return `
-    INSERT INTO users
-    (
-        auth_id,
-        provider_name,
-        display_name,
-        first_name,
-        last_name,
-        email,
-        avatar,
-        marketing
-    )
-    VALUES
-    ($1, $2, $3, $4, $5, $6, $7, $8)`;
+          INSERT INTO users
+          (
+              auth_id,
+              provider_name,
+              display_name,
+              first_name,
+              last_name,
+              email,
+              avatar,
+              marketing
+          )
+          VALUES
+          ($1, $2, $3, $4, $5, $6, $7, $8)`;
 };
 
 // Serialize authenticated user to a persistent session.
