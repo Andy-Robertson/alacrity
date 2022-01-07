@@ -78,4 +78,16 @@ authRouter.get(
   })
 );
 
+//     ---------- TWITTER SPECIFIC ROUTES ----------     //
+
+authRouter.get("/twitter", passport.authenticate("twitter"));
+
+authRouter.get(
+  "/twitter/callback",
+  passport.authenticate("twitter", {
+    successRedirect: CLIENT_URL,
+    failureRedirect: "/login/failed",
+  })
+);
+
 module.exports = authRouter;
