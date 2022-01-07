@@ -7,7 +7,7 @@ authRouter.get("/login/success", (req, res) => {
   if (req.user) {
     res.status(200).json({
       success: true,
-      message: "successful authentication",
+      message: "authentication successful",
       user: req.user,
       cookies: req.cookies,
     });

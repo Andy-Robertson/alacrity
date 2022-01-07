@@ -21,7 +21,7 @@ passport.use(
       const { givenName, familyName } = profile.name;
       const email = profile.emails[0].value;
       const avatar = profile.photos[0].value;
-      const marketing = false; // Temp value, will be set on profile page.
+      const marketing = false;
 
       pool
         .query("Select * FROM users WHERE auth_Id = $1", [id])
@@ -56,8 +56,6 @@ passport.use(
 
 //     ---------- GITHUB AUTHENTICATION ----------     //
 
-// Load Github strategy & credentials.
-
 // Create new Github strategy.
 passport.use(
   new GithubStrategy(
@@ -71,7 +69,7 @@ passport.use(
       const { email, avatar_url } = profile._json;
       const firstName = "";
       const lastName = "";
-      const marketing = false; // Temp value, will be set on profile page.
+      const marketing = false;
 
       pool
         .query("Select * FROM users WHERE auth_Id = $1", [id])
@@ -118,7 +116,7 @@ passport.use(
     function (accessToken, refreshToken, profile, cb) {
       const { id, provider, displayName } = profile;
       const { email, last_name, first_name } = profile._json;
-      const marketing = false; // Temp value, will be set on profile page.
+      const marketing = false;
 
       const fetchUserPicture = fetch(
         `https://graph.facebook.com/${profile.id}/?fields=picture&type=large&access_token=${accessToken}`
@@ -174,7 +172,7 @@ passport.use(
       const email = "";
       const givenName = "";
       const familyName = "";
-      const marketing = false; // Temp value, will be set on profile page.
+      const marketing = false;
 
       const user = {
         displayName: displayName,
