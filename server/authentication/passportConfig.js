@@ -17,39 +17,26 @@ passport.use(
       callbackURL: "/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
-      const { id, provider, displayName } = profile;
-      const { givenName, familyName } = profile.name;
-      const email = profile.emails[0].value;
-      const avatar = profile.photos[0].value;
+      const { id, provider } = profile;
+      const { name, given_name, family_name, picture, email } = profile._json;
       const marketing = false;
 
-      pool
-        .query("Select * FROM users WHERE auth_Id = $1", [id])
-        .then((result) => {
-          const user = {
-            displayName: profile.displayName,
-            photos: [{ value: avatar }],
-          };
+      const user = {
+        displayName: profile.displayName,
+        photos: [{ value: picture }],
+      };
 
-          if (result.rows.length <= 0) {
-            pool.query(getDBInsertString(), [
-              id,
-              provider,
-              displayName,
-              givenName,
-              familyName,
-              email,
-              avatar,
-              marketing,
-            ]);
-            console.log("Created new profile");
-            cb(null, user);
-          } else {
-            console.log("User profile exists");
-            cb(null, user);
-          }
-        })
-        .catch((e) => console.log(e));
+      poolQuery(
+        id,
+        provider,
+        name,
+        family_name,
+        given_name,
+        email,
+        picture,
+        user,
+        cb
+      );
     }
   )
 );
@@ -69,35 +56,23 @@ passport.use(
       const { email, avatar_url } = profile._json;
       const firstName = "";
       const lastName = "";
-      const marketing = false;
 
-      pool
-        .query("Select * FROM users WHERE auth_Id = $1", [id])
-        .then((result) => {
-          const user = {
-            displayName: profile.displayName,
-            photos: [{ value: avatar_url }],
-          };
+      const user = {
+        displayName: profile.displayName,
+        photos: [{ value: avatar_url }],
+      };
 
-          if (result.rows.length <= 0) {
-            pool.query(getDBInsertString(), [
-              id,
-              provider,
-              displayName,
-              firstName,
-              lastName,
-              email,
-              avatar_url,
-              marketing,
-            ]);
-            console.log("Created new profile");
-            cb(null, user);
-          } else {
-            console.log("User profile exists");
-            cb(null, user);
-          }
-        })
-        .catch((e) => console.log(e));
+      poolQuery(
+        id,
+        provider,
+        displayName,
+        lastName,
+        firstName,
+        email,
+        avatar_url,
+        user,
+        cb
+      );
     }
   )
 );
@@ -116,41 +91,28 @@ passport.use(
     function (accessToken, refreshToken, profile, cb) {
       const { id, provider, displayName } = profile;
       const { email, last_name, first_name } = profile._json;
-      const marketing = false;
 
       const fetchUserPicture = fetch(
         `https://graph.facebook.com/${profile.id}/?fields=picture&type=large&access_token=${accessToken}`
       )
         .then((response) => response.json())
         .then((result) => {
-          return {
+          const user = {
             displayName: profile.displayName,
             photos: [{ value: result.picture.data.url }],
           };
-        })
-        .then((user) => {
-          pool
-            .query("Select * FROM users WHERE auth_Id = $1", [id])
-            .then((result) => {
-              if (result.rows.length <= 0) {
-                pool.query(getDBInsertString(), [
-                  id,
-                  provider,
-                  displayName,
-                  first_name,
-                  last_name,
-                  email,
-                  user.photos[1].value,
-                  marketing,
-                ]);
-                console.log("created new profile");
-                cb(null, user);
-              } else {
-                console.log("existing user");
-                cb(null, user);
-              }
-            })
-            .catch((e) => console.log(e));
+
+          poolQuery(
+            id,
+            provider,
+            displayName,
+            last_name,
+            first_name,
+            email,
+            result.picture.data.url,
+            user,
+            cb
+          );
         })
         .catch((e) => console.log(e));
     }
@@ -162,45 +124,33 @@ passport.use(
 passport.use(
   new TwitterStrategy(
     {
-      consumerKey: process.env.TWITTER_CONSUMER_KEY,
-      consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+      consumerKey: process.env.TWITTER_CLIENT_ID,
+      consumerSecret: process.env.TWITTER_CLIENT_SECRET,
       callbackURL: "/auth/twitter/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
-      const { id, displayName, provider } = profile;
-      const { value } = profile.photos[0];
+      const { id, name, profile_image_url } = profile._json;
+      const { provider } = profile;
       const email = "";
       const givenName = "";
       const familyName = "";
-      const marketing = false;
 
       const user = {
-        displayName: displayName,
-        photos: [{ value: value }],
+        displayName: name,
+        photos: [{ value: profile_image_url }],
       };
 
-      pool
-        .query("Select * FROM users WHERE auth_Id = $1", [id])
-        .then((result) => {
-          if (result.rows.length <= 0) {
-            pool.query(getDBInsertString(), [
-              id,
-              provider,
-              displayName,
-              givenName,
-              familyName,
-              email,
-              value,
-              marketing,
-            ]);
-            console.log("created new profile");
-            cb(null, user);
-          } else {
-            console.log("existing user");
-            cb(null, user);
-          }
-        })
-        .catch((e) => console.log(e));
+      poolQuery(
+        id,
+        provider,
+        name,
+        givenName,
+        familyName,
+        email,
+        profile_image_url,
+        user,
+        cb
+      );
     }
   )
 );
@@ -222,6 +172,45 @@ const getDBInsertString = () => {
           )
           VALUES
           ($1, $2, $3, $4, $5, $6, $7, $8)`;
+};
+
+const getSearchForAuthIdString = () => {
+  return `Select * FROM users WHERE auth_Id = $1`;
+};
+
+const poolQuery = (
+  id,
+  provider,
+  displayName,
+  first_name,
+  last_name,
+  email,
+  picture,
+  user,
+  cb
+) => {
+  const marketing = null;
+
+  return pool
+    .query(getSearchForAuthIdString(), [id])
+    .then((result) => {
+      if (result.rows.length <= 0) {
+        pool.query(getDBInsertString(), [
+          id,
+          provider,
+          displayName,
+          first_name,
+          last_name,
+          email,
+          picture,
+          marketing,
+        ]);
+        cb(null, user);
+      } else {
+        cb(null, user);
+      }
+    })
+    .catch((e) => console.log(e));
 };
 
 // Serialize authenticated user to a persistent session.
