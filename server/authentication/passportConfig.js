@@ -157,6 +157,7 @@ passport.use(
 
 //     ---------- HELPERS ----------     //
 
+// Insert new user into db.
 const getDBInsertString = () => {
   return `
           INSERT INTO users
@@ -174,10 +175,12 @@ const getDBInsertString = () => {
           ($1, $2, $3, $4, $5, $6, $7, $8)`;
 };
 
+// Query to check if a user exists before inserting into db.
 const getSearchForAuthIdString = () => {
   return `Select * FROM users WHERE auth_Id = $1`;
 };
 
+// Complete pool query calling `getDBInsertString()` and `getSearchForAuthIdString()`
 const poolQuery = (
   id,
   provider,
