@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 // Assets
 import "./Assets/styles/main.css";
 import "./Assets/styles/normalize.css";
@@ -40,10 +41,21 @@ function App() {
 
   return (
     <main>
-      <LeftSideBar />
-      <Middle />
-      <RightSideBar />
-      <Login />
+      <LeftSideBar user={user} />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={user ? <Navigate to="/action" /> : <Login />}
+          />
+          <Route
+            path="/action"
+            element={user ? <Middle user={user} /> : <Navigate to="/" />}
+          />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
+      <RightSideBar user={user} />
     </main>
   );
 }
