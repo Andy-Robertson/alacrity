@@ -54,15 +54,28 @@ main {
   margin: 0;
 }
 
+.right-sidebar ul {
+  grid-row: 2;
+  justify-self: center;
+  align-self: center;
+  list-style: none;
+  text-align: center;
+}
+.right-sidebar li {
+  margin-right: 50px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
 .img-circular {
   width: 80px;
   height: 80px;
-  background-image: url("/src/Assets/img/pexels-olivet-pictures-2691608.jpg");
   background-size: cover;
   display: block;
   border-radius: 50%;
   grid-row: 2;
   justify-self: center;
+  padding-bottom: 0.5rem;
 }
 
 .btn {
