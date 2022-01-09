@@ -6,6 +6,25 @@ const GithubStrategy = require("passport-github2").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 const TwitterStrategy = require("passport-twitter").Strategy;
 
+//     ---------- QUERY STRING CONSTRAINTS ----------     //
+
+const DB_INSERT_STRING = `
+  INSERT INTO users
+  (
+      auth_id,
+      provider_name,
+      display_name,
+      first_name,
+      last_name,
+      email,
+      avatar,
+      marketing
+  )
+  VALUES
+  ($1, $2, $3, $4, $5, $6, $7, $8)`;
+
+const DB_ID_SEARCH_STRING = `SELECT * FROM users WHERE auth_Id = $1`;
+
 //     ---------- GOOGLE AUTHENTICATION ----------     //
 
 // Create new google strategy
@@ -157,29 +176,6 @@ passport.use(
 
 //     ---------- HELPERS ----------     //
 
-// Insert new user into db.
-const getDBInsertString = () => {
-  return `
-          INSERT INTO users
-          (
-              auth_id,
-              provider_name,
-              display_name,
-              first_name,
-              last_name,
-              email,
-              avatar,
-              marketing
-          )
-          VALUES
-          ($1, $2, $3, $4, $5, $6, $7, $8)`;
-};
-
-// Query to check if a user exists before inserting into db.
-const getSearchForAuthIdString = () => {
-  return `Select * FROM users WHERE auth_Id = $1`;
-};
-
 // Complete pool query calling `getDBInsertString()` and `getSearchForAuthIdString()`
 const poolQuery = (
   id,
@@ -195,10 +191,10 @@ const poolQuery = (
   const marketing = null;
 
   return pool
-    .query(getSearchForAuthIdString(), [id])
+    .query(DB_ID_SEARCH_STRING, [id])
     .then((result) => {
       if (result.rows.length <= 0) {
-        pool.query(getDBInsertString(), [
+        pool.query(DB_INSERT_STRING, [
           id,
           provider,
           displayName,
