@@ -188,7 +188,7 @@ const poolQuery = (
   user,
   cb
 ) => {
-  const marketing = null;
+  const marketing = true;
 
   return pool
     .query(DB_ID_SEARCH_STRING, [id])
