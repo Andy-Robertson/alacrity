@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Tabs from "../Components/Tabs";
-import TasksData from "../Assets/data/cards_data.json";
+// import TasksData from "../Assets/data/cards_data.json";
 
 
 const Middle = () => {
+    const [TasksData, setTasksData] = useState([]);
+    useEffect(() => {
+        fetch("http://localhost:5000/").then(res => res.json()).then(data => {
+            // console.log( data);
+            setTasksData(data);
+        });
+    }, []);
     return (
         // Start of wrapper setion
         <section className="wrapper">

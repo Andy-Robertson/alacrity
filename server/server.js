@@ -31,10 +31,10 @@ app.get("/", (req,res) => {
   .query("SELECT * FROM task WHERE user_id = $1", [2])
   .then((result) => {
     // console.log(result.rows)
-    const taskArray = result.rows;
-    let index = taskArray.findIndex(element => element.sub_task_option == true)
-    console.log(index);
-    const 
+    // const taskArray = result.rows;
+    // let index = taskArray.findIndex(element => element.sub_task_option == true)
+    // console.log(index); 
+    res.status(200).json(result.rows)
   })
   .catch(e => console.error(e))
 })

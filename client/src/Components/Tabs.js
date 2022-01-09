@@ -16,7 +16,7 @@ const Tabs = (props) => {
     // console.log(props.data);
 
     props.data.map((task) => {
-        let dateToday2 = new Date(task.date).getDate();
+        let dateToday2 = new Date(task.by_date).getDate();
         // console.log('date',dateToday3)
         if (dateToday2 === dateToday) {
             todayData.push(task);
