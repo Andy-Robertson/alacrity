@@ -11,7 +11,7 @@ const RightSideBar = ({ user }) => {
   return (
     <aside className="right-sidebar">
       {user && (
-        <ul onClick={logout} className="rightToLeft">
+        <ul onClick={logout} className="right-animation">
           <li>
             <img
               src={user.photos[0].value}
@@ -23,7 +23,7 @@ const RightSideBar = ({ user }) => {
         </ul>
       )}
       {user && (
-        <button className="btn rightToLeft">
+        <button className="btn right-animation">
           <span className="btn__icon">
             <img src={PlusImg} alt="add tasks icon"></img>
           </span>
@@ -31,7 +31,7 @@ const RightSideBar = ({ user }) => {
         </button>
       )}
       {user && (
-        <button className="btn_pomodoro rightToLeft">
+        <button className="btn_pomodoro right-animation">
           <span className="btn__text">Start Pomodoro</span>
           <span className="btn__icon">
             <img src={PlayImg} alt="Play icon"></img>

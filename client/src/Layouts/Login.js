@@ -24,19 +24,19 @@ const Login = () => {
         <form className="login-form">
           <div className="login-btn google-color" onClick={google}>
             <FaGoogle />
-            Google Sign-in
+            Google
           </div>
           <div className="login-btn twitter-color" onClick={twitter}>
             <FaTwitter />
-            Twitter Sign-in
+            Twitter
           </div>
           <div className="login-btn github-color" onClick={github}>
             <FaGithub />
-            Github Sign-in
+            Github
           </div>
           <div className="login-btn facebook-color" onClick={facebook}>
             <FaFacebook />
-            Facebook Sign-in
+            Facebook
           </div>
         </form>
       </div>
