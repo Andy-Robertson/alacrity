@@ -48,7 +48,6 @@ const Popup = props => {
                     </div>
                 </form>
             </div>
-
         </div>
     );
 };
