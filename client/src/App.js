@@ -1,13 +1,13 @@
-import React from 'react';
-// Assets 
+import React from "react";
+// Assets
 import "./Assets/styles/main.css";
 import "./Assets/styles/normalize.css";
 import "./Assets/styles/style.css";
 // Layouts
-import LeftSideBar from './Layouts/LeftSideBar';
-import Middle from './Layouts/Middle';
-import RightSideBar from './Layouts/RightSideBar';
-
+import LeftSideBar from "./Layouts/LeftSideBar";
+import Middle from "./Layouts/Middle";
+import RightSideBar from "./Layouts/RightSideBar";
+import Login from "./Layouts/Login"
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
       <LeftSideBar />
       <Middle />
       <RightSideBar />
+      <Login />
     </main>
   );
 }
