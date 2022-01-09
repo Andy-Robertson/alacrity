@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import PlusImg from "../Assets/img/plus-math-30.png";
 import PlayImg from "../Assets/img/play.png";
@@ -7,6 +7,13 @@ const RightSideBar = ({ user }) => {
   const logout = () => {
     window.open("http://localhost:5000/auth/logout", "_self");
   };
+
+import Popup from "../Components/Popup";
+
+const RightSideBar = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+
 
   return (
     <aside className="right-sidebar">

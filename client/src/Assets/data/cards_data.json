@@ -4,14 +4,14 @@
         "desc": "Pay 15£ htmlFor the gym",
         "time": "14:00",
         "subTask": "false",
-        "date": "01/02/2022"
+        "date": "01/08/2022"
     },
     {
         "title": "Renew Netflix sub",
         "desc": "Pay 20£",
         "time": "10:00",
         "subTask": "false",
-        "date": "01/02/2022"
+        "date": "01/08/2022"
     },
     {
         "title": "Finish CYF week 1 HW",
@@ -23,13 +23,13 @@
             "Khan academy JS course",
             "CYF JS course work"
         ],
-        "date": "01/03/2022"
+        "date": "01/09/2022"
     },
     {
         "title": "Renew Gym sub",
         "desc": "Pay 15£ htmlFor the gym",
         "time": "14:00",
         "subTask": "false",
-        "date": "01/06/2022"
+        "date": "01/12/2022"
     }
 ]
