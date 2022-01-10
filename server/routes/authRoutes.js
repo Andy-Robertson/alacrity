@@ -1,6 +1,9 @@
 const authRouter = require("express").Router();
 const passport = require("passport");
-const CLIENT_URL = "http://localhost:3000/";
+
+// Production / Development environment selection.
+const host = require("../authentication/EnvironmentConfig");
+const CLIENT_URL = host.getEnvironment();
 
 // Handle successful login (user authenticated).
 authRouter.get("/login/success", (req, res) => {
