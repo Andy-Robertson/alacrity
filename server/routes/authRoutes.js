@@ -2,10 +2,12 @@ const authRouter = require("express").Router();
 const passport = require("passport");
 
 // Production / Development environment selection.
-const CLIENT_URL = ( process.env.NODE_ENV === "production"
-    ? "https://alacrity-team-gravity.herokuapp.com/"
-    : "http://localhost:3000"
-);
+// const CLIENT_URL = ( process.env.NODE_ENV === "production"
+//     ? "https://alacrity-team-gravity.herokuapp.com"
+//     : "http://localhost:3000"
+// );
+
+const CLIENT_URL = "https://alacrity-team-gravity.herokuapp.com";
 
 // Handle successful login (user authenticated).
 authRouter.get("/login/success", (req, res) => {
