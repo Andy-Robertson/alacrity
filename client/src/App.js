@@ -10,11 +10,12 @@ import Middle from "./Layouts/Middle";
 import RightSideBar from "./Layouts/RightSideBar";
 import Login from "./Layouts/Login";
 
-// Production / Development environment domain selection.
-const currentDomain =
+// Production / Development environment selection.
+const currentDomain = (
   process.env.NODE_ENV === "production"
     ? "https://alacritybackend.herokuapp.com"
-    : "http://localhost:5000";
+    : "http://localhost:5000"
+);
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,9 +32,11 @@ function App() {
         },
       })
         .then((response) => {
-          console.log(response);
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has failed");
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw new Error("authentication has failed");
+          }
         })
         .then((resObject) => {
           setUser(resObject.user);

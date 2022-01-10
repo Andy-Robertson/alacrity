@@ -47,7 +47,7 @@ const Pans = (props) => {
                         <time dateTime={task.time}>{task.time}</time>
                     </footer>
                 </article>
-                )
+                );
             })}
         </>
     );
