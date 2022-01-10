@@ -10,6 +10,10 @@ const authRoutes = require("./routes/authRoutes");
 require("./authentication/passportConfig");
 const app = express();
 
+// Production / Development environment selection.
+const host = require("./authentication/EnvironmentConfig");
+const CLIENT_URL = host.getEnvironment();
+
 // Configure session cookies with 24hr expiration and random keys.
 app.use(
   cookieSession({
@@ -23,7 +27,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: CLIENT_URL,
     methods: "GET, POST, PUT, DELETE",
     credentials: true,
   })
@@ -36,9 +40,5 @@ routes(app);
 const server = app.listen(PORT, (err) => {
   err
     ? console.log(`Error: ${err}`)
-    : console.log(
-        `Alacrity server now gravitating on Port: ${
-          server.address().port
-        }`
-      );
+    : console.log(`Alacrity server now gravitating on Port: ${CLIENT_URL}`);
 });
