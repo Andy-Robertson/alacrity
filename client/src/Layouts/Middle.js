@@ -6,11 +6,14 @@ import Tabs from "../Components/Tabs";
 const Middle = () => {
     const [TasksData, setTasksData] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:5000/").then(res => res.json()).then(data => {
-            // console.log( data);
-            setTasksData(data);
+      fetch("http://localhost:5000/")
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log( data);
+          setTasksData(data);
         });
     }, []);
+    console.log(TasksData);
     return (
         // Start of wrapper setion
         <section className="wrapper">
@@ -20,7 +23,7 @@ const Middle = () => {
             </div>
             {/* Start of wrapper ards div */}
             <div className="wrapper__cards">
-                <Tabs data={TasksData}/>
+                {TasksData.length > 0 && (<Tabs data={TasksData}/>)}
             {/* End of wrapper ards div */}
             </div>
             {/* Start of the bakground div */}

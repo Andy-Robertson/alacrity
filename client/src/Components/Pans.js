@@ -41,7 +41,7 @@ const Pans = (props) => {
               </section>
             ) : (
               <section className="card__content">
-                <p>{task.subject_describtion}</p>
+                <p>{task.subject_description}</p>
               </section>
             )}
             <footer className="card_footer">

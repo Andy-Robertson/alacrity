@@ -13,11 +13,11 @@ const Tabs = (props) => {
     // props.data.forEach((task) => {
     //         task.date = new Date(task.date)
     //     })
-    // console.log(props.data);
-
+    console.log(props.data);
+    // console.log(dateToday);
     props.data.map((task) => {
         let dateToday2 = new Date(task.by_date).getDate();
-        // console.log('date',dateToday3)
+        // console.log('date' + dateToday2)
         if (dateToday2 === dateToday) {
             todayData.push(task);
         } else if (dateToday2 === dateToday + 1) {
@@ -26,7 +26,7 @@ const Tabs = (props) => {
             laterData.push(task);
         }
     });
-    // console.log(todayData);
+    console.log( todayData);
     const [activeList, setActiveList] = useState(todayData);
     const [activeTab, setActiveTab] = useState(dateToday);
 
@@ -35,7 +35,7 @@ const Tabs = (props) => {
         setActiveTab(newAtiveTab);
         setActiveList(newList);
     }
-    console.log(activeTab);
+    // console.log(activeTab);
     return (
         <>
             <ul className="tabs">
