@@ -1,6 +1,5 @@
 // Set server address, port and required packages.
 const PORT = parseInt(process.env.PORT || "5000");
-const SERVER = "localhost";
 const Keygrip = require("keygrip");
 const passport = require("passport");
 const cors = require("cors");
@@ -34,11 +33,11 @@ app.use("/auth", authRoutes);
 routes(app);
 
 // Start alacrity server
-const server = app.listen(PORT, SERVER, (err) => {
+const server = app.listen(PORT, (err) => {
   err
     ? console.log(`Error: ${err}`)
     : console.log(
-        `Alacrity server now gravitating on ${server.address().address}:${
+        `Alacrity server now gravitating on Port: ${
           server.address().port
         }`
       );
