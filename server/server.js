@@ -11,8 +11,10 @@ require("./authentication/passportConfig");
 const app = express();
 
 // Production / Development environment selection.
-const host = require("./authentication/EnvironmentConfig");
-const CLIENT_URL = host.getEnvironment();
+const CLIENT_URL = ( process.env.NODE_ENV === "production"
+    ? "https://alacrity-team-gravity.herokuapp.com/"
+    : "http://localhost:3000"
+);
 
 // Configure session cookies with 24hr expiration and random keys.
 app.use(
@@ -40,5 +42,5 @@ routes(app);
 const server = app.listen(PORT, (err) => {
   err
     ? console.log(`Error: ${err}`)
-    : console.log(`Alacrity server now gravitating on Port: ${CLIENT_URL}`);
+    : console.log(`Alacrity server is now gravitating on Port: ${PORT}`);
 });
