@@ -1,5 +1,4 @@
-// Production / Development environment selection.
-
+// Production / Development environment domain selection.
 const getEnvironment = () => {
   return process.env.NODE_ENV === "production"
     ? "https://alacrity-team-gravity.herokuapp.com/"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // Assets
 import "./Assets/styles/main.css";
 import "./Assets/styles/normalize.css";
@@ -10,12 +10,18 @@ import Middle from "./Layouts/Middle";
 import RightSideBar from "./Layouts/RightSideBar";
 import Login from "./Layouts/Login";
 
+// Production / Development environment domain selection.
+const currentDomain =
+  process.env.NODE_ENV === "production"
+    ? "https://alacritybackend.herokuapp.com"
+    : "http://localhost:5000";
+
 function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const getUser = () => {
-      fetch("http://localhost:5000/auth/login/success", {
+      fetch(`${currentDomain}/auth/login/success`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -46,16 +52,25 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={user ? <Navigate to="/action" /> : <Login />}
+            element={
+              user ? (
+                <Navigate to="/action" />
+              ) : (
+                <Login currentDomain={currentDomain} />
+              )
+            }
           />
           <Route
             path="/action"
             element={user ? <Middle user={user} /> : <Navigate to="/" />}
           />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={<Login currentDomain={currentDomain} />}
+          />
         </Routes>
       </BrowserRouter>
-      <RightSideBar user={user} />
+      <RightSideBar user={user} currentDomain={currentDomain} />
     </main>
   );
 }

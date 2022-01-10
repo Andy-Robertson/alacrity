@@ -1,21 +1,21 @@
 import React from "react";
 import { FaTwitter, FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 
-const Login = () => {
+const Login = ({ currentDomain }) => {
   const google = () => {
-    window.open("http://localhost:5000/auth/google", "_self");
+    window.open(`${currentDomain}/auth/google`, "_self");
   };
 
   const github = () => {
-    window.open("http://localhost:5000/auth/github", "_self");
+    window.open(`${currentDomain}/auth/github`, "_self");
   };
 
   const facebook = () => {
-    window.open("http://localhost:5000/auth/facebook", "_self");
+    window.open(`${currentDomain}/auth/facebook`, "_self");
   };
 
   const twitter = () => {
-    window.open("http://localhost:5000/auth/twitter", "_self");
+    window.open(`${currentDomain}/auth/twitter`, "_self");
   };
 
   return (

@@ -4,12 +4,11 @@ import PlusImg from "../Assets/img/plus-math-30.png";
 import PlayImg from "../Assets/img/play.png";
 import Popup from "../Components/Popup";
 
-
-const RightSideBar = ({ user }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const logout = () => {
-      window.open("http://localhost:5000/auth/logout", "_self");
-    };
+const RightSideBar = ({ user, currentDomain }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const logout = () => {
+    window.open(`${currentDomain}/auth/logout`, "_self");
+  };
   return (
     <aside className="right-sidebar">
       {user && (
@@ -25,7 +24,13 @@ const RightSideBar = ({ user }) => {
         </ul>
       )}
       {user && (
-        <button type="button" className="btn right-animation" onClick={() => {setIsOpen(true)}}>
+        <button
+          type="button"
+          className="btn right-animation"
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        >
           <span className="btn__icon">
             <img src={PlusImg} alt="add tasks icon"></img>
           </span>
@@ -40,7 +45,7 @@ const RightSideBar = ({ user }) => {
           </span>
         </button>
       )}
-      {isOpen && <Popup close={setIsOpen}/>}
+      {isOpen && <Popup close={setIsOpen} />}
     </aside>
   );
 };
