@@ -16,6 +16,7 @@ const currentDomain = (
     ? "https://alacritybackend.herokuapp.com"
     : "http://localhost:5000"
 );
+console.log(currentDomain);
 
 function App() {
   const [user, setUser] = useState(null);
