@@ -14,6 +14,9 @@ const devConfig = {
 // Live database connection
 const proConfig = {
   connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 };
 
 // Db connection pool with toggle
