@@ -4,10 +4,10 @@ import PlusImg from "../Assets/img/plus-math-30.png";
 import PlayImg from "../Assets/img/play.png";
 import Popup from "../Components/Popup";
 
-const RightSideBar = ({ user, SERVER_DOMAIN }) => {
+const RightSideBar = ({ user, SERVER_URL }) => {
   const [isOpen, setIsOpen] = useState(false);
   const logout = () => {
-    window.open(`${SERVER_DOMAIN}/auth/logout`, "_self");
+    window.open(`${SERVER_URL}/auth/logout`, "_self");
   };
   return (
     <aside className="right-sidebar">

@@ -61,7 +61,7 @@ function App() {
               user ? (
                 <Navigate to="/action" />
               ) : (
-                <Login SERVER_DOMAIN={SERVER_URL} />
+                <Login SERVER_URL={SERVER_URL} />
               )
             }
           />
@@ -69,13 +69,10 @@ function App() {
             path="/action"
             element={user ? <Middle user={user} /> : <Navigate to="/" />}
           />
-          <Route
-            path="/login"
-            element={<Login SERVER_DOMAIN={SERVER_URL} />}
-          />
+          <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
         </Routes>
       </BrowserRouter>
-      <RightSideBar user={user} SERVER_DOMAIN={SERVER_URL} />
+      <RightSideBar user={user} SERVER_URL={SERVER_URL} />
     </main>
   );
 }
