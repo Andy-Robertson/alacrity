@@ -7,7 +7,6 @@ const CLIENT_URL = (
   ? "https://alacrity-team-gravity.herokuapp.com"
   : "http://localhost:3000"
   );
-  console.log(`authRoutes.js ${process.env.WORKING_ENVIRONMENT}`);
 
 // Handle successful login (user authenticated).
 authRouter.get("/login/success", (req, res) => {

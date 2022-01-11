@@ -16,7 +16,6 @@ const CLIENT_URL = (
     ? "https://alacrity-team-gravity.herokuapp.com"
     : "http://localhost:3000"
 );
-console.log(`authRoutes.js ${process.env.WORKING_ENVIRONMENT}`);
 
 // Configure session cookies with 24hr expiration and random keys.
 app.use(
@@ -31,7 +30,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(
   cors({
-    origin: CLIENT_URL,
+    origin: "*",
     methods: "GET, POST, PUT, DELETE",
     credentials: true,
   })
