@@ -27,13 +27,20 @@ const DB_ID_SEARCH_STRING = `SELECT * FROM users WHERE auth_Id = $1`;
 
 //     ---------- GOOGLE AUTHENTICATION ----------     //
 
+// Production / Development environment selection.
+const GOOGLE_CALLBACK_URL = (
+  process.env.WORKING_ENVIRONMENT === "production"
+    ? "https://alacritybackend.herokuapp.com//auth/google/callback"
+    : "/auth/google/callback"
+);
+
 // Create new google strategy
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      callbackURL: GOOGLE_CALLBACK_URL,
     },
     function (accessToken, refreshToken, profile, cb) {
       const { id, provider } = profile;
