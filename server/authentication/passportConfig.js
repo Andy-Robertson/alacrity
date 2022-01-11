@@ -30,7 +30,7 @@ const DB_ID_SEARCH_STRING = `SELECT * FROM users WHERE auth_Id = $1`;
 // Production / Development environment selection.
 const GOOGLE_CALLBACK_URL = (
   process.env.WORKING_ENVIRONMENT === "production"
-    ? "https://alacritybackend.herokuapp.com//auth/google/callback"
+    ? "http://alacritybackend.herokuapp.com/auth/google/callback"
     : "/auth/google/callback"
 );
 
