@@ -13,7 +13,7 @@ const app = express();
 // Production / Development environment selection.
 const CLIENT_URL =
   process.env.WORKING_ENVIRONMENT === "production"
-    ? "https://murmuring-wildwood-55380.herokuapp.com/https://alacrity-team-gravity.herokuapp.com"
+    ? "http://alacrity-team-gravity.herokuapp.com"
     : "http://localhost:3000";
 
 // Configure session cookies with 24hr expiration and random keys.
