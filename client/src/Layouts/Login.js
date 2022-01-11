@@ -1,23 +1,22 @@
 import React from "react";
 import { FaTwitter, FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 
-const Login = ({ currentDomain }) => {
-
-  console.log(currentDomain);
+const Login = ({ SERVER_DOMAIN }) => {
+  console.log(SERVER_DOMAIN);
   const google = () => {
-    window.open(`${currentDomain}/auth/google`, "_self");
+    window.open(`${SERVER_DOMAIN}/auth/google`, "_self");
   };
 
   const github = () => {
-    window.open(`${currentDomain}/auth/github`, "_self");
+    window.open(`${SERVER_DOMAIN}/auth/github`, "_self");
   };
 
   const facebook = () => {
-    window.open(`${currentDomain}/auth/facebook`, "_self");
+    window.open(`${SERVER_DOMAIN}/auth/facebook`, "_self");
   };
 
   const twitter = () => {
-    window.open(`${currentDomain}/auth/twitter`, "_self");
+    window.open(`${SERVER_DOMAIN}/auth/twitter`, "_self");
   };
 
   return (

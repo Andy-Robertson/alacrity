@@ -11,20 +11,20 @@ import RightSideBar from "./Layouts/RightSideBar";
 import Login from "./Layouts/Login";
 
 // Production / Development environment selection.
-const currentDomain = (
-  process.env.NODE_ENV === "production"
+const SERVER_URL = (
+  process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
     ? "https://alacritybackend.herokuapp.com"
     : "http://localhost:5000"
 );
 
-console.log(`App.js ${process.env.NODE_ENV}`);
+console.log(`App.js ${process.env.REACT_APP_WORKING_ENVIRONMENT}`);
 
 function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const getUser = () => {
-      fetch(`${currentDomain}/auth/login/success`, {
+      fetch(`${SERVER_URL}/auth/login/success`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -61,7 +61,7 @@ function App() {
               user ? (
                 <Navigate to="/action" />
               ) : (
-                <Login currentDomain={currentDomain} />
+                <Login SERVER_DOMAIN={SERVER_URL} />
               )
             }
           />
@@ -71,11 +71,11 @@ function App() {
           />
           <Route
             path="/login"
-            element={<Login currentDomain={currentDomain} />}
+            element={<Login SERVER_DOMAIN={SERVER_URL} />}
           />
         </Routes>
       </BrowserRouter>
-      <RightSideBar user={user} currentDomain={currentDomain} />
+      <RightSideBar user={user} SERVER_DOMAIN={SERVER_URL} />
     </main>
   );
 }
