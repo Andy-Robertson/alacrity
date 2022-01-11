@@ -5,9 +5,13 @@
   "dependencies": {
     "@codeyourfuture/eslint-config-standard": "^3.0.3",
     "cross-env": "^7.0.3",
+    "dayjs": "^1.10.7",
     "react": "^17.0.2",
+    "react-date-picker": "^8.3.6",
+    "react-datetime-picker": "^3.4.3",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
+    "react-time-picker": "^4.4.4",
     "stop-runaway-react-effects": "^2.0.0",
     "web-vitals": "^2.1.2"
   },

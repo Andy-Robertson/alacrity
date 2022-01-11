@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import AddSubTask from "./AddSubTask";
-// import AddSubTask from "./AddSubTask";
+// import DateTime from "./DateTime";
 import Toggle from "./Toggle";
+import DatePicker from "react-date-picker";
+import TimePicker from "react-time-picker";
+import * as dayjs from "dayjs";
 
 function AddTask() {
   // data Variables that will be used to store whole data.
@@ -17,7 +20,11 @@ function AddTask() {
   const [toggled, setToggled] = useState(false);
   // addInputList will help us to create subTasks as much as user wants
   const [addInputList, setAddInputList] = useState([]);
-
+  // Date Time Picker Library
+  const [valueDate, onChangeDate] = useState(new Date());
+  const [valueTime, onChangeTime] = useState(new Date());
+  console.log(dayjs(valueTime).format("HH:mm"));
+  console.log(dayjs(valueDate).format("YYYY-MM-DD"));
   // Change handler function
   const changeHandler = (e, index) => {
    // each subTask will have a unique index so we can distinguesh between them 
@@ -49,6 +56,8 @@ function AddTask() {
       sub_tasks: subTasks,
       reward: e.target["reward"].value,
       resources: e.target["resources"].value,
+      by_time: dayjs(valueTime).format("HH:mm"),
+      by_day: dayjs(valueDate).format("YYYY-MM-DD"),
     };
     setData([...data, object]); // Append Object Using Spread Operator
     // After submitting, clear all inputs
@@ -132,6 +141,19 @@ function AddTask() {
             placeholder="Resources help you ..."
             value={resources}
             onChange={changeHandler}
+          />
+        </div>
+        <div>
+          <DatePicker
+            onChange={onChangeDate}
+            value={valueDate}
+            dateFormat="yyyy-MM-dd"
+            minDate={new Date()}
+          />
+          <TimePicker
+            onChange={onChangeTime}
+            value={valueTime}
+            format="HH:mm"
           />
         </div>
         <button type="submit">Submit Task</button>
