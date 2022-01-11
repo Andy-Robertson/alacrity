@@ -11,14 +11,13 @@ import RightSideBar from "./Layouts/RightSideBar";
 import Login from "./Layouts/Login";
 
 // Production / Development environment selection.
-// const currentDomain = (
-//   process.env.NODE_ENV === "production"
-//     ? "https://alacritybackend.herokuapp.com"
-//     : "http://localhost:5000"
-// );
+const currentDomain = (
+  process.env.NODE_ENV === "production"
+    ? "https://alacritybackend.herokuapp.com"
+    : "http://localhost:5000"
+);
 
-const currentDomain = "https://alacritybackend.herokuapp.com";
-console.log(currentDomain);
+console.log(`App.js ${process.env.NODE_ENV}`);
 
 function App() {
   const [user, setUser] = useState(null);

@@ -33,7 +33,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://alacritybackend.herokuapp.com/auth/google/callback",
+      callbackURL: "/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
       const { id, provider } = profile;
