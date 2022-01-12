@@ -35,6 +35,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use("/auth", authRoutes);
 
 routes(app);
