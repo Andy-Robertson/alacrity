@@ -52,6 +52,8 @@ passport.use(
         photos: [{ value: picture }],
       };
 
+      console.log(`user ${user}`)
+
       poolQuery(
         id,
         provider,

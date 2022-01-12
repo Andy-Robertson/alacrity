@@ -20,6 +20,8 @@ const SERVER_URL = (
 function App() {
   const [user, setUser] = useState(null);
 
+  console.log(user);
+
   useEffect(() => {
     const getUser = () => {
       fetch(`${SERVER_URL}/auth/login/success`, {

@@ -19,9 +19,6 @@ const CLIENT_URL = (
 
 );
 
-    console.log(`server.js WE ${process.env.WORKING_ENVIRONMENT}`);
-
-
 // Configure session cookies with 24hr expiration and random keys.
 app.use(
   cookieSession({
