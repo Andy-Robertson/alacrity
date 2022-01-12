@@ -8,7 +8,7 @@ const CLIENT_URL =
     : "http://localhost:3000";
 
 // Handle successful login (user authenticated).
-authRouter.get("/login/success", (req, res) => {
+authRouter.get("/login/success", async (req, res) => {
   console.log(`user: ${req.user}`);
   if (req.user) {
     res.status(200).json({
@@ -18,7 +18,7 @@ authRouter.get("/login/success", (req, res) => {
       cookies: req.cookies,
     });
   } else {
-    res.status(401).json({ success: false, Message: "Not otherized" });
+    res.status(401).json({ success: false, Message: "Not authorized" });
   }
 });
 

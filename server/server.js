@@ -8,16 +8,20 @@ const express = require("express");
 const routes = require("./routes/routes");
 const authRoutes = require("./routes/authRoutes");
 require("./authentication/passportConfig");
-require("./data/postgresConfig")
+require("./data/postgresConfig");
 const app = express();
+app.enable("trust proxy");
 
 // Production / Development environment selection.
 const CLIENT_URL = (
   process.env.WORKING_ENVIRONMENT === "production"
     ? "https://alacrity-team-gravity.herokuapp.com"
     : "http://localhost:3000"
-
 );
+
+if (process.env.WORKING_ENVIRONMENT === "production") {
+  app.set("trust proxy", 1); // Trust first proxy
+}
 
 // Configure session cookies with 24hr expiration and random keys.
 app.use(
@@ -25,6 +29,7 @@ app.use(
     name: "session",
     keys: new Keygrip(["key1", "key2"], "SHA384"), // Keygrip instance used to generate keys.
     maxAge: 24 * 60 * 60 * 100, // 24 hours
+    secureProxy: true,
   })
 );
 
@@ -47,7 +52,6 @@ app.use((req, res, next) => {
   );
   next();
 });
-
 
 app.use("/auth", authRoutes);
 
