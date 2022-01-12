@@ -8,6 +8,7 @@ const express = require("express");
 const routes = require("./routes/routes");
 const authRoutes = require("./routes/authRoutes");
 require("./authentication/passportConfig");
+require("./data/postgresConfig")
 const app = express();
 
 // Production / Development environment selection.
