@@ -10,6 +10,8 @@ const CLIENT_URL = (
 
 // Handle successful login (user authenticated).
 authRouter.get("/login/success", (req, res) => {
+  console.log(req.user);
+  console.log(req.cookies);
   if (req.user) {
     res.status(200).json({
       success: true,

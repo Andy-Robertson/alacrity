@@ -24,4 +24,6 @@ const pool = new Pool(
   process.env.WORKING_ENVIRONMENT === "production" ? proConfig : devConfig
 );
 
+console.log(process.env.WORKING_ENVIRONMENT);
+console.log(pool)
 module.exports = pool;
