@@ -2,7 +2,6 @@ import React from "react";
 import { FaTwitter, FaFacebook, FaGoogle, FaGithub } from "react-icons/fa";
 
 const Login = ({ SERVER_URL }) => {
-  console.log(SERVER_URL);
   const google = () => {
     window.open(`${SERVER_URL}/auth/google`, "_self");
   };

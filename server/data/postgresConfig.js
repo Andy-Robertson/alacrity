@@ -24,5 +24,7 @@ const pool = new Pool(
   process.env.WORKING_ENVIRONMENT === "production" ? proConfig : devConfig
 );
 
-  console.log(`post.js WE ${process.env.WORKING_ENVIRONMENT}`);
+console.log(`post.js WE ${process.env.WORKING_ENVIRONMENT}`);
+console.log(pool);
+
 module.exports = pool;
