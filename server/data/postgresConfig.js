@@ -21,9 +21,8 @@ const proConfig = {
 
 // Db connection pool with toggle
 const pool = new Pool(
-  process.env.NODE_ENV === "production" ? proConfig : devConfig
+  process.env.WORKING_ENVIRONMENT === "production" ? proConfig : devConfig
 );
 
-    console.log(`pg.js WE ${process.env.WORKING_ENVIRONMENT}`);
-    console.log(`pg.js ND ${process.env.NODE_DEV}`);
+  console.log(`post.js WE ${process.env.WORKING_ENVIRONMENT}`);
 module.exports = pool;
