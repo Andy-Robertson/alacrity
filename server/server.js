@@ -10,7 +10,6 @@ const authRoutes = require("./routes/authRoutes");
 require("./authentication/passportConfig");
 require("./data/postgresConfig");
 const app = express();
-app.enable("trust proxy");
 
 // Production / Development environment selection.
 const CLIENT_URL = (
