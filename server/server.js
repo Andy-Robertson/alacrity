@@ -37,15 +37,13 @@ app.use(
 
 // Add Access Control headers
 app.use((req, res, next) => {
-  // res.header("Access-Control-Allow-Origin", CLIENT_URL);
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", CLIENT_URL);
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
 });
-
 
 app.use("/auth", authRoutes);
 
