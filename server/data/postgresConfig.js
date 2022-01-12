@@ -24,6 +24,6 @@ const pool = new Pool(
   process.env.NODE_ENV === "production" ? proConfig : devConfig
 );
 
-console.log(process.env.NODE_ENV);
-console.log(pool)
+    console.log(`pg.js WE ${process.env.WORKING_ENVIRONMENT}`);
+    console.log(`pg.js ND ${process.env.NODE_DEV}`);
 module.exports = pool;
