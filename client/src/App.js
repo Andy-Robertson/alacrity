@@ -13,7 +13,7 @@ import Login from "./Layouts/Login";
 // Production / Development environment selection.
 const SERVER_URL = (
   process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
-    ? "http://alacritybackend.herokuapp.com"
+    ? "https://alacritybackend.herokuapp.com"
     : "http://localhost:5000"
 );
 

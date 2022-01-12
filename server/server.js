@@ -11,10 +11,11 @@ require("./authentication/passportConfig");
 const app = express();
 
 // Production / Development environment selection.
-const CLIENT_URL =
+const CLIENT_URL = (
   process.env.WORKING_ENVIRONMENT === "production"
-    ? "http://alacrity-team-gravity.herokuapp.com"
-    : "http://localhost:3000";
+    ? "https://alacrity-team-gravity.herokuapp.com"
+    : "http://localhost:3000"
+);
 
 // Configure session cookies with 24hr expiration and random keys.
 app.use(
