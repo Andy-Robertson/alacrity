@@ -14,11 +14,10 @@ const app = express();
 
 
 // Production / Development environment selection.
-const CLIENT_URL = (
+const CLIENT_URL =
   process.env.WORKING_ENVIRONMENT === "production"
-    ? ""
-    : "http://localhost:3000"
-);
+    ? "https://alacrity-focus.herokuapp.com"
+    : "http://localhost:3000";
 
 console.log(CLIENT_URL);
 // Serve client files from the build folder.
