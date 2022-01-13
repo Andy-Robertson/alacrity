@@ -18,15 +18,6 @@ const CLIENT_URL =
     ? "https://alacrity-focus.herokuapp.com"
     : "http://localhost:3000";
 
-// Enable http > https redirects in production environment.
-if (process.env.WORKING_ENVIRONMENT === "production") {
-  app.use((req, res, next) => {
-    if (req.header("x-forwarded-proto") !== "https")
-      res.redirect(`https://${req.header("host")}${req.url}`);
-    else next();
-  });
-}
-
 // Serve client files from the build folder.
 app.use(express.static(path.join(__dirname, "../client/build")));
 
