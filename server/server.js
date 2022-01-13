@@ -12,14 +12,21 @@ require("./authentication/passportConfig");
 require("./data/postgresConfig");
 const app = express();
 
-
 // Production / Development environment selection.
 const CLIENT_URL =
   process.env.WORKING_ENVIRONMENT === "production"
     ? "https://alacrity-focus.herokuapp.com"
     : "http://localhost:3000";
 
-console.log(CLIENT_URL);
+// Enable http > https redirects in production environment.
+if (process.env.WORKING_ENVIRONMENT === "production") {
+  app.use((req, res, next) => {
+    if (req.header("x-forwarded-proto") !== "https")
+      res.redirect(`https://${req.header("host")}${req.url}`);
+    else next();
+  });
+}
+
 // Serve client files from the build folder.
 app.use(express.static(path.join(__dirname, "../client/build")));
 
