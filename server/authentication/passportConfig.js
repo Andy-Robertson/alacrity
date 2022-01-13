@@ -27,20 +27,13 @@ const DB_ID_SEARCH_STRING = `SELECT * FROM users WHERE auth_Id = $1`;
 
 //     ---------- GOOGLE AUTHENTICATION ----------     //
 
-// Production / Development environment selection.
-const GOOGLE_CALLBACK_URL = (
-  process.env.WORKING_ENVIRONMENT === "production"
-    ? "https://alacritybackend.herokuapp.com/auth/google/callback"
-    : "/auth/google/callback"
-);
-
 // Create new google strategy
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: GOOGLE_CALLBACK_URL,
+      callbackURL: "/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
       const { id, provider } = profile;
@@ -51,8 +44,6 @@ passport.use(
         displayName: profile.displayName,
         photos: [{ value: picture }],
       };
-
-      console.log(`user ${user}`)
 
       poolQuery(
         id,
@@ -71,19 +62,13 @@ passport.use(
 
 //     ---------- GITHUB AUTHENTICATION ----------     //
 
-const GITHUB_CALLBACK_URL = (
-  process.env.WORKING_ENVIRONMENT === "production"
-    ? "https://alacritybackend.herokuapp.com/auth/github/callback"
-    : "/auth/github/callback"
-);
-
 // Create new Github strategy.
 passport.use(
   new GithubStrategy(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: GITHUB_CALLBACK_URL,
+      callbackURL: "/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
       const { id, provider, displayName } = profile;
@@ -113,20 +98,13 @@ passport.use(
 
 //     ---------- FACEBOOK AUTHENTICATION ----------     //
 
-// Production / Development environment selection.
-const FACEBOOK_CALLBACK_URL = (
-  process.env.WORKING_ENVIRONMENT === "production"
-    ? "https://alacritybackend.herokuapp.com/auth/facebook/callback"
-    : "/auth/facebook/callback"
-);
-
 // Creates new Facebook strategy
 passport.use(
   new FacebookStrategy(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: FACEBOOK_CALLBACK_URL,
+      callbackURL: "/auth/facebook/callback",
       profileFields: ["id", "displayName", "email", "name"],
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -162,19 +140,12 @@ passport.use(
 
 //     ---------- TWITTER AUTHENTICATION ----------     //
 
-// Production / Development environment selection.
-const TWITTER_CALLBACK_URL = (
-  process.env.WORKING_ENVIRONMENT === "production"
-    ? "http://alacritybackend.herokuapp.com/auth/twitter/callback"
-    : "/auth/twitter/callback"
-);
-
 passport.use(
   new TwitterStrategy(
     {
       consumerKey: process.env.TWITTER_CLIENT_ID,
       consumerSecret: process.env.TWITTER_CLIENT_SECRET,
-      callbackURL: TWITTER_CALLBACK_URL,
+      callbackURL: "/auth/twitter/callback",
     },
     function (accessToken, refreshToken, profile, cb) {
       const { id, name, profile_image_url } = profile._json;

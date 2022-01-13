@@ -4,11 +4,11 @@ const { Pool } = require("pg");
 
 // Dev database connection
 const devConfig = {
-  user: process.env.USER,
-  host: process.env.HOST,
-  database: process.env.DATABASE,
-  password: process.env.PASSWORD,
-  port: process.env.PORT,
+  user: process.env.DEV_USER,
+  host: process.env.DEV_HOST,
+  database: process.env.DEV_DATABASE,
+  password: process.env.DEV_PASSWORD,
+  port: process.env.DEV_PORT,
 };
 
 // Live database connection
@@ -23,8 +23,5 @@ const proConfig = {
 const pool = new Pool(
   process.env.WORKING_ENVIRONMENT === "production" ? proConfig : devConfig
 );
-
-console.log(`post.js WE ${process.env.WORKING_ENVIRONMENT}`);
-console.log(pool);
 
 module.exports = pool;

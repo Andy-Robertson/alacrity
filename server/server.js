@@ -1,5 +1,6 @@
 // Set server address, port and required packages.
 const PORT = parseInt(process.env.PORT || "5000");
+const path = require("path");
 const Keygrip = require("keygrip");
 const passport = require("passport");
 const cors = require("cors");
@@ -11,24 +12,23 @@ require("./authentication/passportConfig");
 require("./data/postgresConfig");
 const app = express();
 
+
 // Production / Development environment selection.
 const CLIENT_URL = (
   process.env.WORKING_ENVIRONMENT === "production"
-    ? "https://alacrity-team-gravity.herokuapp.com"
+    ? "/"
     : "http://localhost:3000"
 );
 
-if (process.env.WORKING_ENVIRONMENT === "production") {
-  app.set("trust proxy", 1); // Trust first proxy
-}
+// Serve client files from the build folder.
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 // Configure session cookies with 24hr expiration and random keys.
 app.use(
   cookieSession({
     name: "session",
-    keys: new Keygrip(["key1", "key2"], "SHA384"), // Keygrip instance used to generate keys.
-    maxAge: 24 * 60 * 60 * 100, // 24 hours
-    secureProxy: true,
+    keys: new Keygrip(["key1", "key2"], "SHA384"),
+    maxAge: 24 * 60 * 60 * 100,
   })
 );
 
@@ -41,16 +41,6 @@ app.use(
     credentials: true,
   })
 );
-
-// Add Access Control headers
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", CLIENT_URL);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 
 app.use("/auth", authRoutes);
 

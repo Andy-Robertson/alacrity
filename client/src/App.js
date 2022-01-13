@@ -13,14 +13,12 @@ import Login from "./Layouts/Login";
 // Production / Development environment selection.
 const SERVER_URL = (
   process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
-    ? "https://alacritybackend.herokuapp.com"
+    ? "/"
     : "http://localhost:5000"
 );
 
 function App() {
   const [user, setUser] = useState(null);
-
-  console.log(user);
 
   useEffect(() => {
     const getUser = () => {

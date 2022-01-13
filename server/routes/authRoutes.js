@@ -4,14 +4,12 @@ const passport = require("passport");
 // Production / Development environment selection.
 const CLIENT_URL = (
   process.env.WORKING_ENVIRONMENT === "production"
-    ? "https://alacrity-team-gravity.herokuapp.com"
+    ? "/"
     : "http://localhost:3000"
 );
 
 // Handle successful login (user authenticated).
-authRouter.get("/login/success", async (req, res) => {
-  console.log(`user: ${req.user}`);
-   console.log(`cookies: ${req.cookies}`);
+authRouter.get("/login/success", (req, res) => {
   if (req.user) {
     res.status(200).json({
       success: true,
@@ -99,5 +97,6 @@ authRouter.get(
     failureRedirect: "/login/failed",
   })
 );
+
 
 module.exports = authRouter;
