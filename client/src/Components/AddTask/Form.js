@@ -15,20 +15,20 @@ function AddTask() {
   const [reward, setReward] = useState("");
   const [resources, setResources] = useState("");
   const [subTask, setSubTask] = useState(""); // The default of first subTask
-  const [subTasks, setSubTasks] = useState([]); // subTasks array
-  // Check box to have subTask option if the user wants. 
+
+  // Check box to have subTask option if the user wants.
   const [toggled, setToggled] = useState(false);
   // addInputList will help us to create subTasks as much as user wants
   const [addInputList, setAddInputList] = useState([]);
   // Date Time Picker Library
   const [valueDate, onChangeDate] = useState(new Date());
   const [valueTime, onChangeTime] = useState(new Date());
-  console.log(dayjs(valueTime).format("HH:mm"));
-  console.log(dayjs(valueDate).format("YYYY-MM-DD"));
+  // console.log(dayjs(valueTime).format("HH:mm"));
+  // console.log(dayjs(valueDate).format("YYYY-MM-DD"));
   // Change handler function
-  const changeHandler = (e, index) => {
-   // each subTask will have a unique index so we can distinguesh between them 
-   // console.log(e.target.name, index);
+  const changeHandler = (e) => {
+    // each subTask will have a unique index so we can distinguesh between them
+    // console.log(e.target.name);
     if (e.target.name === "taskSubject") {
       setTaskSubject(e.target.value);
     } else if (e.target.name === "describe") {
@@ -39,26 +39,65 @@ function AddTask() {
       setResources(e.target.value);
     } else if (e.target.name === "sub-task") {
       setSubTask(e.target.value);
-      setSubTasks([...subTasks, e.target.value]);
-    } else if (index !== undefined) {
-      setSubTasks([...subTasks, e.target.value]); // subTask will concat to the subTasks array
-      // console.log(e.target.value);
     }
+    // else if ((e.target.name === "subTaskArray")) {
 
+    // }
   };
+  // addSubTasks();
+  // const addSubTasks = () => {
+  //   setSubTasks([...subTasks, subTask]);
+  // };
+  // addSubTasks();
   // Form function
   const submitForm = (e) => {
     e.preventDefault();
+    // setSubTasks([...subTasks, e.target["sub-task"].value]);
     let object = {
       task_subject: e.target["taskSubject"].value,
       subject_description: e.target["describe"].value,
       sub_task_option: toggled,
-      sub_tasks: subTasks,
+      sub_tasks: toggled
+        ? [e.target["sub-task"].value].concat(
+            addInputList.map((i, index) => {
+              return e.target[`sub-task${index}`].value;
+            })
+          )
+        : null,
       reward: e.target["reward"].value,
       resources: e.target["resources"].value,
       by_time: dayjs(valueTime).format("HH:mm"),
       by_day: dayjs(valueDate).format("YYYY-MM-DD"),
     };
+    if (taskSubject.length === 0) {
+      alert("Task Subject has to be filled");
+    } else if (toggled && subTask.length === 0) {
+      alert("SubTask has to be filled");
+    } else {
+      fetch("http://localhost:5000/", {
+        method: "POST",
+        body: JSON.stringify({
+          task_subject: e.target["taskSubject"].value,
+          subject_description: e.target["describe"].value,
+          sub_task_option: toggled,
+          sub_tasks: toggled
+            ? [e.target["sub-task"].value].concat(
+                addInputList.map((i, index) => {
+                  return e.target[`sub-task${index}`].value;
+                })
+              )
+            : null,
+          reward: e.target["reward"].value,
+          resources: e.target["resources"].value,
+          by_time: dayjs(valueTime).format("HH:mm"),
+          by_day: dayjs(valueDate).format("YYYY-MM-DD"),
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      window.location.reload(false);
+    }
     setData([...data, object]); // Append Object Using Spread Operator
     // After submitting, clear all inputs
     setTaskSubject("");
@@ -67,8 +106,8 @@ function AddTask() {
     setResources("");
     setSubTask("");
   };
-  console.log(data);
-  const handleAddInput = (e , subTask) => {
+  // console.log(data);
+  const handleAddInput = (e, subTask) => {
     e.preventDefault(); // To prevent submit from the subTask button
     setAddInputList(addInputList.concat(subTask)); // When ever we click on the button we create a new undefined element that will help us to create a new input field depending on the number of elements (The number of click)
     // console.log(subTask);
