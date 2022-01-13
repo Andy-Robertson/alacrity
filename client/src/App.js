@@ -13,11 +13,11 @@ import Login from "./Layouts/Login";
 // Production / Development environment selection.
 const SERVER_URL = (
   process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
-    ? "/"
+    ? ""
     : "http://localhost:5000"
 );
 
-console.log(SERVER_URL);
+console.log(process.env.REACT_APP_WORKING_ENVIRONMENT);
 function App() {
   const [user, setUser] = useState(null);
 

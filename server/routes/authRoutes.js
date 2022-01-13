@@ -4,7 +4,7 @@ const passport = require("passport");
 // Production / Development environment selection.
 const CLIENT_URL = (
   process.env.WORKING_ENVIRONMENT === "production"
-    ? "/"
+    ? ""
     : "http://localhost:3000"
 );
 
