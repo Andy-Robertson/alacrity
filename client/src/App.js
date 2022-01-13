@@ -17,6 +17,7 @@ const SERVER_URL = (
     : "http://localhost:5000"
 );
 
+console.log(SERVER_URL);
 function App() {
   const [user, setUser] = useState(null);
 

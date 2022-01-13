@@ -2,7 +2,7 @@ require("dotenv").config();
 const passport = require("passport");
 const { Pool } = require("pg");
 
-// Dev database connection
+// Dev database connection,
 const devConfig = {
   user: process.env.DEV_USER,
   host: process.env.DEV_HOST,
@@ -24,4 +24,5 @@ const pool = new Pool(
   process.env.WORKING_ENVIRONMENT === "production" ? proConfig : devConfig
 );
 
+console.log(process.env.WORKING_ENVIRONMENT);
 module.exports = pool;
