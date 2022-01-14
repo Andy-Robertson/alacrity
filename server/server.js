@@ -12,11 +12,15 @@ require("./authentication/passportConfig");
 require("./data/postgresConfig");
 const app = express();
 
+// Enable trust proxy required due to X-forward headers during authentication.
+if (process.env.WORKING_ENVIRONMENT === "production") app.enable("trust proxy");
+
 // Production / Development environment selection.
-const CLIENT_URL =
+const CLIENT_URL = (
   process.env.WORKING_ENVIRONMENT === "production"
     ? "https://alacrity-focus.herokuapp.com"
-    : "http://localhost:3000";
+    : "http://localhost:3000"
+);
 
 // Serve client files from the build folder.
 app.use(express.static(path.join(__dirname, "../client/build")));
