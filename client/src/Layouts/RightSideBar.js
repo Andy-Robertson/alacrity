@@ -21,7 +21,6 @@ const RightSideBar = () => {
                 <span className="btn__icon"><img src={PlayImg} alt="Play icon"></img></span>
             </button>
             {isOpen && <Popup close={setIsOpen}/>}
-            
         </aside>
     );
 }

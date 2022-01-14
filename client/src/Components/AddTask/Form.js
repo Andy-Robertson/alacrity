@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AddSubTask from "./AddSubTask";
-// import DateTime from "./DateTime";
 import Toggle from "./Toggle";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
@@ -8,7 +7,7 @@ import * as dayjs from "dayjs";
 
 function AddTask() {
   // data Variables that will be used to store whole data.
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState("");
   const [describe, setDescribe] = useState("");
@@ -53,22 +52,22 @@ function AddTask() {
   const submitForm = (e) => {
     e.preventDefault();
     // setSubTasks([...subTasks, e.target["sub-task"].value]);
-    let object = {
-      task_subject: e.target["taskSubject"].value,
-      subject_description: e.target["describe"].value,
-      sub_task_option: toggled,
-      sub_tasks: toggled
-        ? [e.target["sub-task"].value].concat(
-            addInputList.map((i, index) => {
-              return e.target[`sub-task${index}`].value;
-            })
-          )
-        : null,
-      reward: e.target["reward"].value,
-      resources: e.target["resources"].value,
-      by_time: dayjs(valueTime).format("HH:mm"),
-      by_day: dayjs(valueDate).format("YYYY-MM-DD"),
-    };
+    // let object = {
+    //   task_subject: e.target["taskSubject"].value,
+    //   subject_description: e.target["describe"].value,
+    //   sub_task_option: toggled,
+    //   sub_tasks: toggled
+    //     ? [e.target["sub-task"].value].concat(
+    //         addInputList.map((i, index) => {
+    //           return e.target[`sub-task${index}`].value;
+    //         })
+    //       )
+    //     : null,
+    //   reward: e.target["reward"].value,
+    //   resources: e.target["resources"].value,
+    //   by_time: dayjs(valueTime).format("HH:mm"),
+    //   by_day: dayjs(valueDate).format("YYYY-MM-DD"),
+    // };
     if (taskSubject.length === 0) {
       alert("Task Subject has to be filled");
     } else if (toggled && subTask.length === 0) {
@@ -98,7 +97,7 @@ function AddTask() {
       });
       window.location.reload(false);
     }
-    setData([...data, object]); // Append Object Using Spread Operator
+    // setData([...data, object]); // Append Object Using Spread Operator
     // After submitting, clear all inputs
     setTaskSubject("");
     setDescribe("");
@@ -157,8 +156,15 @@ function AddTask() {
                 submitForm={submitForm}
               />
             ))}
-            <div>
-              <button onClick={handleAddInput}>Add Sub Task</button>
+            <div className="plus-container">
+              <button
+                onClick={handleAddInput}
+                class="btn-plus"
+              >
+                <i
+                  class="fa fa-plus"
+                ></i>
+              </button>
             </div>
           </div>
         )}
