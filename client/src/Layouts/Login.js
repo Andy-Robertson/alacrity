@@ -22,6 +22,7 @@ const Login = ({ SERVER_URL }) => {
     <section className="login-section">
       <div className="wrapper-login-form">
         <form className="login-form">
+          <h3>Log-in</h3>
           <div className="login-btn google-color" onClick={google}>
             <FaGoogle />
             Google

@@ -17,7 +17,6 @@ const SERVER_URL = (
     : "http://localhost:5000"
 );
 
-console.log(process.env.REACT_APP_WORKING_ENVIRONMENT);
 function App() {
   const [user, setUser] = useState(null);
 
