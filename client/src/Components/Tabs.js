@@ -13,7 +13,7 @@ const Tabs = (props) => {
     // props.data.forEach((task) => {
     //         task.date = new Date(task.date)
     //     })
-    console.log(props.data);
+    // console.log(props.data);
     // console.log(dateToday);
     props.data.map((task) => {
         let dateToday2 = new Date(task.by_date).getDate();
@@ -26,7 +26,7 @@ const Tabs = (props) => {
             laterData.push(task);
         }
     });
-    console.log( todayData);
+    // console.log( todayData);
     const [activeList, setActiveList] = useState(todayData);
     // const [activeTab, setActiveTab] = useState(dateToday);
 

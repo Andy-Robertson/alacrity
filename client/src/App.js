@@ -17,7 +17,7 @@ const SERVER_URL = (process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
 
 function App() {
   const [user, setUser] = useState(null);
-
+  // console.log(SERVER_URL);
   useEffect(() => {
     const getUser = () => {
       fetch(`${SERVER_URL}/auth/login/success`, {

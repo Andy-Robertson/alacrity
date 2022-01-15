@@ -12,7 +12,7 @@ const Middle = ({ SERVER_URL }) => {
         setTasksData(data);
       });
   }, []);
-  console.log(TasksData);
+  // console.log(TasksData);
   return (
     // Start of wrapper setion
     <section className="wrapper">

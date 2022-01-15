@@ -13,6 +13,8 @@ const pool = require("./data/postgresConfig");
 
 
 const app = express();
+
+app.use(express.json());
 // Data from database
 //title/subject_name,desc/subject_comment from subjects table,
 //time/complete_by  from schedules
@@ -69,7 +71,7 @@ app.post("/", (req, res) => {
   const resources = req.body.resources;
   const by_time = req.body.by_time;
   const by_day = req.body.by_day;
-  console.log(req.body)
+  // console.log(req.body)
   pool
     .query("SELECT * FROM task WHERE user_id = $1", [user_id])
     .then((result) => {

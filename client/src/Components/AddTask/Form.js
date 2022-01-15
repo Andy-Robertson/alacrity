@@ -3,7 +3,7 @@ import AddSubTask from "./AddSubTask";
 import Toggle from "./Toggle";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
-import * as dayjs from "dayjs";
+// import * as dayjs from "dayjs";
 
 function AddTask() {
   // data Variables that will be used to store whole data.
@@ -39,40 +39,16 @@ function AddTask() {
     } else if (e.target.name === "sub-task") {
       setSubTask(e.target.value);
     }
-    // else if ((e.target.name === "subTaskArray")) {
-
-    // }
   };
-  // addSubTasks();
-  // const addSubTasks = () => {
-  //   setSubTasks([...subTasks, subTask]);
-  // };
-  // addSubTasks();
   // Form function
   const submitForm = (e) => {
     e.preventDefault();
-    // setSubTasks([...subTasks, e.target["sub-task"].value]);
-    // let object = {
-    //   task_subject: e.target["taskSubject"].value,
-    //   subject_description: e.target["describe"].value,
-    //   sub_task_option: toggled,
-    //   sub_tasks: toggled
-    //     ? [e.target["sub-task"].value].concat(
-    //         addInputList.map((i, index) => {
-    //           return e.target[`sub-task${index}`].value;
-    //         })
-    //       )
-    //     : null,
-    //   reward: e.target["reward"].value,
-    //   resources: e.target["resources"].value,
-    //   by_time: dayjs(valueTime).format("HH:mm"),
-    //   by_day: dayjs(valueDate).format("YYYY-MM-DD"),
-    // };
     if (taskSubject.length === 0) {
       alert("Task Subject has to be filled");
     } else if (toggled && subTask.length === 0) {
       alert("SubTask has to be filled");
     } else {
+      console.log((valueTime));
       fetch("http://localhost:5000/", {
         method: "POST",
         body: JSON.stringify({
@@ -88,14 +64,14 @@ function AddTask() {
             : null,
           reward: e.target["reward"].value,
           resources: e.target["resources"].value,
-          by_time: dayjs(valueTime).format("HH:mm"),
-          by_day: dayjs(valueDate).format("YYYY-MM-DD"),
+          by_time: valueTime,
+          by_day: valueDate,
         }),
         headers: {
           "Content-Type": "application/json",
         },
       });
-      window.location.reload(false);
+      // window.location.reload(false);
     }
     // setData([...data, object]); // Append Object Using Spread Operator
     // After submitting, clear all inputs

@@ -3,7 +3,7 @@ import EditImg from "../Assets/img/icons8-edit(1).svg";
 import ScheduleImg from "../Assets/img/schedule.svg";
 
 const Pans = (props) => {
-  console.log(props.data);
+  // console.log(props.data);
   return (
     <>
       {props.data.map((task, index) => {
