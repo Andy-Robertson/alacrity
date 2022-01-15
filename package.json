@@ -1,0 +1,26 @@
+{
+  "name": "alacrity",
+  "version": "1.0.0",
+  "description": "Anti-procrastination app that consistently forces you forward.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd server && npm install && npm start",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "engines": {
+    "npm": "8.3.0",
+    "node": "14.18.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andy-Robertson/alacrity.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andy-Robertson/alacrity/issues"
+  },
+  "homepage": "https://github.com/Andy-Robertson/alacrity#readme"
+}

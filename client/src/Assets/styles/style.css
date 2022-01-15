@@ -57,15 +57,30 @@ main {
   margin: 0;
 }
 
+.right-sidebar ul {
+  grid-row: 2;
+  justify-self: center;
+  align-self: center;
+  list-style: none;
+  text-align: center;
+}
+.right-sidebar li {
+  margin-right: 50px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
 .img-circular {
-  width: 80px;
-  height: 80px;
-  background-image: url("/src/Assets/img/pexels-olivet-pictures-2691608.jpg");
+  width: 90px;
+  /* height: 100px; */
   background-size: cover;
   display: block;
   border-radius: 50%;
   grid-row: 2;
   justify-self: center;
+  padding: 0.1rem;
+  margin-bottom: 0.5rem;
+  /* border:2px solid #1da0f2b0; */
 }
 
 .btn {
@@ -168,6 +183,101 @@ main {
 
 .wrapper__cards {
   grid-row: 3;
+}
+
+/* Login */
+.login-section {
+  box-shadow: 0.2em 0.4em 3px 1.5px rgba(146, 197, 252, 0.3),
+    -0.2em -0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
+  height: 100vh;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+
+  text-align: center;
+}
+
+.login-btn {
+  font-size: 1.3rem;
+  text-align: center;
+  border-radius: 5px;
+  width: 12rem;
+  height: 2rem;
+  padding: 0.9rem 1.55rem;
+  color: white;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(146, 197, 252, 0.3);
+}
+
+.google-color:hover,
+.google-color:focus {
+  background-color: rgba(255, 0, 0, 0.671);
+}
+
+.google-color {
+  background-color: red;
+}
+
+.github-color {
+  background-color: black;
+}
+
+.github-color:hover {
+  background-color: rgba(0, 0, 0, 0.678);
+}
+
+.facebook-color {
+  background-color: rgb(10, 104, 245);
+}
+
+.facebook-color:hover {
+  background-color: rgba(10, 104, 245, 0.767);
+}
+
+.twitter-color {
+  background-color: #1da1f2;
+}
+
+.twitter-color:hover {
+  background-color: #1da0f2b0;
+}
+
+/* Login animation */
+
+.left-animation {
+  animation: runLeft ease 2s;
+}
+
+@keyframes runLeft {
+  0% {
+    margin-left: -98%;
+  }
+  100% {
+    margin-left: 0%;
+  }
+}
+
+.right-animation {
+  animation: runRight ease 2s;
+}
+
+@keyframes runRight {
+  100% {
+    margin-right: 0%;
+  }
+  0% {
+    margin-right: -98%;
+  }
 }
 
 /* cards */

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Form from "./AddTask/Form";
 
-const Popup = props => {
+const Popup = (props) => {
     return (
         <div className="popup-box">
             <div className="box">

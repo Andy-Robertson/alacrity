@@ -1,30 +1,55 @@
-const express = require("express");
+// Set server address, port and required packages.
+const PORT = parseInt(process.env.PORT || "5000");
+const path = require("path");
+const Keygrip = require("keygrip");
+const passport = require("passport");
 const cors = require("cors");
-const { Pool } = require("pg");
-
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "alacritydb",
-  password: "Abdulrahman123",
-  port: 5432,
-});
+const cookieSession = require("cookie-session");
+const express = require("express");
+const routes = require("./routes/routes");
+const authRoutes = require("./routes/authRoutes");
+require("./authentication/passportConfig");
+require("./data/postgresConfig");
 
 const app = express();
 const PORT = parseInt(process.env.PORT || "5000");
 
-app.use(cors());
-app.use(express.json());
-app.use(function (req, res, next) {
-  console.log(
-    "Method: " + req.method + "," + "Path: " + req.path + "," + "IP: " + req.ip
-  );
-  next();
-});
-
 // Data from database
 //title/subject_name,desc/subject_comment from subjects table,
 //time/complete_by  from schedules
+// Enable trust proxy required due to X-forward headers during authentication.
+if (process.env.WORKING_ENVIRONMENT === "production") app.enable("trust proxy");
+
+// Production / Development environment selection.
+const CLIENT_URL = (
+  process.env.WORKING_ENVIRONMENT === "production"
+    ? "https://alacrity-focus.herokuapp.com"
+    : "http://localhost:3000"
+);
+
+// Serve client files from the build folder.
+app.use(express.static(path.join(__dirname, "../client/build")));
+
+// Configure session cookies with 24hr expiration and random keys.
+app.use(
+  cookieSession({
+    name: "session",
+    keys: new Keygrip(["key1", "key2"], "SHA384"),
+    maxAge: 24 * 60 * 60 * 100,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(
+  cors({
+    origin: CLIENT_URL,
+    methods: "GET, POST, PUT, DELETE",
+    credentials: true,
+  })
+);
+
+app.use("/auth", authRoutes);
 
 app.get("/", (req, res) => {
   pool
@@ -65,9 +90,10 @@ app.post("/", (req, res) => {
           ])
           .catch((e) => console.error(e));
     })
-    .catch((e) => console.error(e));
+    .catch((e) => console.error(e))});
+// Start alacrity server
+const server = app.listen(PORT, (err) => {
+  err
+    ? console.log(`Error: ${err}`)
+    : console.log(`Alacrity server is now gravitating on Port: ${PORT}`);
 });
-
-app.listen(PORT, () =>
-  console.log(`Alacrity server now gravitating on http://localhost:${PORT}`)
-);

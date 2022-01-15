@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Tabs from "../Components/Tabs";
 // import TasksData from "../Assets/data/cards_data.json";
 
-
 const Middle = () => {
     const [TasksData, setTasksData] = useState([]);
     useEffect(() => {

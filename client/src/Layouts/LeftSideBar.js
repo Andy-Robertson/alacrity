@@ -1,21 +1,20 @@
 import React from "react";
-import Logo from '../Assets/img/logo.svg';
-import DashBoardImg from '../Assets/img/dashboard-24.png';
-import PieChartImg from '../Assets/img/pie-chart-24.png';
-import SettingsImg from '../Assets/img/settings-24.png';
+import Logo from "../Assets/img/logo.svg";
+import DashBoardImg from "../Assets/img/dashboard-24.png";
+import PieChartImg from "../Assets/img/pie-chart-24.png";
+import SettingsImg from "../Assets/img/settings-24.png";
 
-const LeftSideBar = () => {
-    return (
-        <aside className="left-sidebar">
-            {/* {console.log(DashBoardImg)} */}
-        <img src={Logo} alt="logo"></img>
-        <div className="items">
+const LeftSideBar = ({ user }) => {
+  return (
+    <aside className="left-sidebar">
+      <img src={Logo} alt="logo"></img>
+      {user && (
+        <div className="items left-animation">
           <div>
             <a href="#left-sidebar">
               <img src={DashBoardImg} alt="dashboard logo"></img>
               <span>Dashboard</span>
             </a>
-  
           </div>
           <div>
             <a href="#">
@@ -30,8 +29,9 @@ const LeftSideBar = () => {
             </a>
           </div>
         </div>
-      </aside>
-    );
-}
+      )}
+    </aside>
+  );
+};
 
 export default LeftSideBar;
