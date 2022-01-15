@@ -11,11 +11,9 @@ import RightSideBar from "./Layouts/RightSideBar";
 import Login from "./Layouts/Login";
 
 // Production / Development environment selection.
-const SERVER_URL = (
-  process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
+const SERVER_URL = (process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
     ? "https://alacrity-focus.herokuapp.com"
-    : "http://localhost:5000"
-);
+    : "http://localhost:5000");
 
 function App() {
   const [user, setUser] = useState(null);
@@ -65,7 +63,13 @@ function App() {
           />
           <Route
             path="/action"
-            element={user ? <Middle user={user} /> : <Navigate to="/" />}
+            element={
+              user ? (
+                <Middle user={user} SERVER_URL={SERVER_URL} />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
           />
           <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
         </Routes>

@@ -28,11 +28,11 @@ const Tabs = (props) => {
     });
     console.log( todayData);
     const [activeList, setActiveList] = useState(todayData);
-    const [activeTab, setActiveTab] = useState(dateToday);
+    // const [activeTab, setActiveTab] = useState(dateToday);
 
     function handleClick(e, newAtiveTab, newList) {
         e.preventDefault();
-        setActiveTab(newAtiveTab);
+        // setActiveTab(newAtiveTab);
         setActiveList(newList);
     }
     // console.log(activeTab);

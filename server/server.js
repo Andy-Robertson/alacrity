@@ -9,11 +9,10 @@ const express = require("express");
 const routes = require("./routes/routes");
 const authRoutes = require("./routes/authRoutes");
 require("./authentication/passportConfig");
-require("./data/postgresConfig");
+const pool = require("./data/postgresConfig");
+
 
 const app = express();
-const PORT = parseInt(process.env.PORT || "5000");
-
 // Data from database
 //title/subject_name,desc/subject_comment from subjects table,
 //time/complete_by  from schedules
