@@ -49,7 +49,7 @@ function AddTask() {
       alert("SubTask has to be filled");
     } else {
       console.log((valueTime));
-      fetch("http://localhost:5000/", {
+      fetch("/api/tasks", {
         method: "POST",
         body: JSON.stringify({
           task_subject: e.target["taskSubject"].value,
@@ -135,10 +135,10 @@ function AddTask() {
             <div className="plus-container">
               <button
                 onClick={handleAddInput}
-                class="btn-plus"
+                className="btn-plus"
               >
                 <i
-                  class="fa fa-plus"
+                  className="fa fa-plus"
                 ></i>
               </button>
             </div>

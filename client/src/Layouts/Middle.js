@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import Tabs from "../Components/Tabs";
 // import TasksData from "../Assets/data/cards_data.json";
 
-const Middle = ({ SERVER_URL }) => {
+const Middle = ({ user }) => {
   const [TasksData, setTasksData] = useState([]);
   useEffect(() => {
-    fetch(SERVER_URL)
+    fetch("/api/tasks")
       .then((res) => res.json())
       .then((data) => {
         // console.log( data);
@@ -17,7 +17,7 @@ const Middle = ({ SERVER_URL }) => {
     // Start of wrapper setion
     <section className="wrapper">
       <div className="wrapper__text">
-        <h3>Welcome Back Peter!</h3>
+        <h3>Welcome back {user.displayName}!</h3>
         <h2>You've got 5 tasks today</h2>
       </div>
       {/* Start of wrapper ards div */}

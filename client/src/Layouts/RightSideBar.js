@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import PlusImg from "../Assets/img/plus-math-30.png";
 import PlayImg from "../Assets/img/play.png";
 import Popup from "../Components/Popup";
+import placeholderAvatar from "../Assets/img/avatar-placeholder.png";
 
 const RightSideBar = ({ user, SERVER_URL }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,9 +14,10 @@ const RightSideBar = ({ user, SERVER_URL }) => {
     <aside className="right-sidebar">
       {user && (
         <ul onClick={logout} className="right-animation">
+          {console.log(user.avatar)}
           <li>
             <img
-              src={user.photos[0].value}
+              src={user.avatar ? user.avatar : placeholderAvatar}
               alt=""
               className="img-circular"
             ></img>
