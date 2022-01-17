@@ -57,6 +57,11 @@ const router = (app) => {
       .catch((e) => console.error(e));
   });
 
+  // Catch all - non matching routes sent back to index.html (keep below all other routes and above err handling).
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../client/build/index.html"));
+  });
+
   // Error handling
   app.use((req, res) => {
     res.status(404).json({
