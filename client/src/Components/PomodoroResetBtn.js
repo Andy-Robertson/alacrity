@@ -3,7 +3,10 @@ import { GrPowerReset } from "react-icons/gr";
 
 const PomodoroResetBtn = () => {
   return (
-    <button type="button" className="pomodoro-reset-btn pomodoro-btn">
+    <button
+      type="button"
+      className="pomodoro-reset-btn pomodoro-btn-interaction-reset pomodoro-btn"
+    >
       <span className="btn__text">
         <GrPowerReset />
       </span>

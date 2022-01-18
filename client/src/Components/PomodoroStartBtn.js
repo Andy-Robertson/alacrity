@@ -4,8 +4,11 @@ import { GrPlayFill } from "react-icons/gr";
 
 const PomodoroStartBtn = () => {
   return (
-    <button type="button" className="pomodoro-start-btn pomodoro-btn">
-<GrPlayFill/>
+    <button
+      type="button"
+      className="pomodoro-start-btn pomodoro-btn-interaction pomodoro-btn"
+    >
+      <GrPlayFill />
     </button>
   );
 };

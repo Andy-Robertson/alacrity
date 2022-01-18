@@ -10,7 +10,7 @@ const Pomodoro = () => {
       <span className="pomodoro-time-selector-wrapper">
         <PomodoroTimeBtn btnText={"Focus"} />
         <PomodoroTimeBtn btnText={"Rest"} />
-        <PomodoroTimeBtn btnText={"Long Rest"} />
+        <PomodoroTimeBtn btnText={"Break"} />
       </span>
 
       <PomodoroAnimation />
