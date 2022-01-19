@@ -6,7 +6,7 @@ import { GrPauseFill } from "react-icons/gr";
 import { GrPlayFill } from "react-icons/gr";
 
 const Pomodoro = () => {
-  const [minutes] = useState(25);
+  const [minutes, setMinutes] = useState(25);
   const [seconds] = useState(0);
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
   const [timeLeftInSeconds, setTimeLeftInSeconds] = useState(0);
@@ -61,8 +61,13 @@ const Pomodoro = () => {
 
   const handleTimeSelect = (e) => {
     console.log(e.target.value);
-
-
+    if (e.target.value === "Focus") {
+      setMinutes(25);
+    } else if (e.target.value === "Rest") {
+      setMinutes(5);
+    } else {
+      setMinutes(30);
+    }
   };
 
   return (

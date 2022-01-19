@@ -136,10 +136,13 @@ main {
   justify-self: space-between;
 }
 
-.pomodoro-btn-interaction:hover,
-.pomodoro-btn-interaction:focus {
+.pomodoro-btn-interaction:hover {
   background-color: rgba(147, 197, 252, 0.3);
   cursor: pointer;
+}
+
+.pomodoro-btn-interaction:focus {
+  background-color: rgba(147, 197, 252, 0.3);
 }
 
 .pomodoro-time-selector-wrapper {
@@ -174,11 +177,15 @@ main {
   margin-left: 0.4rem;
 }
 
-.pomodoro-btn-interaction-reset:hover,
-.pomodoro-btn-interaction-reset:focus {
+.pomodoro-btn-interaction-reset:hover {
   background-color: rgba(255, 0, 0, 0.541);
   box-shadow: 0.2em 0.4em 3px 1.5px rgba(255, 0, 0, 0.541);
   cursor: pointer;
+}
+
+.pomodoro-btn-interaction-reset:focus {
+  background-color: rgba(255, 0, 0, 0.541);
+  box-shadow: 0.2em 0.4em 3px 1.5px rgba(255, 0, 0, 0.541);
 }
 
 .pomodoro-startStop-btn {
