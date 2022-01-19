@@ -1,16 +1,16 @@
 import React from "react";
-import { GrPlayFill } from "react-icons/gr";
+import { GrPauseFill } from "react-icons/gr";
 
-const PomodoroStartBtn = ({ startTimer }) => {
+const PomodoroStopBtn = ({ stopTimer }) => {
   return (
     <button
       type="button"
-      onClick={startTimer}
+      onClick={stopTimer}
       className="pomodoro-startStop-btn pomodoro-btn-interaction pomodoro-btn"
     >
-      <GrPlayFill />
+      <GrPauseFill />
     </button>
   );
 };
 
-export default PomodoroStartBtn;
+export default PomodoroStopBtn;

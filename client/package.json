@@ -12,6 +12,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "stop-runaway-react-effects": "^2.0.0",
+    "use-sound": "^4.0.1",
     "web-vitals": "^2.1.2"
   },
   "scripts": {

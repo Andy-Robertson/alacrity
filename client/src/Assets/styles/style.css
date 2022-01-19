@@ -181,7 +181,7 @@ main {
   cursor: pointer;
 }
 
-.pomodoro-start-btn {
+.pomodoro-startStop-btn {
   height: 3rem;
   width: 60%;
 }

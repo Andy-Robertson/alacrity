@@ -1,14 +1,13 @@
 import React from "react";
 
-const PomodoroTimeBtn = ({ btnIcon, btnText }) => {
+const PomodoroTimeBtn = ({ btnText }) => {
   return (
     <button
       type="button"
+      value={btnText}
       className="pomodoro-btn pomodoro-btn-interaction pomodoro-time-btn"
     >
-      <span className="pomodoro-btn-time btnColor">
-        {btnIcon} {btnText}
-      </span>
+      <span className="pomodoro-btn-time btnColor">{btnText}</span>
     </button>
   );
 };
