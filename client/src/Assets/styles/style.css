@@ -183,6 +183,7 @@ main {
 
 .wrapper__cards {
   grid-row: 3;
+  overflow: auto;
 }
 
 /* Login */

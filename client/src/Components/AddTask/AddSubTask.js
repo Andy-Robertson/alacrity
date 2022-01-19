@@ -8,16 +8,13 @@ function AddSubTask(props) {
   };
   return (
     <div key={props.index}>
-      {/* <form onSubmit={submit}> */}
       <input
         type="text"
         name={"sub-task" + props.index}
-        // name='subTaskArray'
         placeholder="Sub Task"
         value={subTask}
         onChange={change}
       />
-      {/* </form> */}
     </div>
   );
 }

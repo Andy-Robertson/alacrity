@@ -21,7 +21,7 @@ function AddTask() {
   const [addInputList, setAddInputList] = useState([]);
   // Date Time Picker Library
   const [valueDate, onChangeDate] = useState(new Date());
-  const [valueTime, onChangeTime] = useState(new Date());
+  const [valueTime, onChangeTime] = useState(new Date().toLocaleString());
   // console.log(dayjs(valueTime).format("HH:mm"));
   // console.log(dayjs(valueDate).format("YYYY-MM-DD"));
   // Change handler function
@@ -52,8 +52,8 @@ function AddTask() {
       fetch("/api/tasks", {
         method: "POST",
         body: JSON.stringify({
-          task_subject: e.target["taskSubject"].value,
-          subject_description: e.target["describe"].value,
+          task_subject: taskSubject,
+          subject_description: describe,
           sub_task_option: toggled,
           sub_tasks: toggled
             ? [e.target["sub-task"].value].concat(
@@ -62,10 +62,10 @@ function AddTask() {
                 })
               )
             : null,
-          reward: e.target["reward"].value,
-          resources: e.target["resources"].value,
+          reward: reward,
+          resources: resources,
           by_time: valueTime,
-          by_day: valueDate,
+          by_date: valueDate,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -80,6 +80,7 @@ function AddTask() {
     setReward("");
     setResources("");
     setSubTask("");
+    setAddInputList([]);
   };
   // console.log(data);
   const handleAddInput = (e, subTask) => {
@@ -129,17 +130,11 @@ function AddTask() {
               <AddSubTask
                 index={index}
                 changeHandler={changeHandler}
-                submitForm={submitForm}
               />
             ))}
             <div className="plus-container">
-              <button
-                onClick={handleAddInput}
-                className="btn-plus"
-              >
-                <i
-                  className="fa fa-plus"
-                ></i>
+              <button onClick={handleAddInput} className="btn-plus">
+                <i className="fa fa-plus"></i>
               </button>
             </div>
           </div>
@@ -175,6 +170,7 @@ function AddTask() {
             onChange={onChangeTime}
             value={valueTime}
             format="HH:mm"
+            minTime={new Date()}
           />
         </div>
         <button type="submit">Submit Task</button>

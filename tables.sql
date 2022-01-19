@@ -15,7 +15,7 @@ CREATE TABLE users (
 
 CREATE TABLE task (
   id                    SERIAL PRIMARY KEY,
-  user_id               INTEGER REFERENCES users(id),
+  user_id               INTEGER NOT NULL,
   task_subject          TEXT NOT NULL,
   subject_description   TEXT,
   reward                TEXT,
@@ -23,9 +23,10 @@ CREATE TABLE task (
   by_time               TIME NOT NULL,
   by_date               DATE NOT NULL,
   sub_task_option       BOOLEAN NOT NULL,
-  sub_tasks             TEXT [] 
+  sub_tasks             TEXT [],
+  FOREIGN KEY (user_id) REFERENCES users(id),
   CONSTRAINT check_sub_task_option 
-   CHECK ( (sub_task_option = true AND sub_tasks IS NOT NULL) OR (sub_task_option = false AND sub_tasks IS NULL))
+  CHECK ( (sub_task_option = true AND sub_tasks IS NOT NULL) OR (sub_task_option = false AND sub_tasks IS NULL))
   -- task_added            TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
