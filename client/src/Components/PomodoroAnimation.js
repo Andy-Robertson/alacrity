@@ -7,7 +7,7 @@ const addDigitPadding = (time) => time.toString().padStart(2, 0);
 const PomodoroAnimation = ({ timeLeftInSeconds, totalTimeInSeconds }) => {
   const minutes = addDigitPadding(Math.floor(timeLeftInSeconds / 60));
   const seconds = addDigitPadding(timeLeftInSeconds - minutes * 60);
-  const percentage = (Math.round((timeLeftInSeconds / totalTimeInSeconds) * 100) / 100);
+  const percentage = Math.round((timeLeftInSeconds / totalTimeInSeconds) * 100) / 100;
 
   return (
     <span className="pomodoro-animation-wrapper">
@@ -15,7 +15,7 @@ const PomodoroAnimation = ({ timeLeftInSeconds, totalTimeInSeconds }) => {
         value={percentage}
         maxValue={1}
         text={`${minutes} : ${seconds}`}
-        strokeWidth={6}
+        strokeWidth={5}
         counterClockwise
         styles={buildStyles({
           textColor: "#000000",

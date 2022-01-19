@@ -38,11 +38,7 @@ const RightSideBar = ({ user, SERVER_URL }) => {
         </button>
       )}
 
-      {user && (
-
-<Pomodoro />
-
-      )}
+      {user && <Pomodoro />}
 
       {isOpen && <Popup close={setIsOpen} />}
     </aside>

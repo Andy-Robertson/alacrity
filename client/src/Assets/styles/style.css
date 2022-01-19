@@ -183,11 +183,6 @@ main {
   cursor: pointer;
 }
 
-.pomodoro-btn-interaction-reset:focus {
-  background-color: rgba(255, 0, 0, 0.541);
-  box-shadow: 0.2em 0.4em 3px 1.5px rgba(255, 0, 0, 0.541);
-}
-
 .pomodoro-startStop-btn {
   height: 3rem;
   width: 60%;
@@ -203,11 +198,8 @@ main {
 }
 
 .pomodoro-time-btn-active {
- background-color: rgba(147, 197, 252, 0.3);
+  background-color: rgba(147, 197, 252, 0.3);
 }
-
-
-
 
 /* Middle content */
 
@@ -317,7 +309,11 @@ main {
 /* Login animation */
 
 .left-animation {
-  animation: runLeft ease 2s;
+  animation: runLeft ease 3s;
+  -webkit-animation: runLeft ease 2s;
+  -moz-animation: runLeft ease 2s;
+  -ms-animation: runLeft ease 2s;
+  -o-animation: runLeft ease 2s;
 }
 
 @keyframes runLeft {
@@ -331,6 +327,10 @@ main {
 
 .right-animation {
   animation: runRight ease 2s;
+  -webkit-animation: runRight ease 2s;
+  -moz-animation: runRight ease 2s;
+  -ms-animation: runRight ease 2s;
+  -o-animation: runRight ease 2s;
 }
 
 @keyframes runRight {

@@ -5,11 +5,11 @@ import { GrPowerReset } from "react-icons/gr";
 import { GrPauseFill } from "react-icons/gr";
 import { GrPlayFill } from "react-icons/gr";
 import workComplete from "../Assets/audio/success-sound-effect.mp3";
-const workCompleteSound = new Audio(workComplete);
 
 const Pomodoro = () => {
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(3); // Set to 3 seconds for testing.
+  const workCompleteSound = new Audio(workComplete);
+  const [minutes, setMinutes] = useState(25);
+  const [seconds, setSeconds] = useState(0);
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
   const [timeLeftInSeconds, setTimeLeftInSeconds] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
@@ -93,7 +93,7 @@ const Pomodoro = () => {
   const ACTIVE = "pomodoro-btn-interaction pomodoro-time-btn pomodoro-time-btn-active";
 
   return (
-    <section className="pomodoro-wrapper ">
+    <section className="pomodoro-wrapper right-animation">
       <span className="pomodoro-time-selector-wrapper">
         <Button
           type={activeMode === "Focus" ? ACTIVE : INACTIVE}
