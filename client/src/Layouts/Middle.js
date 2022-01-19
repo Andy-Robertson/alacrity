@@ -18,7 +18,7 @@ const Middle = ({ user }) => {
     <section className="wrapper">
       <div className="wrapper__text">
         <h3>Welcome back {user.displayName}!</h3>
-        <h2>You've got 5 tasks today</h2>
+        <h2>You've got {TasksData.length} tasks today</h2>
       </div>
       {/* Start of wrapper ards div */}
       <div className="wrapper__cards">
