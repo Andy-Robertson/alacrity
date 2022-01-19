@@ -10,7 +10,7 @@ function AddSubTask(props) {
   return (
     <div key={props.index}>
       {isDelete && (
-        <div>
+        <div className="minus-container">
           <input
             type="text"
             name={"sub-task" + props.index}
@@ -18,7 +18,7 @@ function AddSubTask(props) {
             value={subTask}
             onChange={change}
           />
-          <button onClick={() => setIsDelete(false)}>
+          <button onClick={() => setIsDelete(false)} className="btn-minus">
             <i className="fa fa-minus"></i>
           </button>
         </div>
