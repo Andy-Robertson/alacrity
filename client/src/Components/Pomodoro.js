@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import PomodoroAnimation from "./PomodoroAnimation";
-import PomodoroResetBtn from "./PomodoroResetBtn";
-import PomodoroStartBtn from "./PomodoroStartBtn";
-import PomodoroStopBtn from "./PomodoroStopBtn";
-import PomodoroTimeBtn from "./PomodoroTimeBtn";
+import Button from "./button";
+import { GrPowerReset } from "react-icons/gr";
+import { GrPauseFill } from "react-icons/gr";
+import { GrPlayFill } from "react-icons/gr";
 
 const Pomodoro = () => {
   const [minutes] = useState(25);
@@ -21,14 +21,13 @@ const Pomodoro = () => {
     setTimeLeftInSeconds(totalTimeInSeconds);
   }, [totalTimeInSeconds]);
 
-  const startTimer = () => {
+  const handleStartTimer = () => {
     // Prevent multiple intervals.
     if (interval.current !== null) {
       return;
     }
 
     setTimerActive(true);
-
     interval.current = setInterval(() => {
       setTimeLeftInSeconds((timeLeftInSeconds) => {
         if (timeLeftInSeconds >= 1) {
@@ -40,7 +39,7 @@ const Pomodoro = () => {
     }, 1000);
   };
 
-  const stopTimer = () => {
+  const handleStopTimer = () => {
     //Prevent multiple clear intervals.
     if (interval.current === null) {
       return;
@@ -53,19 +52,42 @@ const Pomodoro = () => {
     interval.current = null;
   };
 
-  const resetTimer = () => {
+  const handleResetTimer = () => {
     setTimerActive(false);
     clearInterval(interval.current);
     interval.current = null;
     setTimeLeftInSeconds(totalTimeInSeconds);
   };
 
+  const handleTimeSelect = (e) => {
+    console.log(e.target.value);
+
+
+  };
+
   return (
     <section className="pomodoro-wrapper ">
       <span className="pomodoro-time-selector-wrapper">
-        <PomodoroTimeBtn btnText={"Focus"} />
-        <PomodoroTimeBtn btnText={"Rest"} />
-        <PomodoroTimeBtn btnText={"Break"} />
+        <Button
+          type={"pomodoro-btn-interaction pomodoro-time-btn"}
+          handleClick={handleTimeSelect}
+          children={"Focus"}
+          value={"Focus"}
+        />
+
+        <Button
+          type={"pomodoro-btn-interaction pomodoro-time-btn"}
+          handleClick={handleTimeSelect}
+          children={"Rest"}
+          value={"Rest"}
+        />
+
+        <Button
+          type={"pomodoro-btn-interaction pomodoro-time-btn"}
+          handleClick={handleTimeSelect}
+          children={"Break"}
+          value={"Break"}
+        />
       </span>
 
       <PomodoroAnimation
@@ -74,10 +96,27 @@ const Pomodoro = () => {
       />
 
       <span className="pomodoro-start-reset-wrapper">
-        {!timerActive && <PomodoroStartBtn startTimer={startTimer} />}
-        {timerActive && <PomodoroStopBtn stopTimer={stopTimer} />}
+        {!timerActive && (
+          <Button
+            type={"pomodoro-startStop-btn pomodoro-btn-interaction"}
+            handleClick={handleStartTimer}
+            children={<GrPlayFill />}
+          />
+        )}
 
-        <PomodoroResetBtn resetTimer={resetTimer} />
+        {timerActive && (
+          <Button
+            type={"pomodoro-startStop-btn pomodoro-btn-interaction"}
+            handleClick={handleStopTimer}
+            children={<GrPauseFill />}
+          />
+        )}
+
+        <Button
+          type={"pomodoro-reset-btn pomodoro-btn-interaction-reset"}
+          handleClick={handleResetTimer}
+          children={<GrPowerReset />}
+        />
       </span>
     </section>
   );
