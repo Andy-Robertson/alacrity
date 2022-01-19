@@ -202,6 +202,12 @@ main {
   height: 100%;
 }
 
+.pomodoro-time-btn-active {
+ background-color: rgba(147, 197, 252, 0.3);
+}
+
+
+
 
 /* Middle content */
 
