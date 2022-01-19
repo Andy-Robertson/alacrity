@@ -4,14 +4,25 @@ import Button from "./button";
 import { GrPowerReset } from "react-icons/gr";
 import { GrPauseFill } from "react-icons/gr";
 import { GrPlayFill } from "react-icons/gr";
+import workComplete from "../Assets/audio/success-sound-effect.mp3";
+const workCompleteSound = new Audio(workComplete);
 
 const Pomodoro = () => {
-  const [minutes, setMinutes] = useState(25);
-  const [seconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(3); // Set to 3 seconds for testing.
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
   const [timeLeftInSeconds, setTimeLeftInSeconds] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
+  const [pomodoroSessionEnded, setPomodoroSessionEnded] = useState(false);
   const interval = useRef(null);
+
+  useEffect(() => {
+    if (pomodoroSessionEnded) {
+      workCompleteSound.play();
+    } else {
+      return null;
+    }
+  }, [pomodoroSessionEnded]);
 
   useEffect(() => {
     setTotalTimeInSeconds(minutes * 60 + seconds);
@@ -31,8 +42,10 @@ const Pomodoro = () => {
     interval.current = setInterval(() => {
       setTimeLeftInSeconds((timeLeftInSeconds) => {
         if (timeLeftInSeconds >= 1) {
+          setPomodoroSessionEnded(false);
           return timeLeftInSeconds - 1;
         } else {
+          setPomodoroSessionEnded(true);
           return 0;
         }
       });
@@ -60,13 +73,16 @@ const Pomodoro = () => {
   };
 
   const handleTimeSelect = (e) => {
-    console.log(e.target.value);
     if (e.target.value === "Focus") {
+
       setMinutes(25);
+      setSeconds(0);
     } else if (e.target.value === "Rest") {
       setMinutes(5);
+      setSeconds(0);
     } else {
       setMinutes(30);
+      setSeconds(0);
     }
   };
 
