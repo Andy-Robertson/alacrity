@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddSubTask from "./AddSubTask";
 import Toggle from "./Toggle";
 import DatePicker from "react-date-picker";
@@ -22,8 +22,9 @@ function AddTask() {
   // Date Time Picker Library
   const [valueDate, onChangeDate] = useState(new Date());
   const [valueTime, onChangeTime] = useState(new Date().toLocaleString());
-  // console.log(dayjs(valueTime).format("HH:mm"));
-  // console.log(dayjs(valueDate).format("YYYY-MM-DD"));
+  useEffect(() => {
+    return 0;
+  }, [addInputList]);
   // Change handler function
   const changeHandler = (e) => {
     // each subTask will have a unique index so we can distinguesh between them
@@ -40,10 +41,22 @@ function AddTask() {
       setSubTask(e.target.value);
     }
   };
-  const listHandler = (e, index, subTask) => {
+  // Functions for sub task array
+  const listHandler = (e, index, subTask) => { // function to add the element of subtask to the array
     e.preventDefault();
     const list = [...addInputList];
     list[index] = subTask;
+    setAddInputList(list);
+  };
+  const handleAddInput = (e) => { // function to add a field for subtask with initial empty string
+    e.preventDefault(); // To prevent submit from the subTask button
+    setAddInputList([...addInputList, ""]);
+  };
+  const deleteHandlerFromList = (e, index) => { // function to delete the element of subtask from the array
+    e.preventDefault();
+    console.log(index);
+    const list = [...addInputList];
+    list.splice(index, 1);
     setAddInputList(list);
   };
   // Form function
@@ -82,11 +95,7 @@ function AddTask() {
     setSubTask("");
     setAddInputList([]);
   };
-  // console.log(data);
-  const handleAddInput = (e) => {
-    e.preventDefault(); // To prevent submit from the subTask button
-    setAddInputList([...addInputList, ""]);
-  };
+  console.log(addInputList);
   return (
     <div>
       <form className="form" onSubmit={submitForm}>
@@ -126,7 +135,12 @@ function AddTask() {
               />
             </div>
             {addInputList.map((sub, index) => (
-              <AddSubTask index={index} listHandler={listHandler} />
+              <AddSubTask
+                value={sub}
+                index={index}
+                listHandler={listHandler}
+                deleteHandlerFromList={deleteHandlerFromList}
+              />
             ))}
             <div className="plus-container">
               <button onClick={handleAddInput} className="btn-plus">
@@ -166,7 +180,7 @@ function AddTask() {
             onChange={onChangeTime}
             value={valueTime}
             format="HH:mm"
-            minTime={new Date()}
+            minTime={new Date().toLocaleString()}
           />
         </div>
         <button type="submit">Submit Task</button>
