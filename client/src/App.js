@@ -51,6 +51,50 @@ function App() {
     getUser();
   }, []);
 
+  // Update db with custom user time settings.
+  useEffect(() => {
+    fetch(`${SERVER_URL}/settings`, {
+      method: "PUT",
+      body: JSON.stringify({
+        pom_min_setting: minutes,
+        pom_sec_setting: seconds,
+      }),
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    });
+  }, [minutes, seconds]);
+
+  // Update state with user settings when authenticated on load.
+  useEffect(() => {
+    fetch(`${SERVER_URL}/settings`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Unable to fetch user settings");
+        }
+      })
+      .then((result) => {
+        setMinutes(result.pom_min_setting);
+        setSeconds(result.pom_sec_setting);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [user]);
+
   return (
     <main>
       <GlobalContext.Provider
