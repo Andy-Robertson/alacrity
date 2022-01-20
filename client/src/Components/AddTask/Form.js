@@ -40,6 +40,12 @@ function AddTask() {
       setSubTask(e.target.value);
     }
   };
+  const listHandler = (e, index, subTask) => {
+    e.preventDefault();
+    const list = [...addInputList];
+    list[index] = subTask;
+    setAddInputList(list);
+  };
   // Form function
   const submitForm = (e) => {
     e.preventDefault();
@@ -48,20 +54,14 @@ function AddTask() {
     } else if (toggled && subTask.length === 0) {
       alert("SubTask has to be filled");
     } else {
-      console.log((valueTime));
+      console.log(valueTime);
       fetch("/api/tasks", {
         method: "POST",
         body: JSON.stringify({
           task_subject: taskSubject,
           subject_description: describe,
           sub_task_option: toggled,
-          sub_tasks: toggled
-            ? [e.target["sub-task"].value].concat(
-                addInputList.map((i, index) => {
-                  return e.target[`sub-task${index}`].value;
-                })
-              )
-            : null,
+          sub_tasks: toggled ? [subTask].concat(addInputList): null,
           reward: reward,
           resources: resources,
           by_time: valueTime,
@@ -83,10 +83,9 @@ function AddTask() {
     setAddInputList([]);
   };
   // console.log(data);
-  const handleAddInput = (e, subTask) => {
+  const handleAddInput = (e) => {
     e.preventDefault(); // To prevent submit from the subTask button
-    setAddInputList(addInputList.concat(subTask)); // When ever we click on the button we create a new undefined element that will help us to create a new input field depending on the number of elements (The number of click)
-    // console.log(subTask);
+    setAddInputList([...addInputList, ""]);
   };
   return (
     <div>
@@ -127,10 +126,7 @@ function AddTask() {
               />
             </div>
             {addInputList.map((sub, index) => (
-              <AddSubTask
-                index={index}
-                changeHandler={changeHandler}
-              />
+              <AddSubTask index={index} listHandler={listHandler} />
             ))}
             <div className="plus-container">
               <button onClick={handleAddInput} className="btn-plus">
