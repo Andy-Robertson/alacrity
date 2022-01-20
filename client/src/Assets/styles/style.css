@@ -201,6 +201,11 @@ main {
   background-color: rgba(147, 197, 252, 0.3);
 }
 
+.pomodoro-settings-container {
+  display: flex;
+  align-items: center;
+}
+
 /* Middle content */
 
 .wrapper {
@@ -475,6 +480,7 @@ footer time {
   height: 100vh;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 .box {
@@ -514,8 +520,13 @@ footer time {
   margin: 1em 0;
 }
 
-.form input[type="text"] {
-  width: 100%;
+/* Same as ./form > div  */
+.form-spacing {
+  margin: 1em;
+}
+
+.form input[type="text"],
+.form input[type="number"] {
   width: 100%;
   border-radius: 1em;
   border-color: var(--olor-light);
@@ -523,6 +534,10 @@ footer time {
   outline: none;
   border: none;
   box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
+}
+
+.form input[type="number"] {
+  width: 100%;
 }
 
 /* Toggle */
@@ -572,4 +587,29 @@ footer time {
   border-radius: 50%;
   top: 2px;
   left: 3px;
+}
+
+/* Settings */
+
+.settings-popup-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 3rem;
+  width: 12rem;
+  background-color: rgba(147, 197, 252, 0.4);
+  border-radius: 1em;
+  border-color: var(--olor-light);
+  height: 2em;
+  padding: 0.4rem 0 0 0;
+  margin-left: 1rem;
+  outline: 0;
+  border: 0;
+  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
+}
+
+.settings-popup-btn:hover {
+  cursor: pointer;
+  background-color: rgba(147, 198, 252, 0.26);
 }

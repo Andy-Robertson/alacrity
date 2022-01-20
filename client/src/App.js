@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { GlobalContext } from "./Contexts/GlobalContext";
 // Assets
 import "./Assets/styles/main.css";
 import "./Assets/styles/normalize.css";
@@ -19,6 +20,8 @@ const SERVER_URL = (
 
 function App() {
   const [user, setUser] = useState(null);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
     const getUser = () => {
@@ -50,27 +53,31 @@ function App() {
 
   return (
     <main>
-      <LeftSideBar user={user} />
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              user ? (
-                <Navigate to="/action" />
-              ) : (
-                <Login SERVER_URL={SERVER_URL} />
-              )
-            }
-          />
-          <Route
-            path="/action"
-            element={user ? <Middle user={user} /> : <Navigate to="/" />}
-          />
-          <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
-        </Routes>
-      </BrowserRouter>
-      <RightSideBar user={user} SERVER_URL={SERVER_URL} />
+      <GlobalContext.Provider
+        value={{ minutes, setMinutes, seconds, setSeconds }}
+      >
+        <LeftSideBar user={user} />
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                user ? (
+                  <Navigate to="/action" />
+                ) : (
+                  <Login SERVER_URL={SERVER_URL} />
+                )
+              }
+            />
+            <Route
+              path="/action"
+              element={user ? <Middle user={user} /> : <Navigate to="/" />}
+            />
+            <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
+          </Routes>
+        </BrowserRouter>
+        <RightSideBar user={user} SERVER_URL={SERVER_URL} />
+      </GlobalContext.Provider>
     </main>
   );
 }

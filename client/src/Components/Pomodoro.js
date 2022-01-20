@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import PomodoroAnimation from "./PomodoroAnimation";
 import Button from "./button";
 import { GrPowerReset, GrPauseFill, GrPlayFill } from "react-icons/gr";
 import workComplete from "../Assets/audio/success-sound-effect.mp3";
+import { GlobalContext } from "../Contexts/GlobalContext";
 
 const Pomodoro = () => {
   const workCompleteSound = new Audio(workComplete);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(5);
+  const { seconds, setSeconds, minutes, setMinutes } = useContext(GlobalContext);
+
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
   const [timeLeftInSeconds, setTimeLeftInSeconds] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
