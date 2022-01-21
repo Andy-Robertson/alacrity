@@ -12,16 +12,14 @@ import RightSideBar from "./Layouts/RightSideBar";
 import Login from "./Layouts/Login";
 
 // Production / Development environment selection.
-const SERVER_URL = (
-  process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
+const SERVER_URL = process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
     ? "https://alacrity-focus.herokuapp.com"
-    : "http://localhost:5000"
-);
+    : "http://localhost:5000";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(null);
+  const [seconds, setSeconds] = useState(null);
 
   useEffect(() => {
     const getUser = () => {
@@ -45,55 +43,48 @@ function App() {
           setUser(resObject.user);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     };
     getUser();
   }, []);
 
-  // Update db with custom user time settings.
-  useEffect(() => {
-    fetch(`${SERVER_URL}/settings`, {
-      method: "PUT",
-      body: JSON.stringify({
-        pom_min_setting: minutes,
-        pom_sec_setting: seconds,
-      }),
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    });
-  }, [minutes, seconds]);
-
   // Update state with user settings when authenticated on load.
   useEffect(() => {
-    fetch(`${SERVER_URL}/settings`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Credentials": true,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error("Unable to fetch user settings");
-        }
+      fetch(`${SERVER_URL}/settings`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       })
-      .then((result) => {
-        setMinutes(result.pom_min_setting);
-        setSeconds(result.pom_sec_setting);
-      })
-      .catch((err) => {
-        console.log(err);
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw new Error("Unable to fetch user settings");
+          }
+        })
+        .then((result) => {
+          console.log(result);
+          setMinutes(parseInt(result.pom_minutes));
+          setSeconds(parseInt(result.pom_seconds));
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+  }, []);
+
+  // Update db with user time settings.
+  useEffect(() => {
+    if (minutes !== null && seconds !== null) {
+      fetch(`${SERVER_URL}/settings`, {
+        method: "PUT",
+        body: JSON.stringify({
+          pom_minutes: minutes,
+          pom_seconds: seconds,
+        }),
+        headers: { "Content-Type": "application/json" },
       });
-  }, [user]);
+    }
+  }, [minutes, seconds]);
 
   return (
     <main>

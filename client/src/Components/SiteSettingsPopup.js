@@ -1,18 +1,17 @@
-// import React, { useState } from "react";
 import SiteSettingsPomodoro from "./SiteSettingsPomodoro";
 
-const Popup = (props) => {
+const SiteSettingsPopup = (props) => {
   return (
-    <div className="popup-box">
+    <div className="popup-box" >
       <div className="box">
         <span className="close-icon" onClick={() => props.close(false)}>
           x
         </span>
         <h2>Settings</h2>
-        <SiteSettingsPomodoro />
+        <SiteSettingsPomodoro props={props}/>
       </div>
     </div>
   );
 };
 
-export default Popup;
+export default SiteSettingsPopup;

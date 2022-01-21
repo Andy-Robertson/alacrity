@@ -11,6 +11,7 @@ const SiteSettingsPomodoro = () => {
 
     setMinutes(parseInt(formMinutes));
     setSeconds(parseInt(formSeconds));
+
   };
 
   const handleTimeChange = (e) => {
@@ -42,7 +43,7 @@ const SiteSettingsPomodoro = () => {
             />
           </div>
           <button className="settings-popup-btn" type="submit">
-            Update Time
+            Save
           </button>
         </div>
       </form>

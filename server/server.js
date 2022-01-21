@@ -22,6 +22,9 @@ const CLIENT_URL = (
     : "http://localhost:3000"
 );
 
+
+app.use(express.json());
+
 // Serve client files from the build folder.
 app.use(express.static(path.join(__dirname, "../client/build")));
 
