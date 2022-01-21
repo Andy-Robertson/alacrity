@@ -23,7 +23,10 @@ const SiteSettingsPomodoro = () => {
   return (
     <section>
       <h3>Pomodoro</h3>
-      <form className="form" onSubmit={setCustomPomodoroTime}>
+      <form
+        className="form"
+        onSubmit={setCustomPomodoroTime}
+      >
         <div className="form-pomodoro pomodoro-settings-container">
           <div className="form-spacing">
             <input

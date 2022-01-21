@@ -12,7 +12,7 @@ const Pomodoro = () => {
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
   const [timeLeftInSeconds, setTimeLeftInSeconds] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
-  const [activeMode, setActiveMode] = useState("Focus");
+  const [activeMode, setActiveMode] = useState("custom");
   const [pomodoroSessionEnded, setPomodoroSessionEnded] = useState(false);
   const interval = useRef(null);
 

@@ -28,6 +28,7 @@ const LeftSideBar = ({ user }) => {
             onClick={() => {
               setSettingsIsOpen(true);
             }}
+            className="settings-btn"
           >
             <img src={SettingsImg} alt="settings logo"></img>
             <span>Settings</span>

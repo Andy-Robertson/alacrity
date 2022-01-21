@@ -51,25 +51,25 @@ function App() {
 
   // Update state with user settings when authenticated on load.
   useEffect(() => {
-      fetch(`${SERVER_URL}/settings`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
+    fetch(`${SERVER_URL}/settings`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Unable to fetch user settings");
+        }
       })
-        .then((response) => {
-          if (response.status === 200) {
-            return response.json();
-          } else {
-            throw new Error("Unable to fetch user settings");
-          }
-        })
-        .then((result) => {
-          console.log(result);
-          setMinutes(parseInt(result.pom_minutes));
-          setSeconds(parseInt(result.pom_seconds));
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      .then((result) => {
+        console.log(result);
+        setMinutes(parseInt(result.pom_minutes));
+        setSeconds(parseInt(result.pom_seconds));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   // Update db with user time settings.
@@ -89,7 +89,12 @@ function App() {
   return (
     <main>
       <GlobalContext.Provider
-        value={{ minutes, setMinutes, seconds, setSeconds }}
+        value={{
+          minutes,
+          setMinutes,
+          seconds,
+          setSeconds,
+        }}
       >
         <LeftSideBar user={user} />
         <BrowserRouter>
