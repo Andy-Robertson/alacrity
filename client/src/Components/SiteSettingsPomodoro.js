@@ -27,18 +27,22 @@ const SiteSettingsPomodoro = () => {
         <div className="form-pomodoro pomodoro-settings-container">
           <div className="form-spacing">
             <input
-              type="number"
+              type="text"
               name="set-minutes"
               placeholder="Minutes"
+              maxLength="2"
+              pattern="[0-9]+"
               onChange={(e) => handleTimeChange(e)}
             />
           </div>
 
           <div className="form-spacing">
             <input
-              type="number"
+              type="text"
               name="set-seconds"
               placeholder="Seconds"
+              maxLength="2"
+              pattern="[0-9]+"
               onChange={(e) => handleTimeChange(e)}
             />
           </div>
