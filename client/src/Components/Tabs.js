@@ -2,67 +2,68 @@ import React, { useState, useEffect } from "react";
 import Pans from "./Pans";
 
 const Tabs = (props) => {
-  // console.log(props.data)
-  const date = new Date();
-  const dateToday = date.getDate();
-  const [todayData, setTodayData] = useState([]);
-  const [tomorwData, setTomorwData] = useState([]);
-  const [laterData, setLaterData] = useState([]);
+    const [data, setData] = useState(props.data);
+    const todayDate = new Date().getDate();
+    const [isToday, setIsToday] = useState(true);
+    const [isTmr, setIsTmr] = useState(false);
+    const [isLater, setIsLater] = useState(false);
+    const todayData = data.filter(
+      (ele) => new Date(ele.by_date).getDate() === todayDate
+    );
+    const tmrData = data.filter(
+      (ele) => new Date(ele.by_date).getDate() === todayDate + 1
+    );
+    const laterData = data.filter(
+      (ele) =>
+        new Date(ele.by_date).getDate() !== todayDate + 1
+        && new Date(ele.by_date).getDate() !== todayDate
+    );
+    useEffect(() => {
+        setData(props.data);
+    }, [props.data]);
 
-  const [activeList, setActiveList] = useState(todayData);
-
-  useEffect(() => {
-    const _todayData = [];
-    const _tomorwData = [];
-    const _laterData = [];
-    props.data.map((task) => {
-      let dateToday2 = new Date(task.by_date).getDate();
-      // console.log('date' + dateToday2)
-      if (dateToday2 === dateToday) {
-        _todayData.push(task);
-      } else if (dateToday2 === dateToday + 1) {
-        _tomorwData.push(task);
-      } else {
-        _laterData.push(task);
-      }
-    });
-    console.log(todayData);
-    setTodayData(_todayData);
-    setTomorwData(_tomorwData);
-    setLaterData(_laterData);
-    setActiveList(todayData);
-  }, [props.data, dateToday, todayData]);
-  // const [activeTab, setActiveTab] = useState(dateToday);
-  console.log(todayData, activeList);
-  function handleClick(e, newAtiveTab, newList) {
+  function handleClick(e, taskDate) {
     e.preventDefault();
-    // setActiveTab(newAtiveTab);
-    setActiveList(newList);
+    if (taskDate === "today") {
+      setIsToday(true);
+      setIsTmr(false);
+      setIsLater(false);
+    } else if (taskDate === "tmr") {
+      setIsToday(false);
+      setIsTmr(true);
+      setIsLater(false);
+    } else {
+      setIsToday(false);
+      setIsTmr(false);
+      setIsLater(true);
+    }
   }
-  // console.log(activeTab);
   return (
     <>
       <ul className="tabs">
         <li>
-          <a href="#" onClick={(e) => handleClick(e, dateToday, todayData)}>
+          <a href="#" onClick={(e) => handleClick(e, "today")}>
             Today
           </a>{" "}
         </li>
         <li>
-          <a
-            href="#"
-            onClick={(e) => handleClick(e, dateToday + 1, tomorwData)}
-          >
+          <a href="#" onClick={(e) => handleClick(e, "tmr")}>
             Tomorow
           </a>
         </li>
         <li>
-          <a href="#" onClick={(e) => handleClick(e, dateToday + 2, laterData)}>
+          <a href="#" onClick={(e) => handleClick(e, "later")}>
             Later
           </a>
         </li>
       </ul>
-      <Pans data={activeList} submitComplete={props.submitComplete} />
+      {isToday && (
+        <Pans data={todayData} submitComplete={props.submitComplete} />
+      )}
+      {isTmr && <Pans data={tmrData} submitComplete={props.submitComplete} />}
+      {isLater && (
+        <Pans data={laterData} submitComplete={props.submitComplete} />
+      )}
     </>
   );
 };

@@ -1,15 +1,17 @@
 import React, {  } from "react";
 import Tabs from "../Components/Tabs";
-// import TasksData from "../Assets/data/cards_data.json";
 
 const Middle = ({ user, taskData }) => {
-  // console.log(TasksData);
+  const todayDate = new Date().getDate();
+  const todayData = taskData.filter(
+    (ele) => new Date(ele.by_date).getDate() === todayDate
+  );
   return (
     // Start of wrapper setion
     <section className="wrapper">
       <div className="wrapper__text">
         <h3>Welcome back {user.displayName}!</h3>
-        <h2>You've got {taskData.length} tasks today</h2>
+        <h2>You've got {todayData.length} tasks today</h2>
       </div>
       {/* Start of wrapper ards div */}
       <div className="wrapper__cards">

@@ -17,7 +17,6 @@ const SERVER_URL = (process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
 
 function App() {
   const [user, setUser] = useState(null);
-  // console.log(`userF: ${user.user}`);
   const [TasksData, setTasksData] = useState([]);
   useEffect(() => {
     const getUser = () => {
@@ -48,7 +47,6 @@ function App() {
     fetch("/api/tasks")
       .then((res) => res.json())
       .then((data) => {
-        console.log("useEffect");
         setTasksData(data);
       });
   }, []);
@@ -56,11 +54,9 @@ function App() {
     fetch("/api/tasks")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setTasksData(data);
       });
   };
-  console.log(TasksData);
   return (
     <main>
       <LeftSideBar user={user} />

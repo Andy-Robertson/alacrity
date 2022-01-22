@@ -4,7 +4,6 @@ import ScheduleImg from "../Assets/img/schedule.svg";
 import EditPopUp from "./EditTask/EditPopUp";
 
 const Pans = (props) => {
-  console.log(props.data);
   const [openEditPan, setOpenEditPan] = useState(false);
   return (
     <>

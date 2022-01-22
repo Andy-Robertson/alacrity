@@ -4,8 +4,6 @@ import Toggle from "./Toggle";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
 
-// import * as dayjs from "dayjs";
-
 function AddTask(props) {
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState("");
@@ -25,7 +23,6 @@ function AddTask(props) {
   // Change handler function
   const changeHandler = (e) => {
     // each subTask will have a unique index so we can distinguesh between them
-    // console.log(e.target.name);
     if (e.target.name === "taskSubject") {
       setTaskSubject(e.target.value);
     } else if (e.target.name === "describe") {
@@ -55,7 +52,6 @@ function AddTask(props) {
   const deleteHandlerFromList = (e, index) => {
     // function to delete the element of subtask from the array
     e.preventDefault();
-    console.log(index);
     const list = [...addInputList];
     list.splice(index, 1);
     setAddInputList(list);
@@ -68,7 +64,6 @@ function AddTask(props) {
     } else if (toggled && subTask.length === 0) {
       alert("SubTask has to be filled");
     } else {
-      console.log(valueTime);
       fetch("/api/tasks", {
         method: "POST",
         body: JSON.stringify({
@@ -85,10 +80,8 @@ function AddTask(props) {
           "Content-Type": "application/json",
         },
       }).then(() => {
-        console.log("Hello");
         props.submitComplete();
       });
-      // window.location.reload(false);
     }
     // After submitting, clear all inputs
     setTaskSubject("");
@@ -98,7 +91,6 @@ function AddTask(props) {
     setSubTask("");
     setAddInputList([]);
   };
-  console.log(addInputList);
   return (
     <div>
       <form className="form" onSubmit={(e) => submitForm(e)}>

@@ -3,7 +3,6 @@ import Toggle from "../AddTask/Toggle";
 import AddSubTask from "../AddTask/AddSubTask";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
-// import * as dayjs from "dayjs";
 
 function EditForm({ task, submitComplete }) {
   // useState Variables Input
@@ -28,7 +27,6 @@ function EditForm({ task, submitComplete }) {
   // Change handler function
   const changeHandler = (e) => {
     // each subTask will have a unique index so we can distinguesh between them
-    // console.log(e.target.name);
     if (e.target.name === "taskSubject") {
       setTaskSubject(e.target.value);
     } else if (e.target.name === "describe") {
@@ -52,15 +50,12 @@ function EditForm({ task, submitComplete }) {
   const handleAddInput = (e) => {
     // function to add a field for subtask with initial empty string
     e.preventDefault(); // To prevent submit from the subTask button
-    // const idRandom = Math.floor(Math.random(500)*100);
-    // console.log(idRandom);
     setId([...id, ""]);
     setAddInputList([...addInputList, ""]);
   };
   const deleteHandlerFromList = (e, index) => {
     // function to delete the element of subtask from the array
     e.preventDefault();
-    console.log(index);
     const list = [...addInputList];
     list.splice(index, 1);
     setAddInputList(list);
@@ -73,7 +68,6 @@ function EditForm({ task, submitComplete }) {
     } else if (toggled && subTask.length === 0) {
       alert("SubTask has to be filled");
     } else {
-      // console.log(valueTime);
       fetch("/api/tasks", {
         method: "PUT",
         body: JSON.stringify({
@@ -91,10 +85,8 @@ function EditForm({ task, submitComplete }) {
           "Content-Type": "application/json",
         },
       }).then(() => {
-        console.log("Hello");
         submitComplete();
       });
-      // window.location.reload(false);
     }
     // After submitting, clear all inputs
     setTaskSubject("");
@@ -104,7 +96,6 @@ function EditForm({ task, submitComplete }) {
     setSubTask("");
     setAddInputList([]);
   };
-    console.log(addInputList);
   return (
     <div>
       <form className="form" onSubmit={submitForm}>
