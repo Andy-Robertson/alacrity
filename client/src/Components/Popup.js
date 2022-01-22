@@ -3,9 +3,14 @@ import Toggle from "./Toggle";
 
 const Popup = (props) => {
   const [toggled, setToggled] = useState(false);
+
+    const handlePropagation = (e) => {
+      e.stopPropagation();
+    };
+
   return (
-    <div className="popup-box">
-      <div className="box">
+    <div className="popup-box" onClick={() => props.close(false)}>
+      <div className="box" onClick={(e) => handlePropagation(e)}>
         <span className="close-icon" onClick={() => props.close(false)}>
           x
         </span>

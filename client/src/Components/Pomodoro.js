@@ -6,8 +6,8 @@ import workComplete from "../Assets/audio/success-sound-effect.mp3";
 import { GlobalContext } from "../Contexts/GlobalContext";
 
 const Pomodoro = () => {
-  const workCompleteSound = new Audio(workComplete);
   const { seconds, setSeconds, minutes, setMinutes } = useContext(GlobalContext);
+  const workCompleteSound = new Audio(workComplete);
 
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
   const [timeLeftInSeconds, setTimeLeftInSeconds] = useState(0);
@@ -16,6 +16,7 @@ const Pomodoro = () => {
   const [pomodoroSessionEnded, setPomodoroSessionEnded] = useState(false);
   const interval = useRef(null);
 
+  // Play jingle when timmer hits 00:00
   useEffect(() => {
     if (pomodoroSessionEnded) {
       workCompleteSound.play();
@@ -24,14 +25,13 @@ const Pomodoro = () => {
     }
   }, [pomodoroSessionEnded]);
 
+  // Convert time to seconds & set time left in seconds.
   useEffect(() => {
     setTotalTimeInSeconds(minutes * 60 + seconds);
-  }, [minutes, seconds]);
-
-  useEffect(() => {
     setTimeLeftInSeconds(totalTimeInSeconds);
-  }, [totalTimeInSeconds]);
+  }, [minutes, seconds, totalTimeInSeconds]);
 
+  // Start time interval.
   const handleStartTimer = () => {
     // Prevent multiple intervals.
     if (interval.current !== null) {
@@ -46,12 +46,13 @@ const Pomodoro = () => {
           return timeLeftInSeconds - 1;
         } else {
           setPomodoroSessionEnded(true);
-          return 0;
+          return;
         }
       });
     }, 1000);
   };
 
+  // Clear interval.
   const handleStopTimer = () => {
     //Prevent multiple clear intervals.
     if (interval.current === null) {
@@ -65,6 +66,7 @@ const Pomodoro = () => {
     interval.current = null;
   };
 
+  // Reset interval & clear timer.
   const handleResetTimer = () => {
     setTimerActive(false);
     clearInterval(interval.current);
@@ -72,6 +74,7 @@ const Pomodoro = () => {
     setTimeLeftInSeconds(totalTimeInSeconds);
   };
 
+  // Set pre-defined time sessions.
   const handleTimeSelect = (e) => {
     if (e.target.value === "Focus") {
       setActiveMode("Focus");

@@ -51,7 +51,7 @@ function App() {
 
   // Update state with user settings when authenticated on load.
   useEffect(() => {
-    fetch(`${SERVER_URL}/settings`, {
+    fetch("/api/settings", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
@@ -63,7 +63,6 @@ function App() {
         }
       })
       .then((result) => {
-        console.log(result);
         setMinutes(parseInt(result.pom_minutes));
         setSeconds(parseInt(result.pom_seconds));
       })
@@ -72,10 +71,10 @@ function App() {
       });
   }, []);
 
-  // Update db with user time settings.
+  // Update db with user settings.
   useEffect(() => {
     if (minutes !== null && seconds !== null) {
-      fetch(`${SERVER_URL}/settings`, {
+      fetch("/api/settings", {
         method: "PUT",
         body: JSON.stringify({
           pom_minutes: minutes,
