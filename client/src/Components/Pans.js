@@ -4,7 +4,7 @@ import ScheduleImg from "../Assets/img/schedule.svg";
 import EditPopUp from "./EditTask/EditPopUp";
 
 const Pans = (props) => {
-  // console.log(props.data);
+  console.log(props.data);
   const [openEditPan, setOpenEditPan] = useState(false);
   return (
     <>
@@ -24,7 +24,11 @@ const Pans = (props) => {
                   <img src={EditImg} alt="edit"></img>
                 </a>
                 {openEditPan && (
-                  <EditPopUp task={task} openEditPan={setOpenEditPan} />
+                  <EditPopUp
+                    task={task}
+                    openEditPan={setOpenEditPan}
+                    submitComplete={props.submitComplete}
+                  />
                 )}
                 <img src={ScheduleImg} alt="schedule"></img>
               </span>

@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, {  } from "react";
 import Tabs from "../Components/Tabs";
 // import TasksData from "../Assets/data/cards_data.json";
 
-const Middle = ({ user }) => {
-  const [TasksData, setTasksData] = useState([]);
-  useEffect(() => {
-    fetch("/api/tasks")
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log( data);
-        setTasksData(data);
-      });
-  }, []);
+const Middle = ({ user, taskData }) => {
   // console.log(TasksData);
   return (
     // Start of wrapper setion
     <section className="wrapper">
       <div className="wrapper__text">
         <h3>Welcome back {user.displayName}!</h3>
-        <h2>You've got {TasksData.length} tasks today</h2>
+        <h2>You've got {taskData.length} tasks today</h2>
       </div>
       {/* Start of wrapper ards div */}
       <div className="wrapper__cards">
-        {TasksData.length > 0 && <Tabs data={TasksData} />}
+        {taskData.length > 0 && <Tabs data={taskData} />}
         {/* End of wrapper ards div */}
       </div>
       {/* Start of the bakground div */}

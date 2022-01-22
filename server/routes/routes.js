@@ -65,8 +65,8 @@ pool
             sub_task_option,
             sub_tasks,
           ])
-          .then((result) => {
-            res.status(204);
+          .then(() => {
+            res.sendStatus(204);
           })
           .catch((e) => console.error(e));
       })

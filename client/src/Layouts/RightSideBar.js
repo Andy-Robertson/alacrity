@@ -5,7 +5,7 @@ import PlayImg from "../Assets/img/play.png";
 import Popup from "../Components/Popup";
 import placeholderAvatar from "../Assets/img/avatar-placeholder.png";
 
-const RightSideBar = ({ user, SERVER_URL }) => {
+const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
   const logout = () => {
     window.open(`${SERVER_URL}/auth/logout`, "_self");
@@ -47,7 +47,9 @@ const RightSideBar = ({ user, SERVER_URL }) => {
           </span>
         </button>
       )}
-      {isOpen && <Popup close={setIsOpen} />}
+      {isOpen && (
+        <Popup close={setIsOpen} submitComplete={submitComplete} />
+      )}
     </aside>
   );
 };

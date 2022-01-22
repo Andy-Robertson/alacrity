@@ -3,10 +3,9 @@ import Toggle from "../AddTask/Toggle";
 import AddSubTask from "../AddTask/AddSubTask";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
-import { v4 as uuidv4 } from "uuid";
 // import * as dayjs from "dayjs";
 
-function EditForm({ task }) {
+function EditForm({ task, submitComplete }) {
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState(task.task_subject);
   const [describe, setDescribe] = useState(task.task_describe);
@@ -55,7 +54,7 @@ function EditForm({ task }) {
     e.preventDefault(); // To prevent submit from the subTask button
     // const idRandom = Math.floor(Math.random(500)*100);
     // console.log(idRandom);
-    setId([...id, uuidv4()]);
+    setId([...id, ""]);
     setAddInputList([...addInputList, ""]);
   };
   const deleteHandlerFromList = (e, index) => {
@@ -91,6 +90,9 @@ function EditForm({ task }) {
         headers: {
           "Content-Type": "application/json",
         },
+      }).then(() => {
+        console.log("Hello");
+        submitComplete();
       });
       // window.location.reload(false);
     }
@@ -144,7 +146,7 @@ function EditForm({ task }) {
             {addInputList.map((sub, index) => (
               <AddSubTask
                 value={sub}
-                key={uuidv4(id[index])}
+                key={`add_${id[index]}`}
                 index={index}
                 listHandler={listHandler}
                 deleteHandlerFromList={deleteHandlerFromList}

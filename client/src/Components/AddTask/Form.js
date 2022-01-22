@@ -3,12 +3,10 @@ import AddSubTask from "./AddSubTask";
 import Toggle from "./Toggle";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
-import { v4 as uuidv4 } from "uuid";
+
 // import * as dayjs from "dayjs";
 
-function AddTask() {
-  // data Variables that will be used to store whole data.
-  // const [data, setData] = useState([]);
+function AddTask(props) {
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState("");
   const [describe, setDescribe] = useState("");
@@ -51,9 +49,7 @@ function AddTask() {
   const handleAddInput = (e) => {
     // function to add a field for subtask with initial empty string
     e.preventDefault(); // To prevent submit from the subTask button
-    // const idRandom = Math.floor(Math.random(500)*100);
-    // console.log(idRandom);
-    setId([...id, uuidv4()]);
+    setId([...id, ""]);
     setAddInputList([...addInputList, ""]);
   };
   const deleteHandlerFromList = (e, index) => {
@@ -88,10 +84,12 @@ function AddTask() {
         headers: {
           "Content-Type": "application/json",
         },
+      }).then(() => {
+        console.log("Hello");
+        props.submitComplete();
       });
       // window.location.reload(false);
     }
-    // setData([...data, object]); // Append Object Using Spread Operator
     // After submitting, clear all inputs
     setTaskSubject("");
     setDescribe("");
@@ -103,7 +101,7 @@ function AddTask() {
   console.log(addInputList);
   return (
     <div>
-      <form className="form" onSubmit={submitForm}>
+      <form className="form" onSubmit={(e) => submitForm(e)}>
         <div>
           {/* <label>Task Subject</label> */}
           <input
@@ -143,7 +141,7 @@ function AddTask() {
               {addInputList.map((sub, index) => (
                 <AddSubTask
                   value={sub}
-                  key={uuidv4(id[index])}
+                  key={`add_${id[index]}`}
                   index={index}
                   listHandler={listHandler}
                   deleteHandlerFromList={deleteHandlerFromList}

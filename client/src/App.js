@@ -18,6 +18,7 @@ const SERVER_URL = (process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
 function App() {
   const [user, setUser] = useState(null);
   // console.log(`userF: ${user.user}`);
+  const [TasksData, setTasksData] = useState([]);
   useEffect(() => {
     const getUser = () => {
       fetch(`${SERVER_URL}/auth/login/success`, {
@@ -44,8 +45,22 @@ function App() {
         });
     };
     getUser();
+    fetch("/api/tasks")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("useEffect");
+        setTasksData(data);
+      });
   }, []);
-
+  const submitComplete = () => {
+    fetch("/api/tasks")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setTasksData(data);
+      });
+  };
+  console.log(TasksData);
   return (
     <main>
       <LeftSideBar user={user} />
@@ -65,7 +80,11 @@ function App() {
             path="/action"
             element={
               user ? (
-                <Middle user={user} SERVER_URL={SERVER_URL} />
+                <Middle
+                  user={user}
+                  SERVER_URL={SERVER_URL}
+                  taskData={TasksData || []}
+                />
               ) : (
                 <Navigate to="/" />
               )
@@ -74,7 +93,11 @@ function App() {
           <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
         </Routes>
       </BrowserRouter>
-      <RightSideBar user={user} SERVER_URL={SERVER_URL} />
+      <RightSideBar
+        user={user}
+        SERVER_URL={SERVER_URL}
+        submitComplete={submitComplete}
+      />
     </main>
   );
 }

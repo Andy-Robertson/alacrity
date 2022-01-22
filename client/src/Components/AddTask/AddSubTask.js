@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 
 function AddSubTask(props) {
-  const [subTask, setSubTask] = useState(props.value);
   const change = (e) => {
-    e.preventDefault();
-    setSubTask(e.target.value);
     props.listHandler(e, props.index, e.target.value); // send e (event) and index to the changeHandler function which is in the Form component.
   };
   const deleteHandler = (e, index) => {
@@ -18,9 +15,8 @@ function AddSubTask(props) {
         id={props.index}
         name={"sub-task" + props.index}
         placeholder="Sub Task"
-        value={subTask}
+        value={props.value}
         onChange={change}
-        autoFocus
       />
       <button
         onClick={(e) => deleteHandler(e, props.index)}
