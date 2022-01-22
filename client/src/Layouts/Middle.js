@@ -1,7 +1,7 @@
 import React, {  } from "react";
 import Tabs from "../Components/Tabs";
 
-const Middle = ({ user, taskData }) => {
+const Middle = ({ user, taskData, submitComplete }) => {
   const todayDate = new Date().getDate();
   const todayData = taskData.filter(
     (ele) => new Date(ele.by_date).getDate() === todayDate
@@ -15,7 +15,9 @@ const Middle = ({ user, taskData }) => {
       </div>
       {/* Start of wrapper ards div */}
       <div className="wrapper__cards">
-        {taskData.length > 0 && <Tabs data={taskData} />}
+        {taskData.length > 0 && (
+          <Tabs data={taskData} submitComplete={submitComplete} />
+        )}
         {/* End of wrapper ards div */}
       </div>
       {/* Start of the bakground div */}

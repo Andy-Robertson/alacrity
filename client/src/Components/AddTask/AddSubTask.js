@@ -9,7 +9,7 @@ function AddSubTask(props) {
     props.deleteHandlerFromList(e, index);
   };
   return (
-    <div key={props.key} className="minus-container">
+    <div className="minus-container">
       <input
         type="text"
         id={props.index}

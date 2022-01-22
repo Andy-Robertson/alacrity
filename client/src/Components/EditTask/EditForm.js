@@ -137,7 +137,7 @@ function EditForm({ task, submitComplete }) {
             {addInputList.map((sub, index) => (
               <AddSubTask
                 value={sub}
-                key={`add_${id[index]}`}
+                key={`1a_${task.id}`}
                 index={index}
                 listHandler={listHandler}
                 deleteHandlerFromList={deleteHandlerFromList}

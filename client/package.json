@@ -16,6 +16,7 @@
     "react-time-picker": "^4.4.4",
     "stop-runaway-react-effects": "^2.0.0",
     "uuid": "^8.3.2",
+    "uuidv4": "^6.2.12",
     "web-vitals": "^2.1.2"
   },
   "scripts": {

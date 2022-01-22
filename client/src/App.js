@@ -79,7 +79,8 @@ function App() {
                 <Middle
                   user={user}
                   SERVER_URL={SERVER_URL}
-                  taskData={TasksData || []}
+                  taskData={TasksData}
+                  submitComplete={submitComplete}
                 />
               ) : (
                 <Navigate to="/" />

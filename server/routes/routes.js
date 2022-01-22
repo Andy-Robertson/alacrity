@@ -103,7 +103,7 @@ pool
           subject_id,
         ])
         .then((result) => {
-          res.status(204);
+          res.sendStatus(204);
         })
         .catch((e) => console.error(e));;
   });

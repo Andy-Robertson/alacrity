@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import EditImg from "../Assets/img/icons8-edit(1).svg";
 import ScheduleImg from "../Assets/img/schedule.svg";
 import EditPopUp from "./EditTask/EditPopUp";
-
 const Pans = (props) => {
   const [openEditPan, setOpenEditPan] = useState(false);
+  const openTabHandle = () => {
+    setOpenEditPan(true);
+    };
   return (
     <>
       {props.data.map((task, index) => {
         return (
-          <article key={index} className="card">
+          <article key={task.id} className="card">
             <header>
               <span className="round">
                 <input type="checkbox" id={"checkbox-" + index} />
@@ -19,7 +21,7 @@ const Pans = (props) => {
                 <h3>{task.task_subject}</h3>
               </span>
               <span className="ions">
-                <a href="#" onClick={() => setOpenEditPan(true)}>
+                <a href="#" onClick={openTabHandle}>
                   <img src={EditImg} alt="edit"></img>
                 </a>
                 {openEditPan && (
@@ -39,7 +41,7 @@ const Pans = (props) => {
               <section className="card__content">
                 <ul>
                   {task.sub_tasks.map((subTask, subKey) => (
-                    <li key={subKey}>
+                    <li key={`_${task.id}`}>
                       <span className="round">
                         <input
                           type="checkbox"
