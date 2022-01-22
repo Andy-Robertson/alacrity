@@ -3,6 +3,7 @@ import Toggle from "../AddTask/Toggle";
 import AddSubTask from "../AddTask/AddSubTask";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
+import { v4 as uuidv4 } from "uuid";
 // import * as dayjs from "dayjs";
 
 function EditForm({ task }) {
@@ -20,6 +21,8 @@ function EditForm({ task }) {
   const [addInputList, setAddInputList] = useState(
     task.sub_task_option ? task.sub_tasks.slice(1) : []
   );
+  const [id, setId] = useState([]);
+
   // Date Time Picker Library
   const [valueDate, onChangeDate] = useState(task.by_date);
   const [valueTime, onChangeTime] = useState(task.by_time);
@@ -39,6 +42,30 @@ function EditForm({ task }) {
       setSubTask(e.target.value);
     }
   };
+  // Functions for sub task array
+  const listHandler = (e, index, subTask) => {
+    // function to add the element of subtask to the array
+    e.preventDefault();
+    const list = [...addInputList];
+    list[index] = subTask;
+    setAddInputList(list);
+  };
+  const handleAddInput = (e) => {
+    // function to add a field for subtask with initial empty string
+    e.preventDefault(); // To prevent submit from the subTask button
+    // const idRandom = Math.floor(Math.random(500)*100);
+    // console.log(idRandom);
+    setId([...id, uuidv4()]);
+    setAddInputList([...addInputList, ""]);
+  };
+  const deleteHandlerFromList = (e, index) => {
+    // function to delete the element of subtask from the array
+    e.preventDefault();
+    console.log(index);
+    const list = [...addInputList];
+    list.splice(index, 1);
+    setAddInputList(list);
+  };
   // Form function
   const submitForm = (e) => {
     e.preventDefault();
@@ -55,13 +82,7 @@ function EditForm({ task }) {
           task_subject: taskSubject,
           subject_description: describe,
           sub_task_option: toggled,
-          sub_tasks: toggled
-            ? [e.target["sub-task"].value].concat(
-                addInputList.map((i, index) => {
-                  return e.target[`sub-task${index}`].value;
-                })
-              )
-            : null,
+          sub_tasks: toggled ? [subTask].concat(addInputList) : null,
           reward: reward,
           resources: resources,
           by_time: valueTime,
@@ -81,11 +102,7 @@ function EditForm({ task }) {
     setSubTask("");
     setAddInputList([]);
   };
-  const handleAddInput = (e, subTask) => {
-    e.preventDefault(); // To prevent submit from the subTask button
-    setAddInputList(addInputList.concat(subTask)); // When ever we click on the button we create a new undefined element that will help us to create a new input field depending on the number of elements (The number of click)
-    // console.log(subTask);
-  };
+    console.log(addInputList);
   return (
     <div>
       <form className="form" onSubmit={submitForm}>
@@ -126,9 +143,11 @@ function EditForm({ task }) {
             </div>
             {addInputList.map((sub, index) => (
               <AddSubTask
+                value={sub}
+                key={uuidv4(id[index])}
                 index={index}
-                changeHandler={changeHandler}
-                submitForm={submitForm}
+                listHandler={listHandler}
+                deleteHandlerFromList={deleteHandlerFromList}
               />
             ))}
             <div className="plus-container">
