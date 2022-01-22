@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AddSubTask from "./AddSubTask";
 import Toggle from "./Toggle";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
+import { v4 as uuidv4 } from "uuid";
 // import * as dayjs from "dayjs";
 
 function AddTask() {
@@ -19,12 +20,10 @@ function AddTask() {
   const [toggled, setToggled] = useState(false);
   // addInputList will help us to create subTasks as much as user wants
   const [addInputList, setAddInputList] = useState([]);
+  const [id, setId] = useState([]);
   // Date Time Picker Library
   const [valueDate, onChangeDate] = useState(new Date());
   const [valueTime, onChangeTime] = useState(new Date().toLocaleString());
-  useEffect(() => {
-    return 0;
-  }, [addInputList]);
   // Change handler function
   const changeHandler = (e) => {
     // each subTask will have a unique index so we can distinguesh between them
@@ -42,17 +41,23 @@ function AddTask() {
     }
   };
   // Functions for sub task array
-  const listHandler = (e, index, subTask) => { // function to add the element of subtask to the array
+  const listHandler = (e, index, subTask) => {
+    // function to add the element of subtask to the array
     e.preventDefault();
     const list = [...addInputList];
     list[index] = subTask;
     setAddInputList(list);
   };
-  const handleAddInput = (e) => { // function to add a field for subtask with initial empty string
+  const handleAddInput = (e) => {
+    // function to add a field for subtask with initial empty string
     e.preventDefault(); // To prevent submit from the subTask button
+    // const idRandom = Math.floor(Math.random(500)*100);
+    // console.log(idRandom);
+    setId([...id, uuidv4()]);
     setAddInputList([...addInputList, ""]);
   };
-  const deleteHandlerFromList = (e, index) => { // function to delete the element of subtask from the array
+  const deleteHandlerFromList = (e, index) => {
+    // function to delete the element of subtask from the array
     e.preventDefault();
     console.log(index);
     const list = [...addInputList];
@@ -74,7 +79,7 @@ function AddTask() {
           task_subject: taskSubject,
           subject_description: describe,
           sub_task_option: toggled,
-          sub_tasks: toggled ? [subTask].concat(addInputList): null,
+          sub_tasks: toggled ? [subTask].concat(addInputList) : null,
           reward: reward,
           resources: resources,
           by_time: valueTime,
@@ -134,14 +139,17 @@ function AddTask() {
                 onChange={changeHandler}
               />
             </div>
-            {addInputList.map((sub, index) => (
-              <AddSubTask
-                value={sub}
-                index={index}
-                listHandler={listHandler}
-                deleteHandlerFromList={deleteHandlerFromList}
-              />
-            ))}
+            <div>
+              {addInputList.map((sub, index) => (
+                <AddSubTask
+                  value={sub}
+                  key={uuidv4(id[index])}
+                  index={index}
+                  listHandler={listHandler}
+                  deleteHandlerFromList={deleteHandlerFromList}
+                />
+              ))}
+            </div>
             <div className="plus-container">
               <button onClick={handleAddInput} className="btn-plus">
                 <i className="fa fa-plus"></i>
@@ -180,7 +188,7 @@ function AddTask() {
             onChange={onChangeTime}
             value={valueTime}
             format="HH:mm"
-            minTime={new Date().toLocaleString()}
+            minTime={new Date()}
           />
         </div>
         <button type="submit">Submit Task</button>
