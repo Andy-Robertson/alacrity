@@ -81,6 +81,7 @@ function AddTask(props) {
         },
       }).then(() => {
         props.submitComplete();
+        props.closeOnSubmit(false);
       });
     }
     // After submitting, clear all inputs
