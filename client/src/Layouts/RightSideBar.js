@@ -42,9 +42,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
       {isOpen && (
         <Popup close={setIsOpen} submitComplete={submitComplete} />
       )}
-
       {user && <Pomodoro />}
-      
     </aside>
   );
 };

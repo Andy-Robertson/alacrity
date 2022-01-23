@@ -5,7 +5,7 @@ const Popup = (props) => {
     const handlePropagation = (e) => {
       e.stopPropagation();
     };
-  
+
   return (
     <div className="popup-box" onClick={() => props.close(false)}>
       <div className="box" onClick={(e) => handlePropagation(e)}>
