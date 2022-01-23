@@ -20,10 +20,12 @@ function EditForm({ task, submitComplete, openEditPan }) {
   const [addInputList, setAddInputList] = useState(
     task.sub_task_option ? task.sub_tasks.slice(1) : []
   );
-  const [id, setId] = useState([]);
 
   // Date Time Picker Library
-  const [valueDate, onChangeDate] = useState(task.by_date);
+  const d = new Date(task.by_date);
+  let formattedDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+    console.log(formattedDate);
+  const [valueDate, onChangeDate] = useState(new Date(formattedDate));
   const [valueTime, onChangeTime] = useState(task.by_time);
   // Change handler function
   const changeHandler = (e) => {
@@ -51,7 +53,6 @@ function EditForm({ task, submitComplete, openEditPan }) {
   const handleAddInput = (e) => {
     // function to add a field for subtask with initial empty string
     e.preventDefault(); // To prevent submit from the subTask button
-    setId([...id, ""]);
     setAddInputList([...addInputList, ""]);
   };
   const deleteHandlerFromList = (e, index) => {
@@ -89,9 +90,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
         submitComplete();
         openEditPan(false);
       });
-
     }
-    // After submitting, clear all inputs
   };
   return (
     <div>

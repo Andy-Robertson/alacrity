@@ -84,13 +84,6 @@ function AddTask(props) {
         props.closeOnSubmit(false);
       });
     }
-    // After submitting, clear all inputs
-    setTaskSubject("");
-    setDescribe("");
-    setReward("");
-    setResources("");
-    setSubTask("");
-    setAddInputList([]);
   };
   return (
     <div>
