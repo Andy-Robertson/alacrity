@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { GlobalContext } from "./Contexts/GlobalContext";
 // Assets
 import "./Assets/styles/main.css";
 import "./Assets/styles/normalize.css";
@@ -11,13 +12,16 @@ import RightSideBar from "./Layouts/RightSideBar";
 import Login from "./Layouts/Login";
 
 // Production / Development environment selection.
-const SERVER_URL = (process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
+const SERVER_URL = process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
     ? "https://alacrity-focus.herokuapp.com"
-    : "http://localhost:5000");
+    : "http://localhost:5000";
 
 function App() {
   const [user, setUser] = useState(null);
   const [TasksData, setTasksData] = useState([]);
+  const [minutes, setMinutes] = useState(null);
+  const [seconds, setSeconds] = useState(null);
+// Update state with user settings when authenticated on load.
   useEffect(() => {
     const getUser = () => {
       fetch(`${SERVER_URL}/auth/login/success`, {
@@ -40,7 +44,7 @@ function App() {
           setUser(resObject.user);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     };
     getUser();
@@ -50,6 +54,39 @@ function App() {
         setTasksData(data);
       });
   }, []);
+  useEffect(() => {
+    fetch("/api/settings", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Unable to fetch user settings");
+        }
+      })
+      .then((result) => {
+        setMinutes(parseInt(result.pom_minutes));
+        setSeconds(parseInt(result.pom_seconds));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+  // Update db with user settings.
+  useEffect(() => {
+    if (minutes !== null && seconds !== null) {
+      fetch("/api/settings", {
+        method: "PUT",
+        body: JSON.stringify({
+          pom_minutes: minutes,
+          pom_seconds: seconds,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }, [minutes, seconds]);
   const submitComplete = () => {
     fetch("/api/tasks")
       .then((res) => res.json())
@@ -59,42 +96,38 @@ function App() {
   };
   return (
     <main>
-      <LeftSideBar user={user} />
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              user ? (
-                <Navigate to="/action" />
-              ) : (
-                <Login SERVER_URL={SERVER_URL} />
-              )
-            }
-          />
-          <Route
-            path="/action"
-            element={
-              user ? (
-                <Middle
-                  user={user}
-                  SERVER_URL={SERVER_URL}
-                  taskData={TasksData}
-                  submitComplete={submitComplete}
-                />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-          />
-          <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
-        </Routes>
-      </BrowserRouter>
-      <RightSideBar
-        user={user}
-        SERVER_URL={SERVER_URL}
-        submitComplete={submitComplete}
-      />
+      <GlobalContext.Provider
+        value={{
+          minutes,
+          setMinutes,
+          seconds,
+          setSeconds,
+        }}
+      >
+        <LeftSideBar user={user} />
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                user ? (
+                  <Navigate to="/action" />
+                ) : (
+                  <Login SERVER_URL={SERVER_URL} />
+                )
+              }
+            />
+            <Route
+              path="/action"
+              element={user ? <Middle user={user} SERVER_URL={SERVER_URL} taskData={TasksData}
+                  submitComplete={submitComplete} /> : <Navigate to="/" />}
+            />
+            <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
+          </Routes>
+        </BrowserRouter>
+        <RightSideBar user={user} SERVER_URL={SERVER_URL}
+        submitComplete={submitComplete}/>
+      </GlobalContext.Provider>
     </main>
   );
 }

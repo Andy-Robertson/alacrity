@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import PlusImg from "../Assets/img/plus-math-30.png";
-import PlayImg from "../Assets/img/play.png";
 import Popup from "../Components/Popup";
 import placeholderAvatar from "../Assets/img/avatar-placeholder.png";
+import Pomodoro from "../Components/Pomodoro";
 
 const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,17 +39,12 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
           <span className="btn__text">Add Task</span>
         </button>
       )}
-      {user && (
-        <button type="button" className="btn_pomodoro right-animation">
-          <span className="btn__text">Start Pomodoro</span>
-          <span className="btn__icon">
-            <img src={PlayImg} alt="Play icon"></img>
-          </span>
-        </button>
-      )}
       {isOpen && (
         <Popup close={setIsOpen} submitComplete={submitComplete} />
       )}
+
+      {user && <Pomodoro />}
+      
     </aside>
   );
 };
