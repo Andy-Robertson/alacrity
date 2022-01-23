@@ -6,11 +6,11 @@ const passport = require("passport");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 const express = require("express");
-const routes = require("./routes/routes");
+const app = express();
+const router = require("./routes/routes");
 const authRoutes = require("./routes/authRoutes");
 require("./authentication/passportConfig");
 require("./data/postgresConfig");
-const app = express();
 
 // Enable trust proxy required due to X-forward headers during authentication.
 if (process.env.WORKING_ENVIRONMENT === "production") app.enable("trust proxy");
@@ -20,6 +20,7 @@ const CLIENT_URL = (
   process.env.WORKING_ENVIRONMENT === "production"
     ? "https://alacrity-focus.herokuapp.com"
     : "http://localhost:3000"
+
 );
 
 
@@ -48,8 +49,7 @@ app.use(
 );
 
 app.use("/auth", authRoutes);
-
-routes(app);
+router(app);
 
 // Start alacrity server
 const server = app.listen(PORT, (err) => {

@@ -1,21 +1,26 @@
-import React from "react";
+import React, {  } from "react";
 import Tabs from "../Components/Tabs";
-import TasksData from "../Assets/data/cards_data.json";
 
-const Middle = ({ user }) => {
+const Middle = ({ user, taskData, submitComplete }) => {
+  const todayDate = new Date().getDate();
+  const todayData = taskData.filter(
+    (ele) => new Date(ele.by_date).getDate() === todayDate
+  );
   return (
-    // Start of wrapper section
+    // Start of wrapper setion
     <section className="wrapper">
       <div className="wrapper__text">
-        <h3>{user.displayName}!</h3>
-        <h2>You've got 5 tasks today</h2>
+        <h3>Welcome back {user.displayName}!</h3>
+        <h2>You've got {todayData.length} tasks today</h2>
       </div>
       {/* Start of wrapper ards div */}
       <div className="wrapper__cards">
-        <Tabs data={TasksData} />
+        {taskData.length > 0 && (
+          <Tabs data={taskData} submitComplete={submitComplete} />
+        )}
         {/* End of wrapper ards div */}
       </div>
-      {/* Start of the background div */}
+      {/* Start of the bakground div */}
       <div className="wrapper__bk">
         <div>
           <h4>
@@ -24,9 +29,9 @@ const Middle = ({ user }) => {
           </h4>
           <small>Alexander Graham Bell</small>
         </div>
-        {/* End of the background div */}
+        {/* End of the bakground div */}
       </div>
-      {/* End of wrapper section */}
+      {/* End of wrapper setion */}
     </section>
   );
 };

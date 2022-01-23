@@ -18,9 +18,10 @@ const SERVER_URL = process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
 
 function App() {
   const [user, setUser] = useState(null);
+  const [TasksData, setTasksData] = useState([]);
   const [minutes, setMinutes] = useState(null);
   const [seconds, setSeconds] = useState(null);
-
+// Update state with user settings when authenticated on load.
   useEffect(() => {
     const getUser = () => {
       fetch(`${SERVER_URL}/auth/login/success`, {
@@ -47,9 +48,12 @@ function App() {
         });
     };
     getUser();
+    fetch("/api/tasks")
+      .then((res) => res.json())
+      .then((data) => {
+        setTasksData(data);
+      });
   }, []);
-
-  // Update state with user settings when authenticated on load.
   useEffect(() => {
     fetch("/api/settings", {
       method: "GET",
@@ -70,7 +74,6 @@ function App() {
         console.error(err);
       });
   }, []);
-
   // Update db with user settings.
   useEffect(() => {
     if (minutes !== null && seconds !== null) {
@@ -84,7 +87,13 @@ function App() {
       });
     }
   }, [minutes, seconds]);
-
+  const submitComplete = () => {
+    fetch("/api/tasks")
+      .then((res) => res.json())
+      .then((data) => {
+        setTasksData(data);
+      });
+  };
   return (
     <main>
       <GlobalContext.Provider
@@ -110,12 +119,14 @@ function App() {
             />
             <Route
               path="/action"
-              element={user ? <Middle user={user} /> : <Navigate to="/" />}
+              element={user ? <Middle user={user} SERVER_URL={SERVER_URL} taskData={TasksData}
+                  submitComplete={submitComplete} /> : <Navigate to="/" />}
             />
             <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
           </Routes>
         </BrowserRouter>
-        <RightSideBar user={user} SERVER_URL={SERVER_URL} />
+        <RightSideBar user={user} SERVER_URL={SERVER_URL}
+        submitComplete={submitComplete}/>
       </GlobalContext.Provider>
     </main>
   );

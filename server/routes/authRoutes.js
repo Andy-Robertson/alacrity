@@ -9,11 +9,17 @@ const CLIENT_URL =
 
 // Handle successful login (user authenticated).
 authRouter.get("/login/success", (req, res) => {
+
   if (req.user) {
+    const minUserLoginDetails = {
+      avatar: req.user.avatar,
+      displayName: req.user.display_name,
+    };
+
     res.status(200).json({
       success: true,
       message: "authentication successful",
-      user: req.user,
+      user: minUserLoginDetails,
       cookies: req.cookies,
     });
   } else {
@@ -96,6 +102,5 @@ authRouter.get(
     failureRedirect: "/login/failed",
   })
 );
-
 
 module.exports = authRouter;
