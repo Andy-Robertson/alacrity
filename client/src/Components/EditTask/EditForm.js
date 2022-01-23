@@ -90,12 +90,6 @@ function EditForm({ task, submitComplete }) {
       });
     }
     // After submitting, clear all inputs
-    setTaskSubject("");
-    setDescribe("");
-    setReward("");
-    setResources("");
-    setSubTask("");
-    setAddInputList([]);
   };
   return (
     <div>
@@ -138,7 +132,7 @@ function EditForm({ task, submitComplete }) {
             {addInputList.map((sub, index) => (
               <AddSubTask
                 value={sub}
-                key={`add_${id[index]}`}
+                key={index}
                 index={index}
                 listHandler={listHandler}
                 deleteHandlerFromList={deleteHandlerFromList}
