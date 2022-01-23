@@ -4,7 +4,7 @@ import AddSubTask from "../AddTask/AddSubTask";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
 
-function EditForm({ task, submitComplete }) {
+function EditForm({ task, submitComplete, openEditPan }) {
   // console.log(task);
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState(task.task_subject);
@@ -87,7 +87,9 @@ function EditForm({ task, submitComplete }) {
         },
       }).then(() => {
         submitComplete();
+        openEditPan(false);
       });
+
     }
     // After submitting, clear all inputs
   };

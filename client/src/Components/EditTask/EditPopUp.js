@@ -7,7 +7,11 @@ function EditPopUp({ task, openEditPan, submitComplete }) {
         <span className="close-icon" onClick={() => openEditPan(false)}>
           x
         </span>
-        <EditForm task={task} submitComplete={submitComplete} />
+        <EditForm
+          task={task}
+          submitComplete={submitComplete}
+          openEditPan={openEditPan}
+        />
       </div>
     </div>
   );
