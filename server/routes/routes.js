@@ -27,7 +27,7 @@ const router = (app) => {
 
   // Load user settings.
   app.get("/api/settings", (req, res) => {
-    const auth_id = req.passport.user;
+    const auth_id = req.session.passport.user;
 
     pool
       .query(FIND_USER_BY_ID, [auth_id])
@@ -46,7 +46,7 @@ const router = (app) => {
 
   // Update user settings.
   app.put("/api/settings", (req, res) => {
-    const auth_id = req.passport.user;
+    const auth_id = req.session.passport.user;
     const { pom_minutes, pom_seconds } = req.body;
 
     pool
