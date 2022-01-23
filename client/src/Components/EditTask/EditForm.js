@@ -24,7 +24,6 @@ function EditForm({ task, submitComplete, openEditPan }) {
   // Date Time Picker Library
   const d = new Date(task.by_date);
   let formattedDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
-    console.log(formattedDate);
   const [valueDate, onChangeDate] = useState(new Date(formattedDate));
   const [valueTime, onChangeTime] = useState(task.by_time);
   // Change handler function
