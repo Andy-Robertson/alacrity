@@ -27,13 +27,6 @@ const Pans = (props) => {
                 <a href="#" onClick={(e) => editPupHandle(e, task)}>
                   <img src={EditImg} alt="edit"></img>
                 </a>
-                {openEditPan && (
-                  <EditPopUp
-                    task={taskSelected}
-                    openEditPan={setOpenEditPan}
-                    submitComplete={props.submitComplete}
-                  />
-                )}
                 <img src={ScheduleImg} alt="schedule"></img>
               </span>
             </header>
@@ -64,6 +57,13 @@ const Pans = (props) => {
           </article>
         );
       })}
+      {openEditPan && (
+        <EditPopUp
+          task={taskSelected}
+          openEditPan={setOpenEditPan}
+          submitComplete={props.submitComplete}
+        />
+      )}
     </>
   );
 };

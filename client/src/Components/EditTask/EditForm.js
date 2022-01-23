@@ -4,7 +4,7 @@ import AddSubTask from "../AddTask/AddSubTask";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
 
-function EditForm({ task, submitComplete }) {
+function EditForm({ task, submitComplete, openEditPan }) {
   // console.log(task);
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState(task.task_subject);
@@ -20,10 +20,11 @@ function EditForm({ task, submitComplete }) {
   const [addInputList, setAddInputList] = useState(
     task.sub_task_option ? task.sub_tasks.slice(1) : []
   );
-  const [id, setId] = useState([]);
 
   // Date Time Picker Library
-  const [valueDate, onChangeDate] = useState(task.by_date);
+  const d = new Date(task.by_date);
+  let formattedDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+  const [valueDate, onChangeDate] = useState(new Date(formattedDate));
   const [valueTime, onChangeTime] = useState(task.by_time);
   // Change handler function
   const changeHandler = (e) => {
@@ -51,7 +52,6 @@ function EditForm({ task, submitComplete }) {
   const handleAddInput = (e) => {
     // function to add a field for subtask with initial empty string
     e.preventDefault(); // To prevent submit from the subTask button
-    setId([...id, ""]);
     setAddInputList([...addInputList, ""]);
   };
   const deleteHandlerFromList = (e, index) => {
@@ -87,15 +87,9 @@ function EditForm({ task, submitComplete }) {
         },
       }).then(() => {
         submitComplete();
+        openEditPan(false);
       });
     }
-    // After submitting, clear all inputs
-    setTaskSubject("");
-    setDescribe("");
-    setReward("");
-    setResources("");
-    setSubTask("");
-    setAddInputList([]);
   };
   return (
     <div>
@@ -138,7 +132,7 @@ function EditForm({ task, submitComplete }) {
             {addInputList.map((sub, index) => (
               <AddSubTask
                 value={sub}
-                key={`add_${id[index]}`}
+                key={index}
                 index={index}
                 listHandler={listHandler}
                 deleteHandlerFromList={deleteHandlerFromList}
