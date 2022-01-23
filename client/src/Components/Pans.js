@@ -4,9 +4,12 @@ import ScheduleImg from "../Assets/img/schedule.svg";
 import EditPopUp from "./EditTask/EditPopUp";
 const Pans = (props) => {
   const [openEditPan, setOpenEditPan] = useState(false);
-  const openTabHandle = () => {
+  const [taskSelected, setTaskSelected] = useState([]);
+  const editPupHandle = (e, task) => {
+    e.stopPropagation();
+    setTaskSelected(task);
     setOpenEditPan(true);
-    };
+  };
   return (
     <>
       {props.data.map((task, index) => {
@@ -21,12 +24,12 @@ const Pans = (props) => {
                 <h3>{task.task_subject}</h3>
               </span>
               <span className="ions">
-                <a href="#" onClick={openTabHandle}>
+                <a href="#" onClick={(e) => editPupHandle(e, task)}>
                   <img src={EditImg} alt="edit"></img>
                 </a>
                 {openEditPan && (
                   <EditPopUp
-                    task={task}
+                    task={taskSelected}
                     openEditPan={setOpenEditPan}
                     submitComplete={props.submitComplete}
                   />
@@ -41,7 +44,7 @@ const Pans = (props) => {
               <section className="card__content">
                 <ul>
                   {task.sub_tasks.map((subTask, subKey) => (
-                    <li key={`_${task.id}`}>
+                    <li key={subKey}>
                       <span className="round">
                         <input
                           type="checkbox"

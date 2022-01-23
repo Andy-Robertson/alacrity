@@ -5,13 +5,14 @@ import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
 
 function EditForm({ task, submitComplete }) {
+  // console.log(task);
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState(task.task_subject);
   const [describe, setDescribe] = useState(task.task_describe);
   const [reward, setReward] = useState(task.reward);
   const [resources, setResources] = useState(task.resources);
   const [subTask, setSubTask] = useState(
-    task.sub_task_option ? task.sub_tasks[0] : null
+    task.sub_task_option ? task.sub_tasks[0] : ""
   ); // The default of first subTask
   // Check box to have subTask option if the user wants.
   const [toggled, setToggled] = useState(task.sub_task_option);
@@ -137,7 +138,7 @@ function EditForm({ task, submitComplete }) {
             {addInputList.map((sub, index) => (
               <AddSubTask
                 value={sub}
-                key={`1a_${task.id}`}
+                key={`add_${id[index]}`}
                 index={index}
                 listHandler={listHandler}
                 deleteHandlerFromList={deleteHandlerFromList}
@@ -181,7 +182,7 @@ function EditForm({ task, submitComplete }) {
             onChange={onChangeTime}
             value={valueTime}
             format="HH:mm"
-            minTime={new Date()}
+            // minTime={new Date()}
           />
         </div>
         <button type="submit">Submit Task</button>
