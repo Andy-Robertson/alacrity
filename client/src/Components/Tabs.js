@@ -2,25 +2,29 @@ import React, { useState, useEffect } from "react";
 import Pans from "./Pans";
 
 const Tabs = (props) => {
-    const [data, setData] = useState(props.data);
-    const todayDate = new Date().getDate();
-    const [isToday, setIsToday] = useState(true);
-    const [isTmr, setIsTmr] = useState(false);
-    const [isLater, setIsLater] = useState(false);
-    const todayData = data.filter(
-      (ele) => new Date(ele.by_date).getDate() === todayDate
-    );
-    const tmrData = data.filter(
-      (ele) => new Date(ele.by_date).getDate() === todayDate + 1
-    );
-    const laterData = data.filter(
-      (ele) =>
-        new Date(ele.by_date).getDate() !== todayDate + 1
-        && new Date(ele.by_date).getDate() !== todayDate
-    );
-    useEffect(() => {
-        setData(props.data);
-    }, [props.data]);
+  const [data, setData] = useState(props.data);
+  const todayDate = new Date().getDate();
+  const [isToday, setIsToday] = useState(true);
+  const [isTmr, setIsTmr] = useState(false);
+  const [isLater, setIsLater] = useState(false);
+
+  const todayData = data.filter(
+    (ele) => new Date(ele.by_date).getDate() === todayDate
+  );
+
+  const tmrData = data.filter(
+    (ele) => new Date(ele.by_date).getDate() === todayDate + 1
+  );
+
+  const laterData = data.filter(
+    (ele) =>
+      new Date(ele.by_date).getDate() !== todayDate + 1
+      && new Date(ele.by_date).getDate() !== todayDate
+  );
+
+  useEffect(() => {
+    setData(props.data);
+  }, [props.data]);
 
   function handleClick(e, taskDate) {
     e.preventDefault();
@@ -38,17 +42,18 @@ const Tabs = (props) => {
       setIsLater(true);
     }
   }
+
   return (
     <>
       <ul className="tabs">
         <li>
           <a href="#" onClick={(e) => handleClick(e, "today")}>
             Today
-          </a>{" "}
+          </a>
         </li>
         <li>
           <a href="#" onClick={(e) => handleClick(e, "tmr")}>
-            Tomorow
+            Tomorrow
           </a>
         </li>
         <li>

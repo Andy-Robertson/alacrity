@@ -6,6 +6,7 @@ const Middle = ({ user, taskData, submitComplete }) => {
   const todayData = taskData.filter(
     (ele) => new Date(ele.by_date).getDate() === todayDate
   );
+
   return (
     // Start of wrapper setion
     <section className="wrapper">

@@ -21,6 +21,7 @@ function App() {
   const [TasksData, setTasksData] = useState([]);
   const [minutes, setMinutes] = useState(null);
   const [seconds, setSeconds] = useState(null);
+
 // Update state with user settings when authenticated on load.
   useEffect(() => {
     const getUser = () => {
@@ -48,12 +49,15 @@ function App() {
         });
     };
     getUser();
+
     fetch("/api/tasks")
       .then((res) => res.json())
       .then((data) => {
         setTasksData(data);
       });
+
   }, []);
+
   useEffect(() => {
     fetch("/api/settings", {
       method: "GET",
@@ -74,6 +78,7 @@ function App() {
         console.error(err);
       });
   }, []);
+
   // Update db with user settings.
   useEffect(() => {
     if (minutes !== null && seconds !== null) {
@@ -87,6 +92,7 @@ function App() {
       });
     }
   }, [minutes, seconds]);
+
   const submitComplete = () => {
     fetch("/api/tasks")
       .then((res) => res.json())
@@ -94,6 +100,7 @@ function App() {
         setTasksData(data);
       });
   };
+
   return (
     <main>
       <GlobalContext.Provider
