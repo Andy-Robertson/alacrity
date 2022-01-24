@@ -58,6 +58,7 @@ const router = (app) => {
     const sub_task_option = req.body.sub_task_option;
     const sub_tasks = req.body.sub_tasks;
 
+
     pool
       .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
       .then((result) => {
@@ -131,8 +132,8 @@ const router = (app) => {
     pool
       .query(query, [task_archived, task_id])
       .then((result) => {
-        result.rows
-          ? res.status(200).json({
+        result.rows ?
+           res.status(200).json({
               Result: "Success",
               message: "Request complete: task archive status updated",
             })

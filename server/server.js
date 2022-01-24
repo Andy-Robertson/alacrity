@@ -23,7 +23,6 @@ const CLIENT_URL = (
 
 );
 
-
 app.use(express.json());
 
 // Serve client files from the build folder.

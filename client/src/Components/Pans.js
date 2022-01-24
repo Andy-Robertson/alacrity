@@ -7,7 +7,6 @@ import EditPopUp from "./EditTask/EditPopUp";
 const Pans = (props) => {
   const [openEditPan, setOpenEditPan] = useState(false);
   const [taskSelected, setTaskSelected] = useState([]);
-  const [taskArchived, setTaskArchived] = useState(false);
 
   const handleEditPopup = (e, task) => {
     e.stopPropagation();
@@ -17,7 +16,8 @@ const Pans = (props) => {
 
   const handleArchiveTask = (e, task) => {
     e.stopPropagation();
-    setTaskArchived(!taskArchived);
+
+    const taskArchived = task.task_archived ? false : true;
 
     fetch("/api/tasks/archived", {
       method: "PUT",
