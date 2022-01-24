@@ -7,7 +7,7 @@ const Tabs = (props) => {
   const [isToday, setIsToday] = useState(true);
   const [isTmr, setIsTmr] = useState(false);
   const [isLater, setIsLater] = useState(false);
-  const [taskIsArchived, setTaskIsArchived] = useState(false);
+  const [taskIsArchived, setIsArchived] = useState(false);
 
   const todayData = data.filter(
     (ele) =>
@@ -39,22 +39,22 @@ const Tabs = (props) => {
       setIsToday(true);
       setIsTmr(false);
       setIsLater(false);
-      setTaskIsArchived(false);
+      setIsArchived(false);
     } else if (taskDate === "tmr") {
       setIsToday(false);
       setIsTmr(true);
       setIsLater(false);
-      setTaskIsArchived(false);
+      setIsArchived(false);
     } else if (taskDate === "later") {
       setIsToday(false);
       setIsTmr(false);
       setIsLater(true);
-      setTaskIsArchived(false);
+      setIsArchived(false);
     } else {
       setIsToday(false);
       setIsTmr(false);
       setIsLater(false);
-      setTaskIsArchived(true);
+      setIsArchived(true);
     }
   };
 

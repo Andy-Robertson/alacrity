@@ -3,6 +3,7 @@ import { GlobalContext } from "../Contexts/GlobalContext";
 import EditImg from "../Assets/img/icons8-edit(1).svg";
 import ScheduleImg from "../Assets/img/schedule.svg";
 import ArchiveImg from "../Assets/img/archive.png";
+import RestoreImg from "../Assets/img/restore.png";
 import EditPopUp from "./EditTask/EditPopUp";
 
 const Pans = (props) => {
@@ -55,13 +56,21 @@ const Pans = (props) => {
               </span>
 
               <span className="ions">
-                <a href="#" onClick={(e) => handleEditPopup(e, task)}>
-                  <img src={EditImg} alt="edit"></img>
-                </a>
-                <img src={ScheduleImg} alt="schedule"></img>
+                {!task.task_archived && (
+                  <a href="#" onClick={(e) => handleEditPopup(e, task)}>
+                    <img src={EditImg} alt="edit"></img>
+                  </a>
+                )}
+
+                {!task.task_archived && (
+                  <img src={ScheduleImg} alt="schedule"></img>
+                )}
 
                 <a href="#" onClick={(e) => handleArchiveTask(e, task)}>
-                  <img src={ArchiveImg} alt="archive"></img>
+                  <img
+                    src={task.task_archived ? RestoreImg : ArchiveImg}
+                    alt="archive"
+                  ></img>
                 </a>
               </span>
             </header>
