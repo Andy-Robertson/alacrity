@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Pans from "./Pans";
 
 const Tabs = (props) => {
-  console.log(props.data);
   const [data, setData] = useState(props.data);
   const todayDate = new Date().getDate();
   const [isToday, setIsToday] = useState(true);
@@ -28,13 +27,7 @@ const Tabs = (props) => {
       && new Date(ele.by_date).getDate() !== todayDate
       && ele.task_archived === false
   );
-  //   console.log(taskIsArchived);
-  // console.log(data);
-  const archivedData = data.filter((ele) => {
-    // console.log(ele.task_archived);
-    return ele.task_archived === true;
-  });
-  // console.log(`test:${archivedData}`);
+  const archivedData = data.filter((ele) => ele.task_archived === true);
 
   useEffect(() => {
     setData(props.data);

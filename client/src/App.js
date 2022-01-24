@@ -109,6 +109,7 @@ function App() {
           setMinutes,
           seconds,
           setSeconds,
+          setTasksData,
         }}
       >
         <LeftSideBar user={user} />
@@ -126,14 +127,27 @@ function App() {
             />
             <Route
               path="/action"
-              element={user ? <Middle user={user} SERVER_URL={SERVER_URL} taskData={TasksData}
-                  submitComplete={submitComplete} /> : <Navigate to="/" />}
+              element={
+                user ? (
+                  <Middle
+                    user={user}
+                    SERVER_URL={SERVER_URL}
+                    taskData={TasksData}
+                    submitComplete={submitComplete}
+                  />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
             />
             <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
           </Routes>
         </BrowserRouter>
-        <RightSideBar user={user} SERVER_URL={SERVER_URL}
-        submitComplete={submitComplete}/>
+        <RightSideBar
+          user={user}
+          SERVER_URL={SERVER_URL}
+          submitComplete={submitComplete}
+        />
       </GlobalContext.Provider>
     </main>
   );

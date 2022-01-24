@@ -25,6 +25,7 @@ const router = (app) => {
     });
   });
 
+
   // Load tasks (users.auth_id).
   app.get("/api/tasks", (req, res) => {
     // console.log(req.session.passport.user);

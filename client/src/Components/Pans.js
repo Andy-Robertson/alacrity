@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { GlobalContext } from "../Contexts/GlobalContext";
 import EditImg from "../Assets/img/icons8-edit(1).svg";
 import ScheduleImg from "../Assets/img/schedule.svg";
 import ArchiveImg from "../Assets/img/archive.png";
@@ -7,6 +8,7 @@ import EditPopUp from "./EditTask/EditPopUp";
 const Pans = (props) => {
   const [openEditPan, setOpenEditPan] = useState(false);
   const [taskSelected, setTaskSelected] = useState([]);
+  const { setTasksData } = useContext(GlobalContext);
 
   const handleEditPopup = (e, task) => {
     e.stopPropagation();
@@ -29,6 +31,12 @@ const Pans = (props) => {
         "Content-Type": "application/json",
       },
     });
+
+    fetch("/api/tasks")
+      .then((res) => res.json())
+      .then((data) => {
+        setTasksData(data);
+      });
   };
 
   return (
