@@ -67,8 +67,8 @@ const Tabs = (props) => {
     let body = `Hi there, you have ${todayData.length} tasks should be done by today`;
     notify(title, body);
   };
-  if (clockState === "01:14:30") {
-    console.log("true");
+  if (clockState === "08:00:00") {
+    // console.log("true");
     notificationCall();
   }
   // Notification Calling For each task of today's tasks
