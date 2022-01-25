@@ -21,6 +21,7 @@ function App() {
   const [TasksData, setTasksData] = useState([]);
   const [minutes, setMinutes] = useState(null);
   const [seconds, setSeconds] = useState(null);
+
   // Update state with user settings when authenticated on load.
   useEffect(() => {
     const getUser = () => {
@@ -48,32 +49,41 @@ function App() {
         });
     };
     getUser();
-    fetch("/api/tasks")
-      .then((res) => res.json())
-      .then((data) => {
-        setTasksData(data);
-      });
   }, []);
+
   useEffect(() => {
-    fetch("/api/settings", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error("Unable to fetch user settings");
-        }
+    user && (
+      fetch("/api/tasks")
+        .then((res) => res.json())
+        .then((data) => {
+          setTasksData(data);
+        })
+    );
+  }, [user]);
+
+  useEffect(() => {
+    user && (
+      fetch("/api/settings", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
       })
-      .then((result) => {
-        setMinutes(parseInt(result.pom_minutes));
-        setSeconds(parseInt(result.pom_seconds));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+        .then((response) => {
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw new Error("Unable to fetch user settings");
+          }
+        })
+        .then((result) => {
+          setMinutes(parseInt(result.pom_minutes));
+          setSeconds(parseInt(result.pom_seconds));
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    );
+  }, [user]);
+
   // Update db with user settings.
   useEffect(() => {
     if (minutes !== null && seconds !== null) {
@@ -87,6 +97,7 @@ function App() {
       });
     }
   }, [minutes, seconds]);
+
   const submitComplete = () => {
     fetch("/api/tasks")
       .then((res) => res.json())
@@ -94,6 +105,7 @@ function App() {
         setTasksData(data);
       });
   };
+
   return (
     <main>
       <GlobalContext.Provider

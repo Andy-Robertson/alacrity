@@ -47,7 +47,7 @@ const Pomodoro = () => {
           return timeLeftInSeconds - 1;
         } else {
           setPomodoroSessionEnded(true);
-          return;
+          return 0;
         }
       });
     }, 1000);

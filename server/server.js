@@ -20,7 +20,6 @@ const CLIENT_URL = (
   process.env.WORKING_ENVIRONMENT === "production"
     ? "https://alacrity-focus.herokuapp.com"
     : "http://localhost:3000"
-
 );
 
 app.use(express.json());

@@ -14,7 +14,6 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
     <aside className="right-sidebar">
       {user && (
         <ul onClick={logout} className="right-animation">
-          {console.log(user.avatar)}
           <li>
             <img
               src={user.avatar ? user.avatar : placeholderAvatar}
