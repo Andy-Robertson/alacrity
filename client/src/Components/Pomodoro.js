@@ -41,6 +41,7 @@ const Pomodoro = () => {
     setTimerActive(true);
     interval.current = setInterval(() => {
       setTimeLeftInSeconds((timeLeftInSeconds) => {
+        console.log(timeLeftInSeconds);
         if (timeLeftInSeconds >= 1) {
           setPomodoroSessionEnded(false);
           return timeLeftInSeconds - 1;

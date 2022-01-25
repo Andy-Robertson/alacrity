@@ -21,7 +21,7 @@ function App() {
   const [TasksData, setTasksData] = useState([]);
   const [minutes, setMinutes] = useState(null);
   const [seconds, setSeconds] = useState(null);
-// Update state with user settings when authenticated on load.
+  // Update state with user settings when authenticated on load.
   useEffect(() => {
     const getUser = () => {
       fetch(`${SERVER_URL}/auth/login/success`, {
@@ -119,14 +119,42 @@ function App() {
             />
             <Route
               path="/action"
-              element={user ? <Middle user={user} SERVER_URL={SERVER_URL} taskData={TasksData}
-                  submitComplete={submitComplete} /> : <Navigate to="/" />}
+              element={
+                user ? (
+                  <Middle
+                    user={user}
+                    SERVER_URL={SERVER_URL}
+                    taskData={TasksData}
+                    submitComplete={submitComplete}
+                  />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
             />
             <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
+            <Route
+              path="*"
+              element={
+                user ? (
+                  <Middle
+                    user={user}
+                    SERVER_URL={SERVER_URL}
+                    taskData={TasksData}
+                    submitComplete={submitComplete}
+                  />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
           </Routes>
         </BrowserRouter>
-        <RightSideBar user={user} SERVER_URL={SERVER_URL}
-        submitComplete={submitComplete}/>
+        <RightSideBar
+          user={user}
+          SERVER_URL={SERVER_URL}
+          submitComplete={submitComplete}
+        />
       </GlobalContext.Provider>
     </main>
   );
