@@ -13,7 +13,6 @@ const Pans = (props) => {
   };
   return (
     <>
-    {/* <p>{clockState}</p> */}
       {props.data.map((task, index) => {
         return (
           <article key={task.id} className="card">

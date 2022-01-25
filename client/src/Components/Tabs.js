@@ -102,6 +102,7 @@ const Tabs = (props) => {
           </a>
         </li>
       </ul>
+      <p>{clockState}</p>
       {isToday && (
         <Pans data={todayData} submitComplete={props.submitComplete} />
       )}
