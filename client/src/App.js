@@ -22,7 +22,6 @@ function App() {
   const [minutes, setMinutes] = useState(null);
   const [seconds, setSeconds] = useState(null);
 
-  // Update state with user settings when authenticated on load.
   useEffect(() => {
     const getUser = () => {
       fetch(`${SERVER_URL}/auth/login/success`, {
@@ -66,8 +65,8 @@ function App() {
       fetch("/api/settings", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
-      })
-        .then((response) => {
+      }) 
+      .then((response) => {
           if (response.status === 200) {
             return response.json();
           } else {
@@ -114,6 +113,7 @@ function App() {
           setMinutes,
           seconds,
           setSeconds,
+          setTasksData,
         }}
       >
         <LeftSideBar user={user} />

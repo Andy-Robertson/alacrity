@@ -47,8 +47,8 @@ const router = (app) => {
 
   // Add user tasks (users.auth_id).
   app.post("/api/tasks", (req, res) => {
-    // console.log(req.session.passport.user);
     const auth_id = req.session.passport.user;
+    const task_archived = false;
     const task_subject = req.body.task_subject;
     const subject_description = req.body.subject_description;
     const reward = req.body.reward;
@@ -57,20 +57,21 @@ const router = (app) => {
     const by_date = req.body.by_date;
     const sub_task_option = req.body.sub_task_option;
     const sub_tasks = req.body.sub_tasks;
-    // console.log(req.body);
+
     pool
       .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
       .then((result) => {
         const user_id = result.rows[0].id;
-        // console.log(user_id);
+
         pool
           .query("SELECT * FROM task WHERE user_id = $1", [user_id])
           .then(() => {
             const query =
-              "INSERT INTO task (user_id, task_subject, subject_description, reward, resources, by_time, by_date, sub_task_option, sub_tasks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
+              "INSERT INTO task (user_id, task_archived, task_subject, subject_description, reward, resources, by_time, by_date, sub_task_option, sub_tasks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
             pool
               .query(query, [
                 user_id,
+                task_archived,
                 task_subject,
                 subject_description,
                 reward,
@@ -92,8 +93,7 @@ const router = (app) => {
 
   // Edit user tasks
   app.put("/api/tasks", (req, res) => {
-    // console.log(req.session.passport.user);
-    console.log(req.body);
+
     const subject_id = req.body.id;
     const task_subject = req.body.task_subject;
     const subject_description = req.body.subject_description;
@@ -118,7 +118,27 @@ const router = (app) => {
         subject_id,
       ])
       .then((result) => {
-        res.sendStatus(204);
+        result.sendStatus(201);
+      })
+      .catch((e) => console.error(e));
+  });
+
+  app.put("/api/tasks/archived", (req, res) => {
+    const { task_id, task_archived } = req.body;
+
+    const query = "UPDATE task SET task_archived= $1 WHERE id= $2;";
+
+    pool
+      .query(query, [task_archived, task_id])
+      .then((result) => {
+        result.rows ?
+           res.status(200).json({
+              Result: "Success",
+              message: "Request complete: task archive status updated",
+            })
+          : res
+              .status(500)
+              .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
