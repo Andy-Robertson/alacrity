@@ -10,7 +10,9 @@ CREATE TABLE users (
   last_name         VARCHAR(30),
   email             VARCHAR(120),
   avatar            VARCHAR(250) NOT NULL,
-  marketing         BOOLEAN NOT NULL
+  marketing         BOOLEAN NOT null,
+  pom_minutes 		  VARCHAR(2),
+  pom_seconds		    VARCHAR(2)
 );
 
 CREATE TABLE task (
