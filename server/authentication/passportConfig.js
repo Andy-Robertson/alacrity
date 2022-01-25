@@ -18,10 +18,12 @@ const DB_INSERT_STRING = `
       last_name,
       email,
       avatar,
-      marketing
+      marketing,
+      pom_minutes,
+      pom_seconds
   )
   VALUES
-  ($1, $2, $3, $4, $5, $6, $7, $8)`;
+  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
 
 const DB_ID_SEARCH_STRING = `SELECT * FROM users WHERE auth_Id = $1`;
 
@@ -38,7 +40,6 @@ passport.use(
     function (accessToken, refreshToken, profile, done) {
       const { id, provider } = profile;
       const { name, given_name, family_name, picture, email } = profile._json;
-      const marketing = false;
       const user = { userId: id };
 
       poolQuery(
@@ -173,7 +174,12 @@ const poolQuery = (
   user,
   done
 ) => {
-  const marketing = true;
+
+  const defaultSettings = {
+    marketing: false,
+    pom_minutes: 25,
+    pom_seconds: 00,
+  };
 
   return pool
     .query(DB_ID_SEARCH_STRING, [id])
@@ -187,8 +193,11 @@ const poolQuery = (
           last_name,
           email,
           picture,
-          marketing,
+          defaultSettings.marketing,
+          defaultSettings.pom_minutes,
+          defaultSettings.pom_seconds,
         ]);
+        console.log(`default ${defaultSettings.pom_minutes}`);
         done(null, user);
       } else {
         done(null, user);
@@ -196,6 +205,7 @@ const poolQuery = (
     })
     .catch((e) => console.log(e));
 };
+
 
 // Serialize authenticated user to a persistent session.
 passport.serializeUser((user, done) => {

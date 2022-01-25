@@ -22,7 +22,6 @@ function App() {
   const [minutes, setMinutes] = useState(null);
   const [seconds, setSeconds] = useState(null);
 
-// Update state with user settings when authenticated on load.
   useEffect(() => {
     const getUser = () => {
       fetch(`${SERVER_URL}/auth/login/success`, {
@@ -49,35 +48,40 @@ function App() {
         });
     };
     getUser();
-
-    fetch("/api/tasks")
-      .then((res) => res.json())
-      .then((data) => {
-        setTasksData(data);
-      });
-
   }, []);
 
   useEffect(() => {
-    fetch("/api/settings", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
+    user && (
+      fetch("/api/tasks")
+        .then((res) => res.json())
+        .then((data) => {
+          setTasksData(data);
+        })
+    );
+  }, [user]);
+
+  useEffect(() => {
+    user && (
+      fetch("/api/settings", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }) 
       .then((response) => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error("Unable to fetch user settings");
-        }
-      })
-      .then((result) => {
-        setMinutes(parseInt(result.pom_minutes));
-        setSeconds(parseInt(result.pom_seconds));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+          if (response.status === 200) {
+            return response.json();
+          } else {
+            throw new Error("Unable to fetch user settings");
+          }
+        })
+        .then((result) => {
+          setMinutes(parseInt(result.pom_minutes));
+          setSeconds(parseInt(result.pom_seconds));
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    );
+  }, [user]);
 
   // Update db with user settings.
   useEffect(() => {
@@ -141,6 +145,21 @@ function App() {
               }
             />
             <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
+            <Route
+              path="*"
+              element={
+                user ? (
+                  <Middle
+                    user={user}
+                    SERVER_URL={SERVER_URL}
+                    taskData={TasksData}
+                    submitComplete={submitComplete}
+                  />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
           </Routes>
         </BrowserRouter>
         <RightSideBar
