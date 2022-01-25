@@ -22,6 +22,10 @@ const Tabs = (props) => {
   );
   useEffect(() => {
     setData(props.data);
+    setInterval(() => {
+      const date = new Date();
+      setClockState(date.toLocaleTimeString("en-GB"));
+    }, 1000);
   }, [props.data]);
 
   function handleClick(e, taskDate) {
@@ -40,21 +44,12 @@ const Tabs = (props) => {
       setIsLater(true);
     }
   }
-  // Generate Clock
-  useEffect(() => {
-    setInterval(() => {
-      const date = new Date();
-      setClockState(date.toLocaleTimeString("en-GB"));
-    }, 1000);
-  }, []);
-  // Notification Function
   function notify(title, body) {
     let options = {
       body: body,
       icon: Logo,
     };
     const notification = new Notification(title, options);
-    // console.log(notification.timestamp);
     notification.onclick = () => {
       window.open("https://localhost:3000"); // redirect to new page -- Challenge
     };
@@ -62,23 +57,42 @@ const Tabs = (props) => {
     setTimeout(notification.close.bind(), 3000);
   }
   // Notification Calling For every morning
-  const notificationCall = () => {
+  const notificationCall1 = () => {
     let title = "General Notification";
     let body = `Hi there, you have ${todayData.length} tasks should be done by today`;
-    notify(title, body);
+    if (!window.Notification) {
+      console.log("Browser does not support notifications.");
+    } else if (Notification.permission === "granted") {
+        notify(title, body);
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            notify(title, body);
+          }
+        });
+      }
   };
-  if (clockState === "08:00:00") {
-    // console.log("true");
-    notificationCall();
+  if (clockState === "22:24:00") {
+      notificationCall1();
+      console.log("true");
   }
   // Notification Calling For each task of today's tasks
   const notificationCallTask = (title, body) => {
-    notify(title, body);
+    if (!window.Notification) {
+      console.log("Browser does not support notifications.");
+    } else if (Notification.permission === "granted") {
+      notify(title, body);
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          notify(title, body);
+        }
+      });
+    }
   };
   todayData.map((task) => {
     let title = "Task Notification";
     let body = `Hi there, do not forget ${task.task_subject} Pleas!`;
-    // console.log(task.by_time.toString());
     if (clockState === task.by_time.toString()) {
       notificationCallTask(title, body);
     }
@@ -93,7 +107,7 @@ const Tabs = (props) => {
         </li>
         <li>
           <a href="#" onClick={(e) => handleClick(e, "tmr")}>
-            Tomorow
+            Tomorrow
           </a>
         </li>
         <li>
