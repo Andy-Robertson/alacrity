@@ -145,6 +145,21 @@ function App() {
               }
             />
             <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
+            <Route
+              path="*"
+              element={
+                user ? (
+                  <Middle
+                    user={user}
+                    SERVER_URL={SERVER_URL}
+                    taskData={TasksData}
+                    submitComplete={submitComplete}
+                  />
+                ) : (
+                  <Navigate to="/" />
+                )
+              }
+            />
           </Routes>
         </BrowserRouter>
         <RightSideBar
