@@ -64,7 +64,7 @@ const Tabs = (props) => {
   }
   // Notification Calling
   const notificationCall = () => {
-    let title = "Task Notification";
+    let title = "General Notification";
     let body = `Hi there, you have ${todayData.length} tasks should be done by today`;
     notify(title, body);
   };
@@ -72,6 +72,17 @@ const Tabs = (props) => {
     console.log("true");
     notificationCall();
   }
+  const notificationCallTask = (title, body) => {
+    notify(title, body);
+  };
+  todayData.map((task) => {
+    let title = "Task Notification";
+    let body = `Hi there, do not forget ${task.task_subject} Pleas!`;
+    // console.log(task.by_time.toString());
+    if (clockState === task.by_time.toString()){
+      notificationCallTask(title, body);
+    }
+  });
   return (
     <>
       <ul className="tabs">
