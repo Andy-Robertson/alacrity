@@ -172,7 +172,7 @@ function AddTask(props) {
             onChange={onChangeTime}
             value={valueTime}
             format="HH:mm"
-            minTime={new Date()}
+            // minTime={new Date()}
           />
         </div>
         <button type="submit">Submit Task</button>

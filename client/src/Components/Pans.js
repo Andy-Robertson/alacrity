@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import EditImg from "../Assets/img/icons8-edit(1).svg";
 import ScheduleImg from "../Assets/img/schedule.svg";
+// import Logo from "../Assets/img/logo.svg";
 import EditPopUp from "./EditTask/EditPopUp";
 const Pans = (props) => {
   const [openEditPan, setOpenEditPan] = useState(false);
@@ -12,6 +13,7 @@ const Pans = (props) => {
   };
   return (
     <>
+    {/* <p>{clockState}</p> */}
       {props.data.map((task, index) => {
         return (
           <article key={task.id} className="card">

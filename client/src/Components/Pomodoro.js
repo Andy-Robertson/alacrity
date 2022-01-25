@@ -19,7 +19,6 @@ const Pomodoro = () => {
 
   // Notification Function
   function notify(title, body) {
-    // let title = "Hello World";
     let options = {
       body: body,
       icon: Logo,

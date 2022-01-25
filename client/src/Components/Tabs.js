@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Pans from "./Pans";
+import Logo from "../Assets/img/logo.svg";
 
 const Tabs = (props) => {
-    const [data, setData] = useState(props.data);
-    const todayDate = new Date().getDate();
-    const [isToday, setIsToday] = useState(true);
-    const [isTmr, setIsTmr] = useState(false);
-    const [isLater, setIsLater] = useState(false);
-    const todayData = data.filter(
-      (ele) => new Date(ele.by_date).getDate() === todayDate
-    );
-    const tmrData = data.filter(
-      (ele) => new Date(ele.by_date).getDate() === todayDate + 1
-    );
-    const laterData = data.filter(
-      (ele) =>
-        new Date(ele.by_date).getDate() !== todayDate + 1
-        && new Date(ele.by_date).getDate() !== todayDate
-    );
-    useEffect(() => {
-        setData(props.data);
-    }, [props.data]);
+  const [data, setData] = useState(props.data);
+  const todayDate = new Date().getDate();
+  const [isToday, setIsToday] = useState(true);
+  const [isTmr, setIsTmr] = useState(false);
+  const [isLater, setIsLater] = useState(false);
+  // variabales for clock;
+  const [clockState, setClockState] = useState("");
+  const todayData = data.filter(
+    (ele) => new Date(ele.by_date).getDate() === todayDate
+  );
+  const tmrData = data.filter(
+    (ele) => new Date(ele.by_date).getDate() === todayDate + 1
+  );
+  const laterData = data.filter(
+    (ele) =>
+      new Date(ele.by_date).getDate() !== todayDate + 1
+      &&new Date(ele.by_date).getDate() !== todayDate
+  );
+  useEffect(() => {
+    setData(props.data);
+  }, [props.data]);
 
   function handleClick(e, taskDate) {
     e.preventDefault();
@@ -37,6 +40,37 @@ const Tabs = (props) => {
       setIsTmr(false);
       setIsLater(true);
     }
+  }
+  // Clock
+  useEffect(() => {
+    setInterval(() => {
+      const date = new Date();
+      setClockState(date.toLocaleTimeString("en-GB"));
+    }, 1000);
+  }, []);
+  // Notification Function
+  function notify(title, body) {
+    let options = {
+      body: body,
+      icon: Logo,
+    };
+    const notification = new Notification(title, options);
+    // console.log(notification.timestamp);
+    notification.onclick = () => {
+      window.open("https://localhost:3000"); // redirect to new page -- Challenge
+    };
+
+    setTimeout(notification.close.bind(), 3000);
+  }
+  // Notification Calling
+  const notificationCall = () => {
+    let title = "Task Notification";
+    let body = `Hi there, you have ${todayData.length} tasks should be done by today`;
+    notify(title, body);
+  };
+  if (clockState === "01:14:30") {
+    console.log("true");
+    notificationCall();
   }
   return (
     <>
