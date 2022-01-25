@@ -18,8 +18,7 @@ const Tabs = (props) => {
   );
   const laterData = data.filter(
     (ele) =>
-      new Date(ele.by_date).getDate() !== todayDate + 1
-      &&new Date(ele.by_date).getDate() !== todayDate
+      new Date(ele.by_date).getDate() !== todayDate + 1 && new Date(ele.by_date).getDate() !== todayDate
   );
   useEffect(() => {
     setData(props.data);
@@ -41,7 +40,7 @@ const Tabs = (props) => {
       setIsLater(true);
     }
   }
-  // Clock
+  // Generate Clock
   useEffect(() => {
     setInterval(() => {
       const date = new Date();
@@ -62,7 +61,7 @@ const Tabs = (props) => {
 
     setTimeout(notification.close.bind(), 3000);
   }
-  // Notification Calling
+  // Notification Calling For every morning
   const notificationCall = () => {
     let title = "General Notification";
     let body = `Hi there, you have ${todayData.length} tasks should be done by today`;
@@ -72,6 +71,7 @@ const Tabs = (props) => {
     console.log("true");
     notificationCall();
   }
+  // Notification Calling For each task of today's tasks
   const notificationCallTask = (title, body) => {
     notify(title, body);
   };
@@ -79,7 +79,7 @@ const Tabs = (props) => {
     let title = "Task Notification";
     let body = `Hi there, do not forget ${task.task_subject} Pleas!`;
     // console.log(task.by_time.toString());
-    if (clockState === task.by_time.toString()){
+    if (clockState === task.by_time.toString()) {
       notificationCallTask(title, body);
     }
   });
