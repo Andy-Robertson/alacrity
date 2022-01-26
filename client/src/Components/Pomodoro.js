@@ -4,6 +4,7 @@ import Button from "./button";
 import { GrPowerReset, GrPauseFill, GrPlayFill } from "react-icons/gr";
 import workComplete from "../Assets/audio/success-sound-effect.mp3";
 import { GlobalContext } from "../Contexts/GlobalContext";
+import Logo from "../Assets/img/logo.svg";
 
 const Pomodoro = () => {
   const { seconds, setSeconds, minutes, setMinutes } = useContext(GlobalContext);
@@ -16,10 +17,42 @@ const Pomodoro = () => {
   const [pomodoroSessionEnded, setPomodoroSessionEnded] = useState(false);
   const interval = useRef(null);
 
+  // Notification Function
+  function notify(title, body) {
+    let options = {
+      body: body,
+      icon: Logo,
+    };
+    const notification = new Notification(title, options);
+    notification.onclick = () => {
+      window.open("https://localhost:3000"); // redirect to new page -- Challenge
+    };
+
+    setTimeout(notification.close.bind(notification), 3000);
+  }
+  // Notification Calling
+  const notificationCall = (title, body) => {
+    if (!window.Notification) {
+      console.log("Browser does not support notifications.");
+    } else {
+      if (Notification.permission === "granted") {
+        notify(title, body);
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            notify(title, body);
+          }
+        });
+      }
+    }
+  };
   // Play jingle when timmer hits 00:00
   useEffect(() => {
     if (pomodoroSessionEnded) {
       workCompleteSound.play();
+      let title = "Pomodoro Notification";
+      let body = "Well Done The Time is Up";
+      notificationCall(title, body);
     } else {
       return null;
     }
