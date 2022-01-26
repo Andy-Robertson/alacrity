@@ -11,40 +11,6 @@ const Tabs = (props) => {
   const [taskIsArchived, setIsArchived] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const todayData = data.filter(
-    (ele) => new Date(ele.by_date).getDate() === todayDate
-  );
-  const tmrData = data.filter(
-    (ele) => new Date(ele.by_date).getDate() === todayDate + 1
-  );
-  const laterData = data.filter(
-    (ele) =>
-      new Date(ele.by_date).getDate() !== todayDate + 1
-      && new Date(ele.by_date).getDate() !== todayDate
-  );
-  let intervalId = null;
-  useEffect(() => {
-    setData(props.data);
-    if (intervalId){
-      clearInterval(intervalId);
-    }
-    intervalId = setInterval(() => {
-      const date = new Date();
-      const needsNotification = [];
-      props.data.forEach((ele) => {
-
-      if (ele.by_time.toString() === date.toLocaleTimeString("en-GB")) {
-          console.log("pushing");
-          needsNotification.push(ele);
-        }
-      });
-      if (needsNotification.length > 0) {
-        console.log("setting");
-        setNotifications(needsNotification);
-      }
-    }, 1000);
-  }, [props.data]);
-
-  const todayData = data.filter(
     (ele) =>
       new Date(ele.by_date).getDate() === todayDate
       && ele.task_archived === false
@@ -63,6 +29,27 @@ const Tabs = (props) => {
       && ele.task_archived === false
   );
   const archivedData = data.filter((ele) => ele.task_archived === true);
+  let intervalId = null;
+  useEffect(() => {
+    setData(props.data);
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+    intervalId = setInterval(() => {
+      const date = new Date();
+      const needsNotification = [];
+      props.data.forEach((ele) => {
+        if (ele.by_time.toString() === date.toLocaleTimeString("en-GB")) {
+          console.log("pushing");
+          needsNotification.push(ele);
+        }
+      });
+      if (needsNotification.length > 0) {
+        console.log("setting");
+        setNotifications(needsNotification);
+      }
+    }, 1000);
+  }, [props.data]);
 
   useEffect(() => {
     setData(props.data);
@@ -91,7 +78,7 @@ const Tabs = (props) => {
       setIsLater(false);
       setIsArchived(true);
     }
-  }
+  };
   function notify(title, body) {
     let options = {
       body: body,
