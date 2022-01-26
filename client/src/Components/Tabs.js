@@ -9,7 +9,7 @@ const Tabs = (props) => {
   const [isTmr, setIsTmr] = useState(false);
   const [isLater, setIsLater] = useState(false);
   // variabales for clock;
-  const [clockState, setClockState] = useState("");
+  const [notifications, setNotifications] = useState([]);
   const todayData = data.filter(
     (ele) => new Date(ele.by_date).getDate() === todayDate
   );
@@ -18,13 +18,29 @@ const Tabs = (props) => {
   );
   const laterData = data.filter(
     (ele) =>
-      new Date(ele.by_date).getDate() !== todayDate + 1 && new Date(ele.by_date).getDate() !== todayDate
+      new Date(ele.by_date).getDate() !== todayDate + 1
+      && new Date(ele.by_date).getDate() !== todayDate
   );
+  let intervalId = null;
   useEffect(() => {
     setData(props.data);
-    setInterval(() => {
+    if (intervalId){
+      clearInterval(intervalId);
+    }
+    intervalId = setInterval(() => {
       const date = new Date();
-      setClockState(date.toLocaleTimeString("en-GB"));
+      const needsNotification = [];
+      props.data.forEach((ele) => {
+
+      if (ele.by_time.toString() === date.toLocaleTimeString("en-GB")) {
+          console.log("pushing");
+          needsNotification.push(ele);
+        }
+      });
+      if (needsNotification.length > 0) {
+        console.log("setting");
+        setNotifications(needsNotification);
+      }
     }, 1000);
   }, [props.data]);
 
@@ -56,27 +72,6 @@ const Tabs = (props) => {
 
     setTimeout(notification.close.bind(), 3000);
   }
-  // Notification Calling For every morning
-  const notificationCall1 = () => {
-    let title = "General Notification";
-    let body = `Hi there, you have ${todayData.length} tasks should be done by today`;
-    if (!window.Notification) {
-      console.log("Browser does not support notifications.");
-    } else if (Notification.permission === "granted") {
-        notify(title, body);
-      } else if (Notification.permission !== "denied") {
-        Notification.requestPermission().then((permission) => {
-          if (permission === "granted") {
-            notify(title, body);
-          }
-        });
-      }
-  };
-  if (clockState === "22:24:00") {
-      notificationCall1();
-      console.log("true");
-  }
-  // Notification Calling For each task of today's tasks
   const notificationCallTask = (title, body) => {
     if (!window.Notification) {
       console.log("Browser does not support notifications.");
@@ -90,13 +85,16 @@ const Tabs = (props) => {
       });
     }
   };
-  todayData.map((task) => {
-    let title = "Task Notification";
-    let body = `Hi there, do not forget ${task.task_subject} Pleas!`;
-    if (clockState === task.by_time.toString()) {
+  if (notifications.length > 0) {
+    const currentNotification = [...notifications];
+    setNotifications([]);
+    console.log("Has notification");
+    currentNotification.forEach((ele) => {
+      let title = "Task Notification";
+      let body = `Hi there, do not forget ${ele.task_subject} Please!`;
       notificationCallTask(title, body);
-    }
-  });
+    });
+  }
   return (
     <>
       <ul className="tabs">
@@ -116,7 +114,7 @@ const Tabs = (props) => {
           </a>
         </li>
       </ul>
-      <p>{clockState}</p>
+      {/* <p>{clockState}</p> */}
       {isToday && (
         <Pans data={todayData} submitComplete={props.submitComplete} />
       )}
