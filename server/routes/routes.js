@@ -1,5 +1,7 @@
 const pool = require("../data/postgresConfig");
 require("../server");
+const nodemailer = require("nodemailer");
+const cron = require("node-cron");
 
 //     ---------- QUERY STRING CONSTRAINTS ----------     //
 
@@ -14,6 +16,57 @@ const UPDATE_USER_SETTINGS = `
   WHERE
     auth_id = $3`;
 
+//     -------------- Email For all user --------------     //
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "procrastinationkill@gmail.com",
+    pass: "mpbrqwomztcklvck",
+  },
+});
+function pickFromArray(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+// Variables
+const quotes = require("../motivational-quotes.json");
+const letter = pickFromArray(quotes);
+
+pool.query("SELECT * From users").then((result) => {
+  const allUsers = result.rows;
+  allUsers.forEach((user) => {
+    const firstName = user.first_name;
+    const lastName = user.last_name;
+    const email = user.email;
+
+    const text = `
+    Hi ${firstName} ${lastName}, Good morning,
+
+    I hope this finds you well,
+
+    Do not forget to check alacrity website to see the tasks you have to do it today,
+
+    As ${letter.author} said: ${letter.quote},
+
+    All the best.
+    `;
+
+    const mailOptions = {
+      from: "procrastinationkill@gmail.com",
+      to: email,
+      subject: "Test : Kil procrastination",
+      text: text,
+    };
+    cron.schedule("00 08 * * *", () => {
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email send: " + info.response);
+        }
+      });
+    });
+  })
+})
 //     -------------- ROUTER FUNCTION --------------     //
 
 // App router.
@@ -25,103 +78,125 @@ const router = (app) => {
     });
   });
 
-
   // Load tasks (users.auth_id).
   app.get("/api/tasks", (req, res) => {
     // console.log(req.session.passport.user);
-    const auth_id = req.session.passport.user; 
-  pool
-    .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
-    .then((result) => {
-      const user_id = result.rows[0].id;
-      // console.log(user_id)
-      pool
-        .query("SELECT * FROM task WHERE user_id = $1", [user_id])
-        .then((result) => {
-          // console.log(result.rows);
-          res.status(200).json(result.rows);
-        })
-        .catch((e) => console.error(e));
-    })
-    .catch((e) => console.error(e));
-  });
-
-  // Add user tasks (users.auth_id).
-  app.post("/api/tasks", (req, res) => {
-    // console.log(req.session.passport.user);
-const auth_id = req.session.passport.user;
-const task_subject = req.body.task_subject;
-const subject_description = req.body.subject_description;
-const reward = req.body.reward;
-const resources = req.body.resources;
-const by_time = req.body.by_time;
-const by_date = req.body.by_date;
-const sub_task_option = req.body.sub_task_option;
-const sub_tasks = req.body.sub_tasks;
-// console.log(req.body);
-pool
-  .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
-  .then((result) => {
-    const user_id = result.rows[0].id;
-    // console.log(user_id);
+    const auth_id = req.session.passport.user;
     pool
-      .query("SELECT * FROM task WHERE user_id = $1", [user_id])
-      .then(() => {
-        const query =
-          "INSERT INTO task (user_id, task_subject, subject_description, reward, resources, by_time, by_date, sub_task_option, sub_tasks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
+      .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
+      .then((result) => {
+        const user_id = result.rows[0].id;
+        // console.log(user_id)
         pool
-          .query(query, [
-            user_id,
-            task_subject,
-            subject_description,
-            reward,
-            resources,
-            by_time,
-            by_date,
-            sub_task_option,
-            sub_tasks,
-          ])
-          .then(() => {
-            res.sendStatus(204);
+          .query("SELECT * FROM task WHERE user_id = $1", [user_id])
+          .then((result) => {
+            // console.log(result.rows);
+            res.status(200).json(result.rows);
           })
           .catch((e) => console.error(e));
       })
       .catch((e) => console.error(e));
-  })
-  .catch((e) => console.error(e));
   });
 
-  // Edit user tasks 
+  // Add user tasks (users.auth_id).
+  app.post("/api/tasks", (req, res) => {
+    const auth_id = req.session.passport.user;
+    const task_archived = false;
+    const {
+      task_subject,
+      subject_description,
+      sub_task_option,
+      sub_tasks,
+      reward,
+      resources,
+      by_time,
+      by_date
+    } = req.body;
+
+    pool
+      .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
+      .then((result) => {
+        const user_id = result.rows[0].id;
+
+        pool
+          .query("SELECT * FROM task WHERE user_id = $1", [user_id])
+          .then(() => {
+            const query =
+              "INSERT INTO task (user_id, task_archived, task_subject, subject_description, reward, resources, by_time, by_date, sub_task_option, sub_tasks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
+            pool
+              .query(query, [
+                user_id,
+                task_archived,
+                task_subject,
+                subject_description,
+                reward,
+                resources,
+                by_time,
+                by_date,
+                sub_task_option,
+                sub_tasks,
+              ])
+              .then(() => {
+                res.sendStatus(204);
+              })
+              .catch((e) => console.error(e));
+          })
+          .catch((e) => console.error(e));
+      })
+      .catch((e) => console.error(e));
+  });
+
+  // Edit user tasks
   app.put("/api/tasks", (req, res) => {
-    // console.log(req.session.passport.user);
-    console.log(req.body);
-    const subject_id = req.body.id;
-    const task_subject = req.body.task_subject;
-    const subject_description = req.body.subject_description;
-    const reward = req.body.reward;
-    const resources = req.body.resources;
-    const by_time = req.body.by_time;
-    const by_date = req.body.by_date;
-    const sub_task_option = req.body.sub_task_option;
-    const sub_tasks = req.body.sub_tasks;
+    const {
+      subject_id,
+      task_subject,
+      subject_description,
+      sub_task_option,
+      sub_tasks,
+      reward,
+      resources,
+      by_time,
+      by_date,
+    } = req.body;
     const query =
       "UPDATE task SET task_subject = $1, subject_description = $2, reward = $3, resources= $4, by_time = $5, by_date = $6, sub_task_option = $7, sub_tasks = $8 WHERE id = $9;";
-      pool
-        .query(query, [
-          task_subject,
-          subject_description,
-          reward,
-          resources,
-          by_time,
-          by_date,
-          sub_task_option,
-          sub_tasks,
-          subject_id,
-        ])
-        .then((result) => {
-          res.sendStatus(204);
-        })
-        .catch((e) => console.error(e));;
+    pool
+      .query(query, [
+        task_subject,
+        subject_description,
+        reward,
+        resources,
+        by_time,
+        by_date,
+        sub_task_option,
+        sub_tasks,
+        subject_id,
+      ])
+      .then((result) => {
+        res.sendStatus(201);
+      })
+      .catch((e) => console.error(e));
+  });
+
+  app.put("/api/tasks/archived", (req, res) => {
+    const { task_id, task_archived } = req.body;
+
+    const query = "UPDATE task SET task_archived= $1 WHERE id= $2;";
+
+    pool
+      .query(query, [task_archived, task_id])
+      .then((result) => {
+        result.rows ?
+           res.status(200).json({
+              Result: "Success",
+              message: "Request complete: task archive status updated",
+            })
+          : res
+              .status(500)
+              .json({ Result: "Failure", message: "Request not complete" });
+      })
+      .catch((e) => console.error(e));
   });
 
   // Load user settings.
@@ -161,25 +236,21 @@ pool
       })
       .catch((e) => console.error(e));
   });
-
-  // Catch all - non matching routes sent back to index.html (keep below all other routes and above err handling).
-  // app.get("*", (req, res) => {
-  //   res.sendFile(path.join(__dirname, "../../client/build/index.html"));
-  // });
-
+  
   // Error handling
   app.use((req, res) => {
     res.status(404).json({
       message: "Route Not Found",
     });
   });
-
+  
   app.use((err, req, res) => {
     res.status(err.status || 500).json({
       message: err.message,
       error: {},
     });
   });
+
 };
 
 module.exports = router;

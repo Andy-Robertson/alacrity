@@ -8,7 +8,7 @@ const Tabs = (props) => {
   const [isToday, setIsToday] = useState(true);
   const [isTmr, setIsTmr] = useState(false);
   const [isLater, setIsLater] = useState(false);
-  // variabales for clock;
+  const [taskIsArchived, setIsArchived] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const todayData = data.filter(
     (ele) => new Date(ele.by_date).getDate() === todayDate
@@ -44,20 +44,52 @@ const Tabs = (props) => {
     }, 1000);
   }, [props.data]);
 
-  function handleClick(e, taskDate) {
+  const todayData = data.filter(
+    (ele) =>
+      new Date(ele.by_date).getDate() === todayDate
+      && ele.task_archived === false
+  );
+
+  const tmrData = data.filter(
+    (ele) =>
+      new Date(ele.by_date).getDate() === todayDate + 1
+      && ele.task_archived === false
+  );
+
+  const laterData = data.filter(
+    (ele) =>
+      new Date(ele.by_date).getDate() !== todayDate + 1
+      && new Date(ele.by_date).getDate() !== todayDate
+      && ele.task_archived === false
+  );
+  const archivedData = data.filter((ele) => ele.task_archived === true);
+
+  useEffect(() => {
+    setData(props.data);
+  }, [props.data]);
+
+  const handleClick = (e, taskDate) => {
     e.preventDefault();
     if (taskDate === "today") {
       setIsToday(true);
       setIsTmr(false);
       setIsLater(false);
+      setIsArchived(false);
     } else if (taskDate === "tmr") {
       setIsToday(false);
       setIsTmr(true);
       setIsLater(false);
-    } else {
+      setIsArchived(false);
+    } else if (taskDate === "later") {
       setIsToday(false);
       setIsTmr(false);
       setIsLater(true);
+      setIsArchived(false);
+    } else {
+      setIsToday(false);
+      setIsTmr(false);
+      setIsLater(false);
+      setIsArchived(true);
     }
   }
   function notify(title, body) {
@@ -95,13 +127,14 @@ const Tabs = (props) => {
       notificationCallTask(title, body);
     });
   }
+
   return (
     <>
       <ul className="tabs">
         <li>
           <a href="#" onClick={(e) => handleClick(e, "today")}>
             Today
-          </a>{" "}
+          </a>
         </li>
         <li>
           <a href="#" onClick={(e) => handleClick(e, "tmr")}>
@@ -113,6 +146,11 @@ const Tabs = (props) => {
             Later
           </a>
         </li>
+        <li>
+          <a href="#" onClick={(e) => handleClick(e, "Archived")}>
+            Archived
+          </a>
+        </li>
       </ul>
       {/* <p>{clockState}</p> */}
       {isToday && (
@@ -121,6 +159,9 @@ const Tabs = (props) => {
       {isTmr && <Pans data={tmrData} submitComplete={props.submitComplete} />}
       {isLater && (
         <Pans data={laterData} submitComplete={props.submitComplete} />
+      )}
+      {taskIsArchived && (
+        <Pans data={archivedData} submitComplete={props.submitComplete} />
       )}
     </>
   );

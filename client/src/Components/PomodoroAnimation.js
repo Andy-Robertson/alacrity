@@ -5,6 +5,7 @@ import "react-circular-progressbar/dist/styles.css";
 const addDigitPadding = (time) => time.toString().padStart(2, 0);
 
 const PomodoroAnimation = ({ timeLeftInSeconds, totalTimeInSeconds }) => {
+
   const minutes = addDigitPadding(Math.floor(timeLeftInSeconds / 60));
   const seconds = addDigitPadding(timeLeftInSeconds - minutes * 60);
   const percentage = Math.round((timeLeftInSeconds / totalTimeInSeconds) * 100) / 100;

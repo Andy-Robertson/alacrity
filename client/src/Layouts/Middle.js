@@ -1,11 +1,12 @@
-import React, {  } from "react";
+import React from "react";
 import Tabs from "../Components/Tabs";
 
 const Middle = ({ user, taskData, submitComplete }) => {
   const todayDate = new Date().getDate();
   const todayData = taskData.filter(
-    (ele) => new Date(ele.by_date).getDate() === todayDate
+    (ele) => new Date(ele.by_date).getDate() === todayDate && !ele.task_archived
   );
+
   return (
     // Start of wrapper setion
     <section className="wrapper">
