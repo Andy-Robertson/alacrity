@@ -1,5 +1,7 @@
 const pool = require("../data/postgresConfig");
 require("../server");
+const nodemailer = require("nodemailer");
+const cron = require("node-cron");
 
 //     ---------- QUERY STRING CONSTRAINTS ----------     //
 
@@ -14,6 +16,64 @@ const UPDATE_USER_SETTINGS = `
   WHERE
     auth_id = $3`;
 
+//     -------------- Email For all user --------------     //
+// email transport configuration
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "procrastinationkill@gmail.com",
+    // a challenge: how to get auth from gmail to let node.js sending the email
+    // solution: go to manage your google account => security => Signing in to Google => app password => create an email password
+    pass: "mpbrqwomztcklvck",
+  },
+});
+function pickFromArray(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+// Variables
+const quotes = require("../motivational-quotes.json");
+const letter = pickFromArray(quotes);
+
+pool.query("SELECT * From users").then((result) => {
+  // console.log(result.rows);
+  const allUsers = result.rows;
+  allUsers.forEach((user) => {
+    const firstName = user.first_name;
+    const lastName = user.last_name;
+    const email = user.email;
+
+    const text = `
+    Hi ${firstName} ${lastName}, Good morning,
+
+    I hope this finds you well,
+
+    Do not forget to check alacrity website to see the tasks you have to do it today,
+
+    As ${letter.author} said: ${letter.quote},
+
+    All the best.
+    `;
+
+    const mailOptions = {
+      from: "procrastinationkill@gmail.com",
+      to: email,
+      subject: "Test : Kil procrastination",
+      text: text,
+    };
+    // send email
+    // a challenge: how to make the email sending depends on time
+    // solution: using a cron library
+    cron.schedule("00 08 * * *", () => {
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email send: " + info.response);
+        }
+      });
+    });
+  })
+})
 //     -------------- ROUTER FUNCTION --------------     //
 
 // App router.
@@ -49,7 +109,7 @@ const router = (app) => {
   app.post("/api/tasks", (req, res) => {
     const auth_id = req.session.passport.user;
     const task_archived = false;
-    const [
+    const {
       task_subject,
       subject_description,
       sub_task_option,
@@ -57,8 +117,8 @@ const router = (app) => {
       reward,
       resources,
       by_time,
-      by_date,
-    ] = req.body;
+      by_date
+    } = req.body;
 
     pool
       .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
@@ -95,7 +155,7 @@ const router = (app) => {
 
   // Edit user tasks
   app.put("/api/tasks", (req, res) => {
-    const [
+    const {
       subject_id,
       task_subject,
       subject_description,
@@ -105,7 +165,7 @@ const router = (app) => {
       resources,
       by_time,
       by_date,
-    ] = req.body;
+    } = req.body;
     const query =
       "UPDATE task SET task_subject = $1, subject_description = $2, reward = $3, resources= $4, by_time = $5, by_date = $6, sub_task_option = $7, sub_tasks = $8 WHERE id = $9;";
     pool
@@ -121,7 +181,7 @@ const router = (app) => {
         subject_id,
       ])
       .then((result) => {
-        result.sendStatus(201);
+        res.sendStatus(201);
       })
       .catch((e) => console.error(e));
   });
