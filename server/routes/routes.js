@@ -17,13 +17,10 @@ const UPDATE_USER_SETTINGS = `
     auth_id = $3`;
 
 //     -------------- Email For all user --------------     //
-// email transport configuration
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "procrastinationkill@gmail.com",
-    // a challenge: how to get auth from gmail to let node.js sending the email
-    // solution: go to manage your google account => security => Signing in to Google => app password => create an email password
     pass: "mpbrqwomztcklvck",
   },
 });
@@ -35,7 +32,6 @@ const quotes = require("../motivational-quotes.json");
 const letter = pickFromArray(quotes);
 
 pool.query("SELECT * From users").then((result) => {
-  // console.log(result.rows);
   const allUsers = result.rows;
   allUsers.forEach((user) => {
     const firstName = user.first_name;
@@ -60,9 +56,6 @@ pool.query("SELECT * From users").then((result) => {
       subject: "Test : Kil procrastination",
       text: text,
     };
-    // send email
-    // a challenge: how to make the email sending depends on time
-    // solution: using a cron library
     cron.schedule("00 08 * * *", () => {
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
