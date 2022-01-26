@@ -49,14 +49,16 @@ const router = (app) => {
   app.post("/api/tasks", (req, res) => {
     const auth_id = req.session.passport.user;
     const task_archived = false;
-    const task_subject = req.body.task_subject;
-    const subject_description = req.body.subject_description;
-    const reward = req.body.reward;
-    const resources = req.body.resources;
-    const by_time = req.body.by_time;
-    const by_date = req.body.by_date;
-    const sub_task_option = req.body.sub_task_option;
-    const sub_tasks = req.body.sub_tasks;
+    const [
+      task_subject,
+      subject_description,
+      sub_task_option,
+      sub_tasks,
+      reward,
+      resources,
+      by_time,
+      by_date,
+    ] = req.body;
 
     pool
       .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
@@ -93,16 +95,17 @@ const router = (app) => {
 
   // Edit user tasks
   app.put("/api/tasks", (req, res) => {
-
-    const subject_id = req.body.id;
-    const task_subject = req.body.task_subject;
-    const subject_description = req.body.subject_description;
-    const reward = req.body.reward;
-    const resources = req.body.resources;
-    const by_time = req.body.by_time;
-    const by_date = req.body.by_date;
-    const sub_task_option = req.body.sub_task_option;
-    const sub_tasks = req.body.sub_tasks;
+    const [
+      subject_id,
+      task_subject,
+      subject_description,
+      sub_task_option,
+      sub_tasks,
+      reward,
+      resources,
+      by_time,
+      by_date,
+    ] = req.body;
     const query =
       "UPDATE task SET task_subject = $1, subject_description = $2, reward = $3, resources= $4, by_time = $5, by_date = $6, sub_task_option = $7, sub_tasks = $8 WHERE id = $9;";
     pool
