@@ -5,10 +5,10 @@ import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
 
 function EditForm({ task, submitComplete, openEditPan }) {
-  // console.log(task);
+  console.log(task);
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState(task.task_subject);
-  const [describe, setDescribe] = useState(task.task_describe);
+  const [describe, setDescribe] = useState(task.subject_description);
   const [reward, setReward] = useState(task.reward);
   const [resources, setResources] = useState(task.resources);
   const [subTask, setSubTask] = useState(
@@ -179,7 +179,18 @@ function EditForm({ task, submitComplete, openEditPan }) {
             // minTime={new Date()}
           />
         </div>
-        <button type="submit">Submit Task</button>
+        <div className="buttons">
+          <button className="btn cancel"  >
+            <span>
+              Cancel
+            </span>
+          </button>
+          <button className="btn" type="submit">
+            <span>
+              Add
+            </span>
+          </button>
+        </div>
       </form>
     </div>
   );
