@@ -19,7 +19,7 @@ function AddTask(props) {
   const [id, setId] = useState([]);
   // Date Time Picker Library
   const [valueDate, onChangeDate] = useState(new Date());
-  const [valueTime, onChangeTime] = useState(new Date().toLocaleTimeString([], { hour: "2-digit", minute:"2-digit" }));
+  const [valueTime, onChangeTime] = useState(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
   // Change handler function
   const changeHandler = (e) => {
     // each subTask will have a unique index so we can distinguesh between them
@@ -172,18 +172,19 @@ function AddTask(props) {
             onChange={onChangeTime}
             value={valueTime}
             format="HH:mm"
+            maxTime={"23:59"}
           // minTime={new Date()}
           />
         </div>
         <div className="buttons">
+          <button className="btn cancel" onClick={() => props.closeBtn(false)} >
+            <span>
+              Cancel
+            </span>
+          </button>
           <button className="btn" type="submit">
             <span>
               Add
-            </span>
-          </button>
-          <button className="btn cancel"onClick={() => props.closeBtn(false)} >
-            <span>
-              Cancel
             </span>
           </button>
         </div>

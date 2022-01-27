@@ -626,7 +626,7 @@ justify-content: flex-end;
 }
 
 form .cancel {
-  margin-left: 1em;
+  margin-right: 1em;
   background-color: var(--olor-light);
 }
 
