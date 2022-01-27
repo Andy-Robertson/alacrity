@@ -5,7 +5,6 @@ import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
 
 function AddTask(props) {
-  // console.log(props);
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState("");
   const [describe, setDescribe] = useState("");
@@ -20,7 +19,7 @@ function AddTask(props) {
   const [id, setId] = useState([]);
   // Date Time Picker Library
   const [valueDate, onChangeDate] = useState(new Date());
-  const [valueTime, onChangeTime] = useState(new Date().toLocaleString());
+  const [valueTime, onChangeTime] = useState(new Date().toLocaleTimeString([], { hour: "2-digit", minute:"2-digit" }));
   // Change handler function
   const changeHandler = (e) => {
     // each subTask will have a unique index so we can distinguesh between them
