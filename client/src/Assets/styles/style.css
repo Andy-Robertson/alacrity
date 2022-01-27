@@ -619,6 +619,22 @@ footer time {
   font-size: 16px; /* Set a font size */
   cursor: pointer; /* Mouse pointer on hover */
 }
+
+form .buttons {
+  display: flex;
+justify-content: flex-end;
+}
+
+form .cancel {
+  margin-left: 1em;
+  background-color: var(--olor-light);
+}
+
+form .btn {
+  display: block;
+  height: 2.4rem;
+  width: 7rem;
+}
 /* Settings */
 
 .settings-popup-btn {

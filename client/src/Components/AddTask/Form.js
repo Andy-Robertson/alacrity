@@ -5,6 +5,7 @@ import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
 
 function AddTask(props) {
+  // console.log(props);
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState("");
   const [describe, setDescribe] = useState("");
@@ -172,10 +173,22 @@ function AddTask(props) {
             onChange={onChangeTime}
             value={valueTime}
             format="HH:mm"
-            // minTime={new Date()}
+          // minTime={new Date()}
           />
         </div>
-        <button type="submit">Submit Task</button>
+        <div className="buttons">
+          <button className="btn" type="submit">
+            <span>
+              Add
+            </span>
+          </button>
+          <button className="btn cancel"onClick={() => props.closeBtn(false)} >
+            <span>
+              Cancel
+            </span>
+          </button>
+        </div>
+
       </form>
     </div>
   );
