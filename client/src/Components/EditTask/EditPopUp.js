@@ -8,9 +8,9 @@ function EditPopUp({ task, openEditPan, submitComplete }) {
   return (
     <div className="popup-box">
       <div className="box" onClick={(e) => handlePropagation(e)}>
-        <span className="close-icon" onClick={() => openEditPan(false)}>
+        {/* <span className="close-icon" onClick={() => openEditPan(false)}>
           x
-        </span>
+        </span> */}
         <EditForm
           task={task}
           submitComplete={submitComplete}

@@ -180,7 +180,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
           />
         </div>
         <div className="buttons">
-          <button className="btn cancel"  >
+          <button className="btn cancel">
             <span>
               Cancel
             </span>
