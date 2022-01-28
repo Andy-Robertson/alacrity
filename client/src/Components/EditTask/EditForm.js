@@ -187,7 +187,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
           </button>
           <button className="btn" type="submit">
             <span>
-              Add
+              Edit
             </span>
           </button>
         </div>
