@@ -148,8 +148,9 @@ const router = (app) => {
 
   // Edit user tasks
   app.put("/api/tasks", (req, res) => {
+    const auth_id = req.session.passport.user;
     const {
-      subject_id,
+      id,
       task_subject,
       subject_description,
       sub_task_option,
@@ -159,24 +160,55 @@ const router = (app) => {
       by_time,
       by_date,
     } = req.body;
-    const query =
-      "UPDATE task SET task_subject = $1, subject_description = $2, reward = $3, resources= $4, by_time = $5, by_date = $6, sub_task_option = $7, sub_tasks = $8 WHERE id = $9;";
+    // console.log(req.body);
+
     pool
-      .query(query, [
-        task_subject,
-        subject_description,
-        reward,
-        resources,
-        by_time,
-        by_date,
-        sub_task_option,
-        sub_tasks,
-        subject_id,
-      ])
+      .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
       .then((result) => {
-        res.sendStatus(201);
-      })
-      .catch((e) => console.error(e));
+        const user_id = result.rows[0].id;
+        
+        pool
+            const query =
+            'UPDATE task SET task_subject = $2, subject_description = $3, reward = $4, resources= $5, by_time = $6, by_date = $7, sub_task_option = $8, sub_tasks = $9 WHERE id = $10 and user_id = $1';
+            pool
+              .query(query, [
+                user_id,
+                task_subject,
+                subject_description,
+                reward,
+                resources,
+                by_time,
+                by_date,
+                sub_task_option,
+                sub_tasks,
+                id,
+              ])
+              .then((result) => {
+                // console.log(id);
+                res.sendStatus(204);
+              })
+              .catch((e) => console.error(e));
+          })
+          .catch((e) => console.error(e));
+
+    // const query =
+    //   "UPDATE task SET task_subject = $1, subject_description = $2, reward = $3, resources= $4, by_time = $5, by_date = $6, sub_task_option = $7, sub_tasks = $8 WHERE id = $9;";
+    // pool
+    //   .query(query, [
+    //     task_subject,
+    //     subject_description,
+    //     reward,
+    //     resources,
+    //     by_time,
+    //     by_date,
+    //     sub_task_option,
+    //     sub_tasks,
+    //     subject_id,
+    //   ])
+    //   .then((result) => {
+    //     res.sendStatus(201);
+    //   })
+    //   .catch((e) => console.error(e));
   });
 
   app.put("/api/tasks/archived", (req, res) => {

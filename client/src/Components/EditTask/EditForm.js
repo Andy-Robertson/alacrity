@@ -5,7 +5,6 @@ import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
 
 function EditForm({ task, submitComplete, openEditPan }) {
-  console.log(task);
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState(task.task_subject);
   const [describe, setDescribe] = useState(task.subject_description);
@@ -64,6 +63,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
   // Form function
   const submitForm = (e) => {
     e.preventDefault();
+    // console.log(e);
     if (taskSubject.length === 0) {
       alert("Task Subject has to be filled");
     } else if (toggled && subTask.length === 0) {
