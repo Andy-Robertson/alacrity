@@ -118,7 +118,7 @@ const router = (app) => {
         subject_id,
       ])
       .then((result) => {
-        result.sendStatus(201);
+        res.sendStatus(201);
       })
       .catch((e) => console.error(e));
   });
