@@ -149,7 +149,7 @@ const router = (app) => {
   // Edit user tasks
   app.put("/api/tasks", (req, res) => {
     const {
-      subject_id,
+      id,
       task_subject,
       subject_description,
       sub_task_option,
@@ -171,7 +171,7 @@ const router = (app) => {
         by_date,
         sub_task_option,
         sub_tasks,
-        subject_id,
+        id,
       ])
       .then((result) => {
         res.sendStatus(201);
