@@ -43,6 +43,7 @@ const Pans = (props) => {
   return (
     <>
       {props.data.map((task, index) => {
+        {console.log(task);}
         return (
           <article key={task.id} className="card">
             <header>
@@ -95,6 +96,14 @@ const Pans = (props) => {
                 </ul>
               </section>
             ) : null}
+            <section className="card__rewards">
+              <span>Rewards:</span>
+              <p>{task.reward}</p>
+            </section>
+            <section className="card__resources">
+              <span>Resources:</span>
+              <p>{task.resources}</p>
+            </section>
             <footer className="card_footer">
               <time dateTime={task.by_time}>{task.by_time}</time>
             </footer>

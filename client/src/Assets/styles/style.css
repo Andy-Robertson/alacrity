@@ -663,3 +663,23 @@ form .btn {
 .settings-btn:hover {
   cursor: pointer;
 }
+
+
+/* Pans */
+
+.card__rewards,
+.card__resources {
+  margin-left: 4em;
+}
+
+.card__rewards span, 
+.card__resources span {
+  font-size: 0.8em;
+  color: #555;
+  font-style: italic;
+}
+
+.card__rewards p,
+.card__resources p {
+  margin: 0;
+}
