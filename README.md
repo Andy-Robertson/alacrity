@@ -5,8 +5,8 @@ Anti-procrastination app that consistently forces you forward.
 
 # Note for mac os
 To run the web app on your local machine:
-1. Remove the proxy field from the package.json file.
-2. ```cd client```
+1. ```cd client```
+2. Remove the proxy field from the package.json file.
 3. run ``` npm install http-proxy-middleware --save```
 4. inside src folder create ``` setupProxy.js```
 5. add the following code to ``` setupProxy.js```
