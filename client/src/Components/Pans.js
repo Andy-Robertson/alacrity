@@ -43,6 +43,10 @@ const Pans = (props) => {
   return (
     <>
       {props.data.map((task, index) => {
+        const trimedString = task.resources.replace(/[{ } \\ " \s]/g, "");
+        // console.log("trim", trimedString);
+        const stringArr = trimedString.split(",");
+        // console.log("arr",stringArr);
         return (
           <article key={task.id} className="card">
             <header>
@@ -101,7 +105,16 @@ const Pans = (props) => {
             </section>
             <section className="card__resources">
               <span>Resources:</span>
-              <p>{task.resources}</p>
+              {/* <div className="pill">
+                <span>{task.resources}</span>
+                </div> */}
+              {stringArr.map((resource, key) => (
+                resource && (
+                <div key={key} className="pill">
+                  <span> {resource.replace(/,/g, "")} </span>
+                </div>
+                )
+              ))}
             </section>
             <footer className="card_footer">
               <time dateTime={task.by_time}>{task.by_time}</time>

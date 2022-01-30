@@ -41,7 +41,6 @@ function AddTask(props) {
     evt.preventDefault();
     if (evt.key === "," && evt.target.value) {
       if (!resourcesList.includes(evt.target.value)) {
-        console.log("res", evt.target.value);
         // const allVals = evt.target.value.split(",").map((v) => v.trim()).filter(Boolean);
         // console.log("allVals",allVals);
         setResourcesList(resourcesList.concat(evt.target.value));
@@ -87,7 +86,7 @@ function AddTask(props) {
           sub_task_option: toggled,
           sub_tasks: toggled ? [subTask].concat(addInputList) : null,
           reward: reward,
-          resources: resources,
+          resources: resourcesList,
           by_time: valueTime,
           by_date: valueDate,
         }),
@@ -215,3 +214,7 @@ function AddTask(props) {
 }
 
 export default AddTask;
+
+
+// {"https://syllabus.codeyourfuture.io/react/week-3/lesson,","https://www.google.com/,","https://reactjs.org/docs/getting-started.html,"}
+

@@ -679,6 +679,11 @@ form .btn {
   font-style: italic;
 }
 
+.card__resources span {
+  font-size: 0.8em;
+  display: block;
+}
+
 .card__rewards p,
 .card__resources p {
   margin: 0;
