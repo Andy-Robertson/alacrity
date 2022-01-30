@@ -1,6 +1,8 @@
-const pool = require("../data/postgresConfig");
+const pool = require("./data/postgresConfig");
 const nodemailer = require("nodemailer");
 const cron = require("node-cron");
+const quotes = require("./motivational-quotes.json");
+
 
 const configureEmails = () => {
   const transporter = nodemailer.createTransport({
@@ -14,7 +16,6 @@ const configureEmails = () => {
     return arr[Math.floor(Math.random() * arr.length)];
   }
   // Variables
-  const quotes = require("../motivational-quotes.json");
   const letter = pickFromArray(quotes);
 
   pool.query("SELECT * From users").then((result) => {
@@ -43,13 +44,7 @@ const configureEmails = () => {
         text: text,
       };
       cron.schedule("00 08 * * *", () => {
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            console.log(error);
-          } else {
-            console.log("Email send: " + info.response);
-          }
-        });
+        transporter.sendMail(mailOptions, (error) => error && console(error));
       });
     });
   });

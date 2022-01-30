@@ -50,7 +50,9 @@ app.use(
 app.use("/auth", authRoutes);
 router(app);
 //     -------------- Email For all user --------------     //
+
 configureEmails();
+
 // Start alacrity server
 const server = app.listen(PORT, (err) => {
   err
