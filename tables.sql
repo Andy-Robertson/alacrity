@@ -32,17 +32,3 @@ CREATE TABLE task (
   CHECK ( (sub_task_option = true AND sub_tasks IS NOT NULL) OR (sub_task_option = false AND sub_tasks IS NULL))
   -- task_added            TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-INSERT INTO users (auth_id, provider_name, display_name, first_name, last_name, email, avatar, marketing) VALUES ('103930551192292680756', 'google', 'JohnM', 'John', 'Meric', 'john@gmail.com', 'http://tempavatar.com/pic1', true);
-INSERT INTO users (auth_id, provider_name, display_name, first_name, last_name, email, avatar, marketing) VALUES ('1034405', 'github', 'JamesD', 'James', 'Dean','james@gmail.com', 'http://tempavatar.com/pic2', true);
-INSERT INTO users (auth_id, provider_name, display_name, first_name, last_name, email, avatar, marketing) VALUES ('103330541192242680756', 'google', 'PaulB', 'Paul', 'Black', 'paul@gmail.com', 'http://tempavatar.com/pic3', false);
-INSERT INTO users (auth_id, provider_name, display_name, first_name, last_name, email, avatar, marketing) VALUES ('1039905', 'github', 'GavinD', 'Gavin', 'Drew','Gavin@gmail.com', 'http://tempavatar.com/pic4', true);
-INSERT INTO users (auth_id, provider_name, display_name, first_name, last_name, email, avatar, marketing) VALUES ('103330551992242680756', 'google', 'MarkS', 'Mark', 'Stango', 'mark@gmail.com', 'http://tempavatar.com/pic5', false);
-INSERT INTO users (auth_id, provider_name, display_name, first_name, last_name, email, avatar, marketing) VALUES ('1022305', 'github', 'AlexD', 'Alex', 'Dent', 'Alex@gmail.com', 'http://tempavatar.com//pic6', true);
-
-INSERT INTO task (user_id, task_archived, task_subject, subject_description, by_time, by_date, sub_task_option) VALUES (1, false, 'Python', 'fun fun fun!', '14:00', '01/08/2022', false);
-INSERT INTO task (user_id, task_archived, task_subject, subject_description, sub_task_option, by_time, by_date) VALUES (2, false, 'Renew Gym sub', 'Pay 15£ htmlFor the gym', false, '14:00', '01/08/2022');
-INSERT INTO task (user_id, task_archived, task_subject, subject_description, sub_task_option, by_time, by_date) VALUES (2, true, 'Renew Netflix sub', 'Pay 20£', false, '10:00', '01/08/2022');
-INSERT INTO task (user_id, task_archived, task_subject, subject_description, sub_task_option, by_time, by_date, reward, resources, sub_tasks) VALUES (2, false, 'Finish CYF week 1 HW', '', true, '14:00', '01/09/2022','Go to the beatch', 'http://nice-resource.com', '{"Freecode camp JS course", "Khan academy JS course", "CYF JS course work"}');
-
-INSERT INTO task (user_id, task_archived, task_subject, subject_description, sub_task_option, by_time, by_date) VALUES (2, true, 'Renew Gym sub', 'Pay 15£ htmlFor the gym', false, '14:00', '01/10/2022');
