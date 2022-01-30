@@ -66,7 +66,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
     e.preventDefault();
 
     const subTaskList = [...addInputList].filter(
-      (task) => /^\s+$/.test(task).length === task.length
+      (task) => task.trim().length >= 1
     );
 
     if (taskSubject.length === 0) {
