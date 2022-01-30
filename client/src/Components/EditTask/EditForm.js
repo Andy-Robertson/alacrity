@@ -64,6 +64,11 @@ function EditForm({ task, submitComplete, openEditPan }) {
   // Form function
   const submitForm = (e) => {
     e.preventDefault();
+
+    const subTaskList = [...addInputList].filter(
+      (task) => task.trim().length >= 1
+    );
+
     if (taskSubject.length === 0) {
       alert("Task Subject has to be filled");
     } else if (toggled && subTask.length === 0) {
@@ -76,7 +81,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
           task_subject: taskSubject,
           subject_description: describe,
           sub_task_option: toggled,
-          sub_tasks: toggled ? [subTask].concat(addInputList) : null,
+          sub_tasks: toggled ? [subTask].concat(subTaskList) : null,
           reward: reward,
           resources: resources,
           by_time: valueTime,
