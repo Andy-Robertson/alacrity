@@ -73,7 +73,6 @@ const Pomodoro = () => {
     setTimerActive(true);
     interval.current = setInterval(() => {
       setTimeLeftInSeconds((timeLeftInSeconds) => {
-        console.log(timeLeftInSeconds);
         if (timeLeftInSeconds >= 1) {
           setPomodoroSessionEnded(false);
           return timeLeftInSeconds - 1;
@@ -163,7 +162,7 @@ const Pomodoro = () => {
           />
         )}
 
-        {timerActive && (
+        {timerActive && timeLeftInSeconds > 0 && (
           <Button
             type={"pomodoro-startStop-btn pomodoro-btn-interaction"}
             handleClick={handleStopTimer}
@@ -171,11 +170,13 @@ const Pomodoro = () => {
           />
         )}
 
-        <Button
-          type={"pomodoro-reset-btn pomodoro-btn-interaction-reset"}
-          handleClick={handleResetTimer}
-          children={<GrPowerReset />}
-        />
+        {!timeLeftInSeconds && (
+          <Button
+            type={"pomodoro-startStop-btn pomodoro-btn-interaction-reset"}
+            handleClick={handleResetTimer}
+            children={<GrPowerReset />}
+          />
+        )}
       </span>
     </section>
   );

@@ -134,6 +134,8 @@ main {
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
   justify-self: space-between;
+    height: 3rem;
+  width: 80%;
 }
 
 .pomodoro-btn-interaction:hover {
@@ -172,22 +174,12 @@ main {
   justify-content: center;
 }
 
-.pomodoro-reset-btn {
-  height: 3rem;
-  width: 20%;
-  margin-left: 0.4rem;
-}
-
 .pomodoro-btn-interaction-reset:hover {
   background-color: rgba(255, 0, 0, 0.541);
   box-shadow: 0.2em 0.4em 3px 1.5px rgba(255, 0, 0, 0.541);
   cursor: pointer;
 }
 
-.pomodoro-startStop-btn {
-  height: 3rem;
-  width: 60%;
-}
 
 .pomodoro-time-btn {
   border-radius: 0;
