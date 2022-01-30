@@ -115,7 +115,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
           />
         </div>
         <h4>Sub Tasks</h4>
-        <Toggle handleCheck={(evt) => setToggled(evt.target.checked)} />
+        <Toggle handleCheck={(evt) => setToggled(evt.target.checked)} checked={toggled}/>
         {/* <p> the button is {toggled ? "on" : "off"}</p> */}
         {toggled && (
           <div>
