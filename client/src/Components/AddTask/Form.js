@@ -60,10 +60,9 @@ function AddTask(props) {
   const submitForm = (e) => {
     e.preventDefault();
 
-    const subTaskList = [...addInputList];
-    if (subTaskList[subTaskList.length - 1] === "") {
-      subTaskList.pop();
-    }
+    const subTaskList = [...addInputList].filter(
+      (task) => /^\s+$/.test(task).length === task.length
+    );
 
     if (taskSubject.length === 0) {
       alert("Task Subject has to be filled");
