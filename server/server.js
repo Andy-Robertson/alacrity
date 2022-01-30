@@ -11,6 +11,7 @@ const router = require("./routes/routes");
 const authRoutes = require("./routes/authRoutes");
 require("./authentication/passportConfig");
 require("./data/postgresConfig");
+const configureEmails = require("./configureEmails");
 
 // Enable trust proxy required due to X-forward headers during authentication.
 if (process.env.WORKING_ENVIRONMENT === "production") app.enable("trust proxy");
@@ -48,6 +49,9 @@ app.use(
 
 app.use("/auth", authRoutes);
 router(app);
+//     -------------- Email For all user --------------     //
+
+configureEmails();
 
 // Start alacrity server
 const server = app.listen(PORT, (err) => {
