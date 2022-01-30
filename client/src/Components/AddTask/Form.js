@@ -127,7 +127,6 @@ function AddTask(props) {
               {addInputList.map((sub, index) => (
                 <AddSubTask
                   value={sub}
-                  // key={`add_${id[index]}`}
                   key={index}
                   index={index}
                   listHandler={listHandler}
