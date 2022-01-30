@@ -43,7 +43,6 @@ const Pans = (props) => {
   return (
     <>
       {props.data.map((task, index) => {
-        {console.log(task);}
         return (
           <article key={task.id} className="card">
             <header>

@@ -11,6 +11,7 @@ function AddTask(props) {
   const [reward, setReward] = useState("");
   const [resources, setResources] = useState("");
   const [subTask, setSubTask] = useState(""); // The default of first subTask
+  const [resourcesList, setResourcesList] = useState([]);
 
   // Check box to have subTask option if the user wants.
   const [toggled, setToggled] = useState(false);
@@ -35,6 +36,20 @@ function AddTask(props) {
       setSubTask(e.target.value);
     }
   };
+
+  const handleKeyUp = (evt) => {
+    evt.preventDefault();
+    if (evt.key === "," && evt.target.value) {
+      if (!resourcesList.includes(evt.target.value)) {
+        console.log("res", evt.target.value);
+        // const allVals = evt.target.value.split(",").map((v) => v.trim()).filter(Boolean);
+        // console.log("allVals",allVals);
+        setResourcesList(resourcesList.concat(evt.target.value));
+      }
+      setResources("");
+    }
+  };
+
   // Functions for sub task array
   const listHandler = (e, index, subTask) => {
     // function to add the element of subtask to the array
@@ -158,8 +173,14 @@ function AddTask(props) {
             name="resources"
             placeholder="Resources help you ..."
             value={resources}
+            onKeyUp={handleKeyUp}
             onChange={changeHandler}
           />
+          {resourcesList.map((resource, key) => (
+            <div key={key} className="pill">
+              <span> {resource} </span>
+            </div>
+          ))}
         </div>
         <div>
           <DatePicker
