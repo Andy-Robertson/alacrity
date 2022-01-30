@@ -178,7 +178,7 @@ function AddTask(props) {
           />
           {resourcesList.map((resource, key) => (
             <div key={key} className="pill">
-              <span> {resource} </span>
+              <span> {resource.replace(/,/g, "")} </span>
             </div>
           ))}
         </div>
@@ -194,7 +194,6 @@ function AddTask(props) {
             value={valueTime}
             format="HH:mm"
             maxTime={"23:59"}
-          // minTime={new Date()}
           />
         </div>
         <div className="buttons">
