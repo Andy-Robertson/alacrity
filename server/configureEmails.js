@@ -44,7 +44,7 @@ const configureEmails = () => {
         text: text,
       };
       cron.schedule("00 08 * * *", () => {
-        transporter.sendMail(mailOptions, (error) => error && console(error));
+        transporter.sendMail(mailOptions, (error) => error && console.log(error));
       });
     });
   });
