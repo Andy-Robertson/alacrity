@@ -13,7 +13,6 @@ const Pomodoro = () => {
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
   const [timeLeftInSeconds, setTimeLeftInSeconds] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
-  const [activeMode, setActiveMode] = useState("custom");
   const [pomodoroSessionEnded, setPomodoroSessionEnded] = useState(false);
   const interval = useRef(null);
 
@@ -111,15 +110,12 @@ const Pomodoro = () => {
   // Set pre-defined time sessions.
   const handleTimeSelect = (e) => {
     if (e.target.value === "Focus") {
-      setActiveMode("Focus");
       setMinutes(25);
       setSeconds(0);
     } else if (e.target.value === "Rest") {
-      setActiveMode("Rest");
       setMinutes(5);
       setSeconds(0);
     } else {
-      setActiveMode("Break");
       setMinutes(30);
       setSeconds(0);
     }
@@ -132,21 +128,21 @@ const Pomodoro = () => {
     <section className="pomodoro-wrapper right-animation">
       <span className="pomodoro-time-selector-wrapper">
         <Button
-          type={activeMode === "Focus" ? ACTIVE : INACTIVE}
+          type={minutes === 25 ? ACTIVE : INACTIVE}
           handleClick={handleTimeSelect}
           children={"Focus"}
           value={"Focus"}
         />
 
         <Button
-          type={activeMode === "Rest" ? ACTIVE : INACTIVE}
+          type={minutes === 5 ? ACTIVE : INACTIVE}
           handleClick={handleTimeSelect}
           children={"Rest"}
           value={"Rest"}
         />
 
         <Button
-          type={activeMode === "Break" ? ACTIVE : INACTIVE}
+          type={minutes === 30 ? ACTIVE : INACTIVE}
           handleClick={handleTimeSelect}
           children={"Break"}
           value={"Break"}
