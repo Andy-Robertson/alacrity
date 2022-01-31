@@ -13,7 +13,7 @@ CREATE TABLE users (
   marketing         BOOLEAN NOT NULL,
   pom_minutes 		  VARCHAR(2),
   pom_seconds		    VARCHAR(2),
-  not_sound_active 	BOOLEAN NOT NULL
+  not_sound_active 	BOOLEAN
 );
 
 CREATE TABLE task (

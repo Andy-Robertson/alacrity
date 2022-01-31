@@ -67,7 +67,7 @@ function App() {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       })
-      .then((response) => {
+        .then((response) => {
           if (response.status === 200) {
             return response.json();
           } else {
@@ -87,6 +87,7 @@ function App() {
 
   // Update db with user settings.
   useEffect(() => {
+    if ( minutes !== null && seconds !== null ) {
       fetch("/api/settings", {
         method: "PUT",
         body: JSON.stringify({
@@ -96,6 +97,7 @@ function App() {
         }),
         headers: { "Content-Type": "application/json" },
       });
+    }
   }, [minutes, seconds, enableNotificationSound]);
 
   const submitComplete = () => {

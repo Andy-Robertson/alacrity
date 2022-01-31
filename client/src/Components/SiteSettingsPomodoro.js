@@ -11,7 +11,6 @@ const SiteSettingsPomodoro = () => {
 
     setMinutes(parseInt(formMinutes));
     setSeconds(parseInt(formSeconds));
-
   };
 
   const handleTimeChange = (e) => {
@@ -23,11 +22,9 @@ const SiteSettingsPomodoro = () => {
   return (
     <section>
       <h3>Pomodoro</h3>
-      <form
-        className="form"
-        onSubmit={setCustomPomodoroTime}
-      >
-        <div className="form-pomodoro pomodoro-settings-container">
+      <form className="form" onSubmit={setCustomPomodoroTime}>
+        <h5 className="settings-sub-heading">Set Custom Time</h5>
+        <div className="form-pomodoro settings-container-pomodoro">
           <div className="form-spacing">
             <input
               type="text"
