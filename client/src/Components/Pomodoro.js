@@ -172,7 +172,15 @@ const Pomodoro = () => {
 
         {!timeLeftInSeconds && (
           <Button
-            type={"pomodoro-startStop-btn pomodoro-btn-interaction-reset"}
+            type={"pomodoro-large-reset-btn pomodoro-btn-interaction-reset"}
+            handleClick={handleResetTimer}
+            children={<GrPowerReset />}
+          />
+        )}
+
+        {timeLeftInSeconds > 0 && (
+          <Button
+            type={"pomodoro-small-reset-btn pomodoro-btn-interaction-reset"}
             handleClick={handleResetTimer}
             children={<GrPowerReset />}
           />

@@ -125,28 +125,6 @@ main {
   border-radius: 15px;
 }
 
-.pomodoro-btn {
-  border: 0;
-  outline: 0;
-  border-radius: 5px;
-  overflow: hidden;
-  padding: 0;
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
-  justify-self: space-between;
-    height: 3rem;
-  width: 80%;
-}
-
-.pomodoro-btn-interaction:hover {
-  background-color: rgba(147, 197, 252, 0.3);
-  cursor: pointer;
-}
-
-.pomodoro-btn-interaction:focus {
-  background-color: rgba(147, 197, 252, 0.3);
-}
-
 .pomodoro-time-selector-wrapper {
   justify-self: center;
   align-self: center;
@@ -174,12 +152,42 @@ main {
   justify-content: center;
 }
 
+.pomodoro-btn {
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
+  justify-self: space-between;
+  height: 3rem;
+  width: 60%;
+}
+
+.pomodoro-btn-interaction:hover {
+  background-color: rgba(147, 197, 252, 0.3);
+  cursor: pointer;
+}
+
+.pomodoro-btn-interaction:focus {
+  background-color: rgba(147, 197, 252, 0.3);
+}
+
+.pomodoro-small-reset-btn {
+  width: 20%;
+  margin-left: 0.4rem;
+}
+
+.pomodoro-large-reset-btn {
+  width: 82%;
+}
+
 .pomodoro-btn-interaction-reset:hover {
   background-color: rgba(255, 0, 0, 0.541);
   box-shadow: 0.2em 0.4em 3px 1.5px rgba(255, 0, 0, 0.541);
   cursor: pointer;
 }
-
 
 .pomodoro-time-btn {
   border-radius: 0;
