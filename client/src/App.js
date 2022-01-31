@@ -21,6 +21,7 @@ function App() {
   const [TasksData, setTasksData] = useState([]);
   const [minutes, setMinutes] = useState(null);
   const [seconds, setSeconds] = useState(null);
+  const [enableNotificationSound, setEnableNotificationSound] = useState(null);
 
   useEffect(() => {
     const getUser = () => {
@@ -76,6 +77,7 @@ function App() {
         .then((result) => {
           setMinutes(parseInt(result.pom_minutes));
           setSeconds(parseInt(result.pom_seconds));
+          setEnableNotificationSound(result.not_sound_active);
         })
         .catch((err) => {
           console.error(err);
@@ -85,17 +87,16 @@ function App() {
 
   // Update db with user settings.
   useEffect(() => {
-    if (minutes !== null && seconds !== null) {
       fetch("/api/settings", {
         method: "PUT",
         body: JSON.stringify({
           pom_minutes: minutes,
           pom_seconds: seconds,
+          not_sound_active: enableNotificationSound,
         }),
         headers: { "Content-Type": "application/json" },
       });
-    }
-  }, [minutes, seconds]);
+  }, [minutes, seconds, enableNotificationSound]);
 
   const submitComplete = () => {
     fetch("/api/tasks")
@@ -114,6 +115,8 @@ function App() {
           seconds,
           setSeconds,
           setTasksData,
+          enableNotificationSound,
+          setEnableNotificationSound,
         }}
       >
         <LeftSideBar user={user} />

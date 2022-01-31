@@ -20,10 +20,11 @@ const DB_INSERT_STRING = `
       avatar,
       marketing,
       pom_minutes,
-      pom_seconds
+      pom_seconds,
+      not_sound_active
   )
   VALUES
-  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
+  ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`;
 
 const DB_ID_SEARCH_STRING = `SELECT * FROM users WHERE auth_Id = $1`;
 
@@ -179,6 +180,7 @@ const poolQuery = (
     marketing: false,
     pom_minutes: 25,
     pom_seconds: 00,
+    not_sound_active: true,
   };
 
   return pool
@@ -196,8 +198,9 @@ const poolQuery = (
           defaultSettings.marketing,
           defaultSettings.pom_minutes,
           defaultSettings.pom_seconds,
+          defaultSettings.not_sound_active,
         ]);
-        console.log(`default ${defaultSettings.pom_minutes}`);
+
         done(null, user);
       } else {
         done(null, user);

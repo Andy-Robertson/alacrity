@@ -10,9 +10,10 @@ const UPDATE_USER_SETTINGS = `
     users
   SET
     pom_minutes = $1,
-    pom_seconds = $2
+    pom_seconds = $2,
+    not_sound_active = $3
   WHERE
-    auth_id = $3`;
+    auth_id = $4`;
 
 
 //     -------------- ROUTER FUNCTION --------------     //
@@ -158,6 +159,7 @@ const router = (app) => {
           ? res.status(200).json({
               pom_minutes: result.rows[0].pom_minutes,
               pom_seconds: result.rows[0].pom_seconds,
+              not_sound_active: result.rows[0].not_sound_active,
             })
           : res
               .status(500)
@@ -169,10 +171,10 @@ const router = (app) => {
   // Update user settings.
   app.put("/api/settings", (req, res) => {
     const auth_id = req.session.passport.user;
-    const { pom_minutes, pom_seconds } = req.body;
+    const { pom_minutes, pom_seconds, not_sound_active } = req.body;
 
     pool
-      .query(UPDATE_USER_SETTINGS, [pom_minutes, pom_seconds, auth_id])
+      .query(UPDATE_USER_SETTINGS, [pom_minutes, pom_seconds, not_sound_active, auth_id])
       .then((result) => {
         result.rowCount > 0
           ? res

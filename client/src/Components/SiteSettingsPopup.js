@@ -1,4 +1,5 @@
 import SiteSettingsPomodoro from "./SiteSettingsPomodoro";
+import SiteSettingsNotification from "./SiteSettingsNotification";
 
 const SiteSettingsPopup = (props) => {
   const handlePropagation = (e) => {
@@ -13,6 +14,7 @@ const SiteSettingsPopup = (props) => {
         </span>
         <h2>Settings</h2>
         <SiteSettingsPomodoro />
+        <SiteSettingsNotification />
       </div>
     </div>
   );
