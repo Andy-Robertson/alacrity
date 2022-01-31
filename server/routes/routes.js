@@ -127,6 +127,7 @@ const router = (app) => {
       .catch((e) => console.error(e));
   });
 
+
   app.put("/api/tasks/archived", (req, res) => {
     const { task_id, task_archived } = req.body;
 
@@ -136,13 +137,13 @@ const router = (app) => {
       .query(query, [task_archived, task_id])
       .then((result) => {
         result.rows ?
-           res.status(200).json({
-              Result: "Success",
-              message: "Request complete: task archive status updated",
-            })
+          res.status(200).json({
+            Result: "Success",
+            message: "Request complete: task archive status updated",
+          })
           : res
-              .status(500)
-              .json({ Result: "Failure", message: "Request not complete" });
+            .status(500)
+            .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
@@ -156,12 +157,12 @@ const router = (app) => {
       .then((result) => {
         result.rows
           ? res.status(200).json({
-              pom_minutes: result.rows[0].pom_minutes,
-              pom_seconds: result.rows[0].pom_seconds,
-            })
+            pom_minutes: result.rows[0].pom_minutes,
+            pom_seconds: result.rows[0].pom_seconds,
+          })
           : res
-              .status(500)
-              .json({ Result: "Failure", message: "Request not complete" });
+            .status(500)
+            .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
@@ -176,16 +177,17 @@ const router = (app) => {
       .then((result) => {
         result.rowCount > 0
           ? res
-              .status(200)
-              .json({ Result: "Success", message: "Settings updated" })
+            .status(200)
+            .json({ Result: "Success", message: "Settings updated" })
           : res
-              .status(500)
-              .json({ Result: "Failure", message: "Request not complete" });
+            .status(500)
+            .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
-  
+
   // Error handling
+
   // app.use((req, res) => {
   //   res.status(404).json({
   //     message: "Route Not Found",
@@ -198,7 +200,6 @@ const router = (app) => {
   //     error: {},
   //   });
   // });
-
 };
 
 module.exports = router;

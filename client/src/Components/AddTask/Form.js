@@ -11,6 +11,7 @@ function AddTask(props) {
   const [reward, setReward] = useState("");
   const [resources, setResources] = useState("");
   const [subTask, setSubTask] = useState(""); // The default of first subTask
+  const [resourcesList, setResourcesList] = useState([]);
 
   // Check box to have subTask option if the user wants.
   const [toggled, setToggled] = useState(false);
@@ -19,7 +20,7 @@ function AddTask(props) {
   const [id, setId] = useState([]);
   // Date Time Picker Library
   const [valueDate, onChangeDate] = useState(new Date());
-  const [valueTime, onChangeTime] = useState(new Date().toLocaleString());
+  const [valueTime, onChangeTime] = useState(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
   // Change handler function
   const changeHandler = (e) => {
     // each subTask will have a unique index so we can distinguesh between them
@@ -35,6 +36,19 @@ function AddTask(props) {
       setSubTask(e.target.value);
     }
   };
+
+  const handleKeyUp = (evt) => {
+    evt.preventDefault();
+    if (evt.key === "," && evt.target.value) {
+      if (!resourcesList.includes(evt.target.value)) {
+        // const allVals = evt.target.value.split(",").map((v) => v.trim()).filter(Boolean);
+        // console.log("allVals",allVals);
+        setResourcesList(resourcesList.concat(evt.target.value));
+      }
+      setResources("");
+    }
+  };
+
   // Functions for sub task array
   const listHandler = (e, index, subTask) => {
     // function to add the element of subtask to the array
@@ -77,7 +91,7 @@ function AddTask(props) {
           sub_task_option: toggled,
           sub_tasks: toggled ? [subTask].concat(subTaskList) : null,
           reward: reward,
-          resources: resources,
+          resources: resourcesList,
           by_time: valueTime,
           by_date: valueDate,
         }),
@@ -163,8 +177,14 @@ function AddTask(props) {
             name="resources"
             placeholder="Resources help you ..."
             value={resources}
+            onKeyUp={handleKeyUp}
             onChange={changeHandler}
           />
+          {resourcesList.map((resource, key) => (
+            <div key={key} className="pill">
+              <span> {resource.replace(/,/g, "")} </span>
+            </div>
+          ))}
         </div>
         <div>
           <DatePicker
@@ -177,13 +197,29 @@ function AddTask(props) {
             onChange={onChangeTime}
             value={valueTime}
             format="HH:mm"
-            // minTime={new Date()}
+            maxTime={"23:59"}
           />
         </div>
-        <button type="submit">Submit Task</button>
+        <div className="buttons">
+          <button className="btn cancel" onClick={() => props.closeBtn(false)} >
+            <span>
+              Cancel
+            </span>
+          </button>
+          <button className="btn" type="submit">
+            <span>
+              Add
+            </span>
+          </button>
+        </div>
+
       </form>
     </div>
   );
 }
 
 export default AddTask;
+
+
+// {"https://syllabus.codeyourfuture.io/react/week-3/lesson,","https://www.google.com/,","https://reactjs.org/docs/getting-started.html,"}
+

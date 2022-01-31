@@ -619,6 +619,22 @@ footer time {
   font-size: 16px; /* Set a font size */
   cursor: pointer; /* Mouse pointer on hover */
 }
+
+form .buttons {
+  display: flex;
+justify-content: flex-end;
+}
+
+form .cancel {
+  margin-right: 1em;
+  background-color: var(--olor-light);
+}
+
+form .btn {
+  display: block;
+  height: 2.4rem;
+  width: 7rem;
+}
 /* Settings */
 
 .settings-popup-btn {
@@ -645,5 +661,43 @@ footer time {
 }
 
 .settings-btn:hover {
+  cursor: pointer;
+}
+
+
+/* Pans */
+
+.card__rewards,
+.card__resources {
+  margin-left: 4em;
+}
+
+.card__rewards span, 
+.card__resources span {
+  font-size: 0.8em;
+  color: #555;
+  font-style: italic;
+}
+
+.card__resources span {
+  font-size: 0.8em;
+  display: block;
+}
+
+.card__rewards p,
+.card__resources p {
+  margin: 0;
+}
+
+.pill {
+  display: inline-block;
+  margin: 20px 10px 0 0;
+  padding: 6px 12px;
+  background: #eee;
+  border-radius: 20px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: #777;
   cursor: pointer;
 }
