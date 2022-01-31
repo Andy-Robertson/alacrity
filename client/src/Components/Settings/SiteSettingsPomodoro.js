@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { GlobalContext } from "../Contexts/GlobalContext";
+import { GlobalContext } from "../../Contexts/GlobalContext";
 
 const SiteSettingsPomodoro = () => {
   const { setSeconds, setMinutes } = useContext(GlobalContext);

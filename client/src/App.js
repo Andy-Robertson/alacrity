@@ -22,6 +22,7 @@ function App() {
   const [minutes, setMinutes] = useState(null);
   const [seconds, setSeconds] = useState(null);
   const [enableNotificationSound, setEnableNotificationSound] = useState(null);
+  const [enableNotifications, setEnableNotifications] = useState(null);
 
   useEffect(() => {
     const getUser = () => {
@@ -119,6 +120,8 @@ function App() {
           setTasksData,
           enableNotificationSound,
           setEnableNotificationSound,
+          enableNotifications,
+          setEnableNotifications,
         }}
       >
         <LeftSideBar user={user} />
