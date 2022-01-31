@@ -7,7 +7,14 @@ import { GlobalContext } from "../Contexts/GlobalContext";
 import Logo from "../Assets/img/logo.svg";
 
 const Pomodoro = () => {
-  const { seconds, setSeconds, minutes, setMinutes, enableNotificationSound } = useContext(GlobalContext);
+  const {
+    seconds,
+    setSeconds,
+    minutes,
+    setMinutes,
+    enableNotificationSound,
+    enableNotifications,
+  } = useContext(GlobalContext);
   const workCompleteSound = new Audio(workComplete);
 
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
@@ -48,12 +55,11 @@ const Pomodoro = () => {
   };
   // Play jingle when timmer hits 00:00
   useEffect(() => {
+    let title = "Pomodoro Notification";
+    let body = "Well Done The Time is Up";
     if (pomodoroSessionEnded) {
       enableNotificationSound && workCompleteSound.play();
-
-      let title = "Pomodoro Notification";
-      let body = "Well Done The Time is Up";
-      notificationCall(title, body);
+      enableNotifications && notificationCall(title, body);
     } else {
       return null;
     }

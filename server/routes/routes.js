@@ -11,10 +11,10 @@ const UPDATE_USER_SETTINGS = `
   SET
     pom_minutes = $1,
     pom_seconds = $2,
-    not_sound_active = $3
+    notifications_sound_active = $3,
+    notifications_active = $4
   WHERE
-    auth_id = $4`;
-
+    auth_id = $5`;
 
 //     -------------- ROUTER FUNCTION --------------     //
 
@@ -59,7 +59,7 @@ const router = (app) => {
       reward,
       resources,
       by_time,
-      by_date
+      by_date,
     } = req.body;
 
     pool
@@ -136,8 +136,8 @@ const router = (app) => {
     pool
       .query(query, [task_archived, task_id])
       .then((result) => {
-        result.rows ?
-           res.status(200).json({
+        result.rows
+          ? res.status(200).json({
               Result: "Success",
               message: "Request complete: task archive status updated",
             })
@@ -159,7 +159,8 @@ const router = (app) => {
           ? res.status(200).json({
               pom_minutes: result.rows[0].pom_minutes,
               pom_seconds: result.rows[0].pom_seconds,
-              not_sound_active: result.rows[0].not_sound_active,
+              notifications_sound_active: result.rows[0].notifications_sound_active,
+              notifications_active: result.rows[0].notifications_active,
             })
           : res
               .status(500)
@@ -171,10 +172,21 @@ const router = (app) => {
   // Update user settings.
   app.put("/api/settings", (req, res) => {
     const auth_id = req.session.passport.user;
-    const { pom_minutes, pom_seconds, not_sound_active } = req.body;
+    const {
+      pom_minutes,
+      pom_seconds,
+      notifications_sound_active,
+      notifications_active
+    } = req.body;
 
     pool
-      .query(UPDATE_USER_SETTINGS, [pom_minutes, pom_seconds, not_sound_active, auth_id])
+      .query(UPDATE_USER_SETTINGS, [
+        pom_minutes,
+        pom_seconds,
+        notifications_sound_active,
+        notifications_active,
+        auth_id,
+      ])
       .then((result) => {
         result.rowCount > 0
           ? res
@@ -186,21 +198,20 @@ const router = (app) => {
       })
       .catch((e) => console.error(e));
   });
-  
-  // Error handling
-  app.use((req, res) => {
-    res.status(404).json({
-      message: "Route Not Found",
-    });
-  });
-  
-  app.use((err, req, res) => {
-    res.status(err.status || 500).json({
-      message: err.message,
-      error: {},
-    });
-  });
 
+  // Error handling
+  // app.use((req, res) => {
+  //   res.status(404).json({
+  //     message: "Route Not Found",
+  //   });
+  // });
+
+  // app.use((err, req, res) => {
+  //   res.status(err.status || 500).json({
+  //     message: err.message,
+  //     error: {},
+  //   });
+  // });
 };
 
 module.exports = router;

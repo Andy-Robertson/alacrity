@@ -76,9 +76,11 @@ function App() {
           }
         })
         .then((result) => {
+          console.log(result);
           setMinutes(parseInt(result.pom_minutes));
           setSeconds(parseInt(result.pom_seconds));
-          setEnableNotificationSound(result.not_sound_active);
+          setEnableNotificationSound(result.notifications_sound_active);
+          setEnableNotifications(result.notifications_active);
         })
         .catch((err) => {
           console.error(err);
@@ -88,18 +90,19 @@ function App() {
 
   // Update db with user settings.
   useEffect(() => {
-    if ( minutes !== null && seconds !== null ) {
+    if (minutes !== null && seconds !== null) {
       fetch("/api/settings", {
         method: "PUT",
         body: JSON.stringify({
           pom_minutes: minutes,
           pom_seconds: seconds,
-          not_sound_active: enableNotificationSound,
+          notifications_sound_active: enableNotificationSound,
+          notifications_active: enableNotifications,
         }),
         headers: { "Content-Type": "application/json" },
       });
     }
-  }, [minutes, seconds, enableNotificationSound]);
+  }, [minutes, seconds, enableNotificationSound, enableNotifications]);
 
   const submitComplete = () => {
     fetch("/api/tasks")

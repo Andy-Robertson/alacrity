@@ -11,12 +11,10 @@ const SiteSettingsNotification = () => {
   } = useContext(GlobalContext);
 
   const handleEnableSoundToggle = () => {
-     console.log(enableNotificationSound);
     setEnableNotificationSound(!enableNotificationSound);
   };
 
   const handleEnableNotificationToggle = () => {
-    console.log(enableNotifications);
       setEnableNotifications(!enableNotifications);
   };
 
@@ -29,8 +27,10 @@ const SiteSettingsNotification = () => {
         <CheckboxToggle
           handleCheck={handleEnableNotificationToggle}
           checked={enableNotifications}
-          inputId={"toggle-notifications-input"}
-          labelId={"toggle-notifications-label"}
+          inputId={"toggle-not-input"}
+          labelId={"toggle-not-label"}
+          for={"toggle-not-input"}
+          name={"toggle-not-input"}
         />
       </div>
 
@@ -39,8 +39,10 @@ const SiteSettingsNotification = () => {
         <CheckboxToggle
           handleCheck={handleEnableSoundToggle}
           checked={enableNotificationSound}
-          inputId={"toggle-notification-sound-input"}
-          labelId={"toggle-notification-sound-label"}
+          inputId={"toggle-not-sound-input"}
+          labelId={"toggle-not-sound-label"}
+          for={"toggle-not-sound-input"}
+          name={"toggle-not-sound-input"}
         />
       </div>
     </section>
