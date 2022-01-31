@@ -186,18 +186,18 @@ const router = (app) => {
   });
   
   // Error handling
-  app.use((req, res) => {
-    res.status(404).json({
-      message: "Route Not Found",
-    });
-  });
+  // app.use((req, res) => {
+  //   res.status(404).json({
+  //     message: "Route Not Found",
+  //   });
+  // });
   
-  app.use((err, req, res) => {
-    res.status(err.status || 500).json({
-      message: err.message,
-      error: {},
-    });
-  });
+  // app.use((err, req, res) => {
+  //   res.status(err.status || 500).json({
+  //     message: err.message,
+  //     error: {},
+  //   });
+  // });
 
 };
 
