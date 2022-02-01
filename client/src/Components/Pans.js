@@ -5,6 +5,7 @@ import ScheduleImg from "../Assets/img/schedule.svg";
 import ArchiveImg from "../Assets/img/archive.png";
 import RestoreImg from "../Assets/img/restore.png";
 import EditPopUp from "./EditTask/EditPopUp";
+import SubTaskCheckBox from "./SubTaskCheckBox";
 
 const Pans = (props) => {
   const [openEditPan, setOpenEditPan] = useState(false);
@@ -85,16 +86,13 @@ const Pans = (props) => {
               <section className="card__content">
                 <ul>
                   {task.sub_tasks.map((subTask, subKey) => (
-                    <li key={subKey}>
-                      <span className="round">
-                        <input
-                          type="checkbox"
-                          id={"checkbox-subtask-" + subKey}
-                        />
-                        <label htmlFor={"checkbox-subtask-" + subKey}></label>
-                      </span>
-                      <span>{subTask}</span>
-                    </li>
+                    // <li key={subKey}>
+                      <SubTaskCheckBox
+                        subKey={subKey}
+                        subTask={subTask}
+                        subjectId={task.id}
+                      />
+                    // </li>
                   ))}
                 </ul>
               </section>
@@ -108,13 +106,14 @@ const Pans = (props) => {
               {/* <div className="pill">
                 <span>{task.resources}</span>
                 </div> */}
-              {stringArr.map((resource, key) => (
-                resource && (
-                <div key={key} className="pill">
-                  <span> {resource.replace(/,/g, "")} </span>
-                </div>
-                )
-              ))}
+              {stringArr.map(
+                (resource, key) =>
+                  resource && (
+                    <div key={key} className="pill">
+                      <span> {resource.replace(/,/g, "")} </span>
+                    </div>
+                  )
+              )}
             </section>
             <footer className="card_footer">
               <time dateTime={task.by_time}>{task.by_time}</time>

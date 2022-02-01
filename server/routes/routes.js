@@ -58,7 +58,7 @@ const router = (app) => {
       reward,
       resources,
       by_time,
-      by_date
+      by_date,
     } = req.body;
 
     pool
@@ -127,7 +127,6 @@ const router = (app) => {
       .catch((e) => console.error(e));
   });
 
-
   app.put("/api/tasks/archived", (req, res) => {
     const { task_id, task_archived } = req.body;
 
@@ -136,14 +135,14 @@ const router = (app) => {
     pool
       .query(query, [task_archived, task_id])
       .then((result) => {
-        result.rows ?
-          res.status(200).json({
-            Result: "Success",
-            message: "Request complete: task archive status updated",
-          })
+        result.rows
+          ? res.status(200).json({
+              Result: "Success",
+              message: "Request complete: task archive status updated",
+            })
           : res
-            .status(500)
-            .json({ Result: "Failure", message: "Request not complete" });
+              .status(500)
+              .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
@@ -157,12 +156,12 @@ const router = (app) => {
       .then((result) => {
         result.rows
           ? res.status(200).json({
-            pom_minutes: result.rows[0].pom_minutes,
-            pom_seconds: result.rows[0].pom_seconds,
-          })
+              pom_minutes: result.rows[0].pom_minutes,
+              pom_seconds: result.rows[0].pom_seconds,
+            })
           : res
-            .status(500)
-            .json({ Result: "Failure", message: "Request not complete" });
+              .status(500)
+              .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
@@ -177,13 +176,22 @@ const router = (app) => {
       .then((result) => {
         result.rowCount > 0
           ? res
-            .status(200)
-            .json({ Result: "Success", message: "Settings updated" })
+              .status(200)
+              .json({ Result: "Success", message: "Settings updated" })
           : res
-            .status(500)
-            .json({ Result: "Failure", message: "Request not complete" });
+              .status(500)
+              .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
+  });
+
+  // tick system sub task
+  const ticketsArray = [];
+  app.post("/api/ticket", (req, res) => {
+    const ticket = req.body;
+    ticketsArray.push(ticket);
+    console.log(ticketsArray);
+    res.sendStatus(201);
   });
 
   // Error handling
@@ -193,7 +201,7 @@ const router = (app) => {
   //     message: "Route Not Found",
   //   });
   // });
-  
+
   // app.use((err, req, res) => {
   //   res.status(err.status || 500).json({
   //     message: err.message,
