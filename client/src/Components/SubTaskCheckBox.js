@@ -41,21 +41,18 @@ function SubTaskCheckBox(props) {
   const uuidId = uuidv4();
 
   return (
-    <li key={uuidKey}>
-      <div>
-        <span className="round">
-          {console.log(props.subKey)}
-          <input
-            type="checkbox"
-            id={uuidId}
-            onChange={clickHandler}
-            checked={ischecked}
-          />
-          <label htmlFor={uuidId}></label>
-        </span>
-        <span>{props.subTask}</span>
-      </div>
-    </li>
+    <div key={uuidKey}>
+      <span className="round">
+        <input
+          type="checkbox"
+          id={uuidId}
+          onChange={clickHandler}
+          checked={ischecked}
+        />
+        <label htmlFor={uuidId}></label>
+      </span>
+      <span>{props.subTask}</span>
+    </div>
   );
 }
 
