@@ -4,18 +4,18 @@ function SubTaskCheckBox(props) {
   // console.log(props.subTasksChecked.map((c) => JSON.parse(c)));
   const allSubTasksArray = props.subTasksChecked.map((c) => JSON.parse(c));
   const subTaskArray = allSubTasksArray.filter((subTask) => subTask.index === props.subKey);
-  const completed = subTaskArray[0].completed;
-  // console.log(completed);
+  const completed = subTaskArray[0].completed; // true or false
+  console.log(subTaskArray);
   const [ischecked, setIsChecked] = useState(completed);
 
   const clickHandler = (e) => {
     setIsChecked(e.target.checked);
-    fetch("api/ticket", {
-      method: "POST",
+    fetch("api/task/status", {
+      method: "PUT",
       body: JSON.stringify({
         subject_id: props.subjectId,
-        task_index: props.subKey,
         name: props.subTask,
+        index: props.subKey,
         completed: e.target.checked,
       }),
       headers: {

@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS task CASCADE;
-DROP TABLE IF EXISTS sub_task CASCADE;
 
 CREATE TABLE users (
   id                SERIAL PRIMARY KEY,
@@ -34,15 +33,4 @@ CREATE TABLE task (
   CHECK ( (sub_task_option = true AND sub_tasks IS NOT NULL) OR (sub_task_option = false AND sub_tasks IS NULL)),
   CHECK ( (sub_task_option = true AND sub_tasks_checked IS NOT NULL) OR (sub_task_option = false AND sub_tasks_checked IS NULL))
   -- task_added            TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE sub_task (
-  id                    SERIAL PRIMARY KEY,
-  user_id               INTEGER NOT NULL,
-  task_id               INTEGER NOT NULL,
-  sub_task_index        INTEGER NOT NULL,
-  sub_task_name         TEXT,
-  completed             BOOLEAN NOT NULL,
-  FOREIGN KEY (task_id) REFERENCES task(id),
-  FOREIGN KEY (user_id) REFERENCES users(id)
 );

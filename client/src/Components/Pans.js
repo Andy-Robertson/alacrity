@@ -40,6 +40,7 @@ const Pans = (props) => {
         setTasksData(data);
       });
   };
+  // console.log(props.data);
 
   return (
     <>
