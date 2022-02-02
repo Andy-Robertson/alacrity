@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 // import { v4 as uuidv4 } from "uuid";
 function SubTaskCheckBox(props) {
-  const [ischecked, setIsChecked] = useState(false);
-  // const [id, setId] = useState("");
+  // console.log(props.subTasksChecked.map((c) => JSON.parse(c)));
+  const allSubTasksArray = props.subTasksChecked.map((c) => JSON.parse(c));
+  const subTaskArray = allSubTasksArray.filter((subTask) => subTask.index === props.subKey);
+  const completed = subTaskArray[0].completed;
+  // console.log(completed);
+  const [ischecked, setIsChecked] = useState(completed);
 
   const clickHandler = (e) => {
     setIsChecked(e.target.checked);
-    // setId(e.target.id);
     fetch("api/ticket", {
       method: "POST",
       body: JSON.stringify({
@@ -21,28 +24,6 @@ function SubTaskCheckBox(props) {
     });
   };
 
-
-  // if (ischecked === true) {
-
-  // }
-  // if (ischecked === false) {
-  //   fetch("api/ticket", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       subject_id: props.subjectId,
-  //       task_element: props.subKey,
-  //       id: id,
-  //       boolean: ischecked,
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  // }
-
-  // const uuidKey = uuidv4();
-  // const uuidId = uuidv4();
-  // const id = `${props.subjectId}_${props.subKey}`;
   return (
     <div>
       <span className="round">
