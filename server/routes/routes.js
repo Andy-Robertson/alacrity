@@ -190,7 +190,7 @@ const router = (app) => {
   app.post("/api/ticket", (req, res) => {
     const ticket = req.body;
     ticketsArray.push(ticket);
-    console.log(ticketsArray);
+    // console.log(ticketsArray);
     res.sendStatus(201);
   });
 
