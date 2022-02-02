@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@codeyourfuture/eslint-config-standard": "^3.0.3",
+    "animate.css": "^4.1.1",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
     "react": "^17.0.2",

@@ -8,6 +8,7 @@ import { MdDone } from "react-icons/md";
 import EditPopUp from "./EditTask/EditPopUp";
 import SubTaskCheckBox from "./SubTaskCheckBox";
 import taskComplete from "../Assets/audio/DADAA.mp3";
+import "animate.css";
 
 const Pans = (props) => {
   const { setTasksData } = useContext(GlobalContext);
@@ -18,9 +19,9 @@ const Pans = (props) => {
   useEffect(() => {
     const taskNotCompleteIds = props.data
       .filter((task) => {
-        const allSubTasksArray = task.sub_tasks_checked.map((c) =>
+        const allSubTasksArray = task.sub_task_option ? task.sub_tasks_checked.map((c) =>
           JSON.parse(c)
-        );
+        ) : [];
 
         return allSubTasksArray.find(
           (task) => task.completed === false && task.task_archived !== false
@@ -77,7 +78,10 @@ const Pans = (props) => {
         const stringArr = trimedString.split(",");
 
         return (
-          <article key={task.id} className="card">
+          <article
+            key={task.id}
+            className="card"
+          >
             <header>
               <span className="text">
                 <h3>{task.task_subject}</h3>
@@ -122,7 +126,7 @@ const Pans = (props) => {
               </section>
             ) : null}
             <section className="card__rewards">
-              <span>Rewards:</span>
+              <span className="animate__pulse">Rewards:</span>
               <p>{task.reward}</p>
             </section>
             <section className="card__resources">
@@ -141,7 +145,7 @@ const Pans = (props) => {
               <span>
                 {!taskIdsNotComplete.includes(task.id) && !task.task_archived && (
                   <button
-                    className="complete-task-button"
+                    className="complete-task-button animate__animated animate__rubberBand"
                     id={task.id}
                     onClick={(e) => handleTaskComplete(e)}
                   >
