@@ -92,6 +92,7 @@ const Pans = (props) => {
                         subTask={subTask}
                         subjectId={task.id}
                         id={`${task.id}_${subKey}`}
+                        subTasksChecked = {task.sub_tasks_checked}
                       />
                     </li>
                   ))}

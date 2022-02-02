@@ -93,7 +93,7 @@ function AddTask(props) {
             completed: false,
           });
         });
-        console.log(subTaskArrayChecked);
+        // console.log(subTaskArrayChecked);
       }
       fetch("/api/tasks", {
         method: "POST",
