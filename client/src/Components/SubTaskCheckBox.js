@@ -1,11 +1,15 @@
-import React, {  useState } from "react";
-// import { v4 as uuidv4 } from "uuid";
+import React, { useState, useContext } from "react";
+import { GlobalContext } from "../Contexts/GlobalContext";
+
 function SubTaskCheckBox(props) {
-  // console.log(props.subTasksChecked.map((c) => JSON.parse(c)));
+  const { setTasksData } = useContext(GlobalContext);
+
   const allSubTasksArray = props.subTasksChecked.map((c) => JSON.parse(c));
-  const subTaskArray = allSubTasksArray.filter((subTask) => subTask.index === props.subKey);
+  const subTaskArray = allSubTasksArray.filter(
+    (subTask) => subTask.index === props.subKey
+  );
   const completed = subTaskArray[0].completed; // true or false
-  console.log(subTaskArray);
+
   const [ischecked, setIsChecked] = useState(completed);
 
   const clickHandler = (e) => {
@@ -21,6 +25,12 @@ function SubTaskCheckBox(props) {
       headers: {
         "Content-Type": "application/json",
       },
+    }).then(() => {
+      fetch("/api/tasks")
+        .then((res) => res.json())
+        .then((data) => {
+          setTasksData(data);
+        });
     });
   };
 
