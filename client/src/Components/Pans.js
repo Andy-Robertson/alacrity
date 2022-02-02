@@ -86,11 +86,12 @@ const Pans = (props) => {
               <section className="card__content">
                 <ul>
                   {task.sub_tasks.map((subTask, subKey) => (
-                    <li key={subKey}>
+                    <li key={`${task.id}_${subKey}`}>
                       <SubTaskCheckBox
                         subKey={subKey}
                         subTask={subTask}
                         subjectId={task.id}
+                        id={`${task.id}_${subKey}`}
                       />
                     </li>
                   ))}
