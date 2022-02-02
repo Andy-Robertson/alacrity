@@ -83,6 +83,18 @@ function AddTask(props) {
     } else if (toggled && subTask.length === 0) {
       alert("SubTask has to be filled");
     } else {
+      const subTaskArrayChecked = [];
+      if (toggled === true) {
+        const subTaskArray = [subTask].concat(subTaskList);
+        subTaskArray.forEach((task, index) => {
+          subTaskArrayChecked.push({
+            name: task,
+            index: index,
+            completed: false,
+          });
+        });
+        console.log(subTaskArrayChecked);
+      }
       fetch("/api/tasks", {
         method: "POST",
         body: JSON.stringify({
@@ -94,6 +106,7 @@ function AddTask(props) {
           resources: resourcesList,
           by_time: valueTime,
           by_date: valueDate,
+          sub_tasks_checked: toggled ? subTaskArrayChecked : null,
         }),
         headers: {
           "Content-Type": "application/json",
