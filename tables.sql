@@ -38,6 +38,9 @@ CREATE TABLE sub_task (
   id                    SERIAL PRIMARY KEY,
   user_id               INTEGER NOT NULL,
   task_id               INTEGER NOT NULL,
-  name                  TEXT,
-  FOREIGN KEY (task_id) REFERENCES task(id)
+  sub_task_index        INTEGER NOT NULL,
+  sub_task_name         TEXT,
+  completed             BOOLEAN NOT NULL,
+  FOREIGN KEY (task_id) REFERENCES task(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );

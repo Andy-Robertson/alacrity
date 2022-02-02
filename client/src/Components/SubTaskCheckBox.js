@@ -11,7 +11,7 @@ function SubTaskCheckBox(props) {
       method: "POST",
       body: JSON.stringify({
         subject_id: props.subjectId,
-        task_id: props.subKey,
+        task_index: props.subKey,
         name: props.subTask,
         completed: e.target.checked,
       }),
