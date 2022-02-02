@@ -119,7 +119,7 @@ main {
 .pomodoro-wrapper {
   grid-row: 5 / 5;
   display: grid;
-  grid-template-rows:2rem 0.27fr 0.5fr 0.27fr;
+  grid-template-rows: 2rem 0.27fr 0.5fr 0.27fr;
   width: 90%;
   border: 2px solid rgba(147, 197, 252, 0.3);
   border-radius: 15px;
@@ -200,11 +200,6 @@ main {
 
 .pomodoro-time-btn-active {
   background-color: rgba(147, 197, 252, 0.3);
-}
-
-.pomodoro-settings-container {
-  display: flex;
-  align-items: center;
 }
 
 /* Middle content */
@@ -543,28 +538,36 @@ footer time {
 }
 
 /* Toggle */
-.togglle-btn {
+.toggle-btn {
   position: relative;
 }
 
-#toggle {
+#toggle,
+#toggle-not-input,
+#toggle-not-sound-input {
   /* visibility: hidden; */
   position: absolute;
   top: -9999px;
   left: -9999px;
 }
 
-#toggle:checked + #toggle-label {
+#toggle:checked + #toggle-label,
+#toggle-not-input:checked + #toggle-not-label,
+#toggle-not-sound-input:checked + #toggle-not-sound-label {
   background-color: #e0c3fc;
 }
 
-#toggle:checked + #toggle-label:before {
+#toggle:checked + #toggle-label:before,
+#toggle-not-input:checked + #toggle-not-label:before,
+#toggle-not-sound-input:checked + #toggle-not-sound-label:before {
   /* transform: translateX(90px); */
   background-color: #fff;
   left: 40px;
 }
 
-#toggle-label {
+#toggle-label,
+#toggle-not-sound-label,
+#toggle-not-label {
   display: flex;
   width: 60px;
   height: 20px;
@@ -576,7 +579,9 @@ footer time {
   cursor: pointer;
 }
 
-#toggle-label::before {
+#toggle-label::before,
+#toggle-not-sound-label::before,
+#toggle-not-label::before {
   transition: 0.2s;
   transition-delay: 0s;
   transition-delay: 0.5s;
@@ -590,6 +595,7 @@ footer time {
   top: 2px;
   left: 3px;
 }
+
 /* Class for adding subtask*/
 .plus-container {
   width: 100%;
@@ -606,7 +612,7 @@ footer time {
   cursor: pointer; /* Mouse pointer on hover */
 }
 /* Class for deleting subtask*/
-.minus-container{
+.minus-container {
   display: grid;
   grid-template-columns: auto 50px;
 }
@@ -635,7 +641,21 @@ form .btn {
   height: 2.4rem;
   width: 7rem;
 }
+
 /* Settings */
+
+.settings-container-pomodoro {
+  display: flex;
+  align-items: center;
+}
+
+.settings-container-notifications {
+  margin-left: 1rem;
+}
+
+.settings-sub-heading {
+  margin-left: 1rem;
+}
 
 .settings-popup-btn {
   display: flex;

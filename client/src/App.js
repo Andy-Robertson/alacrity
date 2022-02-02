@@ -21,6 +21,8 @@ function App() {
   const [TasksData, setTasksData] = useState([]);
   const [minutes, setMinutes] = useState(null);
   const [seconds, setSeconds] = useState(null);
+  const [enableNotificationSound, setEnableNotificationSound] = useState(null);
+  const [enableNotifications, setEnableNotifications] = useState(null);
 
   useEffect(() => {
     const getUser = () => {
@@ -66,7 +68,7 @@ function App() {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       })
-      .then((response) => {
+        .then((response) => {
           if (response.status === 200) {
             return response.json();
           } else {
@@ -74,8 +76,11 @@ function App() {
           }
         })
         .then((result) => {
+          console.log(result);
           setMinutes(parseInt(result.pom_minutes));
           setSeconds(parseInt(result.pom_seconds));
+          setEnableNotificationSound(result.notifications_sound_active);
+          setEnableNotifications(result.notifications_active);
         })
         .catch((err) => {
           console.error(err);
@@ -91,11 +96,13 @@ function App() {
         body: JSON.stringify({
           pom_minutes: minutes,
           pom_seconds: seconds,
+          notifications_sound_active: enableNotificationSound,
+          notifications_active: enableNotifications,
         }),
         headers: { "Content-Type": "application/json" },
       });
     }
-  }, [minutes, seconds]);
+  }, [minutes, seconds, enableNotificationSound, enableNotifications]);
 
   const submitComplete = () => {
     fetch("/api/tasks")
@@ -114,6 +121,10 @@ function App() {
           seconds,
           setSeconds,
           setTasksData,
+          enableNotificationSound,
+          setEnableNotificationSound,
+          enableNotifications,
+          setEnableNotifications,
         }}
       >
         <LeftSideBar user={user} />
