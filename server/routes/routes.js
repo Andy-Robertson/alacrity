@@ -34,7 +34,7 @@ const router = (app) => {
       .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
       .then((result) => {
         const user_id = result.rows[0].id;
-        // console.log(user_id)
+        // console.log(user_id) 
         pool
           .query("SELECT * FROM task WHERE user_id = $1", [user_id])
           .then((result) => {
@@ -59,6 +59,7 @@ const router = (app) => {
       resources,
       by_time,
       by_date,
+      sub_tasks_checked,
     } = req.body;
 
     pool
@@ -70,7 +71,7 @@ const router = (app) => {
           .query("SELECT * FROM task WHERE user_id = $1", [user_id])
           .then(() => {
             const query =
-              "INSERT INTO task (user_id, task_archived, task_subject, subject_description, reward, resources, by_time, by_date, sub_task_option, sub_tasks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)";
+              "INSERT INTO task (user_id, task_archived, task_subject, subject_description, reward, resources, by_time, by_date, sub_task_option, sub_tasks, sub_tasks_checked) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)";
             pool
               .query(query, [
                 user_id,
@@ -83,6 +84,7 @@ const router = (app) => {
                 by_date,
                 sub_task_option,
                 sub_tasks,
+                sub_tasks_checked,
               ])
               .then(() => {
                 res.sendStatus(204);
@@ -188,6 +190,7 @@ const router = (app) => {
   // tick system sub task
   const ticketsArray = [];
   app.post("/api/ticket", (req, res) => {
+    const auth_id = req.session.passport.user;
     const ticket = req.body;
     ticketsArray.push(ticket);
     console.log(ticketsArray);
