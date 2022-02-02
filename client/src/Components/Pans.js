@@ -4,6 +4,7 @@ import EditImg from "../Assets/img/icons8-edit(1).svg";
 import ScheduleImg from "../Assets/img/schedule.svg";
 import ArchiveImg from "../Assets/img/archive.png";
 import RestoreImg from "../Assets/img/restore.png";
+import { MdDone } from "react-icons/md";
 import EditPopUp from "./EditTask/EditPopUp";
 import SubTaskCheckBox from "./SubTaskCheckBox";
 import taskComplete from "../Assets/audio/DADAA.mp3";
@@ -41,24 +42,25 @@ const Pans = (props) => {
     });
   };
 
+  // temp data
+  const dbData = [
+    {
+      subject_id: 6,
+      subtask_complete: true,
+    },
+    {
+      subject_id: 6,
+      subtask_complete: true,
+    },
+    {
+      subject_id: 6,
+      subtask_complete: true,
+    },
+  ];
+
   const handleTaskComplete = (e) => {
     const taskCompleteSound = new Audio(taskComplete);
 
-    // temp data
-    const dbData = [
-      {
-        subject_id: 3,
-        subtask_complete: true,
-      },
-      {
-        subject_id: 3,
-        subtask_complete: true,
-      },
-      {
-        subject_id: 3,
-        subtask_complete: true,
-      },
-    ];
 
     // needed in the db too
     // const task_complete = false;
@@ -91,14 +93,14 @@ const Pans = (props) => {
         return (
           <article key={task.id} className="card">
             <header>
-              <span className="round">
+              {/* <span className="round">
                 <input
                   type="checkbox"
                   id={task.id}
                   onChange={(e) => handleTaskComplete(e)}
                 />
                 <label htmlFor={task.id}></label>
-              </span>
+              </span> */}
               <span className="text">
                 <h3>{task.task_subject}</h3>
               </span>
@@ -166,7 +168,7 @@ const Pans = (props) => {
                     id={task.id}
                     onClick={(e) => handleTaskComplete(e)}
                   >
-                    Complete Task
+                    <MdDone/>Complete Task
                   </button>
                 )}
                 {taskCompleted && task.task_archived && <span>Complete</span>}
