@@ -128,6 +128,7 @@ const router = (app) => {
       .catch((e) => console.error(e));
   });
 
+
   app.put("/api/tasks/archived", (req, res) => {
     const { task_id, task_archived } = req.body;
 
@@ -142,8 +143,8 @@ const router = (app) => {
               message: "Request complete: task archive status updated",
             })
           : res
-              .status(500)
-              .json({ Result: "Failure", message: "Request not complete" });
+            .status(500)
+            .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
@@ -163,8 +164,8 @@ const router = (app) => {
               notifications_active: result.rows[0].notifications_active,
             })
           : res
-              .status(500)
-              .json({ Result: "Failure", message: "Request not complete" });
+            .status(500)
+            .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
@@ -190,16 +191,15 @@ const router = (app) => {
       .then((result) => {
         result.rowCount > 0
           ? res
-              .status(200)
-              .json({ Result: "Success", message: "Settings updated" })
+            .status(200)
+            .json({ Result: "Success", message: "Settings updated" })
           : res
-              .status(500)
-              .json({ Result: "Failure", message: "Request not complete" });
+            .status(500)
+            .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
 
-  // Error handling
   // app.use((req, res) => {
   //   res.status(404).json({
   //     message: "Route Not Found",
