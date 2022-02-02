@@ -2,17 +2,19 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS task CASCADE;
 
 CREATE TABLE users (
-  id                SERIAL PRIMARY KEY,
-  auth_id           VARCHAR(30) NOT NULL,
-  provider_name     VARCHAR(30) NOT NULL,
-  display_name      VARCHAR(30) NOT NULL,
-  first_name        VARCHAR(30),
-  last_name         VARCHAR(30),
-  email             VARCHAR(120),
-  avatar            VARCHAR(250) NOT NULL,
-  marketing         BOOLEAN NOT null,
-  pom_minutes 		  VARCHAR(2),
-  pom_seconds		    VARCHAR(2)
+  id                          SERIAL PRIMARY KEY,
+  auth_id                     VARCHAR(30) NOT NULL,
+  provider_name               VARCHAR(30) NOT NULL,
+  display_name                VARCHAR(30) NOT NULL,
+  first_name                  VARCHAR(30),
+  last_name                   VARCHAR(30),
+  email                       VARCHAR(120),
+  avatar                      VARCHAR(250) NOT NULL,
+  marketing                   BOOLEAN NOT NULL,
+  pom_minutes 		            VARCHAR(2),
+  pom_seconds		              VARCHAR(2),
+  notifications_sound_active 	BOOLEAN,
+  notifications_active			  BOOLEAN
 );
 
 CREATE TABLE task (
