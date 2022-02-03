@@ -15,16 +15,14 @@ const Pans = (props) => {
   const [taskSelected, setTaskSelected] = useState([]);
   const [taskIdsNotComplete, setTaskIdsNotComplete] = useState([]);
 
+  console.log(props.data);
   useEffect(() => {
     const taskNotCompleteIds = props.data
       .filter((task) => {
-        const allSubTasksArray = task.sub_task_option ? task.sub_tasks_checked.map((c) =>
-          JSON.parse(c)
-        ) : [];
-
-        return allSubTasksArray.find(
-          (task) => task.completed === false && task.task_archived !== false
-        );
+        if (task.task_archived === true) {
+          return false;
+        }
+        return task.sub_tasks.some((subTask) => subTask.completed === false);
       })
       .map((task) => task.id);
 
@@ -77,10 +75,7 @@ const Pans = (props) => {
         const stringArr = trimedString.split(",");
 
         return (
-          <article
-            key={task.id}
-            className="card"
-          >
+          <article key={task.id} className="card">
             <header>
               <span className="text">
                 <h3>{task.task_subject}</h3>
@@ -113,11 +108,11 @@ const Pans = (props) => {
                   {task.sub_tasks.map((subTask, subKey) => (
                     <li key={`${task.id}_${subKey}`}>
                       <SubTaskCheckBox
-                        subKey={subKey}
-                        subTask={subTask}
-                        subjectId={task.id}
+                        subKey={subTask.id}
+                        name={subTask.name}
+                        subTaskId={subTask.id}
+                        completed={subTask.completed}
                         id={`${task.id}_${subKey}`}
-                        subTasksChecked={task.sub_tasks_checked}
                       />
                     </li>
                   ))}
@@ -152,7 +147,8 @@ const Pans = (props) => {
                     Complete Task
                   </button>
                 )}
-                {!taskIdsNotComplete.includes(task.id) && task.task_archived && (
+                {!taskIdsNotComplete.includes(task.id)
+                && task.task_archived && (
                     <span className="card-footer-complete">Complete</span>
                   )}
                 {taskIdsNotComplete.includes(task.id) && task.task_archived && (

@@ -86,10 +86,10 @@ function AddTask(props) {
       const subTaskArrayChecked = [];
       if (toggled === true) {
         const subTaskArray = [subTask].concat(subTaskList);
-        subTaskArray.forEach((task, index) => {
+        subTaskArray.forEach((task) => {
           subTaskArrayChecked.push({
             name: task,
-            index: index,
+            // index: index,
             completed: false,
           });
         });
@@ -101,12 +101,12 @@ function AddTask(props) {
           task_subject: taskSubject,
           subject_description: describe,
           sub_task_option: toggled,
-          sub_tasks: toggled ? [subTask].concat(subTaskList) : null,
+          // sub_tasks: toggled ? [subTask].concat(subTaskList) : null,
           reward: reward,
           resources: resourcesList,
           by_time: valueTime,
           by_date: valueDate,
-          sub_tasks_checked: toggled ? subTaskArrayChecked : null,
+          sub_tasks: toggled ? subTaskArrayChecked : null,
         }),
         headers: {
           "Content-Type": "application/json",
