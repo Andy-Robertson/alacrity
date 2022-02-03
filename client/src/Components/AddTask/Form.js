@@ -86,10 +86,10 @@ function AddTask(props) {
       const subTaskArrayChecked = [];
       if (toggled === true) {
         const subTaskArray = [subTask].concat(subTaskList);
-        subTaskArray.forEach((task) => {
+        subTaskArray.forEach((task, index) => {
           subTaskArrayChecked.push({
             name: task,
-            // index: index,
+            index: index,
             completed: false,
           });
         });

@@ -99,9 +99,10 @@ const router = (app) => {
                 if(sub_task_option){
                   const queryPromises = [];
                   sub_tasks.forEach((sub_task) => {
-                    const queryPromise = 
-                    pool
-                    .query("INSERT INTO sub_task (name, completed, task_id) VALUES ($1,$2,$3)", [sub_task.name, sub_task.completed, task_id]);
+                    const queryPromise = pool.query(
+                      "INSERT INTO sub_task (index, name, completed, task_id) VALUES ($1,$2,$3,$4)",
+                      [sub_task.index, sub_task.name, sub_task.completed, task_id]
+                    );
                     queryPromises.push(queryPromise);
                   });
                   Promise.all(queryPromises).then(() => {

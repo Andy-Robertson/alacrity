@@ -106,7 +106,7 @@ const Pans = (props) => {
               <section className="card__content">
                 <ul>
                   {task.sub_tasks
-                    .sort((a, b) => a.id - b.id)
+                    .sort((a, b) => a.index - b.index)
                     .map((subTask, subKey) => (
                       <li key={`${task.id}_${subKey}`}>
                         <SubTaskCheckBox
