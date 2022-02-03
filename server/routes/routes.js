@@ -38,8 +38,19 @@ const router = (app) => {
         pool
           .query("SELECT * FROM task WHERE user_id = $1", [user_id])
           .then((result) => {
-            // console.log(result.rows);
-            res.status(200).json(result.rows);
+            const queryPromises = []
+            result.rows.forEach((row) => {
+              const queryPromise = 
+              pool
+              .query("SELECT * FROM sub_task WHERE task_id = $1", [row.id])
+              .then((subTaskResult) => {
+                row.sub_tasks = subTaskResult.rows;
+              })
+              queryPromises.push(queryPromise);
+            })
+            Promise.all(queryPromises).then(() => {
+              res.status(200).json(result.rows);
+            });
           })
           .catch((e) => console.error(e));
       })
@@ -59,7 +70,6 @@ const router = (app) => {
       resources,
       by_time,
       by_date,
-      sub_tasks_checked,
     } = req.body;
 
     pool
@@ -71,7 +81,7 @@ const router = (app) => {
           .query("SELECT * FROM task WHERE user_id = $1", [user_id])
           .then(() => {
             const query =
-              "INSERT INTO task (user_id, task_archived, task_subject, subject_description, reward, resources, by_time, by_date, sub_task_option, sub_tasks, sub_tasks_checked) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)";
+              "INSERT INTO task (user_id, task_archived, task_subject, subject_description, reward, resources, by_time, by_date, sub_task_option) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *";
             pool
               .query(query, [
                 user_id,
@@ -83,11 +93,23 @@ const router = (app) => {
                 by_time,
                 by_date,
                 sub_task_option,
-                sub_tasks,
-                sub_tasks_checked,
               ])
-              .then(() => {
-                res.sendStatus(204);
+              .then((taskInsertResult) => {
+                const task_id = taskInsertResult.rows[0].id
+                if(sub_task_option){
+                  const queryPromises = [];
+                  sub_tasks.forEach((sub_task) => {
+                    const queryPromise = 
+                    pool
+                    .query("INSERT INTO sub_task (name, completed, task_id) VALUES ($1,$2,$3)", [sub_task.name, sub_task.completed, task_id]);
+                    queryPromises.push(queryPromise);
+                  });
+                  Promise.all(queryPromises).then(() => {
+                    res.sendStatus(204);
+                  })
+                }else {
+                  res.sendStatus(204);
+                }
               })
               .catch((e) => console.error(e));
           })
@@ -189,19 +211,12 @@ const router = (app) => {
 
   // tick system sub task
   app.put("/api/task/status", (req, res) => {
-    // const auth_id = req.session.passport.user;
-    const subject_id = req.body.subject_id;
-    const task_index = req.body.index +1;
-    const sub_tasks_checked = {
-      name: req.body.name,
-      index: req.body.index,
-      completed: req.body.completed
-    }
-    
+    const { id, completed } = req.body;
+    console.log(completed)
         pool
           .query(
-            "UPDATE task SET sub_tasks_checked[$1] = $2 WHERE id = $3;",
-            [task_index, sub_tasks_checked, subject_id]
+            "UPDATE sub_task SET completed = $1 WHERE id = $2;",
+            [completed, id]
           )
           .then(() => {
             res.sendStatus(201);
