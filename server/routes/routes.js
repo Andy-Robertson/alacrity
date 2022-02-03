@@ -189,7 +189,7 @@ const router = (app) => {
 
   // tick system sub task
   app.put("/api/task/status", (req, res) => {
-    const auth_id = req.session.passport.user;
+    // const auth_id = req.session.passport.user;
     const subject_id = req.body.subject_id;
     const task_index = req.body.index +1;
     const sub_tasks_checked = {
@@ -197,21 +197,21 @@ const router = (app) => {
       index: req.body.index,
       completed: req.body.completed
     }
-    pool
-      .query(FIND_USER_BY_ID, [auth_id])
-      .then((result) => {
-        const user_id = result.rows[0].id;
+    // pool
+    //   .query(FIND_USER_BY_ID, [auth_id])
+    //   .then((result) => {
+    //     const user_id = result.rows[0].id;
         pool
           .query(
-            "UPDATE task SET sub_tasks_checked[$1] = $2 WHERE id = $3 AND user_id = $4;",
-            [task_index, sub_tasks_checked, subject_id, user_id]
+            "UPDATE task SET sub_tasks_checked[$1] = $2 WHERE id = $3;",
+            [task_index, sub_tasks_checked, subject_id]
           )
           .then(() => {
             res.sendStatus(201);
           })
           .catch((e) => console.error(e));
-      })
-      .catch((e) => console.error(e));
+      // })
+      // .catch((e) => console.error(e));
   });
 
   // Error handling

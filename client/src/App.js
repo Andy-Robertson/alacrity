@@ -10,7 +10,7 @@ import LeftSideBar from "./Layouts/LeftSideBar";
 import Middle from "./Layouts/Middle";
 import RightSideBar from "./Layouts/RightSideBar";
 import Login from "./Layouts/Login";
-import "animate.css";
+// import "animate.css";
 
 // Production / Development environment selection.
 const SERVER_URL = process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
