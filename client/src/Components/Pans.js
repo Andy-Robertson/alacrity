@@ -8,7 +8,6 @@ import { MdDone } from "react-icons/md";
 import EditPopUp from "./EditTask/EditPopUp";
 import SubTaskCheckBox from "./SubTaskCheckBox";
 import taskComplete from "../Assets/audio/DADAA.mp3";
-import "animate.css";
 
 const Pans = (props) => {
   const { setTasksData } = useContext(GlobalContext);
