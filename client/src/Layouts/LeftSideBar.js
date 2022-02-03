@@ -3,7 +3,7 @@ import Logo from "../Assets/img/logo.svg";
 import DashBoardImg from "../Assets/img/dashboard-24.png";
 import PieChartImg from "../Assets/img/pie-chart-24.png";
 import SettingsImg from "../Assets/img/settings-24.png";
-import SiteSettingsPopup from "../Components/SiteSettingsPopup";
+import SiteSettingsPopup from "../Components/Settings/SiteSettingsPopup";
 
 const LeftSideBar = ({ user }) => {
   const [settingsIsOpen, setSettingsIsOpen] = useState(false);

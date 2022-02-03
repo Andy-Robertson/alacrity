@@ -5,10 +5,9 @@ import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
 
 function EditForm({ task, submitComplete, openEditPan }) {
-  // console.log(task);
   // useState Variables Input
   const [taskSubject, setTaskSubject] = useState(task.task_subject);
-  const [describe, setDescribe] = useState(task.task_describe);
+  const [describe, setDescribe] = useState(task.subject_description);
   const [reward, setReward] = useState(task.reward);
   const [resources, setResources] = useState(task.resources);
   const [subTask, setSubTask] = useState(
@@ -64,6 +63,9 @@ function EditForm({ task, submitComplete, openEditPan }) {
   // Form function
   const submitForm = (e) => {
     e.preventDefault();
+    const subTaskList = [...addInputList].filter(
+      (task) => task.trim().length >= 1
+    );
     if (taskSubject.length === 0) {
       alert("Task Subject has to be filled");
     } else if (toggled && subTask.length === 0) {
@@ -76,7 +78,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
           task_subject: taskSubject,
           subject_description: describe,
           sub_task_option: toggled,
-          sub_tasks: toggled ? [subTask].concat(addInputList) : null,
+          sub_tasks: toggled ? [subTask].concat(subTaskList) : null,
           reward: reward,
           resources: resources,
           by_time: valueTime,
@@ -115,7 +117,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
           />
         </div>
         <h4>Sub Tasks</h4>
-        <Toggle handleCheck={(evt) => setToggled(evt.target.checked)} />
+        <Toggle handleCheck={(evt) => setToggled(evt.target.checked)} checked={toggled}/>
         {/* <p> the button is {toggled ? "on" : "off"}</p> */}
         {toggled && (
           <div>
@@ -179,7 +181,18 @@ function EditForm({ task, submitComplete, openEditPan }) {
             // minTime={new Date()}
           />
         </div>
-        <button type="submit">Submit Task</button>
+        <div className="buttons">
+          <button className="btn cancel">
+            <span>
+              Cancel
+            </span>
+          </button>
+          <button className="btn" type="submit">
+            <span>
+              Edit
+            </span>
+          </button>
+        </div>
       </form>
     </div>
   );

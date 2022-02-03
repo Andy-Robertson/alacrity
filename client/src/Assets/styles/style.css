@@ -119,30 +119,10 @@ main {
 .pomodoro-wrapper {
   grid-row: 5 / 5;
   display: grid;
-  grid-template-rows:2rem 0.27fr 0.5fr 0.27fr;
+  grid-template-rows: 2rem 0.27fr 0.5fr 0.27fr;
   width: 90%;
   border: 2px solid rgba(147, 197, 252, 0.3);
   border-radius: 15px;
-}
-
-.pomodoro-btn {
-  border: 0;
-  outline: 0;
-  border-radius: 5px;
-  overflow: hidden;
-  padding: 0;
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
-  justify-self: space-between;
-}
-
-.pomodoro-btn-interaction:hover {
-  background-color: rgba(147, 197, 252, 0.3);
-  cursor: pointer;
-}
-
-.pomodoro-btn-interaction:focus {
-  background-color: rgba(147, 197, 252, 0.3);
 }
 
 .pomodoro-time-selector-wrapper {
@@ -172,21 +152,41 @@ main {
   justify-content: center;
 }
 
-.pomodoro-reset-btn {
+.pomodoro-btn {
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
+  justify-self: space-between;
   height: 3rem;
+  width: 60%;
+}
+
+.pomodoro-btn-interaction:hover {
+  background-color: rgba(147, 197, 252, 0.3);
+  cursor: pointer;
+}
+
+.pomodoro-btn-interaction:focus {
+  background-color: rgba(147, 197, 252, 0.3);
+}
+
+.pomodoro-small-reset-btn {
   width: 20%;
   margin-left: 0.4rem;
+}
+
+.pomodoro-large-reset-btn {
+  width: 82%;
 }
 
 .pomodoro-btn-interaction-reset:hover {
   background-color: rgba(255, 0, 0, 0.541);
   box-shadow: 0.2em 0.4em 3px 1.5px rgba(255, 0, 0, 0.541);
   cursor: pointer;
-}
-
-.pomodoro-startStop-btn {
-  height: 3rem;
-  width: 60%;
 }
 
 .pomodoro-time-btn {
@@ -200,11 +200,6 @@ main {
 
 .pomodoro-time-btn-active {
   background-color: rgba(147, 197, 252, 0.3);
-}
-
-.pomodoro-settings-container {
-  display: flex;
-  align-items: center;
 }
 
 /* Middle content */
@@ -543,28 +538,36 @@ footer time {
 }
 
 /* Toggle */
-.togglle-btn {
+.toggle-btn {
   position: relative;
 }
 
-#toggle {
+#toggle,
+#toggle-not-input,
+#toggle-not-sound-input {
   /* visibility: hidden; */
   position: absolute;
   top: -9999px;
   left: -9999px;
 }
 
-#toggle:checked + #toggle-label {
+#toggle:checked + #toggle-label,
+#toggle-not-input:checked + #toggle-not-label,
+#toggle-not-sound-input:checked + #toggle-not-sound-label {
   background-color: #e0c3fc;
 }
 
-#toggle:checked + #toggle-label:before {
+#toggle:checked + #toggle-label:before,
+#toggle-not-input:checked + #toggle-not-label:before,
+#toggle-not-sound-input:checked + #toggle-not-sound-label:before {
   /* transform: translateX(90px); */
   background-color: #fff;
   left: 40px;
 }
 
-#toggle-label {
+#toggle-label,
+#toggle-not-sound-label,
+#toggle-not-label {
   display: flex;
   width: 60px;
   height: 20px;
@@ -576,7 +579,9 @@ footer time {
   cursor: pointer;
 }
 
-#toggle-label::before {
+#toggle-label::before,
+#toggle-not-sound-label::before,
+#toggle-not-label::before {
   transition: 0.2s;
   transition-delay: 0s;
   transition-delay: 0.5s;
@@ -590,6 +595,7 @@ footer time {
   top: 2px;
   left: 3px;
 }
+
 /* Class for adding subtask*/
 .plus-container {
   width: 100%;
@@ -606,7 +612,7 @@ footer time {
   cursor: pointer; /* Mouse pointer on hover */
 }
 /* Class for deleting subtask*/
-.minus-container{
+.minus-container {
   display: grid;
   grid-template-columns: auto 50px;
 }
@@ -619,7 +625,37 @@ footer time {
   font-size: 16px; /* Set a font size */
   cursor: pointer; /* Mouse pointer on hover */
 }
+
+form .buttons {
+  display: flex;
+justify-content: flex-end;
+}
+
+form .cancel {
+  margin-right: 1em;
+  background-color: var(--olor-light);
+}
+
+form .btn {
+  display: block;
+  height: 2.4rem;
+  width: 7rem;
+}
+
 /* Settings */
+
+.settings-container-pomodoro {
+  display: flex;
+  align-items: center;
+}
+
+.settings-container-notifications {
+  margin-left: 1rem;
+}
+
+.settings-sub-heading {
+  margin-left: 1rem;
+}
 
 .settings-popup-btn {
   display: flex;
@@ -645,5 +681,43 @@ footer time {
 }
 
 .settings-btn:hover {
+  cursor: pointer;
+}
+
+
+/* Pans */
+
+.card__rewards,
+.card__resources {
+  margin-left: 4em;
+}
+
+.card__rewards span, 
+.card__resources span {
+  font-size: 0.8em;
+  color: #555;
+  font-style: italic;
+}
+
+.card__resources span {
+  font-size: 0.8em;
+  display: block;
+}
+
+.card__rewards p,
+.card__resources p {
+  margin: 0;
+}
+
+.pill {
+  display: inline-block;
+  margin: 20px 10px 0 0;
+  padding: 6px 12px;
+  background: #eee;
+  border-radius: 20px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: #777;
   cursor: pointer;
 }

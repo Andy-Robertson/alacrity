@@ -4,22 +4,61 @@ import Button from "./button";
 import { GrPowerReset, GrPauseFill, GrPlayFill } from "react-icons/gr";
 import workComplete from "../Assets/audio/success-sound-effect.mp3";
 import { GlobalContext } from "../Contexts/GlobalContext";
+import Logo from "../Assets/img/logo.svg";
 
 const Pomodoro = () => {
-  const { seconds, setSeconds, minutes, setMinutes } = useContext(GlobalContext);
+  const {
+    seconds,
+    setSeconds,
+    minutes,
+    setMinutes,
+    enableNotificationSound,
+    enableNotifications,
+  } = useContext(GlobalContext);
   const workCompleteSound = new Audio(workComplete);
 
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
   const [timeLeftInSeconds, setTimeLeftInSeconds] = useState(0);
   const [timerActive, setTimerActive] = useState(false);
-  const [activeMode, setActiveMode] = useState("custom");
   const [pomodoroSessionEnded, setPomodoroSessionEnded] = useState(false);
   const interval = useRef(null);
 
+  // Notification Function
+  function notify(title, body) {
+    let options = {
+      body: body,
+      icon: Logo,
+    };
+    const notification = new Notification(title, options);
+    notification.onclick = () => {
+      window.open("https://localhost:3000"); // redirect to new page -- Challenge
+    };
+
+    setTimeout(notification.close.bind(notification), 3000);
+  }
+  // Notification Calling
+  const notificationCall = (title, body) => {
+    if (!window.Notification) {
+      console.log("Browser does not support notifications.");
+    } else {
+      if (Notification.permission === "granted") {
+        notify(title, body);
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            notify(title, body);
+          }
+        });
+      }
+    }
+  };
   // Play jingle when timmer hits 00:00
   useEffect(() => {
+    let title = "Pomodoro Notification";
+    let body = "Well Done The Time is Up";
     if (pomodoroSessionEnded) {
-      workCompleteSound.play();
+      enableNotificationSound && workCompleteSound.play();
+      enableNotifications && notificationCall(title, body);
     } else {
       return null;
     }
@@ -41,7 +80,6 @@ const Pomodoro = () => {
     setTimerActive(true);
     interval.current = setInterval(() => {
       setTimeLeftInSeconds((timeLeftInSeconds) => {
-        console.log(timeLeftInSeconds);
         if (timeLeftInSeconds >= 1) {
           setPomodoroSessionEnded(false);
           return timeLeftInSeconds - 1;
@@ -78,15 +116,12 @@ const Pomodoro = () => {
   // Set pre-defined time sessions.
   const handleTimeSelect = (e) => {
     if (e.target.value === "Focus") {
-      setActiveMode("Focus");
       setMinutes(25);
       setSeconds(0);
     } else if (e.target.value === "Rest") {
-      setActiveMode("Rest");
       setMinutes(5);
       setSeconds(0);
     } else {
-      setActiveMode("Break");
       setMinutes(30);
       setSeconds(0);
     }
@@ -99,21 +134,21 @@ const Pomodoro = () => {
     <section className="pomodoro-wrapper right-animation">
       <span className="pomodoro-time-selector-wrapper">
         <Button
-          type={activeMode === "Focus" ? ACTIVE : INACTIVE}
+          type={minutes === 25 ? ACTIVE : INACTIVE}
           handleClick={handleTimeSelect}
           children={"Focus"}
           value={"Focus"}
         />
 
         <Button
-          type={activeMode === "Rest" ? ACTIVE : INACTIVE}
+          type={minutes === 5 ? ACTIVE : INACTIVE}
           handleClick={handleTimeSelect}
           children={"Rest"}
           value={"Rest"}
         />
 
         <Button
-          type={activeMode === "Break" ? ACTIVE : INACTIVE}
+          type={minutes === 30 ? ACTIVE : INACTIVE}
           handleClick={handleTimeSelect}
           children={"Break"}
           value={"Break"}
@@ -134,7 +169,7 @@ const Pomodoro = () => {
           />
         )}
 
-        {timerActive && (
+        {timerActive && timeLeftInSeconds > 0 && (
           <Button
             type={"pomodoro-startStop-btn pomodoro-btn-interaction"}
             handleClick={handleStopTimer}
@@ -142,11 +177,21 @@ const Pomodoro = () => {
           />
         )}
 
-        <Button
-          type={"pomodoro-reset-btn pomodoro-btn-interaction-reset"}
-          handleClick={handleResetTimer}
-          children={<GrPowerReset />}
-        />
+        {!timeLeftInSeconds && (
+          <Button
+            type={"pomodoro-large-reset-btn pomodoro-btn-interaction-reset"}
+            handleClick={handleResetTimer}
+            children={<GrPowerReset />}
+          />
+        )}
+
+        {timeLeftInSeconds > 0 && (
+          <Button
+            type={"pomodoro-small-reset-btn pomodoro-btn-interaction-reset"}
+            handleClick={handleResetTimer}
+            children={<GrPowerReset />}
+          />
+        )}
       </span>
     </section>
   );

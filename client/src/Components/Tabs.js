@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Pans from "./Pans";
+import Logo from "../Assets/img/logo.svg";
 
 const Tabs = (props) => {
   const [data, setData] = useState(props.data);
@@ -8,7 +9,7 @@ const Tabs = (props) => {
   const [isTmr, setIsTmr] = useState(false);
   const [isLater, setIsLater] = useState(false);
   const [taskIsArchived, setIsArchived] = useState(false);
-
+  const [notifications, setNotifications] = useState([]);
   const todayData = data.filter(
     (ele) =>
       new Date(ele.by_date).getDate() === todayDate
@@ -28,6 +29,27 @@ const Tabs = (props) => {
       && ele.task_archived === false
   );
   const archivedData = data.filter((ele) => ele.task_archived === true);
+  let intervalId = null;
+  useEffect(() => {
+    setData(props.data);
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+    intervalId = setInterval(() => {
+      const date = new Date();
+      const needsNotification = [];
+      props.data.forEach((ele) => {
+        if (ele.by_time.toString() === date.toLocaleTimeString("en-GB")) {
+          console.log("pushing");
+          needsNotification.push(ele);
+        }
+      });
+      if (needsNotification.length > 0) {
+        console.log("setting");
+        setNotifications(needsNotification);
+      }
+    }, 1000);
+  }, [props.data]);
 
   useEffect(() => {
     setData(props.data);
@@ -57,6 +79,41 @@ const Tabs = (props) => {
       setIsArchived(true);
     }
   };
+  function notify(title, body) {
+    let options = {
+      body: body,
+      icon: Logo,
+    };
+    const notification = new Notification(title, options);
+    notification.onclick = () => {
+      window.open("https://localhost:3000"); // redirect to new page -- Challenge
+    };
+
+    setTimeout(notification.close.bind(), 3000);
+  }
+  const notificationCallTask = (title, body) => {
+    if (!window.Notification) {
+      console.log("Browser does not support notifications.");
+    } else if (Notification.permission === "granted") {
+      notify(title, body);
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") {
+          notify(title, body);
+        }
+      });
+    }
+  };
+  if (notifications.length > 0) {
+    const currentNotification = [...notifications];
+    setNotifications([]);
+    console.log("Has notification");
+    currentNotification.forEach((ele) => {
+      let title = "Task Notification";
+      let body = `Hi there, do not forget ${ele.task_subject} Please!`;
+      notificationCallTask(title, body);
+    });
+  }
 
   return (
     <>
@@ -82,6 +139,7 @@ const Tabs = (props) => {
           </a>
         </li>
       </ul>
+      {/* <p>{clockState}</p> */}
       {isToday && (
         <Pans data={todayData} submitComplete={props.submitComplete} />
       )}

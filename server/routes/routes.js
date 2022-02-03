@@ -10,9 +10,11 @@ const UPDATE_USER_SETTINGS = `
     users
   SET
     pom_minutes = $1,
-    pom_seconds = $2
+    pom_seconds = $2,
+    notifications_sound_active = $3,
+    notifications_active = $4
   WHERE
-    auth_id = $3`;
+    auth_id = $5`;
 
 //     -------------- ROUTER FUNCTION --------------     //
 
@@ -49,14 +51,16 @@ const router = (app) => {
   app.post("/api/tasks", (req, res) => {
     const auth_id = req.session.passport.user;
     const task_archived = false;
-    const task_subject = req.body.task_subject;
-    const subject_description = req.body.subject_description;
-    const reward = req.body.reward;
-    const resources = req.body.resources;
-    const by_time = req.body.by_time;
-    const by_date = req.body.by_date;
-    const sub_task_option = req.body.sub_task_option;
-    const sub_tasks = req.body.sub_tasks;
+    const {
+      task_subject,
+      subject_description,
+      sub_task_option,
+      sub_tasks,
+      reward,
+      resources,
+      by_time,
+      by_date,
+    } = req.body;
 
     pool
       .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
@@ -93,16 +97,17 @@ const router = (app) => {
 
   // Edit user tasks
   app.put("/api/tasks", (req, res) => {
-
-    const subject_id = req.body.id;
-    const task_subject = req.body.task_subject;
-    const subject_description = req.body.subject_description;
-    const reward = req.body.reward;
-    const resources = req.body.resources;
-    const by_time = req.body.by_time;
-    const by_date = req.body.by_date;
-    const sub_task_option = req.body.sub_task_option;
-    const sub_tasks = req.body.sub_tasks;
+    const {
+      id,
+      task_subject,
+      subject_description,
+      sub_task_option,
+      sub_tasks,
+      reward,
+      resources,
+      by_time,
+      by_date,
+    } = req.body;
     const query =
       "UPDATE task SET task_subject = $1, subject_description = $2, reward = $3, resources= $4, by_time = $5, by_date = $6, sub_task_option = $7, sub_tasks = $8 WHERE id = $9;";
     pool
@@ -115,13 +120,14 @@ const router = (app) => {
         by_date,
         sub_task_option,
         sub_tasks,
-        subject_id,
+        id,
       ])
       .then((result) => {
         res.sendStatus(201);
       })
       .catch((e) => console.error(e));
   });
+
 
   app.put("/api/tasks/archived", (req, res) => {
     const { task_id, task_archived } = req.body;
@@ -131,14 +137,14 @@ const router = (app) => {
     pool
       .query(query, [task_archived, task_id])
       .then((result) => {
-        result.rows ?
-           res.status(200).json({
+        result.rows
+          ? res.status(200).json({
               Result: "Success",
               message: "Request complete: task archive status updated",
             })
           : res
-              .status(500)
-              .json({ Result: "Failure", message: "Request not complete" });
+            .status(500)
+            .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
@@ -154,10 +160,12 @@ const router = (app) => {
           ? res.status(200).json({
               pom_minutes: result.rows[0].pom_minutes,
               pom_seconds: result.rows[0].pom_seconds,
+              notifications_sound_active: result.rows[0].notifications_sound_active,
+              notifications_active: result.rows[0].notifications_active,
             })
           : res
-              .status(500)
-              .json({ Result: "Failure", message: "Request not complete" });
+            .status(500)
+            .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
@@ -165,36 +173,45 @@ const router = (app) => {
   // Update user settings.
   app.put("/api/settings", (req, res) => {
     const auth_id = req.session.passport.user;
-    const { pom_minutes, pom_seconds } = req.body;
+    const {
+      pom_minutes,
+      pom_seconds,
+      notifications_sound_active,
+      notifications_active
+    } = req.body;
 
     pool
-      .query(UPDATE_USER_SETTINGS, [pom_minutes, pom_seconds, auth_id])
+      .query(UPDATE_USER_SETTINGS, [
+        pom_minutes,
+        pom_seconds,
+        notifications_sound_active,
+        notifications_active,
+        auth_id,
+      ])
       .then((result) => {
         result.rowCount > 0
           ? res
-              .status(200)
-              .json({ Result: "Success", message: "Settings updated" })
+            .status(200)
+            .json({ Result: "Success", message: "Settings updated" })
           : res
-              .status(500)
-              .json({ Result: "Failure", message: "Request not complete" });
+            .status(500)
+            .json({ Result: "Failure", message: "Request not complete" });
       })
       .catch((e) => console.error(e));
   });
-  
-  // Error handling
-  app.use((req, res) => {
-    res.status(404).json({
-      message: "Route Not Found",
-    });
-  });
-  
-  app.use((err, req, res) => {
-    res.status(err.status || 500).json({
-      message: err.message,
-      error: {},
-    });
-  });
 
+  // app.use((req, res) => {
+  //   res.status(404).json({
+  //     message: "Route Not Found",
+  //   });
+  // });
+
+  // app.use((err, req, res) => {
+  //   res.status(err.status || 500).json({
+  //     message: err.message,
+  //     error: {},
+  //   });
+  // });
 };
 
 module.exports = router;
