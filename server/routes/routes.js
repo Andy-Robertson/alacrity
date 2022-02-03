@@ -197,10 +197,7 @@ const router = (app) => {
       index: req.body.index,
       completed: req.body.completed
     }
-    // pool
-    //   .query(FIND_USER_BY_ID, [auth_id])
-    //   .then((result) => {
-    //     const user_id = result.rows[0].id;
+    
         pool
           .query(
             "UPDATE task SET sub_tasks_checked[$1] = $2 WHERE id = $3;",
@@ -210,8 +207,6 @@ const router = (app) => {
             res.sendStatus(201);
           })
           .catch((e) => console.error(e));
-      // })
-      // .catch((e) => console.error(e));
   });
 
   // Error handling
