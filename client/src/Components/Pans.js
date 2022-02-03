@@ -105,17 +105,19 @@ const Pans = (props) => {
             {task.sub_task_option === true ? (
               <section className="card__content">
                 <ul>
-                  {task.sub_tasks.map((subTask, subKey) => (
-                    <li key={`${task.id}_${subKey}`}>
-                      <SubTaskCheckBox
-                        subKey={subTask.id}
-                        name={subTask.name}
-                        subTaskId={subTask.id}
-                        completed={subTask.completed}
-                        id={`${task.id}_${subKey}`}
-                      />
-                    </li>
-                  ))}
+                  {task.sub_tasks
+                    .sort((a, b) => a.id - b.id)
+                    .map((subTask, subKey) => (
+                      <li key={`${task.id}_${subKey}`}>
+                        <SubTaskCheckBox
+                          subKey={subTask.id}
+                          name={subTask.name}
+                          subTaskId={subTask.id}
+                          completed={subTask.completed}
+                          id={`${task.id}_${subKey}`}
+                        />
+                      </li>
+                    ))}
                 </ul>
               </section>
             ) : null}
@@ -148,7 +150,7 @@ const Pans = (props) => {
                   </button>
                 )}
                 {!taskIdsNotComplete.includes(task.id)
-                && task.task_archived && (
+                &&  task.task_archived && (
                     <span className="card-footer-complete">Complete</span>
                   )}
                 {taskIdsNotComplete.includes(task.id) && task.task_archived && (

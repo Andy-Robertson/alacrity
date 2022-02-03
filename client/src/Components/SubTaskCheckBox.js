@@ -6,7 +6,6 @@ function SubTaskCheckBox(props) {
 
   // console.log(subTaskArray);
   const completed = props.completed; // true or false
-  console.log(completed);
   const [ischecked, setIsChecked] = useState(completed);
 
   const clickHandler = (e) => {
