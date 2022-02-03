@@ -14,7 +14,6 @@ const UPDATE_USER_SETTINGS = `
   WHERE
     auth_id = $3`;
 
-
 //     -------------- ROUTER FUNCTION --------------     //
 
 // App router.
@@ -34,23 +33,25 @@ const router = (app) => {
       .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
       .then((result) => {
         const user_id = result.rows[0].id;
-        // console.log(user_id) 
+        // console.log(user_id)
         pool
           .query("SELECT * FROM task WHERE user_id = $1", [user_id])
           .then((result) => {
-            const queryPromises = []
+            const queryPromises = [];
             result.rows.forEach((row) => {
-              const queryPromise = 
-              pool
-              .query("SELECT * FROM sub_task WHERE task_id = $1", [row.id])
-              .then((subTaskResult) => {
-                row.sub_tasks = subTaskResult.rows;
-              })
+              const queryPromise = pool
+                .query("SELECT * FROM sub_task WHERE task_id = $1", [row.id])
+                .then((subTaskResult) => {
+                  row.sub_tasks = subTaskResult.rows;
+                })
+                .catch((e) => console.error(e));
               queryPromises.push(queryPromise);
-            })
-            Promise.all(queryPromises).then(() => {
-              res.status(200).json(result.rows);
             });
+            Promise.all(queryPromises)
+              .then(() => {
+                res.status(200).json(result.rows);
+              })
+              .catch((e) => console.error(e));
           })
           .catch((e) => console.error(e));
       })
@@ -77,42 +78,39 @@ const router = (app) => {
       .then((result) => {
         const user_id = result.rows[0].id;
 
+        const query =
+          "INSERT INTO task (user_id, task_archived, task_subject, subject_description, reward, resources, by_time, by_date, sub_task_option) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *";
         pool
-          .query("SELECT * FROM task WHERE user_id = $1", [user_id])
-          .then(() => {
-            const query =
-              "INSERT INTO task (user_id, task_archived, task_subject, subject_description, reward, resources, by_time, by_date, sub_task_option) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *";
-            pool
-              .query(query, [
-                user_id,
-                task_archived,
-                task_subject,
-                subject_description,
-                reward,
-                resources,
-                by_time,
-                by_date,
-                sub_task_option,
-              ])
-              .then((taskInsertResult) => {
-                const task_id = taskInsertResult.rows[0].id
-                if(sub_task_option){
-                  const queryPromises = [];
-                  sub_tasks.forEach((sub_task) => {
-                    const queryPromise = pool.query(
-                      "INSERT INTO sub_task (index, name, completed, task_id) VALUES ($1,$2,$3,$4)",
-                      [sub_task.index, sub_task.name, sub_task.completed, task_id]
-                    );
-                    queryPromises.push(queryPromise);
-                  });
-                  Promise.all(queryPromises).then(() => {
-                    res.sendStatus(204);
-                  })
-                }else {
+          .query(query, [
+            user_id,
+            task_archived,
+            task_subject,
+            subject_description,
+            reward,
+            resources,
+            by_time,
+            by_date,
+            sub_task_option,
+          ])
+          .then((taskInsertResult) => {
+            const task_id = taskInsertResult.rows[0].id;
+            if (sub_task_option) {
+              const queryPromises = [];
+              sub_tasks.forEach((sub_task) => {
+                const queryPromise = pool.query(
+                  "INSERT INTO sub_task (index, name, completed, task_id) VALUES ($1,$2,$3,$4)",
+                  [sub_task.index, sub_task.name, sub_task.completed, task_id]
+                );
+                queryPromises.push(queryPromise);
+              });
+              Promise.all(queryPromises)
+                .then(() => {
                   res.sendStatus(204);
-                }
-              })
-              .catch((e) => console.error(e));
+                })
+                .catch((e) => console.error(e));
+            } else {
+              res.sendStatus(204);
+            }
           })
           .catch((e) => console.error(e));
       })
@@ -213,16 +211,15 @@ const router = (app) => {
   // tick system sub task
   app.put("/api/task/status", (req, res) => {
     const { id, completed } = req.body;
-    console.log(completed)
-        pool
-          .query(
-            "UPDATE sub_task SET completed = $1 WHERE id = $2;",
-            [completed, id]
-          )
-          .then(() => {
-            res.sendStatus(201);
-          })
-          .catch((e) => console.error(e));
+    pool
+      .query("UPDATE sub_task SET completed = $1 WHERE id = $2;", [
+        completed,
+        id,
+      ])
+      .then(() => {
+        res.sendStatus(201);
+      })
+      .catch((e) => console.error(e));
   });
 
   // Error handling
