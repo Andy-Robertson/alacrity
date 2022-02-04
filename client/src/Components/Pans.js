@@ -74,7 +74,7 @@ const Pans = (props) => {
         const trimedString = task.resources.replace(/[{ } \\ " \s]/g, "");
 
         const stringArr = trimedString.split(",");
-
+        // console.log(task);
         return (
           <article key={task.id} className="card">
             <header>

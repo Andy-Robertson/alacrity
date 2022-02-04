@@ -129,7 +129,7 @@ const router = (app) => {
       by_time,
       by_date,
     } = req.body;
-    console.log(sub_tasks);
+    // console.log(sub_tasks);
     const query =
       "UPDATE task SET task_subject = $1, subject_description = $2, reward = $3, resources= $4, by_time = $5, by_date = $6, sub_task_option = $7 WHERE id = $8;";
     pool
@@ -145,6 +145,7 @@ const router = (app) => {
       ])
       .then(() => {
         const queryPromises = [];
+        // console.log(sub_tasks);
         sub_tasks.forEach((sub_task) => {
           const queryPromise = pool
             .query("SELECT * FROM sub_task WHERE id=$1", [sub_task.id])
@@ -169,9 +170,7 @@ const router = (app) => {
             .catch((e) => console.error(e));
           queryPromises.push(queryPromise);
         });
-        Promise.all(queryPromises)
-          .then(() => res.sendStatus(201))
-          .catch((e) => console.error(e));
+        Promise.all(queryPromises).then(() => res.sendStatus(201));
       })
       .catch((e) => console.error(e));
   });
@@ -179,15 +178,20 @@ const router = (app) => {
   // DELETE SUB TASK
   app.delete("/api/tasks", (req, res) => {
     console.log(req.body);
-    const id = req.body.id;
-    if (id) {
-      pool
-        .query("DELETE FROM sub_task WHERE id=$1", [id])
-        .then(() => res.sendStatus(202))
-        .catch((e) => console.error(e));
-    }else{
-      res.sendStatus(400);
-    }
+    const ids = req.body["id"];
+    console.log(ids); 
+
+    const queryPromises =[];
+    ids.forEach((id) => {
+      if (id) {
+        const queryPromise = pool
+          .query("DELETE FROM sub_task WHERE id=$1", [id])
+          queryPromises.push(queryPromise);
+      } else {
+        return;
+      }
+    })
+    Promise.all(queryPromises).then(() => res.sendStatus(200));
   });
 
   app.put("/api/tasks/archived", (req, res) => {
