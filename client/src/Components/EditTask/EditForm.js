@@ -61,6 +61,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
     setAddInputList(list);
   };
   const subTaskDataBase = task.sub_tasks;
+  console.log(subTaskDataBase);
   // Form function
   const submitForm = (e) => {
     e.preventDefault();
@@ -77,10 +78,16 @@ function EditForm({ task, submitComplete, openEditPan }) {
         const subTaskArray = [subTask].concat(subTaskList);
         subTaskArray.forEach((task, index) => {
           subTaskArrayChecked.push({
-            id: !subTaskDataBase[index] && subTaskDataBase[index].id,
+            id:
+              subTaskDataBase[index]
+                ? subTaskDataBase[index].id
+                : null,
             name: task,
             index: index,
-            completed: subTaskDataBase[index].length > 0 ? subTaskDataBase[index].completed: false,
+            completed:
+              subTaskDataBase[index]
+                ? subTaskDataBase[index].completed
+                : false,
           });
         });
         // console.log(subTaskArrayChecked);

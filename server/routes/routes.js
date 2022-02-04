@@ -149,7 +149,7 @@ const router = (app) => {
           const queryPromise = pool
             .query("SELECT * FROM sub_task WHERE id=$1", [sub_task.id])
             .then((result) => {
-              if (result.rows[0].length !== 0) {
+              if (result.rows.length !== 0) {
                 pool
                 .query("UPDATE sub_task SET name = $1, index=$2, completed=$3 WHERE id=$4", [sub_task.name, sub_task.index, sub_task.completed, sub_task.id])
               }else{
