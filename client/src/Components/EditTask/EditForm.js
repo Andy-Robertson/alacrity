@@ -53,21 +53,35 @@ function EditForm({ task, submitComplete, openEditPan }) {
     e.preventDefault(); // To prevent submit from the subTask button
     setAddInputList([...addInputList, ""]);
   };
-  const deleteHandlerFromList = (e, index) => {
+  // const [subTaskDataBase, setSubTaskDataBase] = useState(task.sub_tasks);
+  const deleteHandlerFromList = (e, compositIndex) => {
     // function to delete the element of subtask from the array
     e.preventDefault();
     const list = [...addInputList];
-    list.splice(index, 1);
+    list.splice(compositIndex, 1);
     setAddInputList(list);
+    // console.log(subTaskDataBase[index + 1]);
+
+    // fetch("/api/tasks", {
+    //   method: "DELETE",
+    //   body: JSON.stringify({
+    //     id: subTaskDataBase[index + 1] ? subTaskDataBase[index + 1].id : null,
+    //   }),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
   };
+  console.log(addInputList);
   const subTaskDataBase = task.sub_tasks;
-  console.log(subTaskDataBase);
+  // console.log(subTaskDataBase);
   // Form function
   const submitForm = (e) => {
     e.preventDefault();
     const subTaskList = [...addInputList].filter(
       (task) =>  task.length >= 1 && task.trim().length >= 1
     );
+
     if (taskSubject.length === 0) {
       alert("Task Subject has to be filled");
     } else if (toggled && subTask.length === 0) {
@@ -76,26 +90,23 @@ function EditForm({ task, submitComplete, openEditPan }) {
       const subTaskArrayChecked = [];
       if (toggled === true) {
         const subTaskArray = [subTask].concat(subTaskList);
-        subTaskArray.forEach((task, index) => {
-          subTaskArrayChecked.push({
-            id:
-              subTaskDataBase[index]
-                ? subTaskDataBase[index].id
-                : null,
-            name: task,
-            index: index,
-            completed:
-              subTaskDataBase[index]
+        // console.log(subTaskDataBase);
+          subTaskArray.forEach((task, index) => {
+            subTaskArrayChecked.push({
+              id: subTaskDataBase[index] ? subTaskDataBase[index].id : null,
+              name: task,
+              index: index,
+              completed: subTaskDataBase[index]
                 ? subTaskDataBase[index].completed
                 : false,
+            });
           });
-        });
-        // console.log(subTaskArrayChecked);
+        // console.log(subTaskArray);
       }
       fetch("/api/tasks", {
         method: "PUT",
         body: JSON.stringify({
-          id: task.id,
+          task_id: task.id,
           task_subject: taskSubject,
           subject_description: describe,
           sub_task_option: toggled,

@@ -15,7 +15,7 @@ const Pans = (props) => {
   const [taskSelected, setTaskSelected] = useState([]);
   const [taskIdsNotComplete, setTaskIdsNotComplete] = useState([]);
 
-  console.log(props.data);
+  // console.log(props.data);
   useEffect(() => {
     const taskNotCompleteIds = props.data
       .filter((task) => {
@@ -30,7 +30,7 @@ const Pans = (props) => {
   }, [props]);
 
   const handleEditPopup = (e, task) => {
-    console.log(task);
+    // console.log(task);
     e.stopPropagation();
     setTaskSelected(task);
     setOpenEditPan(true);

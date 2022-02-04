@@ -119,7 +119,7 @@ const router = (app) => {
   // Edit user tasks
   app.put("/api/tasks", (req, res) => {
     const {
-      id,
+      task_id,
       task_subject,
       subject_description,
       sub_task_option,
@@ -129,7 +129,7 @@ const router = (app) => {
       by_time,
       by_date,
     } = req.body;
-    console.log(sub_tasks)
+    console.log(sub_tasks);
     const query =
       "UPDATE task SET task_subject = $1, subject_description = $2, reward = $3, resources= $4, by_time = $5, by_date = $6, sub_task_option = $7 WHERE id = $8;";
     pool
@@ -141,32 +141,53 @@ const router = (app) => {
         by_time,
         by_date,
         sub_task_option,
-        id,
+        task_id,
       ])
       .then(() => {
-        const queryPromises=[];
+        const queryPromises = [];
         sub_tasks.forEach((sub_task) => {
           const queryPromise = pool
             .query("SELECT * FROM sub_task WHERE id=$1", [sub_task.id])
             .then((result) => {
               if (result.rows.length !== 0) {
-                pool
-                .query("UPDATE sub_task SET name = $1, index=$2, completed=$3 WHERE id=$4", [sub_task.name, sub_task.index, sub_task.completed, sub_task.id])
-              }else{
+                pool.query(
+                  "UPDATE sub_task SET name = $1, index=$2, completed=$3 WHERE id=$4",
+                  [
+                    sub_task.name,
+                    sub_task.index,
+                    sub_task.completed,
+                    sub_task.id,
+                  ]
+                );
+              } else {
                 pool.query(
                   "INSERT INTO sub_task ( name, index, completed, task_id) VALUES ($1,$2,$3, $4)",
-                  [sub_task.name, sub_task.index, sub_task.completed, id]
+                  [sub_task.name, sub_task.index, sub_task.completed, task_id]
                 );
               }
-              queryPromises.push(queryPromise);
             })
             .catch((e) => console.error(e));
+          queryPromises.push(queryPromise);
         });
         Promise.all(queryPromises)
           .then(() => res.sendStatus(201))
           .catch((e) => console.error(e));
       })
       .catch((e) => console.error(e));
+  });
+
+  // DELETE SUB TASK
+  app.delete("/api/tasks", (req, res) => {
+    console.log(req.body);
+    const id = req.body.id;
+    if (id) {
+      pool
+        .query("DELETE FROM sub_task WHERE id=$1", [id])
+        .then(() => res.sendStatus(202))
+        .catch((e) => console.error(e));
+    }else{
+      res.sendStatus(400);
+    }
   });
 
   app.put("/api/tasks/archived", (req, res) => {
