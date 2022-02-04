@@ -75,7 +75,9 @@ function AddTask(props) {
     e.preventDefault();
 
     const subTaskList = [...addInputList].filter(
-      (task) => task.trim().length >= 1
+      (task) => {
+        return task.length >= 1 && task.trim().length >= 1;
+      }
     );
 
     if (taskSubject.length === 0) {
@@ -101,7 +103,6 @@ function AddTask(props) {
           task_subject: taskSubject,
           subject_description: describe,
           sub_task_option: toggled,
-          // sub_tasks: toggled ? [subTask].concat(subTaskList) : null,
           reward: reward,
           resources: resourcesList,
           by_time: valueTime,

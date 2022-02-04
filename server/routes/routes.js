@@ -33,7 +33,6 @@ const router = (app) => {
       .query("SELECT * FROM users WHERE auth_id = $1", [auth_id])
       .then((result) => {
         const user_id = result.rows[0].id;
-        // console.log(user_id)
         pool
           .query("SELECT * FROM task WHERE user_id = $1", [user_id])
           .then((result) => {
@@ -130,8 +129,9 @@ const router = (app) => {
       by_time,
       by_date,
     } = req.body;
+    console.log(sub_tasks)
     const query =
-      "UPDATE task SET task_subject = $1, subject_description = $2, reward = $3, resources= $4, by_time = $5, by_date = $6, sub_task_option = $7, sub_tasks = $8 WHERE id = $9;";
+      "UPDATE task SET task_subject = $1, subject_description = $2, reward = $3, resources= $4, by_time = $5, by_date = $6, sub_task_option = $7 WHERE id = $8;";
     pool
       .query(query, [
         task_subject,
@@ -141,11 +141,30 @@ const router = (app) => {
         by_time,
         by_date,
         sub_task_option,
-        sub_tasks,
         id,
       ])
       .then(() => {
-        res.sendStatus(201);
+        const queryPromises=[];
+        sub_tasks.forEach((sub_task) => {
+          const queryPromise = pool
+            .query("SELECT * FROM sub_task WHERE id=$1", [sub_task.id])
+            .then((result) => {
+              if (result.rows[0].length !== 0) {
+                pool
+                .query("UPDATE sub_task SET name = $1, index=$2, completed=$3 WHERE id=$4", [sub_task.name, sub_task.index, sub_task.completed, sub_task.id])
+              }else{
+                pool.query(
+                  "INSERT INTO sub_task ( name, index, completed, task_id) VALUES ($1,$2,$3, $4)",
+                  [sub_task.name, sub_task.index, sub_task.completed, id]
+                );
+              }
+              queryPromises.push(queryPromise);
+            })
+            .catch((e) => console.error(e));
+        });
+        Promise.all(queryPromises)
+          .then(() => res.sendStatus(201))
+          .catch((e) => console.error(e));
       })
       .catch((e) => console.error(e));
   });

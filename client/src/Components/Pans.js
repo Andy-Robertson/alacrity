@@ -30,6 +30,7 @@ const Pans = (props) => {
   }, [props]);
 
   const handleEditPopup = (e, task) => {
+    console.log(task);
     e.stopPropagation();
     setTaskSelected(task);
     setOpenEditPan(true);

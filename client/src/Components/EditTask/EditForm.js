@@ -11,13 +11,13 @@ function EditForm({ task, submitComplete, openEditPan }) {
   const [reward, setReward] = useState(task.reward);
   const [resources, setResources] = useState(task.resources);
   const [subTask, setSubTask] = useState(
-    task.sub_task_option ? task.sub_tasks[0] : ""
+    task.sub_task_option ? task.sub_tasks[0].name : ""
   ); // The default of first subTask
   // Check box to have subTask option if the user wants.
   const [toggled, setToggled] = useState(task.sub_task_option);
   // addInputList will help us to create subTasks as much as user wants
   const [addInputList, setAddInputList] = useState(
-    task.sub_task_option ? task.sub_tasks.slice(1) : []
+    task.sub_task_option ? task.sub_tasks.slice(1).map((sub) => sub.name) : []
   );
 
   // Date Time Picker Library
@@ -60,17 +60,31 @@ function EditForm({ task, submitComplete, openEditPan }) {
     list.splice(index, 1);
     setAddInputList(list);
   };
+  const subTaskDataBase = task.sub_tasks;
   // Form function
   const submitForm = (e) => {
     e.preventDefault();
     const subTaskList = [...addInputList].filter(
-      (task) => task.trim().length >= 1
+      (task) =>  task.length >= 1 && task.trim().length >= 1
     );
     if (taskSubject.length === 0) {
       alert("Task Subject has to be filled");
     } else if (toggled && subTask.length === 0) {
       alert("SubTask has to be filled");
     } else {
+      const subTaskArrayChecked = [];
+      if (toggled === true) {
+        const subTaskArray = [subTask].concat(subTaskList);
+        subTaskArray.forEach((task, index) => {
+          subTaskArrayChecked.push({
+            id: !subTaskDataBase[index] && subTaskDataBase[index].id,
+            name: task,
+            index: index,
+            completed: subTaskDataBase[index].length > 0 ? subTaskDataBase[index].completed: false,
+          });
+        });
+        // console.log(subTaskArrayChecked);
+      }
       fetch("/api/tasks", {
         method: "PUT",
         body: JSON.stringify({
@@ -78,11 +92,11 @@ function EditForm({ task, submitComplete, openEditPan }) {
           task_subject: taskSubject,
           subject_description: describe,
           sub_task_option: toggled,
-          sub_tasks: toggled ? [subTask].concat(subTaskList) : null,
           reward: reward,
           resources: resources,
           by_time: valueTime,
           by_date: valueDate,
+          sub_tasks: toggled ? subTaskArrayChecked : null,
         }),
         headers: {
           "Content-Type": "application/json",
