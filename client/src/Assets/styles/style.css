@@ -308,42 +308,6 @@ main {
   background-color: #1da0f2b0;
 }
 
-/* Login animation */
-
-.left-animation {
-  animation: runLeft ease 3s;
-  -webkit-animation: runLeft ease 2s;
-  -moz-animation: runLeft ease 2s;
-  -ms-animation: runLeft ease 2s;
-  -o-animation: runLeft ease 2s;
-}
-
-@keyframes runLeft {
-  0% {
-    margin-left: -98%;
-  }
-  100% {
-    margin-left: 0%;
-  }
-}
-
-.right-animation {
-  animation: runRight ease 2s;
-  -webkit-animation: runRight ease 2s;
-  -moz-animation: runRight ease 2s;
-  -ms-animation: runRight ease 2s;
-  -o-animation: runRight ease 2s;
-}
-
-@keyframes runRight {
-  100% {
-    margin-right: 0%;
-  }
-  0% {
-    margin-right: -98%;
-  }
-}
-
 /* cards */
 
 .wrapper__cards > article {

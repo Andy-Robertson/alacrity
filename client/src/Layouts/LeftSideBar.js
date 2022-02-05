@@ -11,7 +11,7 @@ const LeftSideBar = ({ user }) => {
     <aside className="left-sidebar">
       <img src={Logo} alt="logo"></img>
       {user && (
-        <div className="items left-animation">
+        <div className="items animate__animated animate__fadeInLeftBig">
           <div>
             <a href="#left-sidebar">
               <img src={DashBoardImg} alt="dashboard logo"></img>
