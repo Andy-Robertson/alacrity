@@ -158,7 +158,7 @@ function App() {
             />
             <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
             <Route
-              path="*"
+              path="/*"
               element={
                 user ? (
                   <Middle
