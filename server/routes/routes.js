@@ -289,6 +289,10 @@ const router = (app) => {
   //   res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
   // });
 
+  app.get("*", function (req, res) {
+    res.redirect("https://alacrity-focus.herokuapp.com");
+  });
+
   // app.use((req, res) => {
   //   res.status(404).json({
   //     message: "Route Not Found",
