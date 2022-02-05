@@ -181,18 +181,19 @@ const router = (app) => {
   app.delete("/api/tasks", (req, res) => {
     console.log(req.body);
     const ids = req.body["id"];
-    console.log(ids); 
+    console.log(ids);
 
-    const queryPromises =[];
+    const queryPromises = [];
     ids.forEach((id) => {
       if (id) {
-        const queryPromise = pool
-          .query("DELETE FROM sub_task WHERE id=$1", [id])
-          queryPromises.push(queryPromise);
+        const queryPromise = pool.query("DELETE FROM sub_task WHERE id=$1", [
+          id,
+        ]);
+        queryPromises.push(queryPromise);
       } else {
         return;
       }
-    })
+    });
     Promise.all(queryPromises).then(() => res.sendStatus(200));
   });
 
@@ -227,8 +228,9 @@ const router = (app) => {
           ? res.status(200).json({
               pom_minutes: result.rows[0].pom_minutes,
               pom_seconds: result.rows[0].pom_seconds,
-              notifications_sound_active: result.rows[0].notifications_sound_active,
-              notifications_active: result.rows[0].notifications_active
+              notifications_sound_active:
+                result.rows[0].notifications_sound_active,
+              notifications_active: result.rows[0].notifications_active,
             })
           : res
               .status(500)
@@ -244,7 +246,7 @@ const router = (app) => {
       pom_minutes,
       pom_seconds,
       notifications_sound_active,
-      notifications_active
+      notifications_active,
     } = req.body;
 
     pool
@@ -279,6 +281,12 @@ const router = (app) => {
         res.sendStatus(201);
       })
       .catch((e) => console.error(e));
+  });
+
+  // Catch all
+  app.get("*", (req, res) =>  {
+    console.log("hit");
+    res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
   });
 
   // app.use((req, res) => {
