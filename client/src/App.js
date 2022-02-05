@@ -77,7 +77,6 @@ function App() {
           }
         })
         .then((result) => {
-          console.log(result);
           setMinutes(parseInt(result.pom_minutes));
           setSeconds(parseInt(result.pom_seconds));
           setEnableNotificationSound(result.notifications_sound_active);
