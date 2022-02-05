@@ -157,8 +157,9 @@ function App() {
               }
             />
             <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
-            <Route
-              path="*"
+
+            {/* <Route
+              path="/*"
               element={
                 user ? (
                   <Middle
@@ -171,8 +172,9 @@ function App() {
                   <Navigate to="/" />
                 )
               }
-            />
+            /> */}
           </Routes>
+
         </BrowserRouter>
         <RightSideBar
           user={user}
