@@ -13,26 +13,32 @@ const Tabs = (props) => {
 
   const sortedData = [...data].sort((a, b) => a.id - b.id);
 
+  const expiredTasks = sortedData.filter(
+    (task) =>
+      new Date(task.by_date).getDate() > todayDate
+      && !task.task_archived
+  );
+
   const todayData = sortedData.filter(
-    (ele) =>
-      new Date(ele.by_date).getDate() === todayDate
-      && ele.task_archived === false
+    (task) =>
+      new Date(task.by_date).getDate() === todayDate
+      && !task.task_archived
   );
 
   const tmrData = sortedData.filter(
-    (ele) =>
-      new Date(ele.by_date).getDate() === todayDate + 1
-      && ele.task_archived === false
+    (task) =>
+      new Date(task.by_date).getDate() === todayDate + 1
+      && !task.task_archived
   );
 
   const laterData = sortedData.filter(
-    (ele) =>
-      new Date(ele.by_date).getDate() !== todayDate + 1
-      && new Date(ele.by_date).getDate() !== todayDate
-      && ele.task_archived === false
+    (task) =>
+      new Date(task.by_date).getDate() !== todayDate + 1
+      && new Date(task.by_date).getDate() !== todayDate
+      && !task.task_archived
   );
 
-  const archivedData = sortedData.filter((ele) => ele.task_archived === true);
+  const archivedData = sortedData.filter((task) => task.task_archived === true);
 
   let intervalId = null;
   useEffect(() => {
@@ -146,7 +152,7 @@ const Tabs = (props) => {
       </ul>
       {/* <p>{clockState}</p> */}
       {isToday && (
-        <Pans data={todayData} submitComplete={props.submitComplete} />
+        <Pans data={todayData} expiredTasks={expiredTasks} submitComplete={props.submitComplete} />
       )}
       {isTmr && <Pans data={tmrData} submitComplete={props.submitComplete} />}
       {isLater && (
