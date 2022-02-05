@@ -236,7 +236,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
           />
         </div>
         <div className="buttons">
-          <button className="btn cancel">
+          <button className="btn cancel" onClick={() => openEditPan(false)}>
             <span>Cancel</span>
           </button>
           <button className="btn" type="submit">
