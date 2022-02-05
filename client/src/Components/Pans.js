@@ -17,12 +17,9 @@ const Pans = (props) => {
 
   useEffect(() => {
     const taskNotCompleteIds = props.data
-      .filter((task) => {
-        if (task.task_archived === true) {
-          return false;
-        }
-        return task.sub_tasks.some((subTask) => subTask.completed === false);
-      })
+      .filter((task) =>
+        task.sub_tasks.some((subTask) => !subTask.completed)
+      )
       .map((task) => task.id);
 
     setTaskIdsNotComplete(taskNotCompleteIds);
@@ -152,8 +149,7 @@ const Pans = (props) => {
                     Complete Task
                   </button>
                 )}
-                {!taskIdsNotComplete.includes(task.id)
-                &&  task.task_archived && (
+                {!taskIdsNotComplete.includes(task.id) && task.task_archived && (
                     <span className="card-footer-complete">Complete</span>
                   )}
                 {taskIdsNotComplete.includes(task.id) && task.task_archived && (
