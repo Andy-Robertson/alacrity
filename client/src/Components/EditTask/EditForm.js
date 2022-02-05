@@ -11,13 +11,13 @@ function EditForm({ task, submitComplete, openEditPan }) {
   const [reward, setReward] = useState(task.reward);
   const [resources, setResources] = useState(task.resources);
   const [subTask, setSubTask] = useState(
-    task.sub_task_option ? task.sub_tasks[0] : ""
+    task.sub_task_option ? task.sub_tasks[0].name : ""
   ); // The default of first subTask
   // Check box to have subTask option if the user wants.
   const [toggled, setToggled] = useState(task.sub_task_option);
   // addInputList will help us to create subTasks as much as user wants
   const [addInputList, setAddInputList] = useState(
-    task.sub_task_option ? task.sub_tasks.slice(1) : []
+    task.sub_task_option ? task.sub_tasks.slice(1).map((sub) => sub.name) : []
   );
 
   // Date Time Picker Library
@@ -53,36 +53,67 @@ function EditForm({ task, submitComplete, openEditPan }) {
     e.preventDefault(); // To prevent submit from the subTask button
     setAddInputList([...addInputList, ""]);
   };
+  const [subTaskDataBase, setSubTaskDataBase] = useState(task.sub_tasks);
+  const [deleteItems, setDeletItems] = useState([]);
   const deleteHandlerFromList = (e, index) => {
     // function to delete the element of subtask from the array
     e.preventDefault();
     const list = [...addInputList];
     list.splice(index, 1);
     setAddInputList(list);
+    let subTaskOnDelete = [];
+    if (subTaskDataBase[index + 1]){
+      subTaskOnDelete = subTaskDataBase.filter(
+        (ele) => ele.id !== subTaskDataBase[index + 1].id
+      );
+    }else{
+      return;
+    }
+    setSubTaskDataBase(subTaskOnDelete);
+
+    const deleteItemsFiltered = subTaskDataBase.filter(
+      (ele) => ele.id === subTaskDataBase[index + 1].id
+    );
+      setDeletItems([...deleteItems, deleteItemsFiltered[0]]);
   };
   // Form function
   const submitForm = (e) => {
     e.preventDefault();
     const subTaskList = [...addInputList].filter(
-      (task) => task.trim().length >= 1
+      (task) => task.length >= 1 && task.trim().length >= 1
     );
     if (taskSubject.length === 0) {
       alert("Task Subject has to be filled");
     } else if (toggled && subTask.length === 0) {
       alert("SubTask has to be filled");
     } else {
+      const subTaskArrayChecked = [];
+      if (toggled === true) {
+        const subTaskArray = [subTask].concat(subTaskList);
+        subTaskArray.forEach((task, index) => {
+          subTaskArrayChecked.push({
+            id: subTaskDataBase[index] ? subTaskDataBase[index].id : null,
+            name: task,
+            index: index,
+            completed: subTaskDataBase[index]
+              ? subTaskDataBase[index].completed
+              : false,
+          });
+        });
+        // console.log(subTaskArray);
+      }
       fetch("/api/tasks", {
         method: "PUT",
         body: JSON.stringify({
-          id: task.id,
+          task_id: task.id,
           task_subject: taskSubject,
           subject_description: describe,
           sub_task_option: toggled,
-          sub_tasks: toggled ? [subTask].concat(subTaskList) : null,
           reward: reward,
           resources: resources,
           by_time: valueTime,
           by_date: valueDate,
+          sub_tasks: toggled ? subTaskArrayChecked : null,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -90,6 +121,26 @@ function EditForm({ task, submitComplete, openEditPan }) {
       }).then(() => {
         submitComplete();
         openEditPan(false);
+      });
+      const deleteItemsArray = [];
+      console.log(deleteItems);
+      deleteItems.forEach((deleteItem) => {
+        console.log(deleteItem);
+        if (deleteItem["id"]){
+          deleteItemsArray.push(deleteItem["id"]);
+        } else{
+          return;
+        }
+      });
+      console.log(deleteItemsArray);
+      fetch("/api/tasks", {
+        method: "DELETE",
+        body: JSON.stringify({
+          id: deleteItemsArray,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
     }
   };
@@ -117,7 +168,10 @@ function EditForm({ task, submitComplete, openEditPan }) {
           />
         </div>
         <h4>Sub Tasks</h4>
-        <Toggle handleCheck={(evt) => setToggled(evt.target.checked)} checked={toggled}/>
+        <Toggle
+          handleCheck={(evt) => setToggled(evt.target.checked)}
+          checked={toggled}
+        />
         {/* <p> the button is {toggled ? "on" : "off"}</p> */}
         {toggled && (
           <div>
@@ -183,14 +237,10 @@ function EditForm({ task, submitComplete, openEditPan }) {
         </div>
         <div className="buttons">
           <button className="btn cancel">
-            <span>
-              Cancel
-            </span>
+            <span>Cancel</span>
           </button>
           <button className="btn" type="submit">
-            <span>
-              Edit
-            </span>
+            <span>Edit</span>
           </button>
         </div>
       </form>

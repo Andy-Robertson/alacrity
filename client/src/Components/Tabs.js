@@ -10,25 +10,30 @@ const Tabs = (props) => {
   const [isLater, setIsLater] = useState(false);
   const [taskIsArchived, setIsArchived] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  const todayData = data.filter(
+
+  const sortedData = [...data].sort((a, b) => a.id - b.id);
+
+  const todayData = sortedData.filter(
     (ele) =>
       new Date(ele.by_date).getDate() === todayDate
       && ele.task_archived === false
   );
 
-  const tmrData = data.filter(
+  const tmrData = sortedData.filter(
     (ele) =>
       new Date(ele.by_date).getDate() === todayDate + 1
       && ele.task_archived === false
   );
 
-  const laterData = data.filter(
+  const laterData = sortedData.filter(
     (ele) =>
       new Date(ele.by_date).getDate() !== todayDate + 1
       && new Date(ele.by_date).getDate() !== todayDate
       && ele.task_archived === false
   );
-  const archivedData = data.filter((ele) => ele.task_archived === true);
+
+  const archivedData = sortedData.filter((ele) => ele.task_archived === true);
+
   let intervalId = null;
   useEffect(() => {
     setData(props.data);
