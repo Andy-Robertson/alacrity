@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import PomodoroAnimation from "./PomodoroAnimation";
 import Button from "./button";
 import { GrPowerReset, GrPauseFill, GrPlayFill } from "react-icons/gr";
-import workComplete from "../Assets/audio/success-sound-effect.mp3";
-import { GlobalContext } from "../Contexts/GlobalContext";
-import Logo from "../Assets/img/logo.svg";
+import workComplete from "../../Assets/audio/success-sound-effect.mp3";
+import { GlobalContext } from "../../Contexts/GlobalContext";
+import Logo from "../../Assets/img/logo.svg";
 
 const Pomodoro = () => {
   const {
@@ -15,6 +15,7 @@ const Pomodoro = () => {
     enableNotificationSound,
     enableNotifications,
   } = useContext(GlobalContext);
+
   const workCompleteSound = new Audio(workComplete);
 
   const [totalTimeInSeconds, setTotalTimeInSeconds] = useState(0);
@@ -23,20 +24,19 @@ const Pomodoro = () => {
   const [pomodoroSessionEnded, setPomodoroSessionEnded] = useState(false);
   const interval = useRef(null);
 
-  // Notification Function
-  function notify(title, body) {
+  const notify = (title, body) => {
     let options = {
       body: body,
       icon: Logo,
     };
     const notification = new Notification(title, options);
     notification.onclick = () => {
-      window.open("https://localhost:3000"); // redirect to new page -- Challenge
+      window.open("https://localhost:3000");
     };
 
     setTimeout(notification.close.bind(notification), 3000);
-  }
-  // Notification Calling
+  };
+
   const notificationCall = (title, body) => {
     if (!window.Notification) {
       console.log("Browser does not support notifications.");
@@ -52,10 +52,11 @@ const Pomodoro = () => {
       }
     }
   };
-  // Play jingle when timmer hits 00:00
+
   useEffect(() => {
     let title = "Pomodoro Notification";
     let body = "Well Done The Time is Up";
+
     if (pomodoroSessionEnded) {
       enableNotificationSound && workCompleteSound.play();
       enableNotifications && notificationCall(title, body);
@@ -64,15 +65,12 @@ const Pomodoro = () => {
     }
   }, [pomodoroSessionEnded]);
 
-  // Convert time to seconds & set time left in seconds.
   useEffect(() => {
     setTotalTimeInSeconds(minutes * 60 + seconds);
     setTimeLeftInSeconds(totalTimeInSeconds);
   }, [minutes, seconds, totalTimeInSeconds]);
 
-  // Start time interval.
   const handleStartTimer = () => {
-    // Prevent multiple intervals.
     if (interval.current !== null) {
       return;
     }
@@ -91,21 +89,17 @@ const Pomodoro = () => {
     }, 1000);
   };
 
-  // Clear interval.
   const handleStopTimer = () => {
-    //Prevent multiple clear intervals.
     if (interval.current === null) {
       return;
     }
 
     setTimerActive(false);
     clearInterval(interval.current);
-    // Reset ref to null enabling `startTimer` calls to meet the `interval.current`
-    // check if timer has already started.
+
     interval.current = null;
   };
 
-  // Reset interval & clear timer.
   const handleResetTimer = () => {
     setTimerActive(false);
     clearInterval(interval.current);
@@ -113,7 +107,6 @@ const Pomodoro = () => {
     setTimeLeftInSeconds(totalTimeInSeconds);
   };
 
-  // Set pre-defined time sessions.
   const handleTimeSelect = (e) => {
     if (e.target.value === "Focus") {
       setMinutes(25);
