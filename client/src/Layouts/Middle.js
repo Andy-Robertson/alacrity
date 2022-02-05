@@ -10,19 +10,19 @@ const Middle = ({ user, taskData, submitComplete }) => {
   return (
     // Start of wrapper setion
     <section className="wrapper">
-      <div className="wrapper__text">
+      <div className="wrapper__text animate__animated animate__fadeInUpBig">
         <h3>Welcome back {user.displayName}!</h3>
         <h2>You've got {todayData.length} tasks today</h2>
       </div>
       {/* Start of wrapper ards div */}
-      <div className="wrapper__cards">
+      <div className="wrapper__cards animate__animated animate__fadeInUpBig">
         {taskData.length > 0 && (
           <Tabs data={taskData} submitComplete={submitComplete} />
         )}
         {/* End of wrapper ards div */}
       </div>
       {/* Start of the bakground div */}
-      <div className="wrapper__bk">
+      <div className="wrapper__bk animate__animated animate__fadeInDownBig">
         <div>
           <h4>
             " The only difference between success and failure is the ability to

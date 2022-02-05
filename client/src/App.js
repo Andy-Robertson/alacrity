@@ -10,6 +10,7 @@ import LeftSideBar from "./Layouts/LeftSideBar";
 import Middle from "./Layouts/Middle";
 import RightSideBar from "./Layouts/RightSideBar";
 import Login from "./Layouts/Login";
+import "animate.css";
 
 // Production / Development environment selection.
 const SERVER_URL = process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
@@ -76,7 +77,6 @@ function App() {
           }
         })
         .then((result) => {
-          console.log(result);
           setMinutes(parseInt(result.pom_minutes));
           setSeconds(parseInt(result.pom_seconds));
           setEnableNotificationSound(result.notifications_sound_active);
@@ -157,7 +157,7 @@ function App() {
             />
             <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
             <Route
-              path="*"
+              path="/*"
               element={
                 user ? (
                   <Middle

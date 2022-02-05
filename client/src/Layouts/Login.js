@@ -20,7 +20,7 @@ const Login = ({ SERVER_URL }) => {
 
   return (
     <section className="login-section">
-      <div className="wrapper-login-form">
+      <div className="wrapper-login-form animate__animated animate__fadeInUpBig">
         <form className="login-form">
           <h3>Log-in</h3>
           <div className="login-btn google-color" onClick={google}>

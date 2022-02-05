@@ -1,15 +1,29 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { GlobalContext } from "../Contexts/GlobalContext";
 import EditImg from "../Assets/img/icons8-edit(1).svg";
 import ScheduleImg from "../Assets/img/schedule.svg";
 import ArchiveImg from "../Assets/img/archive.png";
 import RestoreImg from "../Assets/img/restore.png";
+import { MdDone } from "react-icons/md";
 import EditPopUp from "./EditTask/EditPopUp";
+import SubTaskCheckBox from "./SubTaskCheckBox";
+import taskComplete from "../Assets/audio/DADAA.mp3";
 
 const Pans = (props) => {
+  const { setTasksData } = useContext(GlobalContext);
   const [openEditPan, setOpenEditPan] = useState(false);
   const [taskSelected, setTaskSelected] = useState([]);
-  const { setTasksData } = useContext(GlobalContext);
+  const [taskIdsNotComplete, setTaskIdsNotComplete] = useState([]);
+
+  useEffect(() => {
+    const taskNotCompleteIds = props.data
+      .filter((task) =>
+        task.sub_tasks.some((subTask) => !subTask.completed)
+      )
+      .map((task) => task.id);
+
+    setTaskIdsNotComplete(taskNotCompleteIds);
+  }, [props]);
 
   const handleEditPopup = (e, task) => {
     e.stopPropagation();
@@ -17,9 +31,7 @@ const Pans = (props) => {
     setOpenEditPan(true);
   };
 
-  const handleArchiveTask = (e, task) => {
-    e.stopPropagation();
-
+  const handleArchiveTask = (task) => {
     const taskArchived = task.task_archived ? false : true;
 
     fetch("/api/tasks/archived", {
@@ -31,34 +43,43 @@ const Pans = (props) => {
       headers: {
         "Content-Type": "application/json",
       },
+    }).then(() => {
+      fetch("/api/tasks")
+        .then((res) => res.json())
+        .then((data) => {
+          setTasksData(data);
+        });
     });
-
-    fetch("/api/tasks")
-      .then((res) => res.json())
-      .then((data) => {
-        setTasksData(data);
-      });
   };
+
+  const handleTaskComplete = (e) => {
+    const taskCompleteSound = new Audio(taskComplete);
+
+    const completedTask = props.data.find(
+      (task) => task.id === parseInt(e.target.id)
+      );
+
+      handleArchiveTask(completedTask);
+      taskCompleteSound.play();
+    };
+
+    if (props.expiredTasks) {
+      props.expiredTasks.forEach((task) => handleArchiveTask(task));
+    }
 
   return (
     <>
-      {props.data.map((task, index) => {
+      {props.data.map((task) => {
         const trimedString = task.resources.replace(/[{ } \\ " \s]/g, "");
-        // console.log("trim", trimedString);
+
         const stringArr = trimedString.split(",");
-        // console.log("arr",stringArr);
+        // console.log(task);
         return (
           <article key={task.id} className="card">
             <header>
-              <span className="round">
-                <input type="checkbox" id={"checkbox-" + index} />
-                <label htmlFor={"checkbox-" + index}></label>
-              </span>
-
               <span className="text">
                 <h3>{task.task_subject}</h3>
               </span>
-
               <span className="ions">
                 {!task.task_archived && (
                   <a href="#" onClick={(e) => handleEditPopup(e, task)}>
@@ -70,7 +91,7 @@ const Pans = (props) => {
                   <img src={ScheduleImg} alt="schedule"></img>
                 )}
 
-                <a href="#" onClick={(e) => handleArchiveTask(e, task)}>
+                <a href="#" onClick={() => handleArchiveTask(task)}>
                   <img
                     src={task.task_archived ? RestoreImg : ArchiveImg}
                     alt="archive"
@@ -84,45 +105,61 @@ const Pans = (props) => {
             {task.sub_task_option === true ? (
               <section className="card__content">
                 <ul>
-                  {task.sub_tasks.map((subTask, subKey) => (
-                    <li key={subKey}>
-                      <span className="round">
-                        <input
-                          type="checkbox"
-                          id={"checkbox-subtask-" + subKey}
+                  {task.sub_tasks
+                    .sort((a, b) => a.index - b.index)
+                    .map((subTask, subKey) => (
+                      <li key={`${task.id}_${subKey}`}>
+                        <SubTaskCheckBox
+                          subKey={subTask.id}
+                          name={subTask.name}
+                          subTaskId={subTask.id}
+                          completed={subTask.completed}
+                          id={`${task.id}_${subKey}`}
                         />
-                        <label htmlFor={"checkbox-subtask-" + subKey}></label>
-                      </span>
-                      <span>{subTask}</span>
-                    </li>
-                  ))}
+                      </li>
+                    ))}
                 </ul>
               </section>
             ) : null}
             <section className="card__rewards">
-              <span>Rewards:</span>
+              <span className="animate__pulse">Rewards:</span>
               <p>{task.reward}</p>
             </section>
             <section className="card__resources">
               <span>Resources:</span>
-              {/* <div className="pill">
-                <span>{task.resources}</span>
-                </div> */}
-              {stringArr.map((resource, key) => (
-                resource && (
-                <div key={key} className="pill">
-                  <span> {resource.replace(/,/g, "")} </span>
-                </div>
-                )
-              ))}
+              {stringArr.map(
+                (resource, key) =>
+                  resource && (
+                    <div key={key} className="pill">
+                      <span> {resource.replace(/,/g, "")} </span>
+                    </div>
+                  )
+              )}
             </section>
-            <footer className="card_footer">
+            <footer className="card-footer">
               <time dateTime={task.by_time}>{task.by_time}</time>
+              <span>
+                {!taskIdsNotComplete.includes(task.id) && !task.task_archived && (
+                  <button
+                    className="complete-task-button animate__animated animate__rubberBand"
+                    id={task.id}
+                    onClick={(e) => handleTaskComplete(e)}
+                  >
+                    <MdDone />
+                    Complete Task
+                  </button>
+                )}
+                {!taskIdsNotComplete.includes(task.id) && task.task_archived && (
+                    <span className="card-footer-complete">Complete</span>
+                  )}
+                {taskIdsNotComplete.includes(task.id) && task.task_archived && (
+                  <span className="card-footer-incomplete">Incomplete</span>
+                )}
+              </span>
             </footer>
           </article>
         );
       })}
-
       {openEditPan && (
         <EditPopUp
           task={taskSelected}

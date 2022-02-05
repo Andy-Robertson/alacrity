@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import PlusImg from "../Assets/img/plus-math-30.png";
 import Popup from "../Components/Popup";
 import placeholderAvatar from "../Assets/img/avatar-placeholder.png";
-import Pomodoro from "../Components/Pomodoro";
+import Pomodoro from "../Components/Pomodoro/Pomodoro";
 
 const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,10 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
   return (
     <aside className="right-sidebar">
       {user && (
-        <ul onClick={logout} className="right-animation">
+        <ul
+          onClick={logout}
+          className="animate__animated animate__fadeInRightBig"
+        >
           <li>
             <img
               src={user.avatar ? user.avatar : placeholderAvatar}
@@ -27,7 +30,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
       {user && (
         <button
           type="button"
-          className="btn right-animation"
+          className="btn animate__animated animate__fadeInRightBig"
           onClick={() => {
             setIsOpen(true);
           }}
@@ -38,9 +41,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
           <span className="btn__text">Add Task</span>
         </button>
       )}
-      {isOpen && (
-        <Popup close={setIsOpen} submitComplete={submitComplete} />
-      )}
+      {isOpen && <Popup close={setIsOpen} submitComplete={submitComplete} />}
       {user && <Pomodoro />}
     </aside>
   );

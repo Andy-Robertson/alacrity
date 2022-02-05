@@ -75,7 +75,9 @@ function AddTask(props) {
     e.preventDefault();
 
     const subTaskList = [...addInputList].filter(
-      (task) => task.trim().length >= 1
+      (task) => {
+        return task.length >= 1 && task.trim().length >= 1;
+      }
     );
 
     if (taskSubject.length === 0) {
@@ -83,17 +85,29 @@ function AddTask(props) {
     } else if (toggled && subTask.length === 0) {
       alert("SubTask has to be filled");
     } else {
+      const subTaskArrayChecked = [];
+      if (toggled === true) {
+        const subTaskArray = [subTask].concat(subTaskList);
+        subTaskArray.forEach((task, index) => {
+          subTaskArrayChecked.push({
+            name: task,
+            index: index,
+            completed: false,
+          });
+        });
+        // console.log(subTaskArrayChecked);
+      }
       fetch("/api/tasks", {
         method: "POST",
         body: JSON.stringify({
           task_subject: taskSubject,
           subject_description: describe,
           sub_task_option: toggled,
-          sub_tasks: toggled ? [subTask].concat(subTaskList) : null,
           reward: reward,
           resources: resourcesList,
           by_time: valueTime,
           by_date: valueDate,
+          sub_tasks: toggled ? subTaskArrayChecked : null,
         }),
         headers: {
           "Content-Type": "application/json",
