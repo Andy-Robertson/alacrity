@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import PlusImg from "../Assets/img/plus-math-30.png";
 import Popup from "../Components/Popup";
 import placeholderAvatar from "../Assets/img/avatar-placeholder.png";
-import Pomodoro from "../Components/Pomodoro";
+import Pomodoro from "../Components/Pomodoro/Pomodoro";
 
 const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
