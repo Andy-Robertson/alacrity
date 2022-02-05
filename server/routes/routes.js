@@ -283,28 +283,16 @@ const router = (app) => {
       .catch((e) => console.error(e));
   });
 
-  // Catch all
-  // app.get("*", (req, res) =>  {
-  //   console.log("hit");
-  //   res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
-  // });
-
-  app.get("*", function (req, res) {
+  app.get("*", (req, res) => {
     res.redirect("https://alacrity-focus.herokuapp.com");
   });
 
-  // app.use((req, res) => {
-  //   res.status(404).json({
-  //     message: "Route Not Found",
-  //   });
-  // });
-
-  // app.use((err, req, res) => {
-  //   res.status(err.status || 500).json({
-  //     message: err.message,
-  //     error: {},
-  //   });
-  // });
+  app.use((err, req, res) => {
+    res.status(err.status || 500).json({
+      message: err.message,
+      error: {},
+    });
+  });
 };
 
 module.exports = router;

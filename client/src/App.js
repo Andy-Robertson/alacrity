@@ -157,7 +157,6 @@ function App() {
               }
             />
             <Route path="/login" element={<Login SERVER_URL={SERVER_URL} />} />
-
             <Route
               path="/*"
               element={
@@ -174,7 +173,6 @@ function App() {
               }
             />
           </Routes>
-
         </BrowserRouter>
         <RightSideBar
           user={user}
