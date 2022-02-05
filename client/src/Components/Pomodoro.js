@@ -131,7 +131,7 @@ const Pomodoro = () => {
   const ACTIVE = "pomodoro-btn-interaction pomodoro-time-btn pomodoro-time-btn-active";
 
   return (
-    <section className="pomodoro-wrapper right-animation">
+    <section className="pomodoro-wrapper animate__animated animate__fadeInRightBig">
       <span className="pomodoro-time-selector-wrapper">
         <Button
           type={minutes === 25 ? ACTIVE : INACTIVE}
