@@ -33,7 +33,6 @@ CREATE TABLE task (
   -- CONSTRAINT check_sub_task_option 
   -- CHECK ( (sub_task_option = true AND sub_tasks IS NOT NULL) OR (sub_task_option = false AND sub_tasks IS NULL)),
   -- CHECK ( (sub_task_option = true AND sub_tasks_checked IS NOT NULL) OR (sub_task_option = false AND sub_tasks_checked IS NULL))
-  -- task_added            TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE sub_task (
