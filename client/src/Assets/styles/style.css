@@ -116,13 +116,32 @@ main {
 
 /* Pomodoro */
 
-.pomodoro-wrapper {
+/* .pomodoro-wrapper {
   grid-row: 5 / 5;
   display: grid;
   grid-template-rows: 2rem 0.27fr 0.5fr 0.27fr;
   width: 90%;
   border: 2px solid rgba(147, 197, 252, 0.3);
   border-radius: 15px;
+} */
+
+.pomodoro-wrapper {
+  justify-self: center;
+  display: grid;
+  grid-template-rows: 2rem 0.27fr 0.5fr 0.27fr;
+  width: 90%;
+  height: 90%;
+  border: 2px solid rgba(147, 197, 252, 0.3);
+  border-radius: 15px;
+}
+
+.pomodoro-wrapper-task-mode {
+  grid-row: 5;
+}
+
+.pomodoro-wrapper-focus-mode {
+  grid-row: 3;
+  grid-column: 2;
 }
 
 .pomodoro-time-selector-wrapper {
@@ -380,7 +399,7 @@ article header .ions {
   display: flex;
   justify-content: space-between;
   margin-right: 2em;
-  height:2rem;
+  height: 2rem;
 }
 
 .card-footer-complete {
@@ -720,4 +739,72 @@ form .btn {
   font-weight: bold;
   color: #777;
   cursor: pointer;
+}
+
+/* Focused View */
+
+.focused-card {
+  display: grid;
+  grid-template-rows: 0.5fr 0.9fr 0.5fr 0.5fr 0.4fr 1fr;
+  grid-row: 3;
+  grid-column: 1;
+  width: 90%;
+  height: 90%;
+  border: 2px solid rgba(147, 197, 252, 0.3);
+  border-radius: 15px;
+  justify-self: center;
+  justify-items: center;
+}
+.focused-card-title {
+  grid-row: 1;
+  width: 80%;
+}
+
+.focused-card-description {
+  grid-row: 2;
+  width: 80%;
+}
+
+.focused-card-stage {
+  grid-row: 3;
+  width: 80%;
+}
+
+.focused-card-resources-container {
+  grid-row: 4;
+  width: 80%;
+}
+
+.focused-card-rewards-container {
+  grid-row: 5;
+  width: 80%;
+}
+
+.focussed-task-btn-container {
+  display: flex;
+  grid-row: 6;
+  width: 100%;
+  height: 100%;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.focussed-task-btn {
+  height: 3rem;
+  width: 90%;
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
+  justify-self: center;
+}
+
+.focussed-task-btn:hover,
+.focussed-task-btn:hover {
+  cursor: pointer;
+  background-color: rgba(147, 198, 252, 0.233);
 }

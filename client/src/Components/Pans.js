@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { GlobalContext } from "../Contexts/GlobalContext";
+import { TaskAndPomContext } from "../Contexts/TaskAndPomContext";
 import EditImg from "../Assets/img/icons8-edit(1).svg";
 import ScheduleImg from "../Assets/img/schedule.svg";
 import ArchiveImg from "../Assets/img/archive.png";
@@ -10,7 +11,9 @@ import SubTaskCheckBox from "./SubTaskCheckBox";
 import taskComplete from "../Assets/audio/DADAA.mp3";
 
 const Pans = (props) => {
-  const { setTasksData } = useContext(GlobalContext);
+  const { setTasksData, setIsTaskFocused } = useContext(GlobalContext);
+  const { setFocusedTask } = useContext(TaskAndPomContext);
+
   const [openEditPan, setOpenEditPan] = useState(false);
   const [taskSelected, setTaskSelected] = useState([]);
   const [taskIdsNotComplete, setTaskIdsNotComplete] = useState([]);
@@ -67,6 +70,11 @@ const Pans = (props) => {
       props.expiredTasks.forEach((task) => handleArchiveTask(task));
     }
 
+  const handleActiveView = (task) => {
+    setIsTaskFocused(true);
+    setFocusedTask(task);
+  };
+
   return (
     <>
       {props.data.map((task) => {
@@ -88,7 +96,9 @@ const Pans = (props) => {
                 )}
 
                 {!task.task_archived && (
-                  <img src={ScheduleImg} alt="schedule"></img>
+                  <a href="#" onClick={() => handleActiveView(task)}>
+                    <img src={ScheduleImg} alt="schedule"></img>
+                  </a>
                 )}
 
                 <a href="#" onClick={() => handleArchiveTask(task)}>
