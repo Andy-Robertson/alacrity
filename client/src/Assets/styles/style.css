@@ -129,7 +129,6 @@ main {
   justify-self: center;
   display: grid;
   grid-template-rows: 2rem 0.27fr 0.5fr 0.27fr;
-  width: 90%;
   height: 90%;
   border: 2px solid rgba(147, 197, 252, 0.3);
   border-radius: 15px;
@@ -137,11 +136,13 @@ main {
 
 .pomodoro-wrapper-task-mode {
   grid-row: 5;
+  width: 90%;
 }
 
 .pomodoro-wrapper-focus-mode {
   grid-row: 3;
   grid-column: 2;
+  width: 90%;
 }
 
 .pomodoro-time-selector-wrapper {
@@ -232,6 +233,18 @@ main {
   grid-template-columns: 1.3fr 1fr;
   grid-template-rows: 2em 0.1fr 1fr;
   overflow: hidden;
+}
+
+.wrapper-focus-mode {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2em 0.1fr 1fr;
+  box-shadow:none;
+
+}
+
+.wrapper-task-mode {
+  grid-template-columns: 1.3fr 1fr;
+  grid-template-rows: 2em 0.1fr 1fr;
 }
 
 .wrapper .wrapper__bk {

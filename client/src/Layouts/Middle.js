@@ -7,10 +7,12 @@ import { GlobalContext } from "../Contexts/GlobalContext";
 const Middle = ({ user, taskData, submitComplete }) => {
   const { isTaskFocused } = useContext(GlobalContext);
   const [focusedTask, setFocusedTask] = useState({});
-console.log("Middle is task focused", isTaskFocused);
+
+  const TASK_MODE = "wrapper wrapper-task-mode";
+  const FOCUS_MODE = "wrapper wrapper-focus-mode";
 
   return (
-    <section className="wrapper">
+    <section className={isTaskFocused ? FOCUS_MODE : TASK_MODE}>
       <TaskAndPomContext.Provider
         value={{
           focusedTask,
