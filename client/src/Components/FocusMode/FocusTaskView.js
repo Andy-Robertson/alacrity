@@ -1,18 +1,46 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { TaskAndPomContext } from "../../Contexts/TaskAndPomContext";
 import { GlobalContext } from "../../Contexts/GlobalContext";
 import SubTaskCheckBox from "../SubTaskCheckBox";
 import Pomodoro from "../../Components/Pomodoro/Pomodoro";
+import { MdDone } from "react-icons/md";
+import taskComplete from "../../Assets/audio/DADAA.mp3";
 
-const FocusTaskView = () => {
-  const { setIsTaskFocused } = useContext(GlobalContext);
+const FocusTaskView = ({ taskData }) => {
+  const { setIsTaskFocused, setTasksData } = useContext(GlobalContext);
   const { focusedTask, setFocusedTask } = useContext(TaskAndPomContext);
 
-  const [isTaskComplete] = useState();
+  const isTaskComplete = taskData
+    .filter((task) => task.id === focusedTask.id)
+    .find((task) => task.sub_tasks.find((subTask) => !subTask.completed));
 
-  const handleActiveView = () => {
-    setIsTaskFocused(false);
-    setFocusedTask({});
+  const handleExitView = (e) => {
+    if (e.target.value === "complete-task") {
+      const taskArchived = focusedTask.task_archived ? false : true;
+      const taskCompleteSound = new Audio(taskComplete);
+      fetch("/api/tasks/archived", {
+        method: "PUT",
+        body: JSON.stringify({
+          task_id: focusedTask.id,
+          task_archived: taskArchived,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(() => {
+        fetch("/api/tasks")
+          .then((res) => res.json())
+          .then((data) => {
+            setTasksData(data);
+          });
+        taskCompleteSound.play();
+        setIsTaskFocused(false);
+        setFocusedTask({});
+      });
+    } else {
+      setIsTaskFocused(false);
+      setFocusedTask({});
+    }
   };
 
   return (
@@ -61,21 +89,24 @@ const FocusTaskView = () => {
         )}
 
         <span className="focussed-task-btn-container">
-          {isTaskComplete ? (
+          {!isTaskComplete ? (
             <button
               type="button"
-              className="focussed-task-btn"
-              onClick={handleActiveView}
+              className="focussed-task-btn focussed-task-complete-btn animate__animated animate__rubberBand"
+              value="complete-task"
+              onClick={(e) => handleExitView(e)}
             >
-              Choose Another Task
+              <MdDone />
+              Complete Task
             </button>
           ) : (
             <button
               type="button"
               className="focussed-task-btn"
-              onClick={handleActiveView}
+              value="new-task"
+              onClick={(e) => handleExitView(e)}
             >
-              Complete Task
+              Choose Another Task
             </button>
           )}
         </span>

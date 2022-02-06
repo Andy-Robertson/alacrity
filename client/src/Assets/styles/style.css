@@ -238,8 +238,7 @@ main {
 .wrapper-focus-mode {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 2em 0.1fr 1fr;
-  box-shadow:none;
-
+  box-shadow: none;
 }
 
 .wrapper-task-mode {
@@ -805,7 +804,7 @@ form .btn {
 
 .focussed-task-btn {
   height: 3rem;
-  width: 90%;
+  width: 80%;
   border: 0;
   outline: 0;
   border-radius: 5px;
@@ -820,4 +819,24 @@ form .btn {
 .focussed-task-btn:hover {
   cursor: pointer;
   background-color: rgba(147, 198, 252, 0.233);
+}
+
+.focussed-task-complete-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  padding: 0 1rem;
+  background-color: rgba(21, 216, 21, 0.199);
+  box-shadow: 0.2em 0.4em 3px 1.5px rgba(21, 216, 21, 0.199);
+
+  cursor: pointer;
+}
+
+.focussed-task-complete-btn:hover,
+.focussed-task-complete-btn:focus {
+  background-color: rgba(21, 216, 21, 0.404);
+  box-shadow: 0.2em 0.4em 3px 1.5px rgba(21, 216, 21, 0.404);
 }
