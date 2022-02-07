@@ -39,7 +39,7 @@ function SubTaskCheckBox(props) {
         />
         <label htmlFor={props.id}></label>
       </span>
-      <span>{props.name}</span>
+      <span className="card-task-name">{props.name}</span>
     </div>
   );
 }

@@ -116,15 +116,6 @@ main {
 
 /* Pomodoro */
 
-/* .pomodoro-wrapper {
-  grid-row: 5 / 5;
-  display: grid;
-  grid-template-rows: 2rem 0.27fr 0.5fr 0.27fr;
-  width: 90%;
-  border: 2px solid rgba(147, 197, 252, 0.3);
-  border-radius: 15px;
-} */
-
 .pomodoro-wrapper {
   justify-self: center;
   display: grid;
@@ -368,15 +359,13 @@ article header {
 }
 
 .card__content p {
-  margin: 0;
-  margin-left: 4em;
+  margin: 0 3em;
 }
 
 .card__content ul {
   list-style: none;
-  margin: 0;
   padding: 0;
-  margin-left: 4em;
+  margin: 0 3em;
 }
 
 .card__content ul .round label {
@@ -388,6 +377,13 @@ article header {
   margin-right: 0.4em;
 }
 
+.card__content li {
+  line-height: 1.8rem;
+}
+
+.card-task-name {
+  margin-left: 0.5rem;
+}
 article header .text {
   grid-column: 2;
 }
@@ -404,7 +400,7 @@ article header .ions {
   display: flex;
   align-items: center;
   color: var(--olor-light);
-  margin-left: 4em;
+  margin-left: 3em;
 }
 
 .card-footer {
@@ -720,7 +716,7 @@ form .btn {
 
 .card__rewards,
 .card__resources {
-  margin-left: 4em;
+  margin: 0 3em;
 }
 
 .card__rewards span,
@@ -842,5 +838,5 @@ form .btn {
 }
 
 .settings-btn-focus-mode {
-padding: 1rem;  
+  padding: 1rem;
 }
