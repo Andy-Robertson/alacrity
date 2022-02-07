@@ -3,6 +3,7 @@ import Toggle from "../AddTask/Toggle";
 import AddSubTask from "../AddTask/AddSubTask";
 import DatePicker from "react-date-picker";
 import TimePicker from "react-time-picker";
+import PillResources from "../PillResources";
 
 function EditForm({ task, submitComplete, openEditPan }) {
   // useState Variables Input
@@ -42,8 +43,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
     }
   };
 
-  // const resourcesFromDb = task.resources;
-  // Resource Function
+  // Add/Edit resource function
   const handleKeyUp = (evt) => {
     // evt.preventDefault();
     if (evt.key === "," && evt.target.value) {
@@ -52,7 +52,10 @@ function EditForm({ task, submitComplete, openEditPan }) {
       }
       setResources("");
     }
-    // console.log(resourcesList);
+  };
+  // Delete resource function
+  const deleteResource = (evt) => {
+    setResourcesList(() => resourcesList.filter((item) => evt.target.dataset.resource !== item));
   };
 
   // Functions for sub task array
@@ -236,11 +239,12 @@ function EditForm({ task, submitComplete, openEditPan }) {
             onKeyUp={handleKeyUp}
             onChange={changeHandler}
           />
-          {resourcesList.map((resource, key) => (
+          {/* {resourcesList.map((resource, key) => (
             <div key={key} className="pill">
-              <span> {resource.replace(/,/g, "")} </span>
+              <span onClick={deleteResource(resource)}> {resource.replace(/,/g, "")} </span>
             </div>
-          ))}
+          ))} */}
+          <PillResources resourcesList={resourcesList} deleteResource={deleteResource}/>
         </div>
         <div>
           <DatePicker
