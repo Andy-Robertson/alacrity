@@ -4,7 +4,7 @@ const passport = require("passport");
 // Production / Development environment selection.
 const CLIENT_URL =
   process.env.WORKING_ENVIRONMENT === "production"
-    ? "https://alacrity.co.uk"
+    ? "https://alacrity-focus.com"
     : "http://localhost:3000";
 
 // Handle successful login (user authenticated).

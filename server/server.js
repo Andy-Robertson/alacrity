@@ -19,7 +19,7 @@ if (process.env.WORKING_ENVIRONMENT === "production") app.enable("trust proxy");
 // Production / Development environment selection.
 const CLIENT_URL =
   process.env.WORKING_ENVIRONMENT === "production"
-    ? "https://alacrity.co.uk"
+    ? "https://alacrity-focus.com"
     : "http://localhost:3000";
 
 app.use(express.json());

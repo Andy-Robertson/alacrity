@@ -284,7 +284,7 @@ const router = (app) => {
   });
 
   app.get("*", (req, res) => {
-    res.redirect("https://alacrity.co.uk");
+    res.redirect("https://alacrity-focus.com");
   });
 
   app.use((err, req, res) => {
