@@ -11,7 +11,8 @@ const LeftSideBar = ({ user }) => {
     <aside className="left-sidebar">
       <img src={Logo} alt="logo"></img>
       {user && (
-        <div className="items animate__animated animate__fadeInLeftBig">
+        <>
+        <div id="menuBigScreen" className="items animate__animated animate__fadeInLeftBig">
           <div>
             <a href="#left-sidebar">
               <img src={DashBoardImg} alt="dashboard logo"></img>
@@ -34,6 +35,51 @@ const LeftSideBar = ({ user }) => {
             <span>Settings</span>
           </div>
         </div>
+        {/* for smaller screen */}
+        <nav role="navigation">
+          <div id="menuToggle">
+            {/* A fake / hidden checkbox is used as click reciever,
+    so you can use the :checked selector on it. */}
+            <input type="checkbox" />
+
+            {/* Some spans to act as a hamburger. */}
+            <span></span>
+            <span></span>
+            <span></span>
+
+            {/* Too bad the menu has to be inside of the button
+    but hey, it's pure CSS magic.*/}
+            <ul id="menu">
+              <a href="#left-sidebar">
+                <li className="menu-li">
+                  <img src={DashBoardImg} alt="dashboard logo"></img>
+                  <div className="menu-div">Dashboard</div>
+                </li>
+              </a>
+              <a href="#">
+                <li className="menu-li">
+                  <img src={PieChartImg} alt="Analytics logo"></img>
+                  <div className="menu-div">Analytics</div>
+                </li>
+              </a>
+              <a>
+                <li className="menu-li">
+                  <div
+                    onClick={() => {
+                      setSettingsIsOpen(true);
+                    }}
+                    className="settings-btn"
+                  >
+                    <img src={SettingsImg} alt="settings logo"></img>
+                    <div className="menu-div">Settings</div>
+                  </div>
+                </li>
+              </a>
+
+            </ul>
+          </div>
+        </nav>
+        </>
       )}
       {settingsIsOpen && <SiteSettingsPopup close={setSettingsIsOpen} />}
     </aside>
