@@ -49,10 +49,10 @@ const FocusTaskView = ({ taskData }) => {
         <h2 className="focused-card-title">{focusedTask.task_subject}</h2>
 
         {focusedTask.subject_description && (
-          <p className="focused-card-description">
+          <span className="focused-card-description">
             <h3>Description:</h3>
             {focusedTask.subject_description}
-          </p>
+          </span>
         )}
 
         {focusedTask.sub_tasks && (

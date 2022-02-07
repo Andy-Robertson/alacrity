@@ -840,3 +840,7 @@ form .btn {
   background-color: rgba(21, 216, 21, 0.404);
   box-shadow: 0.2em 0.4em 3px 1.5px rgba(21, 216, 21, 0.404);
 }
+
+.settings-btn-focus-mode {
+padding: 1rem;  
+}

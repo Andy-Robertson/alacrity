@@ -15,6 +15,17 @@ const LeftSideBar = ({ user }) => {
     <aside className="left-sidebar">
       {user && !isTaskFocused && <img src={Logo} alt="logo"></img>}
 
+      {user && isTaskFocused && (
+        <div
+          onClick={() => {
+            setSettingsIsOpen(true);
+          }}
+          className="settings-btn settings-btn-focus-mode animate__animated animate__fadeIn animate__delay-1s"
+        >
+          <img src={SettingsImg} alt="settings logo"></img>
+        </div>
+      )}
+
       {user && !isTaskFocused && (
         <div className="items animate__animated animate__fadeInLeftBig">
           <div>
