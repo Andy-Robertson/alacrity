@@ -126,7 +126,7 @@ const Pomodoro = () => {
   const ACTIVE = "pomodoro-btn-interaction pomodoro-time-btn pomodoro-time-btn-active";
 
   const TASK_MODE = "pomodoro-wrapper pomodoro-wrapper-task-mode animate__animated animate__fadeInRightBig";
-  const FOCUS_MODE = "pomodoro-wrapper pomodoro-wrapper-focus-mode animate__animated animate__fadeInRightBig";
+  const FOCUS_MODE ="pomodoro-wrapper pomodoro-wrapper-focus-mode animate__animated animate__backInRight";
 
   return (
     <section className={isTaskFocused ? FOCUS_MODE : TASK_MODE}>

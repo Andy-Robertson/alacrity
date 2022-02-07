@@ -45,18 +45,18 @@ const FocusTaskView = ({ taskData }) => {
 
   return (
     <>
-      <div className="focused-card animate__animated animate__fadeInLeftBig">
+      <div className="focused-card animate__animated animate__backInLeft">
         <h2 className="focused-card-title">{focusedTask.task_subject}</h2>
 
         {focusedTask.subject_description && (
-          <span className="focused-card-description">
+          <span className="focused-card-description animate__animated animate__fadeIn animate__delay-1s">
             <h3>Description:</h3>
             {focusedTask.subject_description}
           </span>
         )}
 
         {focusedTask.sub_tasks && (
-          <span className="focused-card-stage card__content">
+          <span className="focused-card-stage card__content animate__animated animate__fadeIn animate__delay-1s">
             <h3>Stage:</h3>
             <ul>
               {focusedTask.sub_tasks.map((subTask, subKey) => (
@@ -75,14 +75,14 @@ const FocusTaskView = ({ taskData }) => {
         )}
 
         {focusedTask.resources && focusedTask.resources !== "{}" && (
-          <span className="focused-card-resources-container">
+          <span className="focused-card-resources-container animate__animated animate__fadeIn animate__delay-1s">
             <h3>Useful resources:</h3>
             <div>{focusedTask.resources}</div>
           </span>
         )}
 
         {focusedTask.reward && (
-          <span className="focused-card-rewards-container">
+          <span className="focused-card-rewards-container animate__animated animate__fadeIn animate__delay-1s">
             <h3>Rewards:</h3>
             <div>{focusedTask.reward}</div>
           </span>

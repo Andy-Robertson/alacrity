@@ -20,9 +20,7 @@ const Pans = (props) => {
 
   useEffect(() => {
     const taskNotCompleteIds = props.data
-      .filter((task) =>
-        task.sub_tasks.some((subTask) => !subTask.completed)
-      )
+      .filter((task) => task.sub_tasks.some((subTask) => !subTask.completed))
       .map((task) => task.id);
 
     setTaskIdsNotComplete(taskNotCompleteIds);
@@ -60,15 +58,15 @@ const Pans = (props) => {
 
     const completedTask = props.data.find(
       (task) => task.id === parseInt(e.target.id)
-      );
+    );
 
-      handleArchiveTask(completedTask);
-      taskCompleteSound.play();
-    };
+    handleArchiveTask(completedTask);
+    taskCompleteSound.play();
+  };
 
-    if (props.expiredTasks) {
-      props.expiredTasks.forEach((task) => handleArchiveTask(task));
-    }
+  if (props.expiredTasks) {
+    props.expiredTasks.forEach((task) => handleArchiveTask(task));
+  }
 
   const handleActiveView = (task) => {
     setIsTaskFocused(true);
@@ -83,12 +81,15 @@ const Pans = (props) => {
         const stringArr = trimedString.split(",");
         // console.log(task);
         return (
-          <article key={task.id} className="card">
+          <article
+            key={task.id}
+            className="card animate__animated animate__backInLeft"
+          >
             <header>
               <span className="text">
                 <h3>{task.task_subject}</h3>
               </span>
-              <span className="ions">
+              <span className="ions animate__animated animate__fadeIn animate__delay-1s animate__slow">
                 {!task.task_archived && (
                   <a href="#" onClick={(e) => handleEditPopup(e, task)}>
                     <img src={EditImg} alt="edit"></img>
@@ -109,11 +110,11 @@ const Pans = (props) => {
                 </a>
               </span>
             </header>
-            <section className="card__content">
+            <section className="card__content animate__animated animate__fadeIn animate__delay-1s animate__slow">
               <p>{task.subject_description}</p>
             </section>
             {task.sub_task_option === true ? (
-              <section className="card__content">
+              <section className="card__content animate__animated animate__fadeIn animate__delay-1s animate__slow">
                 <ul>
                   {task.sub_tasks
                     .sort((a, b) => a.index - b.index)
@@ -131,11 +132,11 @@ const Pans = (props) => {
                 </ul>
               </section>
             ) : null}
-            <section className="card__rewards">
+            <section className="card__rewards animate__animated animate__fadeIn animate__delay-1s animate__slow">
               <span className="animate__pulse">Rewards:</span>
               <p>{task.reward}</p>
             </section>
-            <section className="card__resources">
+            <section className="card__resources animate__animated animate__fadeIn animate__delay-1s animate__slow">
               <span>Resources:</span>
               {stringArr.map(
                 (resource, key) =>
@@ -146,7 +147,7 @@ const Pans = (props) => {
                   )
               )}
             </section>
-            <footer className="card-footer">
+            <footer className="card-footer animate__animated animate__fadeIn animate__delay-1s animate__slow">
               <time dateTime={task.by_time}>{task.by_time}</time>
               <span>
                 {!taskIdsNotComplete.includes(task.id) && !task.task_archived && (
