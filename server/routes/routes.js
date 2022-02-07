@@ -284,7 +284,7 @@ const router = (app) => {
   });
 
   app.get("*", (req, res) => {
-    res.redirect("https://alacrity-focus.herokuapp.com");
+    res.redirect("https://alacrity.co.uk");
   });
 
   app.use((err, req, res) => {

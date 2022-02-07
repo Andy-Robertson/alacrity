@@ -14,7 +14,7 @@ import "animate.css";
 
 // Production / Development environment selection.
 const SERVER_URL = process.env.REACT_APP_WORKING_ENVIRONMENT === "production"
-    ? "https://alacrity-focus.herokuapp.com"
+    ? "https://alacrity.co.uk"
     : "http://localhost:5000";
 
 function App() {

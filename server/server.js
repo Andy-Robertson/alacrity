@@ -17,11 +17,10 @@ const configureEmails = require("./configureEmails");
 if (process.env.WORKING_ENVIRONMENT === "production") app.enable("trust proxy");
 
 // Production / Development environment selection.
-const CLIENT_URL = (
+const CLIENT_URL =
   process.env.WORKING_ENVIRONMENT === "production"
-    ? "https://alacrity-focus.herokuapp.com"
-    : "http://localhost:3000"
-);
+    ? "https://alacrity.co.uk"
+    : "http://localhost:3000";
 
 app.use(express.json());
 
