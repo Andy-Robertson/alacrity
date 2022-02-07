@@ -9,7 +9,8 @@ function EditForm({ task, submitComplete, openEditPan }) {
   const [taskSubject, setTaskSubject] = useState(task.task_subject);
   const [describe, setDescribe] = useState(task.subject_description);
   const [reward, setReward] = useState(task.reward);
-  const [resources, setResources] = useState(task.resources);
+  const [resources, setResources] = useState("");
+  const [resourcesList, setResourcesList] = useState(task.resources);
   const [subTask, setSubTask] = useState(
     task.sub_task_option ? task.sub_tasks[0].name : ""
   ); // The default of first subTask
@@ -40,6 +41,20 @@ function EditForm({ task, submitComplete, openEditPan }) {
       setSubTask(e.target.value);
     }
   };
+
+  // const resourcesFromDb = task.resources;
+  // Resource Function
+  const handleKeyUp = (evt) => {
+    // evt.preventDefault();
+    if (evt.key === "," && evt.target.value) {
+      if (!resourcesList.includes(evt.target.value)) {
+        setResourcesList(resourcesList.concat(evt.target.value));
+      }
+      setResources("");
+    }
+    // console.log(resourcesList);
+  };
+
   // Functions for sub task array
   const listHandler = (e, index, subTask) => {
     // function to add the element of subtask to the array
@@ -110,7 +125,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
           subject_description: describe,
           sub_task_option: toggled,
           reward: reward,
-          resources: resources,
+          resources: resourcesList,
           by_time: valueTime,
           by_date: valueDate,
           sub_tasks: toggled ? subTaskArrayChecked : null,
@@ -123,16 +138,16 @@ function EditForm({ task, submitComplete, openEditPan }) {
         openEditPan(false);
       });
       const deleteItemsArray = [];
-      console.log(deleteItems);
+      // console.log(deleteItems);
       deleteItems.forEach((deleteItem) => {
-        console.log(deleteItem);
+        // console.log(deleteItem);
         if (deleteItem["id"]){
           deleteItemsArray.push(deleteItem["id"]);
         } else{
           return;
         }
       });
-      console.log(deleteItemsArray);
+      // console.log(deleteItemsArray);
       fetch("/api/tasks", {
         method: "DELETE",
         body: JSON.stringify({
@@ -218,8 +233,14 @@ function EditForm({ task, submitComplete, openEditPan }) {
             name="resources"
             placeholder="Resources help you ..."
             value={resources}
+            onKeyUp={handleKeyUp}
             onChange={changeHandler}
           />
+          {resourcesList.map((resource, key) => (
+            <div key={key} className="pill">
+              <span> {resource.replace(/,/g, "")} </span>
+            </div>
+          ))}
         </div>
         <div>
           <DatePicker
