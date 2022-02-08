@@ -662,17 +662,17 @@ article header .ions {
   cursor: pointer; /* Mouse pointer on hover */
 }
 
-form .buttons {
+.buttons {
   display: flex;
   justify-content: flex-end;
 }
 
-form .cancel {
+.cancel {
   margin-right: 1em;
   background-color: var(--olor-light);
 }
 
-form .btn {
+.buttons .btn {
   display: block;
   height: 2.4rem;
   width: 7rem;
