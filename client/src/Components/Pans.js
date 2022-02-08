@@ -70,10 +70,9 @@ const Pans = (props) => {
   return (
     <>
       {props.data.map((task) => {
-        const trimedString = task.resources.replace(/[{ } \\ " \s]/g, "");
-
-        const stringArr = trimedString.split(",");
-        // console.log(task);
+        // const trimedString = task.resources.replace(/[{ } \\ " \s]/g, "");
+        // const stringArr = trimedString.split(",");
+        // console.log(typeof task.resources);
         return (
           <article key={task.id} className="card">
             <header>
@@ -127,7 +126,7 @@ const Pans = (props) => {
             </section>
             <section className="card__resources">
               <span>Resources:</span>
-              {stringArr.map(
+              {task.resources.map(
                 (resource, key) =>
                   resource && (
                     <div key={key} className="pill">
