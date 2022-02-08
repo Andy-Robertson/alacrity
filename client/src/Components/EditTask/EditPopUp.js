@@ -7,7 +7,10 @@ function EditPopUp({ task, openEditPan, submitComplete }) {
   };
 
   return (
-    <div className="popup-box animate__animated animate__fadeIn">
+    <div
+      className="popup-box animate__animated animate__fadeIn"
+      onClick={() => openEditPan(false)}
+    >
       <div
         className="box animate__animated animate__fadeInUpBig"
         onClick={(e) => handlePropagation(e)}
