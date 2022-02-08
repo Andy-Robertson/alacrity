@@ -75,9 +75,16 @@ const FocusTaskView = ({ taskData }) => {
         )}
 
         {focusedTask.resources && focusedTask.resources !== "{}" && (
-          <span className="focused-card-resources-container animate__animated animate__fadeIn animate__delay-1s">
+          <span className="focused-card-resources-container animate__animated animate__fadeIn animate__delay-1s ">
             <h3>Useful resources:</h3>
-            <div>{focusedTask.resources}</div>
+            {focusedTask.resources.map((resource) => (
+              <li
+                key={`${focusedTask.id}_${resource}`}
+                className="resources-pill"
+              >
+                {resource.replace(/,/g, "")}
+              </li>
+            ))}
           </span>
         )}
 

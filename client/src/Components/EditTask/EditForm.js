@@ -239,11 +239,6 @@ function EditForm({ task, submitComplete, openEditPan }) {
             onKeyUp={handleKeyUp}
             onChange={changeHandler}
           />
-          {/* {resourcesList.map((resource, key) => (
-            <div key={key} className="pill">
-              <span onClick={deleteResource(resource)}> {resource.replace(/,/g, "")} </span>
-            </div>
-          ))} */}
           <PillResources resourcesList={resourcesList} deleteResource={deleteResource}/>
         </div>
         <div>

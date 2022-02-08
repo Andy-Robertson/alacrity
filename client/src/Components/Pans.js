@@ -76,9 +76,6 @@ const Pans = (props) => {
   return (
     <>
       {props.data.map((task) => {
-        // const trimedString = task.resources.replace(/[{ } \\ " \s]/g, "");
-        // const stringArr = trimedString.split(",");
-        // console.log(typeof task.resources);
         return (
           <article
             key={task.id}
@@ -140,7 +137,7 @@ const Pans = (props) => {
               {task.resources.map(
                 (resource, key) =>
                   resource && (
-                    <div key={key} className="pill">
+                    <div key={key} className="resources-pill">
                       <span> {resource.replace(/,/g, "")} </span>
                     </div>
                   )
