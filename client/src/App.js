@@ -24,6 +24,7 @@ function App() {
   const [seconds, setSeconds] = useState(null);
   const [enableNotificationSound, setEnableNotificationSound] = useState(null);
   const [enableNotifications, setEnableNotifications] = useState(null);
+  const [isTaskFocused, setIsTaskFocused] = useState(false);
 
   useEffect(() => {
     const getUser = () => {
@@ -125,6 +126,8 @@ function App() {
           setEnableNotificationSound,
           enableNotifications,
           setEnableNotifications,
+          isTaskFocused,
+          setIsTaskFocused,
         }}
       >
         <LeftSideBar user={user} />

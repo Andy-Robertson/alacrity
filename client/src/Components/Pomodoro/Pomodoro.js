@@ -4,6 +4,7 @@ import Button from "./button";
 import { GrPowerReset, GrPauseFill, GrPlayFill } from "react-icons/gr";
 import workComplete from "../../Assets/audio/success-sound-effect.mp3";
 import { GlobalContext } from "../../Contexts/GlobalContext";
+
 import Logo from "../../Assets/img/logo.svg";
 
 const Pomodoro = () => {
@@ -14,6 +15,7 @@ const Pomodoro = () => {
     setMinutes,
     enableNotificationSound,
     enableNotifications,
+    isTaskFocused,
   } = useContext(GlobalContext);
 
   const workCompleteSound = new Audio(workComplete);
@@ -123,8 +125,11 @@ const Pomodoro = () => {
   const INACTIVE = "pomodoro-btn-interaction pomodoro-time-btn";
   const ACTIVE = "pomodoro-btn-interaction pomodoro-time-btn pomodoro-time-btn-active";
 
+  const TASK_MODE = "pomodoro-wrapper pomodoro-wrapper-task-mode animate__animated animate__fadeInRightBig";
+  const FOCUS_MODE ="pomodoro-wrapper pomodoro-wrapper-focus-mode animate__animated animate__backInRight";
+
   return (
-    <section className="pomodoro-wrapper animate__animated animate__fadeInRightBig">
+    <section className={isTaskFocused ? FOCUS_MODE : TASK_MODE}>
       <span className="pomodoro-time-selector-wrapper">
         <Button
           type={minutes === 25 ? ACTIVE : INACTIVE}

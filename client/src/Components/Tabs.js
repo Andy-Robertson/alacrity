@@ -15,7 +15,7 @@ const Tabs = (props) => {
 
   const expiredTasks = sortedData.filter(
     (task) =>
-      new Date(task.by_date).getDate() > todayDate
+      new Date(task.by_date).getDate() < todayDate
       && !task.task_archived
   );
 
@@ -128,7 +128,7 @@ const Tabs = (props) => {
 
   return (
     <>
-      <ul className="tabs">
+      <ul className="tabs animate__animated animate__fadeInLeftBig">
         <li>
           <a href="#" onClick={(e) => handleClick(e, "today")}>
             Today
@@ -152,7 +152,11 @@ const Tabs = (props) => {
       </ul>
       {/* <p>{clockState}</p> */}
       {isToday && (
-        <Pans data={todayData} expiredTasks={expiredTasks} submitComplete={props.submitComplete} />
+        <Pans
+          data={todayData}
+          expiredTasks={expiredTasks}
+          submitComplete={props.submitComplete}
+        />
       )}
       {isTmr && <Pans data={tmrData} submitComplete={props.submitComplete} />}
       {isLater && (

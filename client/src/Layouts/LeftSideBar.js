@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+import { GlobalContext } from "../Contexts/GlobalContext";
+
 import Logo from "../Assets/img/logo.svg";
 import DashBoardImg from "../Assets/img/dashboard-24.png";
 import PieChartImg from "../Assets/img/pie-chart-24.png";
@@ -7,11 +10,23 @@ import SiteSettingsPopup from "../Components/Settings/SiteSettingsPopup";
 
 const LeftSideBar = ({ user }) => {
   const [settingsIsOpen, setSettingsIsOpen] = useState(false);
+    const { isTaskFocused } = useContext(GlobalContext);
   return (
     <aside className="left-sidebar">
-      <img src={Logo} alt="logo"></img>
-      {user && (
-        <>
+      {user && !isTaskFocused && <img src={Logo} alt="logo"></img>}
+
+      {user && isTaskFocused && (
+        <div
+          onClick={() => {
+            setSettingsIsOpen(true);
+          }}
+          className="settings-btn settings-btn-focus-mode animate__animated animate__fadeIn animate__delay-1s"
+        >
+          <img src={SettingsImg} alt="settings logo"></img>
+        </div>
+      )}
+
+      {user && !isTaskFocused && (
         <div id="menuBigScreen" className="items animate__animated animate__fadeInLeftBig">
           <div>
             <a href="#left-sidebar">

@@ -11,7 +11,7 @@ const PomodoroAnimation = ({ timeLeftInSeconds, totalTimeInSeconds }) => {
   const percentage = Math.round((timeLeftInSeconds / totalTimeInSeconds) * 100) / 100;
 
   return (
-    <span className="pomodoro-animation-wrapper">
+    <span className="pomodoro-animation-wrapper animate__animated animate__fadeIn animate__delay-1s">
       <CircularProgressbar
         value={percentage}
         maxValue={1}
