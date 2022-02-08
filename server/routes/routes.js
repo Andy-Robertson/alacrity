@@ -146,33 +146,37 @@ const router = (app) => {
         task_id,
       ])
       .then(() => {
-        const queryPromises = [];
-        // console.log(sub_tasks);
-        sub_tasks.forEach((sub_task) => {
-          const queryPromise = pool
-            .query("SELECT * FROM sub_task WHERE id=$1", [sub_task.id])
-            .then((result) => {
-              if (result.rows.length !== 0) {
-                pool.query(
-                  "UPDATE sub_task SET name = $1, index=$2, completed=$3 WHERE id=$4",
-                  [
-                    sub_task.name,
-                    sub_task.index,
-                    sub_task.completed,
-                    sub_task.id,
-                  ]
-                );
-              } else {
-                pool.query(
-                  "INSERT INTO sub_task ( name, index, completed, task_id) VALUES ($1,$2,$3, $4)",
-                  [sub_task.name, sub_task.index, sub_task.completed, task_id]
-                );
-              }
-            })
-            .catch((e) => console.error(e));
-          queryPromises.push(queryPromise);
-        });
-        Promise.all(queryPromises).then(() => res.sendStatus(201));
+        if(sub_tasks){
+          const queryPromises = [];
+          // console.log(sub_tasks);
+          sub_tasks.forEach((sub_task) => {
+            const queryPromise = pool
+              .query("SELECT * FROM sub_task WHERE id=$1", [sub_task.id])
+              .then((result) => {
+                if (result.rows.length !== 0) {
+                  pool.query(
+                    "UPDATE sub_task SET name = $1, index=$2, completed=$3 WHERE id=$4",
+                    [
+                      sub_task.name,
+                      sub_task.index,
+                      sub_task.completed,
+                      sub_task.id,
+                    ]
+                  );
+                } else {
+                  pool.query(
+                    "INSERT INTO sub_task ( name, index, completed, task_id) VALUES ($1,$2,$3, $4)",
+                    [sub_task.name, sub_task.index, sub_task.completed, task_id]
+                  );
+                }
+              })
+              .catch((e) => console.error(e));
+            queryPromises.push(queryPromise);
+          });
+          Promise.all(queryPromises).then(() => res.sendStatus(201));
+        }else{
+          res.sendStatus(204);
+        }
       })
       .catch((e) => console.error(e));
   });
@@ -183,18 +187,22 @@ const router = (app) => {
     const ids = req.body["id"];
     console.log(ids);
 
-    const queryPromises = [];
-    ids.forEach((id) => {
-      if (id) {
-        const queryPromise = pool.query("DELETE FROM sub_task WHERE id=$1", [
-          id,
-        ]);
-        queryPromises.push(queryPromise);
-      } else {
-        return;
-      }
-    });
-    Promise.all(queryPromises).then(() => res.sendStatus(200));
+    if(ids){
+      const queryPromises = [];
+      ids.forEach((id) => {
+        if (id) {
+          const queryPromise = pool.query("DELETE FROM sub_task WHERE id=$1", [
+            id,
+          ]);
+          queryPromises.push(queryPromise);
+        } else {
+          return;
+        }
+      });
+      Promise.all(queryPromises).then(() => res.sendStatus(200));
+    }else{
+      res.sendStatus(204);
+    }
   });
 
   app.put("/api/tasks/archived", (req, res) => {
