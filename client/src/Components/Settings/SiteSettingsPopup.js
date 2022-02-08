@@ -7,14 +7,22 @@ const SiteSettingsPopup = (props) => {
   };
 
   return (
-    <div className="popup-box" onClick={() => props.close(false)}>
-      <div className="box" onClick={(e) => handlePropagation(e)}>
-        <span className="close-icon" onClick={() => props.close(false)}>
-          x
-        </span>
+    <div
+      className="popup-box animate__animated animate__fadeIn"
+      onClick={() => props.close(false)}
+    >
+      <div
+        className="box animate__animated animate__fadeInUpBig"
+        onClick={(e) => handlePropagation(e)}
+      >
         <h2>Settings</h2>
         <SiteSettingsPomodoro />
         <SiteSettingsNotification />
+        <div className="buttons">
+          <button className="btn cancel" onClick={() => props.close(false)}>
+            <span>Cancel</span>
+          </button>
+        </div>
       </div>
     </div>
   );
