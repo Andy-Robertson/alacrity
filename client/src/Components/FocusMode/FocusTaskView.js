@@ -55,7 +55,7 @@ const FocusTaskView = ({ taskData }) => {
           </span>
         )}
 
-        {focusedTask.sub_tasks && (
+        {focusedTask.sub_tasks.length > 0 && (
           <span className="focused-card-stage card__content animate__animated animate__fadeIn animate__delay-1s">
             <h3>Stage:</h3>
             <ul>
@@ -74,7 +74,7 @@ const FocusTaskView = ({ taskData }) => {
           </span>
         )}
 
-        {focusedTask.resources && focusedTask.resources !== "{}" && (
+        {focusedTask.resources.length > 0 && (
           <span className="focused-card-resources-container animate__animated animate__fadeIn animate__delay-1s ">
             <h3>Useful resources:</h3>
             {focusedTask.resources.map((resource) => (
