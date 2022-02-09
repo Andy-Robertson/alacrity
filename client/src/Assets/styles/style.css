@@ -467,6 +467,9 @@ article header .ions {
 }
 .task-checkbox input[type="checkbox"]:checked + label.strikethrough {
   text-decoration: line-through;
+  text-decoration-color: #27ae5f;
+  color: grey;
+  font-style:oblique;
 }
 
 .task-checkbox label::before {
