@@ -448,7 +448,7 @@ article header .ions {
 
 /* Round checkbox */
 
-.round {
+/* .round {
   position: relative;
   grid-column: 2;
 }
@@ -463,9 +463,9 @@ article header .ions {
   position: absolute;
   top: 0;
   width: 20px;
-}
+} */
 
-.round label:after {
+/* .round label:after {
   border: 2px solid var(--olor-light);
   border-top: none;
   border-right: none;
@@ -477,8 +477,8 @@ article header .ions {
   top: 8px;
   transform: rotate(-45deg);
   width: 12px;
-}
-
+} */
+/* 
 .round input[type="checkbox"] {
   visibility: hidden;
 }
@@ -490,7 +490,7 @@ article header .ions {
 
 .round input[type="checkbox"]:checked + label:after {
   opacity: 1;
-} 
+}  */
 
 /* Tabs */
 

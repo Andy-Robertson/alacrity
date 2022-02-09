@@ -26,15 +26,17 @@ function SubTaskCheckBox(props) {
   return (
     <div>
       <span className="round">
-        <input
-          type="checkbox"
-          id={props.id}
-          onChange={clickHandler}
-          checked={props.completed}
-        />
-        <label htmlFor={props.id}></label>
+        <label htmlFor={props.id}>
+          <input
+            type="checkbox"
+            id={props.id}
+            onChange={clickHandler}
+            checked={props.completed}
+          />
+          {props.name}
+        </label>
       </span>
-      <span className="card-task-name">{props.name}</span>
+      {/* <span className="card-task-name">{props.name}</span> */}
     </div>
   );
 }
