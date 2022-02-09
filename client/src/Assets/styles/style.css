@@ -998,3 +998,8 @@ article header .ions {
   transform: none;
 }
  }
+
+ /* Analytics */
+ .analytics-btn:hover {
+  cursor: pointer;
+}
