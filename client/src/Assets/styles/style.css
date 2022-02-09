@@ -1003,3 +1003,11 @@ article header .ions {
  .analytics-btn:hover {
   cursor: pointer;
 }
+
+/* Charts */
+.chart{
+  width: 720px;
+}
+.title-chart{
+  text-align: center;
+}
