@@ -12,7 +12,7 @@ import taskComplete from "../Assets/audio/DADAA.mp3";
 
 const Pans = (props) => {
   const { setTasksData, setIsTaskFocused } = useContext(GlobalContext);
-  const { setFocusedTask } = useContext(TaskAndPomContext);
+  const { setFocusedTaskId } = useContext(TaskAndPomContext);
 
   const [openEditPan, setOpenEditPan] = useState(false);
   const [taskSelected, setTaskSelected] = useState([]);
@@ -69,16 +69,15 @@ const Pans = (props) => {
   }
 
   const handleActiveView = (task) => {
+    console.log(task.id);
     setIsTaskFocused(true);
-    setFocusedTask(task);
+    setFocusedTaskId(task.id);
   };
 
   return (
     <>
       {props.data.map((task) => {
-        // const trimedString = task.resources.replace(/[{ } \\ " \s]/g, "");
-        // const stringArr = trimedString.split(",");
-        // console.log(typeof task.resources);
+
         return (
           <article
             key={task.id}
