@@ -129,7 +129,7 @@ const Pomodoro = () => {
   const FOCUS_MODE ="pomodoro-wrapper pomodoro-wrapper-focus-mode animate__animated animate__backInRight";
 
   return (
-    <section className={isTaskFocused ? FOCUS_MODE : TASK_MODE}>
+    <section className={isTaskFocused ? FOCUS_MODE : TASK_MODE} >
       <span className="pomodoro-time-selector-wrapper">
         <Button
           type={minutes === 25 ? ACTIVE : INACTIVE}

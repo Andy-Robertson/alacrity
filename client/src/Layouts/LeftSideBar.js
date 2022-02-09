@@ -27,6 +27,7 @@ const LeftSideBar = ({ user }) => {
       )}
 
       {user && !isTaskFocused && (
+        <>
         <div id="menuBigScreen" className="items animate__animated animate__fadeInLeftBig">
           <div>
             <a href="#left-sidebar">
