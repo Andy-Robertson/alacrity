@@ -139,7 +139,7 @@ const Pans = (props) => {
               {task.resources.map(
                 (resource, key) =>
                   resource && (
-                    <div key={key} className="pill">
+                    <div key={key} className="resources-pill">
                       <span> {resource.replace(/,/g, "")} </span>
                     </div>
                   )

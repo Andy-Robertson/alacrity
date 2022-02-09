@@ -753,13 +753,15 @@ article header .ions {
   margin: 0;
 }
 
-.pill {
-  display: inline-block;
-  margin: 20px 10px 0 0;
-  padding: 6px 12px;
+.resources-pill {
+  list-style-type: none;
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 0.8rem 0.3rem 0 0;
+  padding: 0.3rem 0.6rem;
   background: #eee;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 1px;
   font-weight: bold;
   color: #777;
