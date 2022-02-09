@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../Contexts/GlobalContext";
 
+
 function SubTaskCheckBox(props) {
   const { setTasksData } = useContext(GlobalContext);
 
@@ -24,19 +25,19 @@ function SubTaskCheckBox(props) {
   };
 
   return (
-    <div>
-      <span className="round">
-        <label htmlFor={props.id}>
-          <input
-            type="checkbox"
-            id={props.id}
-            onChange={clickHandler}
-            checked={props.completed}
-          />
-          {props.name}
-        </label>
-      </span>
-      {/* <span className="card-task-name">{props.name}</span> */}
+    <div className="task-checkbox">
+      <input
+        type="checkbox"
+        id={props.id}
+        checked={props.completed}
+        onChange={clickHandler}
+      />
+      <label
+        htmlFor={props.id}
+        className="strikethrough"
+      >
+        {props.name}
+      </label>
     </div>
   );
 }
