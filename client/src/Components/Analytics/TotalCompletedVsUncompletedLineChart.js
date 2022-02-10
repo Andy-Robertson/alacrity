@@ -6,11 +6,11 @@ Chart.register(...registerables);
 
 function TotalCompletedVsUncompletedLineChart() {
   useEffect(() => {
-    fetch("/api/analytics")
-      .then((response) => response.json())
-      .then((analyticsData) => {
-        console.log(analyticsData);
-      });
+    // fetch("/api/analytics")
+    //   .then((response) => response.json())
+    //   .then((analyticsData) => {
+    //     console.log();
+    //   });
   }, []);
   // data for the data of chart
   const data = {
