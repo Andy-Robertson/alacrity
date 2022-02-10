@@ -8,7 +8,7 @@ function WeeklyDouhnutChart() {
    datasets: [
      {
        data: [80, 20],
-       backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(54, 162, 235, 0.2)"],
+       backgroundColor: ["rgba(29, 160, 242, 0.69)", "rgba(224, 195, 252, 1)"],
      },
    ],
    labels: ["Completed", "Uncompleted"],
