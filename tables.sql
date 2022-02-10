@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS task CASCADE;
 DROP TABLE IF EXISTS sub_task CASCADE;
+DROP TABLE IF EXISTS analytics;
 
 CREATE TABLE users (
   id                          SERIAL PRIMARY KEY,
@@ -41,5 +42,14 @@ CREATE TABLE sub_task (
   index                 INTEGER NOT NULL,
   name                  TEXT NOT NULL,
   completed             BOOLEAN NOT NULL,
+  FOREIGN KEY (task_id) REFERENCES task(id)
+);
+
+CREATE TABLE analytics (
+  id                    SERIAL PRIMARY KEY,
+  task_id               INTEGER NOT NULL,
+  task_archived         BOOLEAN NOT NULL,
+  by_date               DATE NOT NULL, 
+  is_completed          BOOLEAN NOT NULL,
   FOREIGN KEY (task_id) REFERENCES task(id)
 );
