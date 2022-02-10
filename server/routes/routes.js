@@ -146,7 +146,7 @@ const router = (app) => {
         task_id,
       ])
       .then(() => {
-        if(sub_tasks){
+        if (sub_tasks) {
           const queryPromises = [];
           // console.log(sub_tasks);
           sub_tasks.forEach((sub_task) => {
@@ -174,7 +174,7 @@ const router = (app) => {
             queryPromises.push(queryPromise);
           });
           Promise.all(queryPromises).then(() => res.sendStatus(201));
-        }else{
+        } else {
           res.sendStatus(204);
         }
       })
@@ -187,7 +187,7 @@ const router = (app) => {
     const ids = req.body["id"];
     console.log(ids);
 
-    if(ids){
+    if (ids) {
       const queryPromises = [];
       ids.forEach((id) => {
         if (id) {
@@ -200,7 +200,7 @@ const router = (app) => {
         }
       });
       Promise.all(queryPromises).then(() => res.sendStatus(200));
-    }else{
+    } else {
       res.sendStatus(204);
     }
   });
@@ -287,6 +287,30 @@ const router = (app) => {
       ])
       .then(() => {
         res.sendStatus(201);
+      })
+      .catch((e) => console.error(e));
+  });
+
+  // Analytics
+  app.get("/api/analytics", (req, res) => {
+    const auth_id = req.session.passport.user;
+
+    // Getting user Id
+    pool
+      .query(FIND_USER_BY_ID, [auth_id])
+      .then((result) => {
+        const user_id = result.rows[0].id;
+
+        //Getting task_id, task_archived, by_date, sub_task completed
+        const query =
+          "SELECT t.id, t.task_archived, t.by_date, st.completed FROM task t INNER JOIN sub_task st ON t.id = st.task_id WHERE t.user_id = $1;";
+        pool
+          .query(query, [user_id])
+          .then((analyticsTableResult) => {
+            console.log(analyticsTableResult.rows);
+            // res.status(200).json(analyticsTableResult.rows);
+          })
+          .catch((e) => console.error(e));
       })
       .catch((e) => console.error(e));
   });
