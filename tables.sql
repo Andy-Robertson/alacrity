@@ -47,9 +47,11 @@ CREATE TABLE sub_task (
 
 CREATE TABLE analytics (
   id                    SERIAL PRIMARY KEY,
+  user_id               INTEGER NOT NULL,
   task_id               INTEGER NOT NULL,
   task_archived         BOOLEAN NOT NULL,
   by_date               DATE NOT NULL, 
   is_completed          BOOLEAN NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (task_id) REFERENCES task(id)
 );

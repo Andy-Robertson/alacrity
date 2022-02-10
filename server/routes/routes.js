@@ -292,7 +292,7 @@ const router = (app) => {
   });
 
   // Analytics
-  app.get("/api/analytics", (req, res) => {
+  app.get("/api/tasks/analytics", (req, res) => {
     const auth_id = req.session.passport.user;
 
     // Getting user Id
@@ -300,57 +300,25 @@ const router = (app) => {
       .query(FIND_USER_BY_ID, [auth_id])
       .then((result) => {
         const user_id = result.rows[0].id;
+        pool
+          .query("SELECT * FROM analytics WHERE user_id = $1", [user_id])
+          .then((analyticsDataResult) => {
+            res.status(200).json(analyticsDataResult.rows);
+          })
+          .catch((e) => console.error(e));
+      })
+      .catch((e) => console.error(e));
 
-        // //Getting task_id, task_archived, by_date, sub_task completed
-        // const query1 =
-        //   "SELECT t.id, t.task_archived, t.by_date, st.completed FROM task t INNER JOIN sub_task st ON t.id = st.task_id WHERE t.user_id = $1;";
-        // pool
-        //   .query(query1, [user_id])
-        //   .then((analyticsTableSubTasksResult) => {
-        //     // console.log(analyticsTableResult.rows);
-
-        //     // find completed tasks with subtasks
-        //     const analyticsSubTasksTable = analyticsTableSubTasksResult.rows;
-        //     const completedTasksArray = [];
-        //     const uncompletedTasksArray = [];
-        //     analyticsSubTasksTable.forEach((element) => {
-        //       if (element.task_archived && element.completed) {
-        //         completedTasksArray.push(element);
-        //       }
-        //     });
 
         //     // remove duplicate object from completedTasksArray
         //     const uniqueCompletedTasksArray = Array.from(
         //       new Set(completedTasksArray.map((task) => task.id))
         //     ).map((id) => {
         //       return completedTasksArray.find((task) => task.id === id);
-        //     });
-
-        //     // find completed tasks without sub tasks
-        //     const query2 =
-        //       "select id, task_archived, by_date from task t where sub_task_option is false and user_id = $1;";
-        //     pool
-        //       .query(query2, [user_id])
-        //       .then((analyticsTableWithoutSubTasksResult) => {
-        //         const analyticsWithoutSubTasksTable =
-        //           analyticsTableWithoutSubTasksResult.rows;
-        //         analyticsWithoutSubTasksTable.forEach((taskWithoutSubTask) => {
-        //           if (taskWithoutSubTask.task_archived) {
-        //             uniqueCompletedTasksArray.push(taskWithoutSubTask);
-        //           }
-        //         });
-        //         console.log(uniqueCompletedTasksArray);
-      //         })
-      //         .catch((e) => console.error(e));
-      //       // res.status(200).json(analyticsTableResult.rows);
-      //     })
-      //     .catch((e) => console.error(e));
-      })
-      .catch((e) => console.error(e));
   });
 
   app.post("/api/tasks/analytics", (req, res) => {
-    const { task_id, task_archived, by_date, is_completed } = req.body;
+    const { user_id, task_id, task_archived, by_date, is_completed } = req.body;
 
     if (task_archived) {
       pool
@@ -359,8 +327,8 @@ const router = (app) => {
           if (result.rows.length === 0) {
             pool
               .query(
-                "INSERT INTO analytics (task_id, task_archived, by_date, is_completed) VALUES ($1, $2, $3, $4)",
-                [task_id, task_archived, by_date, is_completed]
+                "INSERT INTO analytics (task_id, task_archived, by_date, is_completed, user_id) VALUES ($1, $2, $3, $4, $5)",
+                [task_id, task_archived, by_date, is_completed, user_id]
               )
               .then(() => res.sendStatus(201))
               .catch((e) => console.error(e));

@@ -54,6 +54,7 @@ const Pans = (props) => {
       fetch("/api/tasks/analytics", {
         method: "POST",
         body: JSON.stringify({
+          user_id: task.user_id,
           task_id: task.id,
           task_archived: taskArchived,
           by_date: task.by_date,

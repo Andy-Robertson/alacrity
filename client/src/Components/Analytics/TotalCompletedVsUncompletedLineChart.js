@@ -1,19 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
 
 Chart.register(...registerables);
 
-function TotalCompletedVsUncompletedLineChart() {
-  useEffect(() => {
-    // fetch("/api/analytics")
-    //   .then((response) => response.json())
-    //   .then((analyticsData) => {
-    //     console.log();
-    //   });
-  }, []);
+function TotalCompletedVsUncompletedLineChart({ data }) {
   // data for the data of chart
-  const data = {
+  console.log(data);
+  const dataChart = {
     labels: ["Week 1,", "Week 2", "Week 3", "Week 4"], // x-axis labels
     datasets: [
       // array of object, each object correspond to one line
@@ -64,9 +58,9 @@ function TotalCompletedVsUncompletedLineChart() {
   };
 
   return (
-    <div className="line-chart">
-      <Line data={data} options={options} />
-    </div>
+        <div className="line-chart">
+          <Line data={dataChart} options={options} />
+        </div>
   );
 }
 
