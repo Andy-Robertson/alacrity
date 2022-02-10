@@ -6,13 +6,18 @@ import PlusImg from "../Assets/img/plus-math-30.png";
 import Popup from "../Components/Popup";
 import placeholderAvatar from "../Assets/img/avatar-placeholder.png";
 import Pomodoro from "../Components/Pomodoro/Pomodoro";
+import PomodoroMobilePopup from "../Components/Pomodoro/PomodoroMobilePopup";
 
 const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isPomodoroOpen, setIsPomodoroOpen] = useState(false);
+
   const { isTaskFocused } = useContext(GlobalContext);
+
   const logout = () => {
     window.open(`${SERVER_URL}/auth/logout`, "_self");
   };
+
   return (
     <aside className="right-sidebar">
       {user && !isTaskFocused && (
@@ -50,7 +55,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
             type="button"
             className="btn btn-small-screen animate__animated animate__fadeInRightBig"
             onClick={() => {
-              setIsOpen(true);
+              setIsPomodoroOpen(true);
             }}
           >
             <span className="btn__icon">
@@ -59,9 +64,9 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
             <span className="btn__text">Pomodoro</span>
           </button>
         </div>
-
       )}
       {isOpen && <Popup close={setIsOpen} submitComplete={submitComplete} />}
+      {isPomodoroOpen && <PomodoroMobilePopup close={setIsPomodoroOpen} />}
       {user && !isTaskFocused && <Pomodoro />}
     </aside>
   );
