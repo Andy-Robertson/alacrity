@@ -995,3 +995,33 @@ article header .ions {
     transform: none;
   }
 }
+
+/* Analytics */
+.title-analytics {
+  text-align: center;
+}
+.analytics-btn:hover {
+  cursor: pointer;
+}
+
+/* Charts */
+.chart {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+}
+.doughnut-chart{
+  height: 32rem;
+  width: 32rem;
+  margin: 1rem 0;
+}
+.line-chart-container{
+  display: flex;
+}
+.line-chart {
+  display: flex;
+  flex-flow: row wrap;
+  width: 30rem;
+  margin: 1rem 0;
+
+}
