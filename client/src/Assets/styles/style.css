@@ -562,7 +562,26 @@ article header .ions {
 }
 
 .tabs > li {
-  margin: 0 1em;
+  /* margin: 0 1em; */
+  margin: 0 0.5em;
+  background: #d4e7fe;
+  padding: 8px 10px;
+  /* color: white; */
+  border-radius: 3px 3px 0px 0px;
+  box-shadow: 0 0 0.8rem #d4e7fe;
+}
+.tabs .active {
+  /* background:#fffffff6;
+  border-top: 3px solid #000; */
+  background: #e0c3fc;
+  color: #000;
+  border-top: 3px solid #d4e7fe;
+}
+.tabs a {
+  text-decoration: none;
+}
+a:visited {
+  color: black;
 }
 
 /* Popup style */

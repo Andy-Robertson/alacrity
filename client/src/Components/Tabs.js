@@ -10,6 +10,7 @@ const Tabs = (props) => {
   const [isLater, setIsLater] = useState(false);
   const [taskIsArchived, setIsArchived] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [activeTab, setActiveTab] = useState("todayTab");
 
   const sortedData = [...data].sort((a, b) => a.id - b.id);
 
@@ -73,21 +74,25 @@ const Tabs = (props) => {
       setIsTmr(false);
       setIsLater(false);
       setIsArchived(false);
+      setActiveTab("todayTab");
     } else if (taskDate === "tmr") {
       setIsToday(false);
       setIsTmr(true);
       setIsLater(false);
       setIsArchived(false);
+      setActiveTab("tmrTab");
     } else if (taskDate === "later") {
       setIsToday(false);
       setIsTmr(false);
       setIsLater(true);
       setIsArchived(false);
+      setActiveTab("laterTab");
     } else {
       setIsToday(false);
       setIsTmr(false);
       setIsLater(false);
       setIsArchived(true);
+      setActiveTab("archiveTab");
     }
   };
   function notify(title, body) {
@@ -129,22 +134,22 @@ const Tabs = (props) => {
   return (
     <>
       <ul className="tabs animate__animated animate__fadeInLeftBig">
-        <li>
+        <li className={activeTab === "todayTab" ? "active" : ""}>
           <a href="#" onClick={(e) => handleClick(e, "today")}>
             Today
           </a>
         </li>
-        <li>
+        <li className={activeTab === "tmrTab" ? "active" : ""}>
           <a href="#" onClick={(e) => handleClick(e, "tmr")}>
             Tomorrow
           </a>
         </li>
-        <li>
+        <li className={activeTab === "laterTab" ? "active" : ""}>
           <a href="#" onClick={(e) => handleClick(e, "later")}>
             Later
           </a>
         </li>
-        <li>
+        <li className={activeTab === "archiveTab" ? "active" : ""}>
           <a href="#" onClick={(e) => handleClick(e, "Archived")}>
             Archived
           </a>
