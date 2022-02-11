@@ -1,22 +1,17 @@
 :root {
   --olor-light: #e0c3fc;
 }
-/* main {
+main {
   display: grid;
-  grid-template-columns: 0.5fr 2fr 0.6fr;
-  height: 100vh;
-} */
-
-.main-task-mode {
-  display: grid;
-  grid-template-columns: 0.5fr 2fr 0.6fr;
   height: 100vh;
 }
 
+.main-task-mode {
+  grid-template-columns: 0.5fr 2fr 0.6fr;
+}
+
 .main-focus-modes {
-  display: grid;
   grid-template-columns: 0.5fr 9fr 0.5fr;
-  height: 100vh;
 }
 
 /* Left sidebar */
