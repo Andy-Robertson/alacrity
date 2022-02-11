@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { TaskAndPomContext } from "../../Contexts/TaskAndPomContext";
 import { GlobalContext } from "../../Contexts/GlobalContext";
 import SubTaskCheckBox from "../SubTaskCheckBox";
@@ -8,10 +8,18 @@ import taskComplete from "../../Assets/audio/DADAA.mp3";
 
 const FocusTaskView = ({ taskData }) => {
   const { setIsTaskFocused, setTasksData } = useContext(GlobalContext);
-  const { focusedTask, setFocusedTask } = useContext(TaskAndPomContext);
+  const { focusedTaskId, setFocusedTaskId } = useContext(TaskAndPomContext);
+
+  const [focusedTask, setFocusedTask] = useState(
+    taskData.find((task) => task.id === focusedTaskId)
+  );
+
+  useEffect(() => {
+    setFocusedTask(taskData.find((task) => task.id === focusedTaskId));
+  }, [taskData, focusedTaskId]);
 
   const isTaskComplete = taskData
-    .filter((task) => task.id === focusedTask.id)
+    .filter((task) => task.id === focusedTaskId)
     .find((task) => task.sub_tasks.find((subTask) => !subTask.completed));
 
   const handleExitView = (e) => {
@@ -21,7 +29,7 @@ const FocusTaskView = ({ taskData }) => {
       fetch("/api/tasks/archived", {
         method: "PUT",
         body: JSON.stringify({
-          task_id: focusedTask.id,
+          task_id: focusedTaskId,
           task_archived: taskArchived,
         }),
         headers: {
@@ -35,11 +43,11 @@ const FocusTaskView = ({ taskData }) => {
           });
         taskCompleteSound.play();
         setIsTaskFocused(false);
-        setFocusedTask({});
+        setFocusedTaskId(null);
       });
     } else {
       setIsTaskFocused(false);
-      setFocusedTask({});
+      setFocusedTaskId(null);
     }
   };
 
@@ -55,29 +63,38 @@ const FocusTaskView = ({ taskData }) => {
           </span>
         )}
 
-        {focusedTask.sub_tasks && (
+        {focusedTask.sub_tasks.length > 0 && (
           <span className="focused-card-stage card__content animate__animated animate__fadeIn animate__delay-1s">
             <h3>Stage:</h3>
             <ul>
-              {focusedTask.sub_tasks.map((subTask, subKey) => (
-                <li key={`${focusedTask.id}_${subKey}`}>
-                  <SubTaskCheckBox
-                    subKey={subTask.id}
-                    name={subTask.name}
-                    subTaskId={subTask.id}
-                    completed={subTask.completed}
-                    id={`${focusedTask.id}_${subKey}`}
-                  />
-                </li>
-              ))}
+              {focusedTask.sub_tasks
+                .sort((a, b) => a.index - b.index)
+                .map((subTask, subKey) => (
+                  <li key={`${focusedTaskId}_${subKey}`}>
+                    <SubTaskCheckBox
+                      subKey={subTask.id}
+                      name={subTask.name}
+                      subTaskId={subTask.id}
+                      completed={subTask.completed}
+                      id={`${focusedTaskId}_${subKey}`}
+                    />
+                  </li>
+                ))}
             </ul>
           </span>
         )}
 
-        {focusedTask.resources && focusedTask.resources !== "{}" && (
-          <span className="focused-card-resources-container animate__animated animate__fadeIn animate__delay-1s">
+        {focusedTask.resources.length > 0 && (
+          <span className="focused-card-resources-container animate__animated animate__fadeIn animate__delay-1s ">
             <h3>Useful resources:</h3>
-            <div>{focusedTask.resources}</div>
+            {focusedTask.resources.map((resource) => (
+              <li
+                key={`${focusedTask.id}_${resource}`}
+                className="resources-pill"
+              >
+                {resource.replace(/,/g, "")}
+              </li>
+            ))}
           </span>
         )}
 
