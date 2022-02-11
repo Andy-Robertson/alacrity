@@ -5,6 +5,7 @@ import Logo from "../Assets/img/logo.svg";
 const Tabs = (props) => {
   const [data, setData] = useState(props.data);
   const todayDate = new Date().getDate();
+  const currentMonth = new Date().getMonth();
   const [isToday, setIsToday] = useState(true);
   const [isTmr, setIsTmr] = useState(false);
   const [isLater, setIsLater] = useState(false);
@@ -15,20 +16,18 @@ const Tabs = (props) => {
 
   const expiredTasks = sortedData.filter(
     (task) =>
-      new Date(task.by_date).getDate() < todayDate
-      && !task.task_archived
+      (new Date(task.by_date).getDate() < todayDate && !task.task_archived)
+      && (new Date(task.by_date).getMonth() < currentMonth && !task.task_archived)
   );
 
   const todayData = sortedData.filter(
     (task) =>
-      new Date(task.by_date).getDate() === todayDate
-      && !task.task_archived
+      new Date(task.by_date).getDate() === todayDate && !task.task_archived
   );
 
   const tmrData = sortedData.filter(
     (task) =>
-      new Date(task.by_date).getDate() === todayDate + 1
-      && !task.task_archived
+      new Date(task.by_date).getDate() === todayDate + 1 && !task.task_archived
   );
 
   const laterData = sortedData.filter(
