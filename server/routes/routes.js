@@ -346,7 +346,6 @@ const router = (app) => {
   });
 
   app.put("/api/tasks/analytics", (req, res) => {
-    console.log(req.body);
     const { task_id, is_completed } = req.body;
     pool
       .query("UPDATE analytics SET is_completed = $1 WHERE task_id = $2", [

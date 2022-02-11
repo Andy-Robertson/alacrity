@@ -5,15 +5,59 @@ import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
 function TotalCompletedVsUncompletedLineChart({ data }) {
-  // data for the data of chart
-  console.log(data);
+  // console.log(data);
+  const time = data.map((task) => {
+    const d = new Date(task.by_date);
+    let formattedDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+    return formattedDate;
+  });
+  const uniqueTime = [...new Set(time)]; // Remove duplicate elements
+  console.log(uniqueTime);
+
+  // Total Tasks
+  const counts ={};
+  data.forEach((task) => {
+    const d = new Date(task.by_date);
+    let taskDate = `${
+      d.getMonth() + 1
+    }/${d.getDate()}/${d.getFullYear()}`;
+    counts[taskDate] = (counts[taskDate] || 0) +1;
+  });
+
+  // Completed Tasks
+  const completedTasks = data.filter((task) => task.is_completed);
+  const countsCompletedTasks = {};
+  completedTasks.forEach((completedTask) => {
+    const d = new Date(completedTask.by_date);
+    let completedTaskDate = `${
+      d.getMonth() + 1
+    }/${d.getDate()}/${d.getFullYear()}`;
+    countsCompletedTasks[completedTaskDate]
+    = (countsCompletedTasks[completedTaskDate] || 0) + 1;
+  });
+  const numberOfCompletedTasks = Object.values(countsCompletedTasks);
+  console.log(numberOfCompletedTasks);
+  // Uncompleted Tasks
+  const uncompletedTasks = data.filter((task) => !task.is_completed);
+  const countsUncompletedTasks = {};
+  uncompletedTasks.forEach((uncompletedTask) => {
+    const d = new Date(uncompletedTask.by_date);
+    let uncompletedTaskDate = `${
+      d.getMonth() + 1
+    }/${d.getDate()}/${d.getFullYear()}`;
+    countsUncompletedTasks[uncompletedTaskDate]
+    = (countsUncompletedTasks[uncompletedTaskDate] || 0) + 1;
+  });
+  const numberOfUncompletedTasks = Object.values(countsUncompletedTasks);
+  console.log(numberOfUncompletedTasks);
+
   const dataChart = {
-    labels: ["Week 1,", "Week 2", "Week 3", "Week 4"], // x-axis labels
+    labels: uniqueTime, // x-axis labels
     datasets: [
       // array of object, each object correspond to one line
       {
         label: "Tasks Completed",
-        data: [5, 12, 10, 12],
+        data: numberOfCompletedTasks,
         backgroundColor: ["rgba(29, 160, 242, 0.69)"],
         borderColor: ["rgba(29, 160, 242, 0.69)"],
         pointBackgroundColor: ["rgba(29, 160, 242, 0.69)"],
@@ -21,7 +65,7 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
       },
       {
         label: "Tasks Uncompleted",
-        data: [2, 5, 4, 5],
+        data: numberOfUncompletedTasks,
         backgroundColor: ["rgba(224, 195, 252, 1)"],
         borderColor: ["rgba(224, 195, 252, 1)"],
         pointBackgroundColor: ["rgba(224, 195, 252, 1)"],
@@ -40,9 +84,6 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
     },
     scales: {
       y: {
-        min: 0,
-        max: 14,
-        stepSize: 2,
         title: {
           display: true,
           text: "Total Tasks",
@@ -58,9 +99,9 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
   };
 
   return (
-        <div className="line-chart">
-          <Line data={dataChart} options={options} />
-        </div>
+    <div className="line-chart">
+      <Line data={dataChart} options={options} />
+    </div>
   );
 }
 
