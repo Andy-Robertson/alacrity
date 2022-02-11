@@ -76,9 +76,7 @@ const Pans = (props) => {
   return (
     <>
       {props.data.map((task) => {
-        // const trimedString = task.resources.replace(/[{ } \\ " \s]/g, "");
-        // const stringArr = trimedString.split(",");
-        // console.log(typeof task.resources);
+
         return (
           <article
             key={task.id}
@@ -96,7 +94,7 @@ const Pans = (props) => {
                 )}
 
                 {!task.task_archived && (
-                  <a href="#" onClick={() => handleActiveView(task)}>
+                  <a href="#" className="focus-mode-btn" onClick={() => handleActiveView(task)}>
                     <img src={ScheduleImg} alt="schedule"></img>
                   </a>
                 )}

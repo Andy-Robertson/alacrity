@@ -144,7 +144,7 @@ main {
 .pomodoro-wrapper-small-device {
   display: grid;
   justify-self: center;
-  grid-template-rows: 2rem 0.2fr 0.5fr 0.3fr;
+  /* grid-template-rows: 2rem 0.2fr 0.5fr 0.3fr; */
   border: 2px solid rgba(147, 197, 252, 0.3);
   border-radius: 15px;
   grid-row: 1;
@@ -331,6 +331,7 @@ main {
 /* Login */
 .login-section {
   height: 100vh;
+  width: 100vw;
   border-radius: 0.8rem;
   overflow: hidden;
   display: flex;
@@ -1172,6 +1173,10 @@ article header .ions {
   #menu {
     width: 200px;
   }
+
+  .focus-mode-btn {
+    display: none;
+  }
 }
 
 /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
@@ -1183,6 +1188,10 @@ article header .ions {
   .btn__text {
     font-size: 1em;
     padding: 0 0.3rem;
+  }
+
+  .focus-mode-btn {
+    display: none;
   }
 }
 
@@ -1288,5 +1297,8 @@ article header .ions {
   }
   .bk-image {
     height: 40%;
+  }
+  .focus-mode-btn {
+    display: inline;
   }
 }
