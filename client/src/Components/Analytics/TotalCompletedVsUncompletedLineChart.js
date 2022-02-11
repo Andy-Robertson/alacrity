@@ -30,19 +30,38 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
     let completedTaskDate = `${
       d.getMonth() + 1
     }/${d.getDate()}/${d.getFullYear()}`;
-    countsCompletedTasks[completedTaskDate] = (countsCompletedTasks[completedTaskDate] || 0) + 1;
+    countsCompletedTasks[completedTaskDate]
+    = (countsCompletedTasks[completedTaskDate] || 0) + 1;
   });
   // put 0 value for date that there is no completed tasks
+  const keysCompletedTasks = Object.keys(countsCompletedTasks);
+  time.forEach((date) => {
+    if (!keysCompletedTasks.includes(date)) {
+      countsCompletedTasks[date] = 0;
+    } else {
+      return;
+    }
+  });
+  // order the completed task by keys
+  let orderedCountsCompletedTasks = Object.keys(countsCompletedTasks)
+    .sort()
+    .reduce((obj, key) => {
+      obj[key] = countsCompletedTasks[key];
+      return obj;
+    }, {});
 
-  const numberOfCompletedTasks = Object.values(countsCompletedTasks);
-  // console.log(numberOfCompletedTasks);
+  const numberOfCompletedTasks = Object.values(orderedCountsCompletedTasks);
+  console.log(numberOfCompletedTasks);
   // Uncompleted Tasks
   const uncompletedTasks = data.filter((task) => !task.is_completed);
   const countsUncompletedTasks = {};
   uncompletedTasks.forEach((uncompletedTask) => {
     const d = new Date(uncompletedTask.by_date);
-    let uncompletedTaskDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
-    countsUncompletedTasks[uncompletedTaskDate] = (countsUncompletedTasks[uncompletedTaskDate] || 0) + 1;
+    let uncompletedTaskDate = `${
+      d.getMonth() + 1
+    }/${d.getDate()}/${d.getFullYear()}`;
+    countsUncompletedTasks[uncompletedTaskDate]
+    = (countsUncompletedTasks[uncompletedTaskDate] || 0) + 1;
   });
   // put 0 value for date that there is no uncompleted tasks
   const keysUncompletedTasks = Object.keys(countsUncompletedTasks);
@@ -53,17 +72,17 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
       return;
     }
   });
-    console.log(countsUncompletedTasks);
+  // console.log(countsUncompletedTasks);
   // order the uncompleted task by keys
   let orderedCountsUncompletedTasks = Object.keys(countsUncompletedTasks)
     .sort()
     .reduce((obj, key) => {
       obj[key] = countsUncompletedTasks[key];
       return obj;
-    },{});
-  console.log(orderedCountsUncompletedTasks);
+    }, {});
+  // console.log(orderedCountsUncompletedTasks);
   const numberOfUncompletedTasks = Object.values(orderedCountsUncompletedTasks);
-  console.log(numberOfUncompletedTasks);
+  // console.log(numberOfUncompletedTasks);
 
   const dataChart = {
     labels: uniqueTime, // x-axis labels
