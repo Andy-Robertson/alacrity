@@ -45,6 +45,14 @@ main {
   margin-left: 0.6em;
 }
 
+#menuBigScreen {
+  display: block;
+}
+
+#menuToggle {
+  display: none;
+}
+
 /* Right sidebar */
 .right-sidebar {
   display: grid;
@@ -117,12 +125,23 @@ main {
 /* Pomodoro */
 
 .pomodoro-wrapper {
-  grid-row: 5 / 5;
+  justify-self: center;
   display: grid;
   grid-template-rows: 2rem 0.27fr 0.5fr 0.27fr;
-  width: 90%;
+  height: 90%;
   border: 2px solid rgba(147, 197, 252, 0.3);
   border-radius: 15px;
+}
+
+.pomodoro-wrapper-task-mode {
+  grid-row: 5;
+  width: 90%;
+}
+
+.pomodoro-wrapper-focus-mode {
+  grid-row: 3;
+  grid-column: 2;
+  width: 90%;
 }
 
 .pomodoro-time-selector-wrapper {
@@ -213,6 +232,17 @@ main {
   grid-template-columns: 1.3fr 1fr;
   grid-template-rows: 2em 0.1fr 1fr;
   overflow: hidden;
+}
+
+.wrapper-focus-mode {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2em 0.1fr 1fr;
+  box-shadow: none;
+}
+
+.wrapper-task-mode {
+  grid-template-columns: 1.3fr 1fr;
+  grid-template-rows: 2em 0.1fr 1fr;
 }
 
 .wrapper .wrapper__bk {
@@ -337,15 +367,13 @@ article header {
 }
 
 .card__content p {
-  margin: 0;
-  margin-left: 4em;
+  margin: 0 3em;
 }
 
 .card__content ul {
   list-style: none;
-  margin: 0;
   padding: 0;
-  margin-left: 4em;
+  margin: 0 3em;
 }
 
 .card__content ul .round label {
@@ -357,6 +385,13 @@ article header {
   margin-right: 0.4em;
 }
 
+.card__content li {
+  line-height: 1.8rem;
+}
+
+.card-task-name {
+  margin-left: 0.5rem;
+}
 article header .text {
   grid-column: 2;
 }
@@ -373,18 +408,18 @@ article header .ions {
   display: flex;
   align-items: center;
   color: var(--olor-light);
-  margin-left: 4em;
+  margin-left: 3em;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
   margin-right: 2em;
-  height:2rem;
+  height: 2rem;
 }
 
 .card-footer-complete {
-  color: rgba(26, 161, 60, 0.527);
+  color: #27ae5fbe;
 }
 
 .card-footer-incomplete {
@@ -401,60 +436,69 @@ article header .ions {
   overflow: hidden;
   padding: 0 1rem;
   height: 2rem;
-  width: 10rem;
-  background-color: rgba(21, 216, 21, 0.199);
+  width: 11rem;
+  background-color: #27ae5f;
   cursor: pointer;
+  color: #fff;
+  font-weight: bold;
 }
 
 .complete-task-button:hover,
 .complete-task-button:focus {
-  background-color: rgba(21, 216, 21, 0.404);
+  background-color: #27ae5fbe;
 }
 
 /* Round checkbox */
 
-.round {
-  position: relative;
-  grid-column: 2;
+.task-checkbox {
+  padding: 0.2rem 2.5rem;
 }
 
-.round label {
-  background-color: #fff;
-  border: 1px solid var(--olor-light);
-  border-radius: 50%;
+.task-checkbox label:hover {
   cursor: pointer;
-  height: 20px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 20px;
 }
 
-.round label:after {
-  border: 2px solid var(--olor-light);
-  border-top: none;
-  border-right: none;
+.task-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.task-checkbox label {
+  position: relative;
+}
+.task-checkbox input[type="checkbox"]:checked + label.strikethrough {
+  text-decoration: line-through;
+  text-decoration-color: #27ae5f;
+  color: grey;
+  font-style:oblique;
+}
+
+.task-checkbox label::before {
   content: "";
-  height: 6px;
-  left: 7px;
-  opacity: 0;
+  background: url("../img/check-circle.svg");
+  background-position: center;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
   position: absolute;
-  top: 8px;
-  transform: rotate(-45deg);
-  width: 12px;
+  left: -44px;
+  top: -8px;
+  transform: scale(0) rotateZ(180deg);
+  transition: all 0.4s cubic-bezier(0.54, 0.01, 0, 1.49);
 }
 
-.round input[type="checkbox"] {
-  visibility: hidden;
+.task-checkbox input[type="checkbox"]:checked + label::before {
+  transform: scale(1) rotateZ(0deg);
 }
 
-.round input[type="checkbox"]:checked + label {
-  background-color: var(--olor-light);
-  border-color: var(--olor-light);
-}
-
-.round input[type="checkbox"]:checked + label:after {
-  opacity: 1;
+.task-checkbox label::after {
+  content: "";
+  border: 2px solid var(--olor-light);
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  left: -42px;
+  top: -6px;
+  border-radius: 50%;
 }
 
 /* Tabs */
@@ -627,17 +671,17 @@ article header .ions {
   cursor: pointer; /* Mouse pointer on hover */
 }
 
-form .buttons {
+.buttons {
   display: flex;
   justify-content: flex-end;
 }
 
-form .cancel {
+.cancel {
   margin-right: 1em;
   background-color: var(--olor-light);
 }
 
-form .btn {
+.buttons .btn {
   display: block;
   height: 2.4rem;
   width: 7rem;
@@ -689,7 +733,7 @@ form .btn {
 
 .card__rewards,
 .card__resources {
-  margin-left: 4em;
+  margin: 0 3em;
 }
 
 .card__rewards span,
@@ -709,15 +753,245 @@ form .btn {
   margin: 0;
 }
 
-.pill {
-  display: inline-block;
-  margin: 20px 10px 0 0;
-  padding: 6px 12px;
+.resources-pill {
+  list-style-type: none;
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 0.8rem 0.3rem 0 0;
+  padding: 0.3rem 0.6rem;
   background: #eee;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 1px;
   font-weight: bold;
   color: #777;
   cursor: pointer;
+}
+
+/* Focused View */
+
+.focused-card {
+  display: grid;
+  grid-template-rows: 0.5fr 0.9fr 0.5fr 0.5fr 0.4fr 1fr;
+  grid-row: 3;
+  grid-column: 1;
+  width: 90%;
+  height: 90%;
+  border: 2px solid rgba(147, 197, 252, 0.3);
+  border-radius: 15px;
+  justify-self: center;
+  justify-items: center;
+}
+.focused-card-title {
+  grid-row: 1;
+  width: 80%;
+}
+
+.focused-card-description {
+  grid-row: 2;
+  width: 80%;
+}
+
+.focused-card-stage {
+  grid-row: 3;
+  width: 80%;
+}
+
+.focused-card-resources-container {
+  grid-row: 4;
+  width: 80%;
+}
+
+.focused-card-rewards-container {
+  grid-row: 5;
+  width: 80%;
+}
+
+.focussed-task-btn-container {
+  display: flex;
+  grid-row: 6;
+  width: 100%;
+  height: 100%;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.focussed-task-btn {
+  height: 3rem;
+  width: 80%;
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
+  justify-self: center;
+}
+
+.focussed-task-btn:hover,
+.focussed-task-btn:hover {
+  cursor: pointer;
+  background-color: rgba(147, 198, 252, 0.233);
+}
+
+.focussed-task-complete-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  padding: 0 1rem;
+  background-color: #27ae5f;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0.2em 0.4em 3px 1.5px #27ae5f;
+  cursor: pointer;
+}
+
+.focussed-task-complete-btn:hover,
+.focussed-task-complete-btn:focus {
+  background-color: #27ae5fbe;
+  box-shadow: 0.2em 0.4em 3px 1.5px #27ae5fbe;
+}
+
+.settings-btn-focus-mode {
+  padding: 1rem;
+}
+
+/* for smaller screen */
+
+/* Medium devices (tablets, less than 992px) */
+@media screen and (max-width: 991.98px) {
+  #menuBigScreen {
+    display: none;
+  }
+  #menuToggle {
+    display: block;
+    position: relative;
+    top: 50px;
+    left: 50px;
+    z-index: 1;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #menuToggle a {
+    text-decoration: none;
+    color: #232323;
+    transition: color 0.3s ease;
+  }
+
+  #menuToggle a:hover {
+    color: tomato;
+  }
+
+  #menuToggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+    cursor: pointer;
+    opacity: 0; /* hide this */
+    z-index: 2; /* and place it over the hamburger */
+    -webkit-touch-callout: none;
+  }
+
+  /*
+ * Just a quick hamburger
+ */
+  #menuToggle span {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+
+    background: #cdcdcd;
+    border-radius: 3px;
+
+    z-index: 1;
+
+    transform-origin: 4px 0px;
+
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+      background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+  }
+
+  #menuToggle span:first-child {
+    transform-origin: 0% 0%;
+  }
+
+  #menuToggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+  }
+
+  /* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+  #menuToggle input:checked ~ span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #232323;
+  }
+
+  /*
+ * But let's hide the middle one.
+ */
+  #menuToggle input:checked ~ span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+  }
+
+  /*
+ * Ohyeah and the last one should go the other direction
+ */
+  #menuToggle input:checked ~ span:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+  }
+
+  /*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+  #menu {
+    position: absolute;
+    width: 200px;
+    margin: -100px 0 0 -50px;
+    padding: 50px;
+    padding-top: 125px;
+    height: 100vh;
+
+    background: #ededed;
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+    /* to stop flickering of text in safari */
+
+    transform-origin: 0% 0%;
+    transform: translate(-100%, 0);
+
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  }
+
+  #menu li {
+    display: flex;
+    padding: 10px 0;
+    font-size: 22px;
+  }
+
+  #menu .menu-li .menu-div {
+    margin-left: 0.4em;
+  }
+
+  /*
+ * And let's slide it in from the left
+ */
+  #menuToggle input:checked ~ ul {
+    transform: none;
+  }
 }

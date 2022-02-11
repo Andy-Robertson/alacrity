@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+import { GlobalContext } from "../Contexts/GlobalContext";
 
 import PlusImg from "../Assets/img/plus-math-30.png";
 import Popup from "../Components/Popup";
@@ -7,12 +9,13 @@ import Pomodoro from "../Components/Pomodoro/Pomodoro";
 
 const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
+    const { isTaskFocused } = useContext(GlobalContext);
   const logout = () => {
     window.open(`${SERVER_URL}/auth/logout`, "_self");
   };
   return (
     <aside className="right-sidebar">
-      {user && (
+      {user && !isTaskFocused && (
         <ul
           onClick={logout}
           className="animate__animated animate__fadeInRightBig"
@@ -27,7 +30,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
           <li className="right-sidebar-li">Sign-out</li>
         </ul>
       )}
-      {user && (
+      {user && !isTaskFocused && (
         <button
           type="button"
           className="btn animate__animated animate__fadeInRightBig"
@@ -42,7 +45,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
         </button>
       )}
       {isOpen && <Popup close={setIsOpen} submitComplete={submitComplete} />}
-      {user && <Pomodoro />}
+      {user && !isTaskFocused && <Pomodoro />}
     </aside>
   );
 };

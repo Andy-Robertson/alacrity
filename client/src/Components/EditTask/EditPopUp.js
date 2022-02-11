@@ -1,16 +1,20 @@
 import React from "react";
 import EditForm from "./EditForm";
-function EditPopUp({ task, openEditPan, submitComplete }) {
 
+function EditPopUp({ task, openEditPan, submitComplete }) {
   const handlePropagation = (e) => {
     e.stopPropagation();
   };
+
   return (
-    <div className="popup-box">
-      <div className="box" onClick={(e) => handlePropagation(e)}>
-        {/* <span className="close-icon" onClick={() => openEditPan(false)}>
-          x
-        </span> */}
+    <div
+      className="popup-box animate__animated animate__fadeIn"
+      onClick={() => openEditPan(false)}
+    >
+      <div
+        className="box animate__animated animate__fadeInUpBig"
+        onClick={(e) => handlePropagation(e)}
+      >
         <EditForm
           task={task}
           submitComplete={submitComplete}

@@ -25,7 +25,7 @@ CREATE TABLE task (
   task_subject          TEXT NOT NULL,
   subject_description   TEXT,
   reward                TEXT,
-  resources             TEXT,
+  resources             TEXT[],
   by_time               TIME NOT NULL,
   by_date               DATE NOT NULL,
   sub_task_option       BOOLEAN NOT NULL,

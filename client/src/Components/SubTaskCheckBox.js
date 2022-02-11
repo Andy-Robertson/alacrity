@@ -1,15 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { GlobalContext } from "../Contexts/GlobalContext";
+
 
 function SubTaskCheckBox(props) {
   const { setTasksData } = useContext(GlobalContext);
 
-  // console.log(subTaskArray);
-  const completed = props.completed; // true or false
-  const [ischecked, setIsChecked] = useState(completed);
-
   const clickHandler = (e) => {
-    setIsChecked(e.target.checked);
     fetch("api/task/status", {
       method: "PUT",
       body: JSON.stringify({
@@ -29,17 +25,19 @@ function SubTaskCheckBox(props) {
   };
 
   return (
-    <div>
-      <span className="round">
-        <input
-          type="checkbox"
-          id={props.id}
-          onChange={clickHandler}
-          checked={ischecked}
-        />
-        <label htmlFor={props.id}></label>
-      </span>
-      <span>{props.name}</span>
+    <div className="task-checkbox">
+      <input
+        type="checkbox"
+        id={props.id}
+        checked={props.completed}
+        onChange={clickHandler}
+      />
+      <label
+        htmlFor={props.id}
+        className="strikethrough"
+      >
+        {props.name}
+      </label>
     </div>
   );
 }
