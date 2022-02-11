@@ -9,13 +9,13 @@ import Pomodoro from "../Components/Pomodoro/Pomodoro";
 
 const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
-    const { isTaskFocused } = useContext(GlobalContext);
+    const { isTaskFocused, isAnalyticsFocused } = useContext(GlobalContext);
   const logout = () => {
     window.open(`${SERVER_URL}/auth/logout`, "_self");
   };
   return (
     <aside className="right-sidebar">
-      {user && !isTaskFocused && (
+      {user && (!isTaskFocused && !isAnalyticsFocused) && (
         <ul
           onClick={logout}
           className="animate__animated animate__fadeInRightBig"
@@ -30,7 +30,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
           <li className="right-sidebar-li">Sign-out</li>
         </ul>
       )}
-      {user && !isTaskFocused && (
+      {user && (!isTaskFocused && !isAnalyticsFocused) && (
         <button
           type="button"
           className="btn animate__animated animate__fadeInRightBig"
@@ -45,7 +45,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
         </button>
       )}
       {isOpen && <Popup close={setIsOpen} submitComplete={submitComplete} />}
-      {user && !isTaskFocused && <Pomodoro />}
+      {user && (!isTaskFocused && !isAnalyticsFocused) && <Pomodoro />}
     </aside>
   );
 };

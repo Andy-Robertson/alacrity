@@ -7,17 +7,18 @@ import DashBoardImg from "../Assets/img/dashboard-24.png";
 import PieChartImg from "../Assets/img/pie-chart-24.png";
 import SettingsImg from "../Assets/img/settings-24.png";
 import SiteSettingsPopup from "../Components/Settings/SiteSettingsPopup";
-import SiteAnalyticsPopup from "../Components/Analytics/SiteAnalyticsPopup";
 
 const LeftSideBar = ({ user }) => {
   const [settingsIsOpen, setSettingsIsOpen] = useState(false);
-  const [analyticsIsOpen, setAnalyticsIsOpen] = useState(false);
-  const { isTaskFocused } = useContext(GlobalContext);
+  const { isTaskFocused, isAnalyticsFocused, setIsAnalyticsFocused } = useContext(GlobalContext);
+
   return (
     <aside className="left-sidebar">
-      {user && !isTaskFocused && <img src={Logo} alt="logo"></img>}
+      {user && !isTaskFocused && !isAnalyticsFocused && (
+        <img src={Logo} alt="logo"></img>
+      )}
 
-      {user && isTaskFocused && (
+      {user && (isTaskFocused || isAnalyticsFocused) && (
         <div
           onClick={() => {
             setSettingsIsOpen(true);
@@ -28,7 +29,7 @@ const LeftSideBar = ({ user }) => {
         </div>
       )}
 
-      {user && !isTaskFocused && (
+      {user && ( !isTaskFocused && !isAnalyticsFocused) && (
         <>
           <div
             id="menuBigScreen"
@@ -41,7 +42,7 @@ const LeftSideBar = ({ user }) => {
               </a>
             </div>
             <div
-              onClick={() => setAnalyticsIsOpen(true)}
+              onClick={() => setIsAnalyticsFocused(true)}
               className="analytics-btn"
             >
               <a>
@@ -80,7 +81,7 @@ const LeftSideBar = ({ user }) => {
                     <div className="menu-div">Dashboard</div>
                   </li>
                 </a>
-                <a href="#" onClick={() => setAnalyticsIsOpen(true)}>
+                <a href="#" onClick={() => setIsAnalyticsFocused(true)}>
                   <li className="menu-li">
                     <img src={PieChartImg} alt="Analytics logo"></img>
                     <div className="menu-div">Analytics</div>
@@ -105,7 +106,6 @@ const LeftSideBar = ({ user }) => {
         </>
       )}
       {settingsIsOpen && <SiteSettingsPopup close={setSettingsIsOpen} />}
-      {analyticsIsOpen && <SiteAnalyticsPopup close={setAnalyticsIsOpen} />}
     </aside>
   );
 };
