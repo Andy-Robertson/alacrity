@@ -194,13 +194,15 @@ function AddTask(props) {
             onKeyUp={handleKeyUp}
             onChange={changeHandler}
           />
+          <div className="resources-pill-wrapper">
           {resourcesList.map((resource, key) => (
-            <div key={key} className="pill">
+            <div key={key} className="resources-pill">
               <span> {resource.replace(/,/g, "")} </span>
             </div>
           ))}
+          </div>
         </div>
-        <div>
+        <div className="date-time-wrapper">
           <DatePicker
             onChange={onChangeDate}
             value={valueDate}

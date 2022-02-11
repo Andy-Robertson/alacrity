@@ -1,5 +1,6 @@
 :root {
   --color-light: #e0c3fc;
+  --color-date-time: #8fbcf3;
 }
 main {
   display: grid;
@@ -615,17 +616,72 @@ article header .ions {
 
 .form input[type="text"],
 .form input[type="number"] {
-  width: 100%;
-  border-radius: 1em;
-  border-color: var(--color-light);
-  height: 2em;
+  width: 90%;
+  /* border-color: var(--color-light); */
   outline: none;
   border: none;
-  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
+  /* box-shadow: 0.1em 0.2em 1px 1px rgba(147, 197, 252, 0.3); */
+  /* border-radius: 1em; */
+  /* height: 2em; */
+}
+
+.form input[type="text"] {
+  padding: 0.6em;
+  box-sizing: border-box;
+  display: block;
+  border-bottom: 1px solid #e0c3fc7a;
+  margin: 0 auto;
+}
+
+.form input[type="text"]::placeholder {
+  color: rgba(147, 197, 252, 0.8);
+  font-size: 0.9em;
+  font-style: italic;
+  margin-left: 10px;
 }
 
 .form input[type="number"] {
   width: 100%;
+}
+
+.form h4, .form .toggle-btn {
+  margin-left: 5%;
+}
+
+.form h4 {
+  font-size: 1.1em;
+  font-style: oblique;
+  font-weight: normal;
+  color: rgb(60 150 249);
+}
+
+.form .date-time-wrapper {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.form .react-date-picker__wrapper,
+.form .react-time-picker__wrapper {
+  border: thin solid #f0e2fe;
+}
+
+.form .react-date-picker {
+  margin-right: 1em;
+}
+
+.form .react-date-picker__inputGroup__input,
+.form .react-date-picker__inputGroup__divider,
+.form .react-time-picker__inputGroup__input,
+.form .react-time-picker__inputGroup__divider,
+.form .react-time-picker__inputGroup__leadingZero {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: var(--color-date-time);
+}
+.form .react-date-picker__button svg,
+.form .react-time-picker__button svg {
+  stroke: var(--color-date-time);
+  font-weight: bolder;
 }
 
 /* Toggle */
@@ -653,17 +709,19 @@ article header .ions {
 #toggle-not-sound-input:checked + #toggle-not-sound-label:before {
   /* transform: translateX(90px); */
   background-color: #fff;
-  left: 40px;
+  /* left: 40px; */
+  left: 25px;
 }
 
 #toggle-label,
 #toggle-not-sound-label,
 #toggle-not-label {
   display: flex;
-  width: 60px;
+  /* width: 60px; */
+  width: 40px;
   height: 20px;
   border: 2px solid #e0c3fc;
-  border-radius: 20em;
+  border-radius: 10em;
   position: relative;
   background-color: #fff;
   transition: background-color 0.75s ease-in-out;
@@ -797,12 +855,16 @@ article header .ions {
 .card__resources p {
   margin: 0;
 }
+.resources-pill-wrapper{
+  width: 90%;
+  margin: 0 auto;
+}
 
-.pill {
+.resources-pill {
   display: inline-block;
   margin: 20px 10px 0 0;
   padding: 6px 12px;
-  background: #eee;
+  background: var(--color-light);
   border-radius: 20px;
   font-size: 12px;
   letter-spacing: 1px;

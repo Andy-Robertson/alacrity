@@ -246,7 +246,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
           ))} */}
           <PillResources resourcesList={resourcesList} deleteResource={deleteResource}/>
         </div>
-        <div>
+        <div className="date-time-wrapper">
           <DatePicker
             onChange={onChangeDate}
             value={valueDate}
