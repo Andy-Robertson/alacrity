@@ -1,8 +1,6 @@
 import Pomodoro from "./Pomodoro";
 
-
-const PomodoroMobilePopup = (props) => {
-
+const PomodoroMobilePopup = ({ close, isPomodoroOpen }) => {
   const handlePropagation = (e) => {
     e.stopPropagation();
   };
@@ -10,17 +8,16 @@ const PomodoroMobilePopup = (props) => {
   return (
     <div
       className="popup-box animate__animated animate__fadeIn"
-      onClick={() => props.close(false)}
+      onClick={() => close(false)}
     >
       <div
-        className="box animate__animated animate__fadeInUpBig"
+        className="pomodoro-popup-wrapper animate__animated animate__fadeInUpBig"
         onClick={(e) => handlePropagation(e)}
       >
-        <h2>Pomodoro test!</h2>
-        <Pomodoro/>
+        <Pomodoro isPomodoroOpen={isPomodoroOpen} />
 
         <div className="buttons">
-          <button className="btn cancel" onClick={() => props.close(false)}>
+          <button className="btn cancel" onClick={() => close(false)}>
             <span>Cancel</span>
           </button>
         </div>

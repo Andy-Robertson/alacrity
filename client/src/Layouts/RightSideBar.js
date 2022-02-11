@@ -39,7 +39,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
         <div className="btn-wrapper">
           <button
             type="button"
-            className="btn animate__animated animate__fadeInRightBig"
+            className="btn btn-right-sidebar animate__animated animate__fadeInRightBig"
             onClick={() => {
               setIsOpen(true);
             }}
@@ -53,7 +53,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
           {/* small screen pomdoro */}
           <button
             type="button"
-            className="btn btn-small-screen animate__animated animate__fadeInRightBig"
+            className="btn btn-right-sidebar btn-small-screen animate__animated animate__fadeInRightBig"
             onClick={() => {
               setIsPomodoroOpen(true);
             }}
@@ -66,7 +66,12 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
         </div>
       )}
       {isOpen && <Popup close={setIsOpen} submitComplete={submitComplete} />}
-      {isPomodoroOpen && <PomodoroMobilePopup close={setIsPomodoroOpen} />}
+      {isPomodoroOpen && (
+        <PomodoroMobilePopup
+          close={setIsPomodoroOpen}
+          isPomodoroOpen={isPomodoroOpen}
+        />
+      )}
       {user && !isTaskFocused && <Pomodoro />}
     </aside>
   );

@@ -7,7 +7,7 @@ import { GlobalContext } from "../../Contexts/GlobalContext";
 
 import Logo from "../../Assets/img/logo.svg";
 
-const Pomodoro = () => {
+const Pomodoro = ({ isPomodoroOpen }) => {
   const {
     seconds,
     setSeconds,
@@ -125,11 +125,20 @@ const Pomodoro = () => {
   const INACTIVE = "pomodoro-btn-interaction pomodoro-time-btn";
   const ACTIVE = "pomodoro-btn-interaction pomodoro-time-btn pomodoro-time-btn-active";
 
+  const FOCUS_MODE = "pomodoro-wrapper pomodoro-wrapper-focus-mode animate__animated animate__backInRight";
   const TASK_MODE = "pomodoro-wrapper pomodoro-wrapper-task-mode animate__animated animate__fadeInRightBig";
-  const FOCUS_MODE ="pomodoro-wrapper pomodoro-wrapper-focus-mode animate__animated animate__backInRight";
+  const TASK_MODE_SMALL_DEVICE ="pomodoro-wrapper-small-device animate__animated animate__fadeInRightBig";
 
   return (
-    <section className={isTaskFocused ? FOCUS_MODE : TASK_MODE} >
+    <section
+      className={
+        isTaskFocused
+          ? FOCUS_MODE
+          : isPomodoroOpen
+          ? TASK_MODE_SMALL_DEVICE
+          : TASK_MODE
+      }
+    >
       <span className="pomodoro-time-selector-wrapper">
         <Button
           type={minutes === 25 ? ACTIVE : INACTIVE}
