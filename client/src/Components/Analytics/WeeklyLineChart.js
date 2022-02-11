@@ -4,7 +4,7 @@ import { Chart, registerables } from "chart.js";
 
 Chart.register(...registerables);
 
-function TotalCompletedVsUncompletedLineChart({ data }) {
+function WeeklyLineChart({ data }) {
   // console.log(data);
   const time = data.map((task) => {
     const d = new Date(task.by_date);
@@ -12,7 +12,10 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
     return formattedDate;
   });
   const uniqueTime = [...new Set(time)]; // Remove duplicate elements
-  // console.log(uniqueTime);
+  // for 30 days
+  if (uniqueTime.length > 7) {
+    uniqueTime.slice(-7);
+  }
 
   // Total Tasks
   const counts = {};
@@ -51,6 +54,9 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
     }, {});
 
   const numberOfCompletedTasks = Object.values(orderedCountsCompletedTasks);
+  if (numberOfCompletedTasks.length > 7) {
+    numberOfCompletedTasks.slice(-7);
+  }
   // Uncompleted Tasks
   const uncompletedTasks = data.filter((task) => !task.is_completed);
   const countsUncompletedTasks = {};
@@ -79,7 +85,11 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
       return obj;
     }, {});
   const numberOfUncompletedTasks = Object.values(orderedCountsUncompletedTasks);
+  if (numberOfUncompletedTasks.length > 7) {
+    numberOfUncompletedTasks.slice(-7);
+  }
 
+  // data for line chart
   const dataChart = {
     labels: uniqueTime, // x-axis labels
     datasets: [
@@ -108,7 +118,7 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
     plugins: {
       title: {
         display: true,
-        text: "Total Completed Tasks VS Total Uncompleted Tasks",
+        text: "Last 7 days of Your Progress",
       },
     },
     scales: {
@@ -134,4 +144,4 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
   );
 }
 
-export default TotalCompletedVsUncompletedLineChart;
+export default WeeklyLineChart;

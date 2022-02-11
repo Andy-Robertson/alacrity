@@ -999,13 +999,16 @@ article header .ions {
   align-items: center;
 }
 .doughnut-chart{
-  display: flex;
-  height: 16rem;
-  width: 16rem;
+  height: 32rem;
+  width: 32rem;
   margin: 1rem 0;
+}
+.line-chart-container{
+  display: flex;
 }
 .line-chart {
   display: flex;
-  width: 50rem;
+  flex-flow: row wrap;
+  width: 30rem;
   margin: 1rem 0;
 }
