@@ -51,7 +51,6 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
     }, {});
 
   const numberOfCompletedTasks = Object.values(orderedCountsCompletedTasks);
-  console.log(numberOfCompletedTasks);
   // Uncompleted Tasks
   const uncompletedTasks = data.filter((task) => !task.is_completed);
   const countsUncompletedTasks = {};
@@ -72,7 +71,6 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
       return;
     }
   });
-  // console.log(countsUncompletedTasks);
   // order the uncompleted task by keys
   let orderedCountsUncompletedTasks = Object.keys(countsUncompletedTasks)
     .sort()
@@ -80,9 +78,7 @@ function TotalCompletedVsUncompletedLineChart({ data }) {
       obj[key] = countsUncompletedTasks[key];
       return obj;
     }, {});
-  // console.log(orderedCountsUncompletedTasks);
   const numberOfUncompletedTasks = Object.values(orderedCountsUncompletedTasks);
-  // console.log(numberOfUncompletedTasks);
 
   const dataChart = {
     labels: uniqueTime, // x-axis labels

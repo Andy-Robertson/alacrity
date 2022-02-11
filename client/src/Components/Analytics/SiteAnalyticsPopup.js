@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TotalCompletedVsUncompletedLineChart from "./TotalCompletedVsUncompletedLineChart";
-import WeeklyDouhnutChart from "./WeeklyDouhnutChart";
+import TotalDouhnutChart from "./TotalDouhnutChart";
 
 function SiteAnalyticsPopup(props) {
   const [data, setData] = useState([]);
@@ -31,7 +31,7 @@ function SiteAnalyticsPopup(props) {
                 Analytics For Completed Tasks VS Uncompleted Tasks
               </h2>
               <div className="chart">
-                <WeeklyDouhnutChart data={data} />
+                <TotalDouhnutChart data={data} />
                 <TotalCompletedVsUncompletedLineChart data={data} />
               </div>
             </div>
