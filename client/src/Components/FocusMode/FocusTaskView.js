@@ -13,7 +13,6 @@ const FocusTaskView = ({ taskData }) => {
   const [focusedTask, setFocusedTask] = useState(
     taskData.find((task) => task.id === focusedTaskId)
   );
-
   useEffect(() => {
     setFocusedTask(taskData.find((task) => task.id === focusedTaskId));
   }, [taskData, focusedTaskId]);
@@ -22,7 +21,8 @@ const FocusTaskView = ({ taskData }) => {
     .filter((task) => task.id === focusedTaskId)
     .find((task) => task.sub_tasks.find((subTask) => !subTask.completed));
 
-  const handleExitView = (e) => {
+  const handleExitView = (e, boolean) => {
+    console.log(boolean);
     if (e.target.value === "complete-task") {
       const taskArchived = focusedTask.task_archived ? false : true;
       const taskCompleteSound = new Audio(taskComplete);
@@ -36,6 +36,19 @@ const FocusTaskView = ({ taskData }) => {
           "Content-Type": "application/json",
         },
       }).then(() => {
+        fetch("/api/tasks/analytics", {
+          method: "POST",
+          body: JSON.stringify({
+            user_id: focusedTask.user_id,
+            task_id: focusedTask.id,
+            task_archived: taskArchived,
+            by_date: focusedTask.by_date,
+            is_completed: boolean,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         fetch("/api/tasks")
           .then((res) => res.json())
           .then((data) => {
@@ -111,7 +124,7 @@ const FocusTaskView = ({ taskData }) => {
               type="button"
               className="focussed-task-btn focussed-task-complete-btn animate__animated animate__rubberBand"
               value="complete-task"
-              onClick={(e) => handleExitView(e)}
+              onClick={(e) => handleExitView(e, true)}
             >
               <MdDone />
               Complete Task
@@ -121,7 +134,7 @@ const FocusTaskView = ({ taskData }) => {
               type="button"
               className="focussed-task-btn"
               value="new-task"
-              onClick={(e) => handleExitView(e)}
+              onClick={(e) => handleExitView(e, false)}
             >
               Choose Another Task
             </button>
