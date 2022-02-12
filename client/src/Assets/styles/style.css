@@ -3,8 +3,15 @@
 }
 main {
   display: grid;
-  grid-template-columns: 0.5fr 2fr 0.6fr;
   height: 100vh;
+}
+
+.main-task-mode {
+  grid-template-columns: 0.5fr 2fr 0.6fr;
+}
+
+.main-focus-modes {
+  grid-template-columns: 0.5fr 9fr 0.5fr;
 }
 
 /* Left sidebar */
@@ -240,6 +247,12 @@ main {
   box-shadow: none;
 }
 
+.wrapper-focus-mode-analytics {
+  grid-template-columns: 1fr;
+  grid-template-rows: 9.5fr 0.3fr 0.2fr;
+  box-shadow: none;
+}
+
 .wrapper-task-mode {
   grid-template-columns: 1.3fr 1fr;
   grid-template-rows: 2em 0.1fr 1fr;
@@ -469,7 +482,7 @@ article header .ions {
   text-decoration: line-through;
   text-decoration-color: #27ae5f;
   color: grey;
-  font-style:oblique;
+  font-style: oblique;
 }
 
 .task-checkbox label::before {
@@ -1003,6 +1016,10 @@ article header .ions {
 .analytics-btn:hover {
   cursor: pointer;
 }
+.box-analytics {
+  overflow: auto;
+  margin-bottom: 0.5rem;
+}
 
 /* Charts */
 .chart {
@@ -1010,18 +1027,17 @@ article header .ions {
   flex-flow: column wrap;
   align-items: center;
 }
-.doughnut-chart{
-  height: 32rem;
-  width: 32rem;
-  margin: 1rem 0;
+.doughnut-chart {
+  height: 20rem;
+  width: 20rem;
+  margin: 0.5rem 0;
 }
-.line-chart-container{
-  display: flex;
-}
-.line-chart {
+.line-chart-container {
   display: flex;
   flex-flow: row wrap;
+  margin: 0.5rem 0;
+}
+.line-chart {
   width: 30rem;
-  margin: 1rem 0;
-
+  margin: 0 2rem;
 }
