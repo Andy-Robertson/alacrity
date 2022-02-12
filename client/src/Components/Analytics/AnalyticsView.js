@@ -19,7 +19,7 @@ const AnalyticsView = () => {
   };
 
   return (
-    <>
+    <section className="wrapper-focus-mode-analytics">
       <div
         className="box-analytics animate__animated animate__fadeInUpBig"
         onClick={(e) => handlePropagation(e)}
@@ -53,7 +53,7 @@ const AnalyticsView = () => {
           <span>Cancel</span>
         </button>
       </div>
-    </>
+    </section>
   );
 };
 

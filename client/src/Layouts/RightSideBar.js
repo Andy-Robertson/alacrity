@@ -30,7 +30,9 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
               className="img-circular"
             ></img>
           </li>
-          <li className="right-sidebar-li">Sign-out</li>
+          <li className="right-sidebar-li ">
+          <p>Sign-out</p>
+          </li>
         </ul>
       )}
       {user && (!isTaskFocused && !isAnalyticsFocused) && (
