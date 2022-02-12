@@ -146,7 +146,7 @@ const router = (app) => {
         task_id,
       ])
       .then(() => {
-        if(sub_tasks){
+        if (sub_tasks) {
           const queryPromises = [];
           // console.log(sub_tasks);
           sub_tasks.forEach((sub_task) => {
@@ -174,7 +174,7 @@ const router = (app) => {
             queryPromises.push(queryPromise);
           });
           Promise.all(queryPromises).then(() => res.sendStatus(201));
-        }else{
+        } else {
           res.sendStatus(204);
         }
       })
@@ -187,7 +187,7 @@ const router = (app) => {
     const ids = req.body["id"];
     console.log(ids);
 
-    if(ids){
+    if (ids) {
       const queryPromises = [];
       ids.forEach((id) => {
         if (id) {
@@ -200,7 +200,7 @@ const router = (app) => {
         }
       });
       Promise.all(queryPromises).then(() => res.sendStatus(200));
-    }else{
+    } else {
       res.sendStatus(204);
     }
   });
@@ -288,6 +288,71 @@ const router = (app) => {
       .then(() => {
         res.sendStatus(201);
       })
+      .catch((e) => console.error(e));
+  });
+
+  // Analytics
+  app.get("/api/tasks/analytics", (req, res) => {
+    const auth_id = req.session.passport.user;
+
+    // Getting user Id
+    pool
+      .query(FIND_USER_BY_ID, [auth_id])
+      .then((result) => {
+        const user_id = result.rows[0].id;
+        pool
+          .query("SELECT * FROM analytics WHERE user_id = $1", [user_id])
+          .then((analyticsDataResult) => {
+            res.status(200).json(analyticsDataResult.rows);
+          })
+          .catch((e) => console.error(e));
+      })
+      .catch((e) => console.error(e));
+
+
+        //     // remove duplicate object from completedTasksArray
+        //     const uniqueCompletedTasksArray = Array.from(
+        //       new Set(completedTasksArray.map((task) => task.id))
+        //     ).map((id) => {
+        //       return completedTasksArray.find((task) => task.id === id);
+  });
+
+  app.post("/api/tasks/analytics", (req, res) => {
+    const { user_id, task_id, task_archived, by_date, is_completed } = req.body;
+
+    if (task_archived) {
+      pool
+        .query("SELECT * FROM analytics WHERE task_id = $1", [task_id])
+        .then((result) => {
+          if (result.rows.length === 0) {
+            pool
+              .query(
+                "INSERT INTO analytics (task_id, task_archived, by_date, is_completed, user_id) VALUES ($1, $2, $3, $4, $5)",
+                [task_id, task_archived, by_date, is_completed, user_id]
+              )
+              .then(() => res.sendStatus(201))
+              .catch((e) => console.error(e));
+          } else {
+            res.sendStatus(204);
+          }
+        })
+        .catch((e) => console.error(e));
+    } else {
+      pool
+        .query("DELETE FROM analytics WHERE task_id = $1", [task_id])
+        .then(() => res.sendStatus(200))
+        .catch((e) => console.error(e));
+    }
+  });
+
+  app.put("/api/tasks/analytics", (req, res) => {
+    const { task_id, is_completed } = req.body;
+    pool
+      .query("UPDATE analytics SET is_completed = $1 WHERE task_id = $2", [
+        is_completed,
+        task_id,
+      ])
+      .then(() => res.sendStatus(201))
       .catch((e) => console.error(e));
   });
 

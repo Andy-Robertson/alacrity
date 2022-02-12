@@ -4,8 +4,15 @@
 }
 main {
   display: grid;
-  grid-template-columns: 0.5fr 2fr 0.6fr;
   height: 100vh;
+}
+
+.main-task-mode {
+  grid-template-columns: 0.5fr 2fr 0.6fr;
+}
+
+.main-focus-modes {
+  grid-template-columns: 0.5fr 9fr 0.5fr;
 }
 
 /* Left sidebar */
@@ -269,6 +276,12 @@ main {
   box-shadow: none;
 }
 
+.wrapper-focus-mode-analytics {
+  grid-template-columns: 1fr;
+  grid-template-rows: 9.5fr 0.3fr 0.2fr;
+  box-shadow: none;
+}
+
 .wrapper-task-mode {
   grid-template-columns: 1.3fr 1fr;
   grid-template-rows: 2em 0.1fr 1fr;
@@ -480,7 +493,7 @@ article header .ions {
 }
 
 .card-footer-complete {
-  color: rgba(26, 161, 60, 0.527);
+  color: #27ae5fbe;
 }
 
 .card-footer-incomplete {
@@ -497,60 +510,70 @@ article header .ions {
   overflow: hidden;
   padding: 0 1rem;
   height: 2rem;
-  width: 10rem;
-  background-color: rgba(21, 216, 21, 0.199);
+  width: 11rem;
+  background-color: #27ae5f;
   cursor: pointer;
+  color: #fff;
+  font-weight: bold;
 }
 
 .complete-task-button:hover,
 .complete-task-button:focus {
-  background-color: rgba(21, 216, 21, 0.404);
+  background-color: #27ae5fbe;
 }
 
 /* Round checkbox */
 
-.round {
-  position: relative;
-  grid-column: 2;
+.task-checkbox {
+  padding: 0.2rem 2.5rem;
 }
 
-.round label {
-  background-color: #fff;
-  border: 1px solid var(--color-light);
-  border-radius: 50%;
+
+.task-checkbox label:hover {
   cursor: pointer;
-  height: 20px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 20px;
 }
 
-.round label:after {
-  border: 2px solid var(--color-light);
-  border-top: none;
-  border-right: none;
+.task-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.task-checkbox label {
+  position: relative;
+}
+.task-checkbox input[type="checkbox"]:checked + label.strikethrough {
+  text-decoration: line-through;
+  text-decoration-color: #27ae5f;
+  color: grey;
+  font-style: oblique;
+}
+
+.task-checkbox label::before {
   content: "";
-  height: 6px;
-  left: 7px;
-  opacity: 0;
+  background: url("../img/check-circle.svg");
+  background-position: center;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
   position: absolute;
-  top: 8px;
-  transform: rotate(-45deg);
-  width: 12px;
+  left: -44px;
+  top: -8px;
+  transform: scale(0) rotateZ(180deg);
+  transition: all 0.4s cubic-bezier(0.54, 0.01, 0, 1.49);
 }
 
-.round input[type="checkbox"] {
-  visibility: hidden;
+.task-checkbox input[type="checkbox"]:checked + label::before {
+  transform: scale(1) rotateZ(0deg);
 }
 
-.round input[type="checkbox"]:checked + label {
-  background-color: var(--color-light);
-  border-color: var(--color-light);
-}
-
-.round input[type="checkbox"]:checked + label:after {
-  opacity: 1;
+.task-checkbox label::after {
+  content: "";
+  border: 2px solid var(--olor-light);
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  left: -42px;
+  top: -6px;
+  border-radius: 50%;
 }
 
 /* Tabs */
@@ -889,12 +912,14 @@ a:visited {
 }
 
 .resources-pill {
-  display: inline-block;
-  margin: 20px 10px 0 0;
-  padding: 6px 12px;
   background: var(--color-light);
+  list-style-type: none;
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 0.8rem 0.3rem 0 0;
+  padding: 0.3rem 0.6rem;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 1px;
   font-weight: bold;
   color: #777;
@@ -978,16 +1003,17 @@ a:visited {
   outline: 0;
   border-radius: 5px;
   padding: 0 1rem;
-  background-color: rgba(21, 216, 21, 0.199);
-  box-shadow: 0.2em 0.4em 3px 1.5px rgba(21, 216, 21, 0.199);
-
+  background-color: #27ae5f;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0.2em 0.4em 3px 1.5px #27ae5f;
   cursor: pointer;
 }
 
 .focussed-task-complete-btn:hover,
 .focussed-task-complete-btn:focus {
-  background-color: rgba(21, 216, 21, 0.404);
-  box-shadow: 0.2em 0.4em 3px 1.5px rgba(21, 216, 21, 0.404);
+  background-color: #27ae5fbe;
+  box-shadow: 0.2em 0.4em 3px 1.5px #27ae5fbe;
 }
 
 .settings-btn-focus-mode {
@@ -1100,7 +1126,7 @@ a:visited {
     left: 17%;
     bottom: -10vh;
   }
-  /* ham menu */
+  
   /* Ham menu */
   #menuBigScreen {
     display: none;

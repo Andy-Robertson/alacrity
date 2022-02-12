@@ -142,7 +142,10 @@ function AddTask(props) {
           />
         </div>
         <h4>Sub Tasks</h4>
-        <Toggle handleCheck={(evt) => setToggled(evt.target.checked)} checked={toggled}/>
+        <Toggle
+          handleCheck={(evt) => setToggled(evt.target.checked)}
+          checked={toggled}
+        />
         {/* <p> the button is {toggled ? "on" : "off"}</p> */}
         {toggled && (
           <div>
@@ -217,18 +220,13 @@ function AddTask(props) {
           />
         </div>
         <div className="buttons">
-          <button className="btn cancel" onClick={() => props.closeBtn(false)} >
-            <span>
-              Cancel
-            </span>
+          <button className="btn cancel" onClick={() => props.closeBtn(false)}>
+            <span>Cancel</span>
           </button>
           <button className="btn" type="submit">
-            <span>
-              Add
-            </span>
+            <span>Add</span>
           </button>
         </div>
-
       </form>
     </div>
   );

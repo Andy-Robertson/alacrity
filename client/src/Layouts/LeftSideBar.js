@@ -10,12 +10,15 @@ import SiteSettingsPopup from "../Components/Settings/SiteSettingsPopup";
 
 const LeftSideBar = ({ user }) => {
   const [settingsIsOpen, setSettingsIsOpen] = useState(false);
-    const { isTaskFocused } = useContext(GlobalContext);
+  const { isTaskFocused, isAnalyticsFocused, setIsAnalyticsFocused } = useContext(GlobalContext);
+
   return (
     <aside className="left-sidebar">
-      {user && !isTaskFocused && <img src={Logo} alt="logo"></img>}
+      {user && !isTaskFocused && !isAnalyticsFocused && (
+        <img src={Logo} alt="logo"></img>
+      )}
 
-      {user && isTaskFocused && (
+      {user && (isTaskFocused || isAnalyticsFocused) && (
         <div
           onClick={() => {
             setSettingsIsOpen(true);
@@ -26,75 +29,80 @@ const LeftSideBar = ({ user }) => {
         </div>
       )}
 
-      {user && !isTaskFocused && (
+      {user && ( !isTaskFocused && !isAnalyticsFocused) && (
         <>
-        <div id="menuBigScreen" className="items animate__animated animate__fadeInLeftBig">
-          <div>
-            <a href="#left-sidebar">
-              <img src={DashBoardImg} alt="dashboard logo"></img>
-              <span>Dashboard</span>
-            </a>
-          </div>
-          <div>
-            <a href="#">
-              <img src={PieChartImg} alt="Analytics logo"></img>
-              <span>Analytics</span>
-            </a>
-          </div>
           <div
-            onClick={() => {
-              setSettingsIsOpen(true);
-            }}
-            className="settings-btn"
+            id="menuBigScreen"
+            className="items animate__animated animate__fadeInLeftBig"
           >
-            <img src={SettingsImg} alt="settings logo"></img>
-            <span>Settings</span>
-          </div>
-        </div>
-        {/* for smaller screen */}
-        <nav role="navigation">
-          <div id="menuToggle">
-            {/* A fake / hidden checkbox is used as click reciever,
-    so you can use the :checked selector on it. */}
-            <input type="checkbox" />
-
-            {/* Some spans to act as a hamburger. */}
-            <span></span>
-            <span></span>
-            <span></span>
-
-            {/* Too bad the menu has to be inside of the button
-    but hey, it's pure CSS magic.*/}
-            <ul id="menu">
+            <div>
               <a href="#left-sidebar">
-                <li className="menu-li">
-                  <img src={DashBoardImg} alt="dashboard logo"></img>
-                  <div className="menu-div">Dashboard</div>
-                </li>
+                <img src={DashBoardImg} alt="dashboard logo"></img>
+                <span>dashboard</span>
               </a>
-              <a href="#">
-                <li className="menu-li">
-                  <img src={PieChartImg} alt="Analytics logo"></img>
-                  <div className="menu-div">Analytics</div>
-                </li>
-              </a>
+            </div>
+            <div
+              onClick={() => setIsAnalyticsFocused(true)}
+              className="analytics-btn"
+            >
               <a>
-                <li className="menu-li">
-                  <div
-                    onClick={() => {
-                      setSettingsIsOpen(true);
-                    }}
-                    className="settings-btn"
-                  >
-                    <img src={SettingsImg} alt="settings logo"></img>
-                    <div className="menu-div">Settings</div>
-                  </div>
-                </li>
+                <img src={PieChartImg} alt="Analytics logo"></img>
+                <span>Analytics</span>
               </a>
-
-            </ul>
+            </div>
+            <div
+              onClick={() => {
+                setSettingsIsOpen(true);
+              }}
+              className="settings-btn"
+            >
+              <img src={SettingsImg} alt="settings logo"></img>
+              <span>Settings</span>
+            </div>
           </div>
-        </nav>
+          {/* for smaller screen */}
+          <nav role="navigation">
+            <div id="menuToggle">
+              {/* A fake / hidden checkbox is used as click reciever,
+    so you can use the :checked selector on it. */}
+              <input type="checkbox" />
+
+              {/* Some spans to act as a hamburger. */}
+              <span></span>
+              <span></span>
+              <span></span>
+
+              {/* Too bad the menu has to be inside of the button
+    but hey, it's pure CSS magic.*/}
+              <ul id="menu">
+                <a href="#left-sidebar">
+                  <li className="menu-li">
+                    <img src={DashBoardImg} alt="dashboard logo"></img>
+                    <div className="menu-div">Dashboard</div>
+                  </li>
+                </a>
+                <a href="#" onClick={() => setIsAnalyticsFocused(true)}>
+                  <li className="menu-li">
+                    <img src={PieChartImg} alt="Analytics logo"></img>
+                    <div className="menu-div">Analytics</div>
+                  </li>
+                </a>
+                <a>
+                  <li className="menu-li">
+                    <div
+                      onClick={() => {
+                        setSettingsIsOpen(true);
+                      }}
+                      className="settings-btn"
+                    >
+                      <img src={SettingsImg} alt="settings logo"></img>
+                      <div className="menu-div">Settings</div>
+                    </div>
+                  </li>
+                </a>
+              </ul>
+            </div>
+          </nav>
         </>
       )}
       {settingsIsOpen && <SiteSettingsPopup close={setSettingsIsOpen} />}
