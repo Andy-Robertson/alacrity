@@ -52,7 +52,7 @@ const FocusTaskView = ({ taskData }) => {
   };
 
   return (
-    <>
+    <section className="wrapper-focus-mode">
       <div className="focused-card animate__animated animate__backInLeft">
         <h2 className="focused-card-title">{focusedTask.task_subject}</h2>
 
@@ -129,7 +129,7 @@ const FocusTaskView = ({ taskData }) => {
         </span>
       </div>
       <Pomodoro />
-    </>
+    </section>
   );
 };
 

@@ -8,7 +8,7 @@ const TaskListView = ({ user, taskData, submitComplete }) => {
   );
 
   return (
-    <>
+    <section className="wrapper">
       <div className="wrapper__text animate__animated animate__fadeInLeftBig">
         <h3>Welcome back {user.displayName}!</h3>
         <h2>You've got {todayData.length} tasks today</h2>
@@ -30,7 +30,7 @@ const TaskListView = ({ user, taskData, submitComplete }) => {
         </div>
       </div>
 
-    </>
+    </section>
   );
 };
 
