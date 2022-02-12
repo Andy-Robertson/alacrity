@@ -6,13 +6,16 @@ import PlusImg from "../Assets/img/plus-math-30.png";
 import Popup from "../Components/Popup";
 import placeholderAvatar from "../Assets/img/avatar-placeholder.png";
 import Pomodoro from "../Components/Pomodoro/Pomodoro";
+import PomodoroMobilePopup from "../Components/Pomodoro/PomodoroMobilePopup";
 
 const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
   const [isOpen, setIsOpen] = useState(false);
-    const { isTaskFocused, isAnalyticsFocused } = useContext(GlobalContext);
+  const { isTaskFocused, isAnalyticsFocused } = useContext(GlobalContext);
+  
   const logout = () => {
     window.open(`${SERVER_URL}/auth/logout`, "_self");
   };
+
   return (
     <aside className="right-sidebar">
       {user && (!isTaskFocused && !isAnalyticsFocused) && (

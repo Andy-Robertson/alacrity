@@ -1,7 +1,6 @@
 import React from "react";
 
 const CheckboxToggle = (props) => {
-  console.log(props);
   return (
     <div className="toggle-btn">
       <input

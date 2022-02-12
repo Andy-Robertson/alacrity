@@ -127,7 +127,7 @@ const Pans = (props) => {
                 )}
 
                 {!task.task_archived && (
-                  <a href="#" onClick={() => handleActiveView(task)}>
+                  <a href="#" className="focus-mode-btn" onClick={() => handleActiveView(task)}>
                     <img src={ScheduleImg} alt="schedule"></img>
                   </a>
                 )}
