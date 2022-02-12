@@ -1017,19 +1017,8 @@ article header .ions {
   cursor: pointer;
 }
 .box-analytics {
-  /* position: relative; */
-  /* display: flex; */
-  /* width: 90%;
-  margin: 0 auto; */
-  /* height: auto;
-  max-height: 100vh; */
-  /* margin-top: calc(100vh - 85vh - 20px); */
-  /* background: #fff;
-  padding: 20px;
-  border: 1px solid #999;
-  /* box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
-  border-radius: 15px;  */
   overflow: auto;
+  margin-bottom: 0.5rem;
 }
 
 /* Charts */
