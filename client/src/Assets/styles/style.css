@@ -562,7 +562,7 @@ article header .ions {
 
 .task-checkbox label::after {
   content: "";
-  border: 2px solid var(--olor-light);
+  border: 2px solid var(--color-light);
   width: 24px;
   height: 24px;
   position: absolute;
