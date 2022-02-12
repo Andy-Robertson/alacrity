@@ -404,8 +404,10 @@ main {
   box-shadow: 0.2em 0.3em 0.5px 0 rgba(0, 0, 0, 0.1),
     -0.1em -0.1em 0.3px 0 rgba(0, 0, 0, 0.06);
   border-radius: 0.8rem;
-  margin: 1.2rem auto;
-  padding: 0.5em 0;
+  /* margin: 1.2rem auto;
+  padding: 0.5em 0; */
+  margin: 3.5rem auto;
+  padding: 0.8em 0;
 }
 
 article > * {
@@ -558,8 +560,10 @@ article header .ions {
   list-style: none;
   padding: 0;
   /* margin: 0 1rem; */
-  width: 94%;
-  margin: 0 auto;
+  /* width: 94%; */
+  margin: 0 2em;
+  position: fixed;
+  z-index: 9999;
 }
 
 .tabs > li {
