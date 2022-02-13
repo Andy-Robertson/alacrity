@@ -95,7 +95,7 @@ function MonthlyLineChart({ data }) {
     datasets: [
       // array of object, each object correspond to one line
       {
-        label: "Tasks Completed",
+        label: "Complete",
         data: numberOfCompletedTasks,
         backgroundColor: ["rgba(29, 160, 242, 0.69)"],
         borderColor: ["rgba(29, 160, 242, 0.69)"],
@@ -103,7 +103,7 @@ function MonthlyLineChart({ data }) {
         pointBorderColor: ["rgba(29, 160, 242, 0.69)"],
       },
       {
-        label: "Tasks Uncompleted",
+        label: "Incomplete",
         data: numberOfUncompletedTasks,
         backgroundColor: ["rgba(224, 195, 252, 1)"],
         borderColor: ["rgba(224, 195, 252, 1)"],
@@ -118,7 +118,7 @@ function MonthlyLineChart({ data }) {
     plugins: {
       title: {
         display: true,
-        text: "Last 30 days of Your Progress",
+        text: "Task Progress (last 30 days)",
       },
     },
     scales: {
@@ -131,7 +131,7 @@ function MonthlyLineChart({ data }) {
       x: {
         title: {
           display: true,
-          text: "Time",
+          text: "Time (Days)",
         },
       },
     },
