@@ -36,10 +36,10 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
         </ul>
       )}
       {user && (!isTaskFocused && !isAnalyticsFocused) && (
-        <>
+        <section className="btn-wrapper">
         <button
           type="button"
-          className="btn animate__animated animate__fadeInRightBig"
+          className="btn btn-right-sidebar animate__animated animate__fadeInRightBig"
           onClick={() => {
             setIsOpen(true);
           }}
@@ -64,7 +64,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
             <span className="btn__text">Pomodoro</span>
           </button>
 
-        </>
+        </section>
       )}
       {isOpen && <Popup close={setIsOpen} submitComplete={submitComplete} />}
       {user && (!isTaskFocused && !isAnalyticsFocused) && <Pomodoro />}

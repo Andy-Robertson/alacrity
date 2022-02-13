@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import { GlobalContext } from "../Contexts/GlobalContext";
 
 import Logo from "../Assets/img/logo.svg";
-import DashBoardImg from "../Assets/img/dashboard-24.png";
+// import DashBoardImg from "../Assets/img/dashboard-24.png";
 import PieChartImg from "../Assets/img/pie-chart-24.png";
 import SettingsImg from "../Assets/img/settings-24.png";
 import SiteSettingsPopup from "../Components/Settings/SiteSettingsPopup";
@@ -35,12 +35,12 @@ const LeftSideBar = ({ user }) => {
             id="menuBigScreen"
             className="items animate__animated animate__fadeInLeftBig"
           >
-            <div>
+            {/* <div>
               <a href="#left-sidebar">
                 <img src={DashBoardImg} alt="dashboard logo"></img>
                 <span>dashboard</span>
               </a>
-            </div>
+            </div> */}
             <div
               onClick={() => setIsAnalyticsFocused(true)}
               className="analytics-btn"
@@ -75,12 +75,12 @@ const LeftSideBar = ({ user }) => {
               {/* Too bad the menu has to be inside of the button
     but hey, it's pure CSS magic.*/}
               <ul id="menu">
-                <a href="#left-sidebar">
+                {/* <a href="#left-sidebar">
                   <li className="menu-li">
                     <img src={DashBoardImg} alt="dashboard logo"></img>
                     <div className="menu-div">Dashboard</div>
                   </li>
-                </a>
+                </a> */}
                 <a href="#" onClick={() => setIsAnalyticsFocused(true)}>
                   <li className="menu-li">
                     <img src={PieChartImg} alt="Analytics logo"></img>
