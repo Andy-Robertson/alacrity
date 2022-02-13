@@ -35,12 +35,12 @@ const LeftSideBar = ({ user }) => {
             id="menuBigScreen"
             className="items animate__animated animate__fadeInLeftBig"
           >
-            <div>
+            {/* <div>
               <a href="#left-sidebar">
                 <img src={DashBoardImg} alt="dashboard logo"></img>
                 <span>dashboard</span>
               </a>
-            </div>
+            </div> */}
             <div
               onClick={() => setIsAnalyticsFocused(true)}
               className="analytics-btn"
