@@ -1470,7 +1470,7 @@ a:visited {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    grid-row: 5;
+    /* grid-row: 5; */
     width: 90%;
     height: 80%;
     border: 1px solid rgba(147, 197, 252, 0.3);
