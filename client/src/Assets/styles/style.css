@@ -3,20 +3,6 @@
   --color-dark:  #d4e7fe;
   --color-date-time: #8fbcf3;
 }
-/* main {
-  display: grid;
-  grid-template-columns: 0.5fr 2fr 0.6fr;
-  height: 100vh;
-} */
-
-/* 
-.main-task-mode {
-  grid-template-columns: 0.5fr 2fr 0.6fr;
-} */
-
-.main-focus-modes {
-  grid-template-columns: 0.5fr 9fr 0.5fr;
-}
 
 /* Left sidebar */
 
@@ -789,19 +775,10 @@ a:visited {
   cursor: pointer; /* Mouse pointer on hover */
 }
 
-.buttons {
-  display: flex;
-  justify-content: flex-end;
-}
+
 
 .cancel {
   background-color: var(--color-light);
-}
-
-.buttons .btn {
-  display: block;
-  height: 2.4rem;
-  width: 7rem;
 }
 
 /* Settings */
@@ -1001,46 +978,6 @@ a:visited {
   box-shadow: none;
 }
 
-/* Charts */
-.chart {
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-}
-.doughnut-chart {
-  height: 20rem;
-  width: 20rem;
-  margin: 0.5rem 0;
-}
-.line-chart-container {
-  display: flex;
-  flex-flow: row wrap;
-  margin: 0.5rem 0;
-}
-.line-chart {
-  width: 30rem;
-  margin: 0 2rem;
-}
-/* Charts */
-.chart {
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-}
-.doughnut-chart {
-  height: 20rem;
-  width: 20rem;
-  margin: 0.5rem 0;
-}
-.line-chart-container {
-  display: flex;
-  flex-flow: row wrap;
-  margin: 0.5rem 0;
-}
-.line-chart {
-  width: 30rem;
-  margin: 0 2rem;
-}
 
 /* smartphones, iPhone, portrait 480x320 phones */
 @media screen and (min-width: 320px) {
@@ -1342,6 +1279,41 @@ a:visited {
     justify-content: center;
   }
 
+  /* Analytics */
+  .box-analytics {
+    margin-bottom: 1rem;
+  }
+  .main-analytics-mode {
+    grid-template-rows: 0% 1fr;
+  }
+  .title-analytics{
+    font-size: 1em;
+  }
+
+  .line-chart-container {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0.5rem 0;
+  }
+
+  .line-chart {
+    width: 24rem;
+    margin: 0;
+  }
+  .doughnut-chart {
+    width: 50%;
+    margin: 0.5rem auto;
+  }
+  .buttons {
+    display: flex;
+    justify-content: center;
+  }
+  .buttons .btn {
+    display: block;
+    height: 3rem;
+    width: 7rem;
+    margin: 0;
+  }
 }
 
 /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
@@ -1383,6 +1355,12 @@ a:visited {
   #menu {
     height: 83vh;
   }
+  .line-chart {
+    width: 30rem;
+  }
+  .doughnut-chart {
+    width: 55%;
+  }
 }
 
 /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
@@ -1405,6 +1383,20 @@ a:visited {
   .wrapper__text {
     width: 92%;
   }
+  .main-analytics-mode {
+    grid-template-columns: 1fr 0;
+  }
+  .chart {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+  }
+  .line-chart {
+    width: 40rem;
+  }
+  .line-chart-container {
+    justify-content: center;
+}
 }
 
 /* tablet, landscape iPad, lo-res laptops ands desktops 961px */
@@ -1492,6 +1484,38 @@ a:visited {
     width: 80%;
     align-self: center;
   }
+  /* Charts */
+  .main-analytics-mode {
+    grid-template-columns: 0 1fr 0;
+}
+  .chart {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+  }
+  .line-chart-container {
+    /* justify-content: center; */
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0.5rem 0;
+  }
+  .line-chart {
+    margin: 0 2rem;
+  }
+  .doughnut-chart {
+    /* height: 20rem; */
+    width: 20rem;
+    margin: 0.5rem 0;
+  }
+  .buttons {
+    justify-content: flex-end;
+  }
+  
+  .buttons .btn {
+    height: 2.4rem;
+    width: 7rem;
+  }
+  
 }
 /* big landscape tablets, laptops, and desktops */
 /* @media (min-width:1025px) {  } */

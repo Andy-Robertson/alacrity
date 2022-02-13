@@ -113,11 +113,11 @@ function App() {
         setTasksData(data);
       });
   };
-const FOCUS_MODE = "main-focus-modes";
-const TASK_MODE = "main-task-mode";
+
+const ANALYTICS_MODE = "main-analytics-mode";
 
   return (
-    <main className={isAnalyticsFocused ? FOCUS_MODE : TASK_MODE}>
+    <main className={isAnalyticsFocused ? ANALYTICS_MODE : ""}>
       <GlobalContext.Provider
         value={{
           minutes,
