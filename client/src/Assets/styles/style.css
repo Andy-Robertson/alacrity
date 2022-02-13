@@ -131,16 +131,6 @@
 }
 
 /* Pomodoro */
-
-.pomodoro-wrapper {
-  justify-self: center;
-  display: grid;
-  grid-template-rows: 2rem 0.27fr 0.5fr 0.27fr;
-  height: 90%;
-  border: 2px solid rgba(147, 197, 252, 0.3);
-  border-radius: 15px;
-}
-
 .pomodoro-wrapper-task-mode {
   grid-row: 5;
   width: 90%;
@@ -150,15 +140,6 @@
   grid-row: 3;
   grid-column: 2;
   width: 90%;
-}
-
-.pomodoro-wrapper-small-device {
-  display: grid;
-  justify-self: center;
-  /* grid-template-rows: 2rem 0.2fr 0.5fr 0.3fr; */
-  border: 2px solid rgba(147, 197, 252, 0.3);
-  border-radius: 15px;
-  grid-row: 1;
 }
 
 .pomodoro-popup-wrapper {
@@ -182,31 +163,11 @@
   align-self: end;
 }
 
-.pomodoro-time-selector-wrapper {
-  justify-self: center;
-  align-self: center;
-  height: 4rem;
-  grid-row: 2;
-  width: 80%;
-  border: 2px solid rgba(147, 197, 252, 0.3);
-  border-radius: 6px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .pomodoro-animation-wrapper {
   width: 80%;
   align-self: center;
   justify-self: center;
   grid-row: 3;
-}
-
-.pomodoro-start-reset-wrapper {
-  display: flex;
-  grid-row: 4;
-  align-self: center;
-  justify-content: center;
 }
 
 .pomodoro-btn {
@@ -1081,7 +1042,6 @@ a:visited {
   margin: 0 2rem;
 }
 
-
 /* smartphones, iPhone, portrait 480x320 phones */
 @media screen and (min-width: 320px) {
   main {
@@ -1338,6 +1298,50 @@ a:visited {
   #menuToggle input:checked ~ ul {
     transform: none;
   }
+
+  /* Pomodoro */
+  .CircularProgressbar .CircularProgressbar-path,
+  .CircularProgressbar .CircularProgressbar-trail {
+      stroke-width: 2;
+  }
+  .pomodoro-animation-wrapper .CircularProgressbar .CircularProgressbar-text {
+      font-size: 1em;
+  }
+
+  .pomodoro-popup-wrapper {
+    width: 80%;
+  }
+
+  .pomodoro-wrapper-small-device {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 90%;
+    height: 100%;
+    border: 1px solid rgba(147, 197, 252, 0.3);
+    border-radius: 15px;
+    margin: 0 auto;
+  }
+  .pomodoro-animation-wrapper {
+    width: 80%;
+    align-self: center;
+    justify-self: center;
+  }
+  .pomodoro-time-selector-wrapper {
+    justify-self: center;
+    align-self: center;
+    width: 80%;
+    height: 3rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pomodoro-start-reset-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
 }
 
 /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
@@ -1408,9 +1412,6 @@ a:visited {
   .btn-small-screen {
     display: none;
   }
-  .pomodoro-wrapper {
-    display: grid;
-  }
   main {
     display: grid;
     grid-template-columns: 0.3fr 1fr 0.5fr;
@@ -1470,6 +1471,26 @@ a:visited {
   }
   #menuToggle {
     display: none;
+  }
+
+  /* Pomodoro */
+  .pomodoro-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    grid-row: 5;
+    width: 90%;
+    height: 80%;
+    border: 1px solid rgba(147, 197, 252, 0.3);
+    border-radius: 15px;
+    margin: 0 auto;
+  }
+  .pomodoro-time-selector-wrapper {
+    height: 3rem;
+  }
+  .pomodoro-animation-wrapper {
+    width: 80%;
+    align-self: center;
   }
 }
 /* big landscape tablets, laptops, and desktops */
