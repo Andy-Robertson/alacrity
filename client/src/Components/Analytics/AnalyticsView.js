@@ -28,7 +28,7 @@ const AnalyticsView = () => {
           {data.length > 0 ? (
             <div>
               <h2 className="title-analytics">
-                Complete Tasks Vs Incomplete Tasks
+                Complete Vs Incomplete Tasks
               </h2>
               <div className="chart">
                 <div className="line-chart-container">
