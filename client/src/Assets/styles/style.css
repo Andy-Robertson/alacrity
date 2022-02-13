@@ -1,5 +1,6 @@
 :root {
   --color-light: #e0c3fc;
+  --color-dark:  #d4e7fe;
   --color-date-time: #8fbcf3;
 }
 main {
@@ -7,10 +8,10 @@ main {
   grid-template-columns: 0.5fr 2fr 0.6fr;
   height: 100vh;
 }
-
+/* 
 .main-task-mode {
   grid-template-columns: 0.5fr 2fr 0.6fr;
-}
+} */
 
 .main-focus-modes {
   grid-template-columns: 0.5fr 9fr 0.5fr;
@@ -263,14 +264,15 @@ main {
 /* Middle content */
 
 .wrapper {
-  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3),
-    -0.2em -0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
+  /* box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3),
+    -0.2em -0.4em 3px 1.5px rgba(147, 197, 252, 0.3); */
   /* height: 100vh; */
   /* height: unset; */
-  border-radius: 0.8rem;
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   grid-template-rows: 2em 0.1fr 1fr;
+  border: 1px solid var(--color-dark);
+  border-radius: 0.8rem;
   overflow: hidden;
 }
 
@@ -413,13 +415,14 @@ main {
 
 .wrapper__cards > article {
   width: 90%;
-  box-shadow: 0.2em 0.3em 0.5px 0 rgba(0, 0, 0, 0.1),
-    -0.1em -0.1em 0.3px 0 rgba(0, 0, 0, 0.06);
-  border-radius: 0.8rem;
+  /* box-shadow: 0.2em 0.3em 0.5px 0 rgba(0, 0, 0, 0.1),
+    -0.1em -0.1em 0.3px 0 rgba(0, 0, 0, 0.06); */
   /* margin: 1.2rem auto;
   padding: 0.5em 0; */
   margin: 3.5rem auto;
   padding: 0.8em 0;
+  border-radius: 0.8rem;
+  border: 1px solid var(--color-dark);
 }
 
 article > * {
