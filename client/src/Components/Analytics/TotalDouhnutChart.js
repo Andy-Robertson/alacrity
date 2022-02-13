@@ -22,7 +22,7 @@ function TotalDouhnutChart({ data }) {
     plugins: {
       title: {
         display: true,
-        text: "Tasks Progress Overview",
+        text: "Task Progress Overview",
       },
     },
   };
