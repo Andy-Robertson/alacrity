@@ -26,6 +26,11 @@ const Pans = (props) => {
     setTaskIdsNotComplete(taskNotCompleteIds);
   }, [props]);
 
+  // console.log(taskIdsNotComplete);
+  // const taskCompleteIds = props.data.filter(
+  //   (task) => !taskIdsNotComplete.includes(task.id)
+  // );
+  // console.log(taskCompleteIds);
   const handleEditPopup = (e, task) => {
     e.stopPropagation();
     setTaskSelected(task);
@@ -34,6 +39,7 @@ const Pans = (props) => {
 
   const handleArchiveTask = (task) => {
     const taskArchived = task.task_archived ? false : true;
+
 
     fetch("/api/tasks/archived", {
       method: "PUT",
@@ -45,11 +51,38 @@ const Pans = (props) => {
         "Content-Type": "application/json",
       },
     }).then(() => {
+      fetch("/api/tasks/analytics", {
+        method: "POST",
+        body: JSON.stringify({
+          user_id: task.user_id,
+          task_id: task.id,
+          task_archived: taskArchived,
+          by_date: task.by_date,
+          is_completed: !taskIdsNotComplete.includes(task.id) ? true : false,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       fetch("/api/tasks")
         .then((res) => res.json())
         .then((data) => {
           setTasksData(data);
         });
+    });
+  };
+
+  // update analytics table if the sub tasks are clicked in the archive tab.
+  const updateAnalyticsTable = (id, boolean) => {
+    fetch("/api/tasks/analytics", {
+      method: "PUT",
+      body: JSON.stringify({
+        task_id: id,
+        is_completed: boolean,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
   };
 
@@ -59,7 +92,6 @@ const Pans = (props) => {
     const completedTask = props.data.find(
       (task) => task.id === parseInt(e.target.id)
     );
-
     handleArchiveTask(completedTask);
     taskCompleteSound.play();
   };
@@ -95,7 +127,7 @@ const Pans = (props) => {
                 )}
 
                 {!task.task_archived && (
-                  <a href="#" onClick={() => handleActiveView(task)}>
+                  <a href="#" className="focus-mode-btn" onClick={() => handleActiveView(task)}>
                     <img src={ScheduleImg} alt="schedule"></img>
                   </a>
                 )}
@@ -159,10 +191,16 @@ const Pans = (props) => {
                   </button>
                 )}
                 {!taskIdsNotComplete.includes(task.id) && task.task_archived && (
+                  <div>
+                    {updateAnalyticsTable(task.id, true)}
                     <span className="card-footer-complete">Complete</span>
-                  )}
+                  </div>
+                )}
                 {taskIdsNotComplete.includes(task.id) && task.task_archived && (
-                  <span className="card-footer-incomplete">Incomplete</span>
+                  <div>
+                    {updateAnalyticsTable(task.id, false)}
+                    <span className="card-footer-incomplete">Incomplete</span>
+                  </div>
                 )}
               </span>
             </footer>

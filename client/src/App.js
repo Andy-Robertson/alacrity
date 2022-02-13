@@ -25,6 +25,7 @@ function App() {
   const [enableNotificationSound, setEnableNotificationSound] = useState(null);
   const [enableNotifications, setEnableNotifications] = useState(null);
   const [isTaskFocused, setIsTaskFocused] = useState(false);
+  const [isAnalyticsFocused, setIsAnalyticsFocused] = useState(false);
 
   useEffect(() => {
     const getUser = () => {
@@ -112,9 +113,11 @@ function App() {
         setTasksData(data);
       });
   };
+const FOCUS_MODE = "main-focus-modes";
+const TASK_MODE = "main-task-mode";
 
   return (
-    <main>
+    <main className={isAnalyticsFocused ? FOCUS_MODE : TASK_MODE}>
       <GlobalContext.Provider
         value={{
           minutes,
@@ -128,6 +131,8 @@ function App() {
           setEnableNotifications,
           isTaskFocused,
           setIsTaskFocused,
+          isAnalyticsFocused,
+          setIsAnalyticsFocused,
         }}
       >
         <LeftSideBar user={user} />

@@ -8,7 +8,7 @@ const TaskListView = ({ user, taskData, submitComplete }) => {
   );
 
   return (
-    <>
+    <section className="wrapper">
       <div className="wrapper__text animate__animated animate__fadeInLeftBig">
         <h3>Welcome back {user.displayName}!</h3>
         <h2>You've got {todayData.length} tasks today</h2>
@@ -19,15 +19,18 @@ const TaskListView = ({ user, taskData, submitComplete }) => {
         )}
       </div>
       <div className="wrapper__bk animate__animated animate__fadeIn animate__delay-1s">
-        <div>
-          <h4>
-            " The only difference between success and failure is the ability to
-            take action."
-          </h4>
-          <small>Alexander Graham Bell</small>
+        <div className="bk-image">
+          <span className="bk-text">
+            <h4>
+              "The only difference between success and failure is the ability to
+              take action."
+            </h4>
+            <small>Alexander Graham Bell</small>
+          </span>
         </div>
       </div>
-    </>
+
+    </section>
   );
 };
 
