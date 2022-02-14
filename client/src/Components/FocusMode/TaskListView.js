@@ -13,7 +13,7 @@ const TaskListView = ({ user, taskData, submitComplete }) => {
         <h3>Welcome back {user.displayName}!</h3>
         <h2>You've got {todayData.length} tasks today</h2>
       </div>
-      <div className="wrapper__cards">
+      <div className="wrapper__cards scrollable-element">
         {taskData.length > 0 && (
           <Tabs data={taskData} submitComplete={submitComplete} />
         )}
@@ -29,7 +29,6 @@ const TaskListView = ({ user, taskData, submitComplete }) => {
           </span>
         </div>
       </div>
-
     </section>
   );
 };

@@ -4,12 +4,17 @@
   --color-date-time: #8fbcf3;
 }
 
+html {
+  scrollbar-color: var(--color-dark) #FFFFFF;
+}
+
 /* Left sidebar */
 
 /* .left-sidebar {
   display: grid;
   grid-template-rows: 2rem 0.2fr 1fr 2rem;
 } */
+
 
 .left-sidebar img {
   justify-self: center;
