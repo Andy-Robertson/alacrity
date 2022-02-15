@@ -4,6 +4,9 @@
   --color-date-time: #8fbcf3;
 }
 
+html {
+  scrollbar-color: var(--color-dark) #FFFFFF;
+}
 /* Left sidebar */
 
 /* .left-sidebar {
