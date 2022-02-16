@@ -19,8 +19,8 @@ const TaskListView = ({ user, taskData, submitComplete }) => {
     return arr[Math.floor(Math.random() * arr.length)];
   }
   // Variables
-  const bkImg = pickFromArray(imgArr);
-  console.log(bkImg);
+  const [bkImg, setBkImg] = useState("");
+
 
   useEffect(() => {
     // declare the data fetching function
@@ -42,6 +42,9 @@ const TaskListView = ({ user, taskData, submitComplete }) => {
     };
     // call the function
     fetchQuote().catch(console.error); // make sure to catch any error
+    // bkImg = pickFromArray(imgArr);
+    // console.log(bkImg);
+    setBkImg(pickFromArray(imgArr));
   }, []);
   return (
     <section className="wrapper">
