@@ -26,7 +26,7 @@ const TaskListView = ({ user, taskData, submitComplete }) => {
     // declare the data fetching function
     const fetchQuote = async () => {
       try {
-        const response = await fetch("");
+        const response = await fetch("https://api.quotable.io/random");
         const { statusCode, statusMessage, ...data } = await response.json();
         if (!response.ok) {
           throw new Error(`${statusCode} ${statusMessage}`);
