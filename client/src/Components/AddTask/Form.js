@@ -133,7 +133,7 @@ function AddTask(props) {
         </div>
         <div>
           {/* <label>Describe</label> */}
-          <input
+          <textarea
             type="text"
             name="describe"
             placeholder="Describe it ..."

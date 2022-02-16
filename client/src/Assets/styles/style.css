@@ -240,12 +240,12 @@ button, input, optgroup, select, textarea {
   overflow: hidden;
 }
 
-.wrapper-focus-mode {
+/* .wrapper-focus-mode {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 2em 0.1fr 1fr;
   box-shadow: none;
-}
+} */
 
 .wrapper-task-mode {
   grid-template-columns: 1.3fr 1fr;
@@ -584,7 +584,8 @@ a:visited {
   width: 70%;
   margin: 0 auto;
   height: auto;
-  max-height: 70vh;
+  /* max-height: 70vh; */
+  max-height: 100vh;
   margin-top: calc(100vh - 85vh - 20px);
   background: #fff;
   padding: 20px;
@@ -692,6 +693,37 @@ a:visited {
   stroke: var(--color-date-time);
   font-weight: bolder;
 }
+
+.form textarea {
+padding: 0.6em;
+box-sizing: border-box;
+display: block;
+/* border-bottom: 1px solid #e0c3fc7a; */
+margin: 0 auto;
+width: 90%;
+height: 100px;
+outline: none;
+resize: none;
+overflow: auto;
+border: none;
+/* background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07); */
+border-image: none;
+border-radius: 6px 6px 6px 6px;
+/* border-style: none none none none;
+border-width: thin 1px 1px thin; */
+box-shadow: 0 0px 1px var(--color-light) inset;
+color: rgba(147, 197, 252, 0.8);
+font-size: 1em;
+font-weight: bold;
+font-style: italic;
+line-height: 1.4em;
+/* transition: background-color 0.2s ease 0s; */
+}
+
+/* .form textarea:focus {
+    background: none repeat scroll 0 0 #FFFFFF;
+    outline-width: 0;
+} */
 
 /* Toggle */
 .toggle-btn {
@@ -879,9 +911,18 @@ a:visited {
 }
 
 /* Focused View */
+.wrapper-focus-mode {
+  display: flex;
+  align-self: initial;
+  justify-items: right;
+  width: 100%;
+  height: auto;
+  margin-top: 2em;
+  box-shadow: none;
+}
 
 .focused-card {
-  display: grid;
+  /* display: grid;
   grid-template-rows: 0.5fr 0.9fr 0.5fr 0.5fr 0.4fr 1fr;
   grid-row: 3;
   grid-column: 1;
@@ -891,19 +932,59 @@ a:visited {
   border-radius: 15px;
   justify-self: center;
   justify-items: center;
-  overflow: auto;
-}
-.focused-card-title {
-  grid-row: 1;
+  overflow: auto; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   width: 80%;
+  margin: 0 auto;
+  height: 90%;
+  margin-right: 2em;
+  border: 1px solid rgba(147, 197, 252, 0.3);
+  border-radius: 15px;
+}
+
+.focused-card-title {
+  /* grid-row: 1; */
+  width: 80%;
+  margin: 0;
 }
 
 .focused-card-description {
-  grid-row: 2;
+  /* grid-row: 2; */
   width: 80%;
 }
+.focused-card-description h3 {
+  margin: 0;
+  margin-bottom: 1em;
+}
 
-.focused-card-stage {
+.focused-card-description p,
+.focused-card-rewards-container p {
+  font-weight: 300;
+  letter-spacing: 0.8px;
+  line-height: 1.4em;
+  margin: 0;
+}
+
+.focused-card-stage h3 {
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 1em;
+}
+
+.focused-card-stage ul,
+.focused-card-resources-container, 
+.focused-card-rewards-container {
+  width: 80%;
+  margin: 0 auto;
+}  
+.focused-card-rewards-container h3 {
+  margin-top: 0;
+}
+
+/* .focused-card-stage {
   grid-row: 3;
   width: 80%;
 }
@@ -911,21 +992,22 @@ a:visited {
 .focused-card-resources-container {
   grid-row: 4;
   width: 80%;
-}
+} */
 
-.focused-card-rewards-container {
+/* .focused-card-rewards-container {
   grid-row: 5;
   width: 80%;
-}
+} */
 
 .focussed-task-btn-container {
-  display: flex;
+  /* display: flex;
   grid-row: 6;
   width: 100%;
   height: 100%;
   justify-self: center;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  width: 50%;
 }
 
 .focussed-task-btn {
@@ -936,9 +1018,9 @@ a:visited {
   border-radius: 5px;
   overflow: hidden;
   padding: 0;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(147, 197, 252, 0.4);
   box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
-  justify-self: center;
+  /* justify-self: center; */
 }
 
 .focussed-task-btn:hover,
@@ -1316,6 +1398,10 @@ a:visited {
     height: 2.5rem;
     width: 7rem;
   }
+  .focus-mode-btn, 
+  .wrapper-focus-mode {
+    display: none;
+  }
 }
 
 /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
@@ -1347,7 +1433,8 @@ a:visited {
     width: 200px;
   }
 
-  .focus-mode-btn {
+  .focus-mode-btn,
+  .wrapper-focus-mode {
     display: none;
   }
   #menu {
@@ -1454,24 +1541,32 @@ a:visited {
   #menuToggle {
     display: none;
   }
+  .wrapper-focus-mode {
+    display: flex;
+  }
 
   /* Pomodoro */
   .pomodoro-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     /* grid-row: 5; */
     width: 90%;
-    height: 80%;
+    height: auto;
     border: 1px solid rgba(147, 197, 252, 0.3);
     border-radius: 15px;
     margin: 0 auto;
+  }
+  .wrapper-focus-mode .pomodoro-wrapper  {
+    width: 80%;
+    height: 90%;
+    margin: 0;
   }
   .pomodoro-time-selector-wrapper {
     height: 3rem;
   }
   .pomodoro-animation-wrapper {
-    width: 80%;
+    width: 60%;
     align-self: center;
   }
   /* Charts */
