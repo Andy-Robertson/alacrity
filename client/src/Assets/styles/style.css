@@ -473,6 +473,12 @@ article header .icons a {
   background-color: #27ae5fbe;
 }
 
+.blockquote p {
+  font-weight: 300;
+  font-size: 0.9em;
+  line-height: 1.4em;
+  letter-spacing: 1.3px;
+}
 /* Round checkbox */
 
 .task-checkbox {
@@ -639,6 +645,7 @@ a:visited {
   color: rgba(147, 197, 252, 0.8);
   font-size: 0.9em;
   font-style: italic;
+  font-weight: bold;
   margin-left: 10px;
 }
 
@@ -652,8 +659,8 @@ a:visited {
 
 .form h4 {
   font-size: 1.1em;
-  font-style: oblique;
-  font-weight: normal;
+  /* font-style: oblique; */
+  font-weight: 400;
   color: rgb(60 150 249);
 }
 
@@ -677,7 +684,7 @@ a:visited {
 .form .react-time-picker__inputGroup__divider,
 .form .react-time-picker__inputGroup__leadingZero {
   font-size: 0.9em;
-  font-weight: bold;
+  font-weight: 500;
   color: var(--color-date-time);
 }
 .form .react-date-picker__button svg,
