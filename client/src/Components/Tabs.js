@@ -132,7 +132,7 @@ const Tabs = (props) => {
 
   return (
     <>
-      <ul className="tabs animate__animated animate__fadeInLeftBig">
+      <ul className="tabs animate__animated animate__fadeIn animate__delay-1s">
         <li className={activeTab === "todayTab" ? "active" : ""}>
           <a href="#" onClick={(e) => handleClick(e, "today")}>
             Today
