@@ -11,7 +11,7 @@ function MonthlyLineChart({ data }) {
     let formattedDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
     return formattedDate;
   });
-  const uniqueTime = [...new Set(time)]; // Remove duplicate elements
+  const uniqueTime = [...new Set(time)].sort(); // Remove duplicate elements
   // for 30 days
   if (uniqueTime.length > 30) {
     uniqueTime.slice(-30);
