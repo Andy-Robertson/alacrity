@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 
 import { GlobalContext } from "../Contexts/GlobalContext";
 
-import Logo from "../Assets/img/logo.svg";
+import Logo from "../Assets/img/new_log_svg.svg";
 // import DashBoardImg from "../Assets/img/dashboard-24.png";
 import PieChartImg from "../Assets/img/pie-chart-24.png";
 import SettingsImg from "../Assets/img/settings-24.png";

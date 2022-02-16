@@ -11,6 +11,11 @@
    Base styles: opinionated defaults
    ========================================================================== */
 
+/* @import url('https://fonts.googleapis.com/css2?family=Krona+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Federo&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;500&display=swap');
+
 html {
   color: #222;
   font-size: 1em;
