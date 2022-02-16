@@ -72,7 +72,7 @@ const FocusTaskView = ({ taskData }) => {
         {focusedTask.subject_description && (
           <span className="focused-card-description animate__animated animate__fadeIn animate__delay-1s">
             <h3>Description:</h3>
-            {focusedTask.subject_description}
+            <p>{focusedTask.subject_description}</p>
           </span>
         )}
 
@@ -114,7 +114,7 @@ const FocusTaskView = ({ taskData }) => {
         {focusedTask.reward && (
           <span className="focused-card-rewards-container animate__animated animate__fadeIn animate__delay-1s">
             <h3>Rewards:</h3>
-            <div>{focusedTask.reward}</div>
+            <p>{focusedTask.reward}</p>
           </span>
         )}
 

@@ -26,11 +26,6 @@ const Pans = (props) => {
     setTaskIdsNotComplete(taskNotCompleteIds);
   }, [props]);
 
-  // console.log(taskIdsNotComplete);
-  // const taskCompleteIds = props.data.filter(
-  //   (task) => !taskIdsNotComplete.includes(task.id)
-  // );
-  // console.log(taskCompleteIds);
   const handleEditPopup = (e, task) => {
     e.stopPropagation();
     setTaskSelected(task);
@@ -39,7 +34,6 @@ const Pans = (props) => {
 
   const handleArchiveTask = (task) => {
     const taskArchived = task.task_archived ? false : true;
-
 
     fetch("/api/tasks/archived", {
       method: "PUT",
@@ -119,7 +113,7 @@ const Pans = (props) => {
               <span className="text">
                 <h3>{task.task_subject}</h3>
               </span>
-              <span className="ions animate__animated animate__fadeIn animate__delay-1s animate__slow">
+              <span className="icons animate__animated animate__fadeIn animate__delay-1s animate__slow">
                 {!task.task_archived && (
                   <a href="#" onClick={(e) => handleEditPopup(e, task)}>
                     <img src={EditImg} alt="edit"></img>
