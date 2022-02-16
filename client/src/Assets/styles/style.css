@@ -19,6 +19,10 @@ button, input, optgroup, select, textarea {
   font-weight: 300;
 }
 
+html {
+  scrollbar-color: var(--color-dark) #FFFFFF;
+}
+
 /* Left sidebar */
 
 /* .left-sidebar {
