@@ -20,7 +20,7 @@ const SiteSettingsPopup = (props) => {
         <SiteSettingsNotification />
         <div className="buttons">
           <button className="btn cancel" onClick={() => props.close(false)}>
-            <span>Cancel</span>
+            <span>OK</span>
           </button>
         </div>
       </div>
