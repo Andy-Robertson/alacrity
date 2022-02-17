@@ -1,6 +1,6 @@
 :root {
   --color-light: #e0c3fc;
-  --color-dark:  #d4e7fe;
+  --color-dark: #d4e7fe;
   --color-date-time: #8fbcf3;
 }
 
@@ -12,15 +12,19 @@ h5,
 h6 {
   font-weight: 400;
   line-height: 1.18em;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
   word-wrap: break-word;
 }
-button, input, optgroup, select, textarea {
+button,
+input,
+optgroup,
+select,
+textarea {
   font-weight: 300;
 }
 
 html {
-  scrollbar-color: var(--color-dark) #FFFFFF;
+  scrollbar-color: var(--color-dark) #ffffff;
 }
 
 /* Left sidebar */
@@ -182,20 +186,19 @@ html {
   overflow: hidden;
   padding: 0;
   background-color: #d4e7fe;
-  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
   justify-self: space-between;
   height: 3rem;
   width: 60%;
   font-weight: 300;
 }
 
-.pomodoro-btn-interaction:hover {
-  background-color: var(--color-light);
+.btn-interaction:hover {
+  background-color: #d2e6fea8;
   cursor: pointer;
 }
 
-.pomodoro-btn-interaction:focus {
-  background-color: var(--color-light);
+.btn-interaction:focus {
+  background-color: #d2e6fea8;
 }
 
 .pomodoro-small-reset-btn {
@@ -208,8 +211,7 @@ html {
 }
 
 .pomodoro-btn-interaction-reset:hover {
-  background-color: rgba(255, 0, 0, 0.541);
-  box-shadow: 0.2em 0.4em 3px 1.5px rgba(255, 0, 0, 0.541);
+  background-color: rgba(255, 0, 0, 0.521);
   cursor: pointer;
 }
 
@@ -273,7 +275,6 @@ html {
   text-align: center;
   left: 2rem;
 } */
-
 
 .wrapper__text {
   width: 90%;
@@ -489,7 +490,6 @@ article header .icons a {
   padding: 0.2rem 2.5rem;
 }
 
-
 .task-checkbox label:hover {
   cursor: pointer;
 }
@@ -570,6 +570,9 @@ article header .icons a {
 }
 a:visited {
   color: black;
+}
+.tabs li:hover {
+  background-color: #d2e6fea8;
 }
 
 /* Popup style */
@@ -658,7 +661,8 @@ a:visited {
   width: 100%;
 }
 
-.form h4, .form .toggle-btn {
+.form h4,
+.form .toggle-btn {
   margin-left: 5%;
 }
 
@@ -699,29 +703,29 @@ a:visited {
 }
 
 .form textarea {
-padding: 0.6em;
-box-sizing: border-box;
-display: block;
-/* border-bottom: 1px solid #e0c3fc7a; */
-margin: 0 auto;
-width: 90%;
-height: 100px;
-outline: none;
-resize: none;
-overflow: auto;
-border: none;
-/* background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07); */
-border-image: none;
-border-radius: 6px 6px 6px 6px;
-/* border-style: none none none none;
+  padding: 0.6em;
+  box-sizing: border-box;
+  display: block;
+  /* border-bottom: 1px solid #e0c3fc7a; */
+  margin: 0 auto;
+  width: 90%;
+  height: 100px;
+  outline: none;
+  resize: none;
+  overflow: auto;
+  border: none;
+  /* background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07); */
+  border-image: none;
+  border-radius: 6px 6px 6px 6px;
+  /* border-style: none none none none;
 border-width: thin 1px 1px thin; */
-box-shadow: 0 0px 1px var(--color-light) inset;
-color: rgba(147, 197, 252, 0.8);
-font-size: 1em;
-font-weight: bold;
-font-style: italic;
-line-height: 1.4em;
-/* transition: background-color 0.2s ease 0s; */
+  box-shadow: 0 0px 1px var(--color-light) inset;
+  color: rgba(147, 197, 252, 0.8);
+  font-size: 1em;
+  font-weight: bold;
+  font-style: italic;
+  line-height: 1.4em;
+  /* transition: background-color 0.2s ease 0s; */
 }
 
 /* .form textarea:focus {
@@ -820,12 +824,15 @@ line-height: 1.4em;
   cursor: pointer; /* Mouse pointer on hover */
 }
 
-
-
 .cancel {
   background-color: var(--color-light);
 }
 
+.cancel:hover {
+
+background-color: #e0c3fcce;
+
+}
 /* Settings */
 
 .settings-container-pomodoro {
@@ -894,7 +901,7 @@ line-height: 1.4em;
 .card__rewards p {
   font-weight: 300;
 }
-.resources-pill-wrapper{
+.resources-pill-wrapper {
   width: 90%;
   margin: 0 auto;
 }
@@ -979,11 +986,11 @@ line-height: 1.4em;
 }
 
 .focused-card-stage ul,
-.focused-card-resources-container, 
+.focused-card-resources-container,
 .focused-card-rewards-container {
   width: 80%;
   margin: 0 auto;
-}  
+}
 .focused-card-rewards-container h3 {
   margin-top: 0;
 }
@@ -1023,8 +1030,6 @@ line-height: 1.4em;
   overflow: hidden;
   padding: 0;
   background-color: rgba(147, 197, 252, 0.4);
-  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
-  /* justify-self: center; */
 }
 
 .focussed-task-btn:hover,
@@ -1044,14 +1049,12 @@ line-height: 1.4em;
   background-color: #27ae5f;
   color: #fff;
   font-weight: bold;
-  box-shadow: 0.2em 0.4em 3px 1.5px #27ae5f;
   cursor: pointer;
 }
 
 .focussed-task-complete-btn:hover,
 .focussed-task-complete-btn:focus {
   background-color: #27ae5fbe;
-  box-shadow: 0.2em 0.4em 3px 1.5px #27ae5fbe;
 }
 
 .settings-btn-focus-mode {
@@ -1076,7 +1079,6 @@ line-height: 1.4em;
   box-shadow: none;
 }
 
-
 /* smartphones, iPhone, portrait 480x320 phones */
 @media screen and (min-width: 320px) {
   main {
@@ -1088,7 +1090,7 @@ line-height: 1.4em;
     grid-template-areas:
       "ls rs"
       "main main";
-      height: 100vh;
+    height: 100vh;
   }
 
   .left-sidebar {
@@ -1327,11 +1329,11 @@ line-height: 1.4em;
   /* Pomodoro */
   .CircularProgressbar .CircularProgressbar-path,
   .CircularProgressbar .CircularProgressbar-trail {
-      stroke-width: 2;
+    stroke-width: 2;
   }
   .pomodoro-animation-wrapper .CircularProgressbar .CircularProgressbar-text {
-      font-size: 0.9em;
-      font-weight: 300;
+    font-size: 0.9em;
+    font-weight: 300;
   }
 
   .pomodoro-popup-wrapper {
@@ -1375,7 +1377,7 @@ line-height: 1.4em;
   .main-analytics-mode {
     grid-template-rows: 0% 1fr;
   }
-  .title-analytics{
+  .title-analytics {
     font-size: 1em;
   }
 
@@ -1402,7 +1404,7 @@ line-height: 1.4em;
     height: 2.5rem;
     width: 7rem;
   }
-  .focus-mode-btn, 
+  .focus-mode-btn,
   .wrapper-focus-mode {
     display: none;
   }
@@ -1485,7 +1487,7 @@ line-height: 1.4em;
   }
   .line-chart-container {
     justify-content: center;
-}
+  }
 }
 
 /* tablet, landscape iPad, lo-res laptops ands desktops 961px */
@@ -1561,7 +1563,7 @@ line-height: 1.4em;
     border-radius: 15px;
     margin: 0 auto;
   }
-  .wrapper-focus-mode .pomodoro-wrapper  {
+  .wrapper-focus-mode .pomodoro-wrapper {
     width: 80%;
     height: 90%;
     margin: 0;
@@ -1576,7 +1578,7 @@ line-height: 1.4em;
   /* Charts */
   .main-analytics-mode {
     grid-template-columns: 0 1fr 0;
-}
+  }
   .chart {
     display: flex;
     flex-flow: column wrap;
@@ -1640,7 +1642,7 @@ line-height: 1.4em;
     grid-row: 3;
     text-align: center;
   }
-  
+
   .bk-image {
     /* background-image: url("/src/Assets/img/coffee.gif"); */
     background-size: contain;

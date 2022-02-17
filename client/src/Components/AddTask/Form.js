@@ -136,7 +136,7 @@ function AddTask(props) {
           <textarea
             type="text"
             name="describe"
-            placeholder="Describe it ..."
+            placeholder="Describe task ..."
             value={describe}
             onChange={changeHandler}
           />
@@ -192,17 +192,17 @@ function AddTask(props) {
           <input
             type="text"
             name="resources"
-            placeholder="Resources help you ..."
+            placeholder="Resources to help you ..."
             value={resources}
             onKeyUp={handleKeyUp}
             onChange={changeHandler}
           />
           <div className="resources-pill-wrapper">
-          {resourcesList.map((resource, key) => (
-            <div key={key} className="resources-pill">
-              <span> {resource.replace(/,/g, "")} </span>
-            </div>
-          ))}
+            {resourcesList.map((resource, key) => (
+              <div key={key} className="resources-pill">
+                <span> {resource.replace(/,/g, "")} </span>
+              </div>
+            ))}
           </div>
         </div>
         <div className="date-time-wrapper">
@@ -223,7 +223,7 @@ function AddTask(props) {
           <button className="btn cancel" onClick={() => props.closeBtn(false)}>
             <span>Cancel</span>
           </button>
-          <button className="btn" type="submit">
+          <button className="btn btn-interaction" type="submit">
             <span>Add</span>
           </button>
         </div>

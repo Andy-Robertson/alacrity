@@ -18,7 +18,7 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
   };
   return (
     <aside className="right-sidebar">
-      {user && (!isTaskFocused && !isAnalyticsFocused) && (
+      {user && !isTaskFocused && !isAnalyticsFocused && (
         <ul
           onClick={logout}
           className="animate__animated animate__fadeInRightBig"
@@ -31,27 +31,27 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
             ></img>
           </li>
           <li className="right-sidebar-li ">
-          <p>Sign-out</p>
+            <p>Sign-out</p>
           </li>
         </ul>
       )}
-      {user && (!isTaskFocused && !isAnalyticsFocused) && (
+      {user && !isTaskFocused && !isAnalyticsFocused && (
         <section className="btn-wrapper">
-        <button
-          type="button"
-          className="btn btn-right-sidebar animate__animated animate__fadeInRightBig"
-          onClick={() => {
-            setIsOpen(true);
-          }}
-        >
-          <span className="btn__icon">
-            <img src={PlusImg} alt="add tasks icon"></img>
-          </span>
-          <span className="btn__text">Add Task</span>
-        </button>
+          <button
+            type="button"
+            className="btn btn-interaction btn-right-sidebar animate__animated animate__fadeInRightBig"
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            <span className="btn__icon">
+              <img src={PlusImg} alt="add tasks icon"></img>
+            </span>
+            <span className="btn__text">Add Task</span>
+          </button>
 
-        {/* small screen pomdoro */}
-        <button
+          {/* small screen pomdoro */}
+          <button
             type="button"
             className="btn btn-right-sidebar btn-small-screen animate__animated animate__fadeInRightBig"
             onClick={() => {
@@ -63,11 +63,10 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
             </span>
             <span className="btn__text">Pomodoro</span>
           </button>
-
         </section>
       )}
       {isOpen && <Popup close={setIsOpen} submitComplete={submitComplete} />}
-      {user && (!isTaskFocused && !isAnalyticsFocused) && <Pomodoro />}
+      {user && !isTaskFocused && !isAnalyticsFocused && <Pomodoro />}
       {isPomodoroOpen && (
         <PomodoroMobilePopup
           close={setIsPomodoroOpen}
