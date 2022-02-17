@@ -16,13 +16,13 @@ function TotalDouhnutChart({ data }) {
         backgroundColor: ["rgba(29, 160, 242, 0.69)", "rgba(224, 195, 252, 1)"],
       },
     ],
-    labels: ["Completed Tasks", "Uncompleted Tasks"],
+    labels: ["Complete", "Incomplete"],
   };
   const optionsD = {
     plugins: {
       title: {
         display: true,
-        text: "Total Tasks of Your Progress",
+        text: "Task Progress Overview",
       },
     },
   };

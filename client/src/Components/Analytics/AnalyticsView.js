@@ -28,8 +28,7 @@ const AnalyticsView = () => {
           {data.length > 0 ? (
             <div>
               <h2 className="title-analytics">
-                {" "}
-                Analytics For Completed Tasks VS Uncompleted Tasks
+                Complete Vs Incomplete Tasks
               </h2>
               <div className="chart">
                 <div className="line-chart-container">
@@ -40,17 +39,17 @@ const AnalyticsView = () => {
               </div>
             </div>
           ) : (
-            <h1>There is no data to analyse</h1>
+            <h1>Add a task first!</h1>
           )}
         </div>
-        </div>
+      </div>
 
       <div className="buttons">
         <button
           className="btn cancel"
           onClick={() => setIsAnalyticsFocused(false)}
         >
-          <span>Cancel</span>
+          <span>Back</span>
         </button>
       </div>
     </section>

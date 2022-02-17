@@ -122,8 +122,8 @@ const Pomodoro = ({ isPomodoroOpen }) => {
     }
   };
 
-  const INACTIVE = "pomodoro-btn-interaction pomodoro-time-btn";
-  const ACTIVE = "pomodoro-btn-interaction pomodoro-time-btn pomodoro-time-btn-active";
+  const INACTIVE = "btn-interaction pomodoro-time-btn";
+  const ACTIVE = "btn-interaction pomodoro-time-btn pomodoro-time-btn-active";
 
   const FOCUS_MODE = "pomodoro-wrapper pomodoro-wrapper-focus-mode animate__animated animate__backInRight";
   const TASK_MODE = "pomodoro-wrapper pomodoro-wrapper-task-mode animate__animated animate__fadeInRightBig";
@@ -170,7 +170,7 @@ const Pomodoro = ({ isPomodoroOpen }) => {
       <span className="pomodoro-start-reset-wrapper">
         {!timerActive && (
           <Button
-            type={"pomodoro-startStop-btn pomodoro-btn-interaction"}
+            type={"pomodoro-startStop-btn btn-interaction"}
             handleClick={handleStartTimer}
             children={<GrPlayFill />}
           />
@@ -178,7 +178,7 @@ const Pomodoro = ({ isPomodoroOpen }) => {
 
         {timerActive && timeLeftInSeconds > 0 && (
           <Button
-            type={"pomodoro-startStop-btn pomodoro-btn-interaction"}
+            type={"pomodoro-startStop-btn btn-interaction"}
             handleClick={handleStopTimer}
             children={<GrPauseFill />}
           />

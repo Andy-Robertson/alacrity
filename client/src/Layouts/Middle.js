@@ -15,19 +15,20 @@ const Middle = ({ user, taskData, submitComplete }) => {
 
   return (
     <>
+          {console.log(taskData)}
       <TaskAndPomContext.Provider
         value={{
           focusedTaskId,
           setFocusedTaskId,
         }}
-      >
+        >
         {isTaskFocused || isAnalyticsFocused ? (
           isTaskFocused ? (
             <FocusTaskView
-              taskData={taskData}
-              submitComplete={submitComplete}
+            taskData={taskData}
+            submitComplete={submitComplete}
             />
-          ) : (
+            ) : (
             <AnalyticsView />
           )
         ) : (
