@@ -2,6 +2,14 @@
 
 Anti-procrastination app that consistently forces you forward.
 
+# How run alacrity in developer mode
+
+1. Rename ```template.env_``` in the server folder to ```template.env```.
+2. Add credentials to at lease one authentication provider (twitter, Google, Github or Facebook) to ```template.env_```.
+3. Setup a local postgress database using the ```server.sql``` file found in the server folder.
+4. If you wish to recieve email notifications you can add an active email and password to ```NODEMAILER```
+5. Start the frontend with ```npm start``` from the client folder
+6. Start the backend server with ```node server.js```
 
 # Note for mac os
 To run the web app on your local machine:
