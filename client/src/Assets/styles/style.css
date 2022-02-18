@@ -1596,9 +1596,17 @@ background-color: #e0c3fcce;
   }
   .doughnut-chart {
     /* height: 20rem; */
-    width: 20rem;
-    margin: 0.5rem 0;
+/*     width: 20rem;
+    margin: 0.5rem 0; */
+    margin: 0;
+    width: 18rem;
   }
+  .box-analytics {
+    margin-bottom: 0;
+  }
+  .line-chart-container {
+  margin: 0.5rem 0 0 0;
+}
   .buttons {
     justify-content: flex-end;
   }
