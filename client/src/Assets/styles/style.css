@@ -639,7 +639,8 @@ a:visited {
   margin: 0 auto;
 }
 
-.form input[type="text"]::placeholder {
+.form input[type="text"]::placeholder,
+.form textarea::placeholder {
   color: rgba(147, 197, 252, 0.8);
   font-size: 0.9em;
   font-style: italic;
@@ -703,18 +704,18 @@ a:visited {
   outline: none;
   resize: none;
   overflow: auto;
-  border: none;
+  border: 1px solid #e0c3fc7a;
   /* background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07); */
   border-image: none;
   border-radius: 6px 6px 6px 6px;
   /* border-style: none none none none;
 border-width: thin 1px 1px thin; */
-  box-shadow: 0 0px 1px var(--color-light) inset;
-  color: rgba(147, 197, 252, 0.8);
-  font-size: 1em;
+  /* box-shadow: 0 0px 1px var(--color-light) inset; */
+  /* color: rgba(147, 197, 252, 0.8); */
+  /* font-size: 1em;
   font-weight: bold;
   font-style: italic;
-  line-height: 1.4em;
+  line-height: 1.4em; */
   /* transition: background-color 0.2s ease 0s; */
 }
 
