@@ -2,7 +2,7 @@
 
 Anti-procrastination app that consistently forces you forward.
 
-# How run alacrity in developer mode
+# How to run alacrity in developer mode
 
 1. Rename ```template.env_``` in the server folder to ```template.env```.
 2. Add credentials to at lease one authentication provider (twitter, Google, Github or Facebook) to ```template.env_```.
