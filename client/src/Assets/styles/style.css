@@ -1393,7 +1393,7 @@ background-color: #e0c3fcce;
     margin: 0;
   }
   .doughnut-chart {
-    width: 50%;
+    width: 55%;
     margin: 0.5rem auto;
   }
   .buttons {
@@ -1451,7 +1451,7 @@ background-color: #e0c3fcce;
     width: 30rem;
   }
   .doughnut-chart {
-    width: 55%;
+    width: 50%;
   }
 }
 
@@ -1488,6 +1488,9 @@ background-color: #e0c3fcce;
   }
   .line-chart-container {
     justify-content: center;
+  }
+  .doughnut-chart {
+    width: 40%;
   }
 }
 
