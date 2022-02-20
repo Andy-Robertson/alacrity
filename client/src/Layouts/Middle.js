@@ -15,7 +15,6 @@ const Middle = ({ user, taskData, submitComplete }) => {
 
   return (
     <>
-          {console.log(taskData)}
       <TaskAndPomContext.Provider
         value={{
           focusedTaskId,
