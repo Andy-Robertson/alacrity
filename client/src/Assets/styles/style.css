@@ -196,10 +196,10 @@ html {
   background-color: #d2e6fea8;
   cursor: pointer;
 }
-
+/* 
 .btn-interaction:focus {
   background-color: #d2e6fea8;
-}
+} */
 
 .pomodoro-small-reset-btn {
   width: 20%;
