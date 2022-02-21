@@ -196,10 +196,10 @@ html {
   background-color: #d2e6fea8;
   cursor: pointer;
 }
-
+/* 
 .btn-interaction:focus {
   background-color: #d2e6fea8;
-}
+} */
 
 .pomodoro-small-reset-btn {
   width: 20%;
@@ -829,9 +829,7 @@ border-width: thin 1px 1px thin; */
 }
 
 .cancel:hover {
-
-background-color: #e0c3fcce;
-
+  background-color: #e0c3fcce;
 }
 /* Settings */
 
@@ -863,7 +861,6 @@ background-color: #e0c3fcce;
   margin-left: 1rem;
   outline: 0;
   border: 0;
-  box-shadow: 0.2em 0.4em 3px 1.5px rgba(147, 197, 252, 0.3);
 }
 
 .settings-popup-btn:hover {
@@ -954,6 +951,7 @@ background-color: #e0c3fcce;
   margin-right: 2em;
   border: 1px solid rgba(147, 197, 252, 0.3);
   border-radius: 15px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 14px;
 }
 
 .focused-card-title {

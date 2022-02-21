@@ -239,7 +239,10 @@ function EditForm({ task, submitComplete, openEditPan }) {
             onKeyUp={handleKeyUp}
             onChange={changeHandler}
           />
-          <PillResources resourcesList={resourcesList} deleteResource={deleteResource}/>
+          <PillResources
+            resourcesList={resourcesList}
+            deleteResource={deleteResource}
+          />
         </div>
         <div className="date-time-wrapper">
           <DatePicker
@@ -259,7 +262,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
           <button className="btn cancel" onClick={() => openEditPan(false)}>
             <span>Cancel</span>
           </button>
-          <button className="btn" type="submit">
+          <button className="btn btn-interaction" type="submit">
             <span>Edit</span>
           </button>
         </div>
