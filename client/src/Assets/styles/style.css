@@ -829,9 +829,7 @@ border-width: thin 1px 1px thin; */
 }
 
 .cancel:hover {
-
-background-color: #e0c3fcce;
-
+  background-color: #e0c3fcce;
 }
 /* Settings */
 
@@ -953,6 +951,7 @@ background-color: #e0c3fcce;
   margin-right: 2em;
   border: 1px solid rgba(147, 197, 252, 0.3);
   border-radius: 15px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 14px;
 }
 
 .focused-card-title {
