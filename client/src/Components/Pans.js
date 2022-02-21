@@ -90,12 +90,11 @@ const Pans = (props) => {
     taskCompleteSound.play();
   };
 
-  if (props.expiredTasks) {
+  if (props.expiredTasks !== undefined) {
     props.expiredTasks.forEach((task) => handleArchiveTask(task));
   }
 
   const handleActiveView = (task) => {
-    console.log(task.id);
     setIsTaskFocused(true);
     setFocusedTaskId(task.id);
   };
