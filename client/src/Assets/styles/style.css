@@ -984,6 +984,10 @@ border-width: thin 1px 1px thin; */
   margin-top: 0;
 }
 
+.focused-card-stage {
+  width: 100%;
+}
+
 /* .focused-card-stage {
   grid-row: 3;
   width: 80%;
