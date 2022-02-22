@@ -1,6 +1,55 @@
 # alacrity
 
-Anti-procrastination app that consistently forces you forward.
+## Product Statement:
+
+When was the last time you wanted to do something but did not get around to it, that's why we built Alacrity, Alacrity is an app that allows users to track tasks and manage their time effectively to help combat procrastination. This project with develop as final project for CYF course
+
+
+## List of Main Features
+
+* Task System
+* Text Notifications
+* Audio Notifications
+* Scheduled reminder Emails
+* Analytics System 
+* Social media Login (Twitter, Facebook, Github, Google)
+* Pomodoro system
+* Focus Mode
+* Settings (pomodoro time, sound and/or text notifications)
+* Responsiveness
+
+## Team Gravity & Contributions
+
+### Abadi Salman
+LinkedIn: https://www.linkedin.com/in/abadi-salman/ 
+#### Contribution: 
+- Task System - Adding & Editing 
+- Text Notifications
+- Scheduled reminder Emails
+- Analytics System 
+- Core Routing 
+- Database 
+
+### Andy Robertson
+Linkedin:  https://www.linkedin.com/in/andrew-j-r
+#### Contribution:
+- Social media Login system
+- Pomodoro system
+- Task system - Archive & Task completion
+- Focus Mode
+- Animations
+- Settings
+- Audio Notifications
+- App deployment (dev / prod)
+
+### Aj Bader
+Linkedin: https://www.linkedin.com/in/aj-bader-39129266/
+#### Contribution:
+- Web Design
+- User interface
+- User experience
+- Front-end
+- Bug Fixing
 
 # How to run alacrity in developer mode
 
