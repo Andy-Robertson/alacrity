@@ -94,8 +94,6 @@ const Pans = (props) => {
     props.expiredTasks.forEach((task) => handleArchiveTask(task));
   }
 
-  console.log(props.expiredTasks);
-
   const handleActiveView = (task) => {
     setIsTaskFocused(true);
     setFocusedTaskId(task.id);
