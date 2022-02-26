@@ -11,10 +11,13 @@ function MonthlyLineChart({ data }) {
     let formattedDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
     return formattedDate;
   });
-  const uniqueTime = [...new Set(time)].sort(); // Remove duplicate elements
+  const uniqueTimeRaw = [...new Set(time)].sort(); // Remove duplicate elements
   // for 30 days
-  if (uniqueTime.length > 30) {
-    uniqueTime.slice(-30);
+  let uniqueTime;
+  if (uniqueTimeRaw.length > 30) {
+    uniqueTime = uniqueTimeRaw.slice(-30);
+  }else {
+    uniqueTime = uniqueTimeRaw;
   }
 
   // Total Tasks
@@ -53,9 +56,12 @@ function MonthlyLineChart({ data }) {
       return obj;
     }, {});
 
-  const numberOfCompletedTasks = Object.values(orderedCountsCompletedTasks);
-  if (numberOfCompletedTasks.length > 30) {
-    numberOfCompletedTasks.slice(-30);
+  const numberOfCompletedTasksRaw = Object.values(orderedCountsCompletedTasks);
+  let numberOfCompletedTasks;
+  if (numberOfCompletedTasksRaw.length > 30) {
+    numberOfCompletedTasks = numberOfCompletedTasksRaw.slice(-30);
+  }else {
+    numberOfCompletedTasks = numberOfCompletedTasksRaw;
   }
   // Uncompleted Tasks
   const uncompletedTasks = data.filter((task) => !task.is_completed);
@@ -84,9 +90,12 @@ function MonthlyLineChart({ data }) {
       obj[key] = countsUncompletedTasks[key];
       return obj;
     }, {});
-  const numberOfUncompletedTasks = Object.values(orderedCountsUncompletedTasks);
-  if (numberOfUncompletedTasks.length > 30) {
-    numberOfUncompletedTasks.slice(-30);
+  const numberOfUncompletedTasksRaw = Object.values(orderedCountsUncompletedTasks);
+  let numberOfUncompletedTasks;
+  if (numberOfUncompletedTasksRaw.length > 30) {
+    numberOfUncompletedTasks = numberOfUncompletedTasksRaw.slice(-30);
+  }else {
+    numberOfUncompletedTasks = numberOfUncompletedTasksRaw;
   }
 
   // data for line chart
