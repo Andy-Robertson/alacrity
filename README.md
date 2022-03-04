@@ -88,7 +88,7 @@ module.exports = function(app) {
 > Note: Passing the path to the proxy function allows you to use globbing and/or pattern matching on the path, which is more flexible than the express route matching.
 
 
-## Preview
+## Preview:
 
-Dashboard
+Main Dashboard
 ![Alacrity-APP](https://andy-robertson.dev/static/media/alacrity.3a39edd3.png)
