@@ -11,10 +11,14 @@ function WeeklyLineChart({ data }) {
     let formattedDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
     return formattedDate;
   });
-  const uniqueTime = [...new Set(time)].sort(); // Remove duplicate elements
+  const uniqueTimeRaw = [...new Set(time)].sort(); // Remove duplicate elements
+  // const uniqueTimeRaw = [1, 2, 3, 4 , 5 , 6 , 7 , 8];
   // for 30 days
-  if (uniqueTime.length > 7) {
-    uniqueTime.slice(-7);
+  let uniqueTime;
+  if (uniqueTimeRaw.length > 7) {
+    uniqueTime = uniqueTimeRaw.slice(-7);
+  }else {
+    uniqueTime = uniqueTimeRaw;
   }
 
   // Total Tasks
@@ -53,9 +57,12 @@ function WeeklyLineChart({ data }) {
       return obj;
     }, {});
 
-  const numberOfCompletedTasks = Object.values(orderedCountsCompletedTasks);
-  if (numberOfCompletedTasks.length > 7) {
-    numberOfCompletedTasks.slice(-7);
+  const numberOfCompletedTasksRaw = Object.values(orderedCountsCompletedTasks);
+  let numberOfCompletedTasks;
+  if (numberOfCompletedTasksRaw.length > 7) {
+    numberOfCompletedTasks = numberOfCompletedTasksRaw.slice(-7);
+  }else{
+    numberOfCompletedTasks = numberOfCompletedTasksRaw;
   }
   // Uncompleted Tasks
   const uncompletedTasks = data.filter((task) => !task.is_completed);
@@ -84,9 +91,12 @@ function WeeklyLineChart({ data }) {
       obj[key] = countsUncompletedTasks[key];
       return obj;
     }, {});
-  const numberOfUncompletedTasks = Object.values(orderedCountsUncompletedTasks);
-  if (numberOfUncompletedTasks.length > 7) {
-    numberOfUncompletedTasks.slice(-7);
+  const numberOfUncompletedTasksRaw = Object.values(orderedCountsUncompletedTasks);
+  let numberOfUncompletedTasks;
+  if (numberOfUncompletedTasksRaw.length > 7) {
+    numberOfUncompletedTasks = numberOfUncompletedTasksRaw.slice(-7);
+  }else {
+    numberOfUncompletedTasks = numberOfUncompletedTasksRaw;
   }
 
   // data for line chart
