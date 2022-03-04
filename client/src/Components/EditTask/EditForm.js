@@ -177,7 +177,7 @@ function EditForm({ task, submitComplete, openEditPan }) {
         </div>
         <div>
           {/* <label>Describe</label> */}
-          <input
+          <textarea
             type="text"
             name="describe"
             placeholder="Describe it ..."

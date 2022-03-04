@@ -17,8 +17,8 @@ const Tabs = (props) => {
 
   const expiredTasks = sortedData.filter(
     (task) =>
-      (new Date(task.by_date).getDate() > todayDate && !task.task_archived)
-      || (new Date(task.by_date).getMonth() !== currentMonth && !task.task_archived)
+      (new Date(task.by_date).getDate() < todayDate && !task.task_archived)
+      && (new Date(task.by_date).getMonth() <= currentMonth && !task.task_archived)
   );
 
   const todayData = sortedData.filter(

@@ -23,16 +23,14 @@ const RightSideBar = ({ user, SERVER_URL, submitComplete }) => {
           onClick={logout}
           className="animate__animated animate__fadeInRightBig"
         >
-          <li>
+          <a>
             <img
               src={user.avatar ? user.avatar : placeholderAvatar}
               alt=""
               className="img-circular"
             ></img>
-          </li>
-          <li className="right-sidebar-li ">
-            <p>Sign-out</p>
-          </li>
+          </a>
+          <p className="right-side__p">Sign-out</p>
         </ul>
       )}
       {user && !isTaskFocused && !isAnalyticsFocused && (

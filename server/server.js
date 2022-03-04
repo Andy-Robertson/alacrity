@@ -44,7 +44,7 @@ app.use(
     origin: CLIENT_URL,
     methods: "GET, POST, PUT, DELETE",
     credentials: true,
-  })
+  }),
 );
 
 app.use("/auth", authRoutes);
@@ -59,3 +59,4 @@ const server = app.listen(PORT, (err) => {
     ? console.log(`Error: ${err}`)
     : console.log(`Alacrity server is now gravitating on Port: ${PORT}`);
 });
+
