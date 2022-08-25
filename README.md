@@ -36,7 +36,7 @@ LinkedIn: https://www.linkedin.com/in/abadi-salman/
 - Database 
 
 ### Andy Robertson
-Linkedin:  https://www.linkedin.com/in/andrew-j-r
+Linkedin:  https://www.linkedin.com/in/andy~robertson
 #### Contribution:
 - Social media Login system
 - Pomodoro system
