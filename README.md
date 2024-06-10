@@ -3,11 +3,11 @@
 ## Preview
 
 Main Dashboard
-![Alacrity-APP](https://keep.google.com/u/0/media/v2/10s6g_mxgvHyCfOAwxUbc8nqgWoBcQKVhD2RsjbOgvkVZztyjVkPaVL-QOkLCmhM/1mJmVmzTrRo9Up4YBCWJ4lhbfYp_Dven-0mHDsLZOHBQ2JKryLywnmrQjjwvV4Xo?accept=image%2Fgif%2Cimage%2Fjpeg%2Cimage%2Fjpg%2Cimage%2Fpng%2Caudio%2Faac&sz=1672)
+![Alacrity-APP](https://i.ibb.co/SwcHy0q/alacrity.png)
 
 ## Product Statement
 
-When was the last time you wanted to do something but did not get around to it, that's why we built Alacrity, Alacrity is an app that allows users to track tasks and manage their time effectively to help combat procrastination. This project with develop as final project for CYF course
+When was the last time you wanted to do something but did not get around to it, that's why we built Alacrity, Alacrity is an app that allows users to track tasks and manage their time effectively to help combat procrastination. This project was developed as the final project for CYF developer course.
 
 
 ## List of Main Features
@@ -15,12 +15,12 @@ When was the last time you wanted to do something but did not get around to it, 
 * Task System
 * Text Notifications
 * Audio Notifications
-* Scheduled reminder Emails
+* Scheduled Reminder Emails
 * Analytics System 
 * Social media Login (Twitter, Facebook, Github, Google)
 * Pomodoro system
 * Focus Mode
-* Settings (pomodoro time, sound and/or text notifications)
+* Settings (Pomodoro time, sound and/or text notifications)
 * Responsiveness
 
 ## Team Gravity & Contributions
@@ -30,7 +30,7 @@ LinkedIn: https://www.linkedin.com/in/abadi-salman/
 #### Contribution: 
 - Task System - Adding & Editing 
 - Text Notifications
-- Scheduled reminder Emails
+- Scheduled Reminder Emails
 - Analytics System 
 - Core Routing 
 - Database 
