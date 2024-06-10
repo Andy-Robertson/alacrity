@@ -3,7 +3,7 @@
 ## Preview
 
 Main Dashboard
-![Alacrity-APP](https://andy-robertson.dev/static/media/alacrity.3a39edd3.png)
+![Alacrity-APP](https://keep.google.com/u/0/media/v2/10s6g_mxgvHyCfOAwxUbc8nqgWoBcQKVhD2RsjbOgvkVZztyjVkPaVL-QOkLCmhM/1mJmVmzTrRo9Up4YBCWJ4lhbfYp_Dven-0mHDsLZOHBQ2JKryLywnmrQjjwvV4Xo?accept=image%2Fgif%2Cimage%2Fjpeg%2Cimage%2Fjpg%2Cimage%2Fpng%2Caudio%2Faac&sz=1672)
 
 ## Product Statement
 
